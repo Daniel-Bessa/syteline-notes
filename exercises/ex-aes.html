@@ -1,0 +1,4209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercises — AES — Application Event System Exercises</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+         background:#1a1a1a;color:#e2e8f0;min-height:100vh}
+    .hdr{background:#0f172a;padding:18px 28px;display:flex;align-items:center;gap:14px;
+          border-bottom:1px solid #1e293b;position:sticky;top:0;z-index:10}
+    .hdr-icon{font-size:28px}
+    .hdr-title{font-size:18px;font-weight:700;color:#f1f5f9}
+    .hdr-sub{font-size:12px;color:#64748b;margin-top:2px}
+    .hdr-right{margin-left:auto;text-align:right}
+    .hdr-home{color:#60a5fa;text-decoration:none;font-size:13px}
+    .hdr-home:hover{text-decoration:underline}
+    .prog-wrap{background:#0f172a;padding:10px 28px;border-bottom:1px solid #1e293b}
+    .prog-label{font-size:12px;color:#94a3b8;margin-bottom:6px;display:flex;justify-content:space-between}
+    .prog-bar{height:6px;background:#1e293b;border-radius:3px;overflow:hidden}
+    .prog-fill{height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:3px;
+               transition:width .4s ease}
+    .page{max-width:860px;margin:0 auto;padding:28px 20px 60px}
+    .lesson{margin-bottom:8px}
+    .lesson-btn{width:100%;text-align:left;background:#2d2d2d;border:none;border-radius:10px;
+                padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;
+                color:#e2e8f0;font-size:15px;font-weight:600;transition:background .15s}
+    .lesson-btn:hover{background:#374151}
+    .lesson-btn .l-badge{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;
+                          padding:2px 8px;border-radius:10px}
+    .lesson-btn .l-check{margin-left:auto;font-size:12px;color:#64748b}
+    .lesson-btn .l-caret{color:#64748b;font-size:12px;transition:transform .2s}
+    .lesson-btn.open .l-caret{transform:rotate(90deg)}
+    .lesson-body{display:none;padding:6px 0 10px}
+    .lesson-body.open{display:block}
+    .ex-card{background:#242424;border-radius:10px;margin-bottom:10px;
+              border:1px solid #2d2d2d;overflow:hidden}
+    .ex-head{padding:14px 18px;cursor:pointer;display:flex;align-items:flex-start;gap:12px}
+    .ex-head:hover{background:#2d2d2d}
+    .ex-num{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;
+             padding:3px 9px;border-radius:8px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+    .ex-title{font-size:14px;font-weight:600;color:#f1f5f9;flex:1}
+    .ex-meta{font-size:12px;color:#64748b;margin-top:3px}
+    .ex-progress{margin-left:auto;flex-shrink:0;text-align:right}
+    .ex-pct{font-size:12px;font-weight:700;color:#60a5fa}
+    .ex-done-badge{font-size:11px;color:#86efac;display:none}
+    .ex-head.done .ex-pct{display:none}
+    .ex-head.done .ex-done-badge{display:block}
+    .ex-body{display:none;padding:0 18px 18px;border-top:1px solid #2d2d2d}
+    .ex-body.open{display:block}
+    .ex-goal{background:#1e293b;border-left:3px solid #0284c7;color:#7dd3fc;
+              padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.6;
+              margin:14px 0 16px}
+    .part-title{font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;
+                letter-spacing:.06em;margin:16px 0 8px}
+    .step-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+    .step-item{display:flex;align-items:flex-start;gap:10px;cursor:pointer;
+               padding:8px 10px;border-radius:7px;transition:background .12s}
+    .step-item:hover{background:#2d2d2d}
+    .step-cb{width:18px;height:18px;border:2px solid #374151;border-radius:4px;
+              flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;
+              transition:all .15s;cursor:pointer}
+    .step-item.checked .step-cb{background:#16a34a;border-color:#16a34a}
+    .step-item.checked .step-cb::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+    .step-text{font-size:13px;color:#cbd5e1;line-height:1.55;flex:1}
+    .step-item.checked .step-text{color:#4b5563;text-decoration:line-through}
+    .step-note{font-size:11.5px;color:#475569;font-style:italic;margin-top:3px;display:block}
+    .ex-controls{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #2d2d2d}
+    .btn{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-size:12px;
+          font-weight:600;transition:background .15s}
+    .btn-reset{background:#374151;color:#94a3b8}
+    .btn-reset:hover{background:#4b5563}
+    .btn-all{background:#1e3a5f;color:#60a5fa}
+    .btn-all:hover{background:#1d4ed8;color:#fff}
+  </style>
+</head>
+<body>
+<div class="hdr">
+  <span class="hdr-icon">🛠️</span>
+  <div>
+    <div class="hdr-title">AES — Application Event System Exercises</div>
+    <div class="hdr-sub">CSI v10 · Using the Application Event System · Hands-on lab exercises</div>
+  </div>
+  <div class="hdr-right"><a href="../index.html" class="hdr-home">← Back to hub</a></div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-label">
+    <span>Overall progress</span>
+    <span id="prog-text">0 / 0 steps complete</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+<div class="page" id="page"></div>
+<script>
+const KEY = 'ex-aes';
+const LESSONS = [
+  {
+    "id": "L3",
+    "label": "Lesson 3",
+    "title": "Creating Notification Events",
+    "exercises": [
+      {
+        "id": "3.1",
+        "title": "Log in and explore the Application Event System menu",
+        "goal": "In this exercise, you will log in and locate commonly used forms in the Application Event System menu. Before you begin:",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Open the Landing Server desktop.",
+                "note": ""
+              },
+              {
+                "text": "Double-click the CloudSuite Smart Client icon. The login screen displays.",
+                "note": ""
+              },
+              {
+                "text": "Log in using the information provided by the instructor. The Infor CloudSuite application opens.",
+                "note": ""
+              },
+              {
+                "text": "Select Master Explorer > Modules > System. The System menu displays.",
+                "note": ""
+              },
+              {
+                "text": "Locate the following form in the list, but do not open it:",
+                "note": ""
+              },
+              {
+                "text": "Select Master Explorer > Modules > System > Event System. The Event System menu",
+                "note": ""
+              },
+              {
+                "text": "Locate the following forms in the list, but do not open them:",
+                "note": ""
+              },
+              {
+                "text": "Select Master Explorer > Modules > System > Messages. The Messages menu displays.",
+                "note": ""
+              },
+              {
+                "text": "Locate the following forms in the list, but do not open them:",
+                "note": ""
+              },
+              {
+                "text": "Select Master Explorer > Modules > System > Utilities.",
+                "note": ""
+              },
+              {
+                "text": "Locate the following form in the list, but do not open it:",
+                "note": ""
+              },
+              {
+                "text": "Click anywhere in an empty area of the CloudSuite Home screen. The Master Explorer closes.",
+                "note": "You can delete an event only if its Access As field has the same value as the current Access As"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3.2",
+        "title": "Notification event - Add a customer",
+        "goal": "In this exercise, you will use a framework event. You will set up a simple handler with actions to specify that you are to be notified when a new customer is added. Then, you will test the event; you will add a new customer record, and then verify that a notification message was",
+        "parts": [
+          {
+            "title": "Part 1 – Set the Unload IDO Metadata With Forms option",
+            "steps": [
+              {
+                "text": "Select System > View > User Preferences. The User Preferences dialog box opens.",
+                "note": ""
+              },
+              {
+                "text": "Select the Unload IDO Metadata With Forms check box on the Runtime Behaviors tab.",
+                "note": ""
+              },
+              {
+                "text": "Click the Runtime Layout tab.",
+                "note": ""
+              },
+              {
+                "text": "Verify the Tabbed Form Layout check box is cleared. If not, clear the check box.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Create an event handler",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Press F3. The filter is removed.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection. A blank record displays.",
+                "note": ""
+              },
+              {
+                "text": "Select IdoPostItemInsert from the Event Name drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Notify Me in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Type SLCust* in the Applies to Objects field.",
+                "note": ""
+              },
+              {
+                "text": "Select SLCustomers from the Applies to Objects drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Clear the Synchronous check box.",
+                "note": "The handler can run asynchronously because the notification does not require any"
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Define the event action",
+            "steps": [
+              {
+                "text": "Select the Event handler you created in Part 1 of this exercise.",
+                "note": ""
+              },
+              {
+                "text": "Click the Event Actions button. The Event Actions linked form displays.",
+                "note": ""
+              },
+              {
+                "text": "Type 10 in the Action Sequence field.",
+                "note": "It may already be in the field."
+              },
+              {
+                "text": "Select Notify from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters. The Event Action Notify (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click the To button. The Event Action Parameter Recipients (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select <your user ID> from the Recipients list.",
+                "note": "Your user ID is the username you used to log in to CloudSuite, for example \"train11.\""
+              },
+              {
+                "text": "Click Update.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Parameter Recipients (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Type New Customer! in the Subject field.",
+                "note": ""
+              },
+              {
+                "text": "Type Change Notification in the Category field.",
+                "note": ""
+              },
+              {
+                "text": "Type We have a new customer! in the Body field.",
+                "note": ""
+              },
+              {
+                "text": "Select the Save In Sent Items check box.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Notify (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Show Details. The Parameters tab displays.",
+                "note": ""
+              },
+              {
+                "text": "Verify that the details show the following information:",
+                "note": ""
+              },
+              {
+                "text": "Click Check Syntax. A dialog box opens with the message: \"No syntax errors were found.\"",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Hide Details. The Parameters tab closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Actions form.",
+                "note": "To close any form in this application click X in the upper-right corner."
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Ctrl+U to discard the metadata cache.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Handler form.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 4 – Test the event handler",
+            "steps": [
+              {
+                "text": "Open the Customers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type MyTest1 in the Customer Name field.",
+                "note": "This field is to the right of the Customer field."
+              },
+              {
+                "text": "Select BK1 Universal Savings from the Bank drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Customers form.",
+                "note": ""
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "Select the message with the subject New Customer! The message opens in the lower part of the",
+                "note": ""
+              },
+              {
+                "text": "Click the Variables tab. The Variables tab displays.",
+                "note": ""
+              },
+              {
+                "text": "Scroll to view the variables.",
+                "note": "These can be nested."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3.3",
+        "title": "Notification event - Refine the message",
+        "goal": "In this exercise, you will use revise the content of the message you created in exercise 3.2 to include markers for customer name and customer number.",
+        "parts": [
+          {
+            "title": "Part 1 – Create message text that includes markers for values",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Select IdoPostItemInsert from the Event Name drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Notify Me* in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place. The event handler you created in exercise 3.2 displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Event Actions. The Event Actions (Linked) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters. The Event Action Notify (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Body. The Event Action Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select SUBSTITUTE from the Select a function drop-down list. Additional fields associated with",
+                "note": ""
+              },
+              {
+                "text": "Type We have added a customer, {0}, customer ID {1}, to our family of customers. in the",
+                "note": "The numbers enclosed in curly brackets are the replacement markers for which values will"
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Create the expression that will be used to supply the values for markers {0} and {1}",
+            "steps": [
+              {
+                "text": "Click in row 1 of the Arguments grid. The row becomes active.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression. A second Event Action Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select PROPERTY from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select Name from the Argument 1 field drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The second Event Action Expression Editor (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 2 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select PROPERTY from the Select a function field drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select CustNum from the Argument 1 field drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The PROPERTY(\"Name\") and PROPERTY(\"CustNum\") are displayed in the",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Expression Editor (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Notify (Modal) form closes.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Review the changes and save the event handler",
+            "steps": [
+              {
+                "text": "Click Show Details.",
+                "note": ""
+              },
+              {
+                "text": "Click Check Syntax. A dialog box is displayed with the message, \"No syntax errors were found.\"",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The dialog box closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Ctrl+U to discard the metadata cache.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 4 – Test the event handler",
+            "steps": [
+              {
+                "text": "Open the Customers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type MyTest2 in the Customer Name field.",
+                "note": "This field is to the right of the Customer field."
+              },
+              {
+                "text": "Select BK1 Universal Savings from the Bank field drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Customers form.",
+                "note": ""
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "Select the message with the subject New Customer! The message opens in the lower part of the",
+                "note": ""
+              },
+              {
+                "text": "Review the body of the message on the Message tab.",
+                "note": ""
+              },
+              {
+                "text": "Click the Variables tab.",
+                "note": ""
+              },
+              {
+                "text": "Scroll to view the variables.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3.4",
+        "title": "Notification event - Create an event global constant",
+        "goal": "In this exercise, you will create a global constant for the credit manager and then edit the event handler parameters to replace the recipient with the global constant.",
+        "parts": [
+          {
+            "title": "Part 1 – Create an event global constant for Credit Manager",
+            "steps": [
+              {
+                "text": "Open the Event Global Constants form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type CreditMgr in the Name field.",
+                "note": ""
+              },
+              {
+                "text": "Type <your user ID> in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Global Constants form.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Incorporate the event global constant in the event handler action",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Select IdoPostItemInsert from the Event Name drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Notify Me* in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place. The event handler you created in exercise 3.2 and modified in exercise 3.3",
+                "note": ""
+              },
+              {
+                "text": "Click Event Actions.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters. The Event Action Notify (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click To. The Event Action Parameters Recipient form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Recipients. The Event Action Expression Editor form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select GC from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select CreditMgr from the Argument 1 drop-down list.",
+                "note": "Notice that the event global constant name is not enclosed in double quotation marks."
+              },
+              {
+                "text": "Click OK three times. You will return to the Event Actions form.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Review the changes and save the event handler",
+            "steps": [
+              {
+                "text": "Click Show Details.",
+                "note": ""
+              },
+              {
+                "text": "Click Check Syntax. A dialog box is displayed with the message, \"No syntax errors were found.\"",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The dialog box closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Ctrl+U to discard the metadata cache.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 4 – Test the event handler",
+            "steps": [
+              {
+                "text": "Open the Customers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type MyTest3 in the Customer Name field.",
+                "note": "This field is to the right of the Customer field."
+              },
+              {
+                "text": "Select BK1 Universal Savings from the Bank drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Customers form.",
+                "note": ""
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "Select the message with the subject New Customer! The message opens in the lower part of the",
+                "note": ""
+              },
+              {
+                "text": "Click the Variables tab.",
+                "note": ""
+              },
+              {
+                "text": "Scroll to view the variables.",
+                "note": "This step is not required if you are using the First or Last option in the Chronology"
+              },
+              {
+                "text": "Options include:",
+                "note": "If you specify a form name before specifying an IDO, the IDO field is"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L4",
+    "label": "Lesson 4",
+    "title": "Using the New Workflow Wizard",
+    "exercises": [
+      {
+        "id": "4.1",
+        "title": "Using the New Workflow Wizard",
+        "goal": "In this exercise, you will use the New Workflow Wizard to create a workflow that sends a notification to your Inbox when a new purchase order line is added where the cost is more than $1000.",
+        "parts": [
+          {
+            "title": "Part 1 – Create the event handler",
+            "steps": [
+              {
+                "text": "Open the New Workflow Wizard form. The first page of the wizard displays.",
+                "note": ""
+              },
+              {
+                "text": "Select the Notify Me When radio button.",
+                "note": "It may already be selected."
+              },
+              {
+                "text": "Click Next. The second page of the wizard displays.",
+                "note": ""
+              },
+              {
+                "text": "Type Notify me when new PO line cost >$1000 in the Description field.",
+                "note": ""
+              },
+              {
+                "text": "Type SLP* in the IDO field.",
+                "note": ""
+              },
+              {
+                "text": "Select SLPoItems from the IDO drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select the Additions radio button.",
+                "note": ""
+              },
+              {
+                "text": "Click Next. The third page of the wizard displays.",
+                "note": ""
+              },
+              {
+                "text": "Select the Where radio button.",
+                "note": "The caption for the IDO you selected on the previous page is displayed, i.e., Purchase"
+              },
+              {
+                "text": "Select DerExtItemCostConv from the Purchase Order Items drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select > from the Operator drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type 1000 in the Value field.",
+                "note": "Do not specify separators or currency symbols."
+              },
+              {
+                "text": "Click Add This Clause. The text \"Extended cost > 1000\" is displayed.",
+                "note": ""
+              },
+              {
+                "text": "Click Finish. A dialog box displays with the message, \"At least one Workflow was created.\"",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – View the event handler details",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Type Notify me when new PO* in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Select the IdoOnItemInsert record that you just created. The record opens for the handler you",
+                "note": ""
+              },
+              {
+                "text": "Right-click IdoOnItemInsert in the Event Name field in the record. A menu displays.",
+                "note": ""
+              },
+              {
+                "text": "Select Details. The Events form opens.",
+                "note": ""
+              },
+              {
+                "text": "Verify the description of the IdoOnItemInsert event is \"Occurs when an IDO inserts a row.\"",
+                "note": ""
+              },
+              {
+                "text": "Close the Events form.",
+                "note": ""
+              },
+              {
+                "text": "Verify that your student ID appears in line 3 of the Event Actions grid, as you are the person set up to be notified when the event fires. If you do not see your student ID, tell your instructor.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Test the workflow to see if it triggers the event",
+            "steps": [
+              {
+                "text": "Click Ctrl+U.",
+                "note": ""
+              },
+              {
+                "text": "Open the Puchase Order Lines form.",
+                "note": ""
+              },
+              {
+                "text": "Select Planned from the Status drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place. The record for Bicycle Parts Company (PO 51) opens.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select FA-10000 Bicycle, Model - 30-26\" from the Item drop-down list. The cost of 173.17511",
+                "note": ""
+              },
+              {
+                "text": "Type 10 in the Ordered field.",
+                "note": ""
+              },
+              {
+                "text": "Verify that 1731.75 is displayed in the Extended Cost field.",
+                "note": "This value is > 1000 and should trigger the event handler to fire."
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "Verify that a message with the subject \"A new row was added to Purchase Order Items\" appears",
+                "note": ""
+              },
+              {
+                "text": "Close all forms.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "4.2",
+        "title": "Changes to a credit limit",
+        "goal": "In this exercise, you will create an event handler with two actions: one to check whether the Credit Limit field has been changed and one to send the notification message to the credit manager.",
+        "parts": [
+          {
+            "title": "Part 1 – Create the event handler",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select IdoOnItemUpdate from the Event Name drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Notify of Credit Limit Change in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Type SLCust* in the Applies to Objects field.",
+                "note": ""
+              },
+              {
+                "text": "Select SLCustomers from the Applies to Objects drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Clear the Synchronous check box.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Create the first event action to check the credit limit",
+            "steps": [
+              {
+                "text": "Select <the Event Handler> you created in Part 1.",
+                "note": ""
+              },
+              {
+                "text": "Click Event Actions. The Event Actions (Linked) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select Finish from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters. The Event Action Finish (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Condition. The Event Action Parameter Condition (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 1. The Event Action Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select PROPERTYMODIFIED from the Select a Function drop-down list. Additional fields",
+                "note": ""
+              },
+              {
+                "text": "Select CreditLimit from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Expression Editor (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Select the Not check box.",
+                "note": "This tells the system that if the credit limit is not modified, then finish, otherwise proceed to"
+              },
+              {
+                "text": "Click OK. The Event Action Expression Editor (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Parameter Condition (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Finish (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": "You may need to first click in a text box to activate the form so it can be saved."
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Create the second event action to send the notification",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select Notify from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters. The Event Action Notify (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click To. The Event Action Parameter Recipients (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select <your user ID> from the Recipients list.",
+                "note": ""
+              },
+              {
+                "text": "Click Update.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Parameter Recipients (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Type Credit Limit Change in the Subject field.",
+                "note": ""
+              },
+              {
+                "text": "Type Financial in the Category field.",
+                "note": ""
+              },
+              {
+                "text": "Click Body. The Event Action Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select SUBSTITUTE from the Select a function drop-down list. Additional fields display.",
+                "note": ""
+              },
+              {
+                "text": "Type The credit limit has been changed to ${0} for customer {1}, customer number {2}. in the",
+                "note": "Be sure to use the curly brackets."
+              },
+              {
+                "text": "Click in row 1 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression. The Event Actions Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select FILTERPROPERTY from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select CreditLimit from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Actions Expression Editor (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 2 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select FILTERPROPERTY from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select Name from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 3 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select FILTERPROPERTY from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select CustNum from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The full expression including the substitution properties are now displayed in the Body",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 4 – Save the event actions",
+            "steps": [
+              {
+                "text": "Click Show Details.",
+                "note": ""
+              },
+              {
+                "text": "Click Check Syntax. A dialog box displays with the message \"No syntax errors were found.\"",
+                "note": ""
+              },
+              {
+                "text": "Click Save modified data and close form.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Ctrl+U to discard the metadata cache.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 5 – Test that the event fires when a credit limit is changed",
+            "steps": [
+              {
+                "text": "Open the Customers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place. The Coordinated Bicycles record displays.",
+                "note": ""
+              },
+              {
+                "text": "Click the Credit tab.",
+                "note": ""
+              },
+              {
+                "text": "Type 200000 in the Credit Limit field.",
+                "note": ""
+              },
+              {
+                "text": "Type 200000 in the Order Credit Limit field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "Verify that a message was received with the subject \"Credit Limit Change\" and that the body of",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 6 – Test that the event does not fire when something other than credit limit is changed",
+            "steps": [
+              {
+                "text": "Click the Main tab to display the Coordinated Bicycles record.",
+                "note": ""
+              },
+              {
+                "text": "Type 99999 in the Postal/ZIP field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click the Inbox tab to display the inbox.",
+                "note": ""
+              },
+              {
+                "text": "Click Refresh.",
+                "note": ""
+              },
+              {
+                "text": "Verify that no new messages were received.",
+                "note": "This second test shows that the event does not send messages for other changes, only for"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "4.3",
+        "title": "Changes to an item lot size",
+        "goal": "In this exercise, you will create a new event handler with three event actions. The first action checks for changes in lot size, the second retrieves both the old and new lot sizes, and the third sends a notification message.",
+        "parts": [
+          {
+            "title": "Part 1 – Create the event handler",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select IdoOnItemUpdate from the Event Name drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Notification of Item Lot Value in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Select SLItems from the Applies to Objects drop-down list.",
+                "note": "You may want to narrow the choices in the drop-down list by first typing SLItem* in the"
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Create the event global constant for stock clerks",
+            "steps": [
+              {
+                "text": "Open the Event Global Constants form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection. A new Event Global Constants record",
+                "note": ""
+              },
+              {
+                "text": "Type StockClerk in the Name field.",
+                "note": ""
+              },
+              {
+                "text": "Type <your user ID> in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Global Constants form.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Create the first event action to check the lot size",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Select the Event Handler created in Part 1.",
+                "note": ""
+              },
+              {
+                "text": "Click Event Actions. The Event Actions (Linked) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select Finish from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters. The Event Action Finish (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Condition. The Event Action Parameter Condition (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 1. The Event Action Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select PROPERTYMODIFIED from the Select a Function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select LotSize from the Argument 1 drop-down list.",
+                "note": "Alternatively, you may type LotSize in the text field."
+              },
+              {
+                "text": "Click OK. The Event Action Expression Editor (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Select the Not check box.",
+                "note": "This tells the system that if the lot size is not modified, then finish, otherwise proceed to the"
+              },
+              {
+                "text": "Click OK. The Event Action Expression Editor (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Parameter Condition (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Finish (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": "You may need to first click in a text box to activate the form so it can be saved."
+              }
+            ]
+          },
+          {
+            "title": "Part 4 – Create the second event action to send the retrieve the old and new lot size values and",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select Load IDO Row from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters. The Event Action Load IDO Row (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Type SLItems in the IDO field.",
+                "note": ""
+              },
+              {
+                "text": "Type LotSize in the Properties field.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter. The Event Action Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select SUBSTITUTE from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Item = {0} in the Argument 1 field.",
+                "note": "Be sure to use the curly brackets."
+              },
+              {
+                "text": "Click in row 1 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression. A second Event Action Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select FILTERPROPERTY from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select Item from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Expression Editor (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The full expression including the substitution properties are now displayed in the Filter",
+                "note": ""
+              },
+              {
+                "text": "Click Output. The Event Action Output Parameters (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 of the grid under the Output Type heading.",
+                "note": ""
+              },
+              {
+                "text": "Select Return Variable form the Output Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 of the grid under the Output Object Name heading.",
+                "note": ""
+              },
+              {
+                "text": "Type OldLotSize in the Output Object Name field.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 of the grid under the Value heading.",
+                "note": ""
+              },
+              {
+                "text": "Type LotSize in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Load IDO Row (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Show Details. You will see parameters as shown in the following table:",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 5 – Create the third event action to send the notification",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select Notify from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click To.",
+                "note": ""
+              },
+              {
+                "text": "Click Recipients.",
+                "note": ""
+              },
+              {
+                "text": "Select GC from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select StockClerk from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Parameter Recipients (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Cc.",
+                "note": ""
+              },
+              {
+                "text": "Click Recipients.",
+                "note": ""
+              },
+              {
+                "text": "Select ORIGINATOR from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Parameter Recipients (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Type Lot Size Change in the Subject field.",
+                "note": ""
+              },
+              {
+                "text": "Type Change Notification in the Category field.",
+                "note": ""
+              },
+              {
+                "text": "Click Body.",
+                "note": ""
+              },
+              {
+                "text": "Select SUBSTITUTE from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type The lot size changed for item: {1}. The previous lot size was {2}, the new lot size is {3}. This",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select ORIGINATOR from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 2 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select FILTERPROPERTY from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select Item from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 3 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select V from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select OldLotSize from the Expression 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 4 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select P from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select LotSize from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The full expression including the substitution properties are now displayed in the Body",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 6 – Save the event actions",
+            "steps": [
+              {
+                "text": "Click Show Details. You will see parameters as shown in the following table:",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Check Syntax. A dialog box displays with the message \"No syntax errors were found.\"",
+                "note": ""
+              },
+              {
+                "text": "Click Save modified data and close form.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Ctrl+U to discard the metadata cache.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 7 – Test that the event fires when a lot size is changed",
+            "steps": [
+              {
+                "text": "Open the Items form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place. The 30' Hurricane - 30F Floor Plan item record is displayed.",
+                "note": ""
+              },
+              {
+                "text": "Type 3 in the Lot Size field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "Verify that a message was received with the subject \"Lot Size Change\" and that the body of the",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L7",
+    "label": "Lesson 7",
+    "title": "Approval Workflows",
+    "exercises": [
+      {
+        "id": "7.1",
+        "title": "Approving a purchase order",
+        "goal": "In this exercise, you will set up an event handler to request manager approval for all new purchase orders. This event handler will contain two event actions.",
+        "parts": [
+          {
+            "title": "Part 1 – Create the global constant for Purchasing Manager",
+            "steps": [
+              {
+                "text": "Open the Event Global Constants form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type PurchasingMgr in the Name field.",
+                "note": ""
+              },
+              {
+                "text": "Type <your user ID> in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Global Constants form.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Create the event handler",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select IdoOnItemInsert from the Event Name drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Approval of a New Purchase Order in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Select SLPos in the Applies to Objects drop-down list.",
+                "note": "You can type SLPo* in the Applies to Objects field to narrow the choices in the drop-down"
+              },
+              {
+                "text": "Clear the Synchronous check box.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Create the first event action to send the approval message",
+            "steps": [
+              {
+                "text": "Select the Event Handler you created in Part 2.",
+                "note": ""
+              },
+              {
+                "text": "Click Event Actions. The Event Actions (Linked) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select Prompt from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters. The Event Action Prompt (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click To. The Event Action Parameter Recipients (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Recipients. The Event Action Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select GC from the Select a Function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select PurchasingMgr from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Expression Editor (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Parameter Recipients (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Type New purchase order needs your approval in the Subject field.",
+                "note": ""
+              },
+              {
+                "text": "Type Order Approval in the Category field.",
+                "note": ""
+              },
+              {
+                "text": "Click Body. The Event Action Expression Editor (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select SUBSTITUTE from the Select a function drop-down list. Additional fields associated with",
+                "note": ""
+              },
+              {
+                "text": "Type A new purchase order has been requested for vendor {0}, {1}. Please review the details on the Variables tab and register your approval on the Response tab. in the Argument 1 text box.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select P from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select VendNum from the Expression 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 2 of the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select P from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select VendorName from the Expression 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "The Event Action Prompt (Modal) form opens.",
+                "note": ""
+              },
+              {
+                "text": "Type Do you approve this new PO? In the Question field.",
+                "note": ""
+              },
+              {
+                "text": "Click Choices. The Event Action Prompt Choices (Modal) form opens.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 under the Return Value heading. The field activates.",
+                "note": ""
+              },
+              {
+                "text": "Type 1 in the Return Value text field.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 under the Button Caption heading. The field activates.",
+                "note": ""
+              },
+              {
+                "text": "Type sYes in the Button Caption text field.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 2 under the Return Value heading. The field activates.",
+                "note": ""
+              },
+              {
+                "text": "Type 0 in the Return Value text field.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 2 under the Button Caption heading. The field activates.",
+                "note": ""
+              },
+              {
+                "text": "Type sNo in the Button Caption text field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Prompt Choices (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Prompt (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Show Details. You will see parameters as shown in the following table:",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 4 – Create the second event action to evaluate the recipient response and act based on that",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select Fail from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters. The Event Action Fail (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Condition. The Event Action Parameter Condition (Modal) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 1.",
+                "note": ""
+              },
+              {
+                "text": "Select VOTINGRESULT from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select 10 Prompt from the Action drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Select = from the Operator drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type 0 in the Expression 2 text field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Parameter Condition (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Type The PO request was rejected by the Purchasing Manager. in the Result text field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Action Fail (Modal) form closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Actions form.",
+                "note": "The Event Handlers form should be the only remaining form open."
+              },
+              {
+                "text": "Select the Suspend check box.",
+                "note": "This will suspend the new purchase order record until the recipient responds."
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Ctrl+U to discard the metadata cache.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 5 – Test that the event fires when a PO is added and does not get committed to the system",
+            "steps": [
+              {
+                "text": "Open the Purchase Orders form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select 1 Bicycle Parts Company from the Vendor drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Refresh. The record should not be showing.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click the Calendar button in the Date field. The calendar displays.",
+                "note": ""
+              },
+              {
+                "text": "Select <today's date> in the calendar.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": "There should be no PO records for today, since it the new record you created is suspended"
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "View the message with the subject \"New purchase order needs your approval.\"",
+                "note": ""
+              },
+              {
+                "text": "Click the Response tab. The Reponse tab displays.",
+                "note": ""
+              },
+              {
+                "text": "Click the Yes button to approve the PO.",
+                "note": "After you vote, the Yes and No buttons are disabled."
+              },
+              {
+                "text": "Close the Inbox form. The Purchase Orders form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": "Today's date should still be the filter setting."
+              },
+              {
+                "text": "Verify that the new PO record you created has been committed to the system.",
+                "note": "Any changes you make to the diagram are not persistent; that is, they only last if you make no"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L8",
+    "label": "Lesson 8",
+    "title": "Prompting for Information",
+    "exercises": [
+      {
+        "id": "8.1",
+        "title": "Providing a credit limit for a new customer",
+        "goal": "In this exercise, you will set up an event handler to fire when a new customer is added that sends prompt to the credit manager asking to respond with a credit limit for that customer. The system will use the data from the response to add data to the pending new customer",
+        "parts": [
+          {
+            "title": "Part 1 – Create an event handler",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type IdoOnItemInsert in the Event Name field.",
+                "note": ""
+              },
+              {
+                "text": "Type Prompting for a customer credit limit in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Type SLCus* in the Applies to Objects field.",
+                "note": ""
+              },
+              {
+                "text": "Select SLCustomers from the Applies to Objects drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Create an event action",
+            "steps": [
+              {
+                "text": "Select <the Event Handler> you created in Part 1.",
+                "note": ""
+              },
+              {
+                "text": "Click Event Actions.",
+                "note": ""
+              },
+              {
+                "text": "Select Prompt in the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click To.",
+                "note": ""
+              },
+              {
+                "text": "Click Recipients.",
+                "note": ""
+              },
+              {
+                "text": "Select GC from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select CreditMgr from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Subject.",
+                "note": ""
+              },
+              {
+                "text": "Select Substitute from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Need credit limit for customer ID {0}, {1} in the Argument 1 field.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 in the Arguments grid. The row activates.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select FP from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select CustNum from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 2 in the Arguments grid. The row activates.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select P from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select Name from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click OK again.",
+                "note": ""
+              },
+              {
+                "text": "Type Financial in the Category field.",
+                "note": ""
+              },
+              {
+                "text": "Click Body.",
+                "note": ""
+              },
+              {
+                "text": "Select Substitute from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Please use the Variables tab to provide a credit limit for customer ID {0}, {1}. Then use the Post button on the Response tab to register the new credit limit. in the Argument 1 text box.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 in the Arguments grid. The row activates.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select FP from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select CustNum from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 2 in the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select P from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select Name from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click OK again.",
+                "note": ""
+              },
+              {
+                "text": "Type To post the credit limit, save the modified Inbox record and then click the button below. in",
+                "note": ""
+              },
+              {
+                "text": "Click Choices.",
+                "note": ""
+              },
+              {
+                "text": "Type 1 in the Return Value field in row 1.",
+                "note": ""
+              },
+              {
+                "text": "Type sPost in the Button Caption field in row 1.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Select Customers from the Filter Form drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter Spec.",
+                "note": ""
+              },
+              {
+                "text": "Select Substitute from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type CustNum={0} in the Argument 1 text box.",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 in the Arguments grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select FP from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select CustNum from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK three times.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Show Details.",
+                "note": ""
+              },
+              {
+                "text": "Click the Variable Access tab.",
+                "note": ""
+              },
+              {
+                "text": "Type CreditLimit in the Name field.",
+                "note": ""
+              },
+              {
+                "text": "Select Mandatory from the Access drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Actions (Linked) tab.",
+                "note": ""
+              },
+              {
+                "text": "Select the Suspend check box.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Test the handler",
+            "steps": [
+              {
+                "text": "Click Ctrl+U.",
+                "note": ""
+              },
+              {
+                "text": "Open the Customers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Add a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type <your user ID> Customer in the Customer Name field which is located to the right of the",
+                "note": ""
+              },
+              {
+                "text": "Select BK1 Universal Savings from the Bank Code drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click the Credit tab.",
+                "note": ""
+              },
+              {
+                "text": "Verify that the value in the Credit Limit field is 0.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Type *<your user ID>* in the Customer Name field which is located to the right of the Customer",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Verify there are no records resulting from this filter.",
+                "note": "The record for the new customer is set to suspend, meaning that and you should not be"
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "Verify that the new message appears in the Inbox.",
+                "note": ""
+              },
+              {
+                "text": "Click the Variables tab.",
+                "note": ""
+              },
+              {
+                "text": "Type <any number> in the Row.CreditLimit variable.",
+                "note": ""
+              },
+              {
+                "text": "Save the record.",
+                "note": ""
+              },
+              {
+                "text": "Click the Response tab.",
+                "note": ""
+              },
+              {
+                "text": "Click Post.",
+                "note": ""
+              },
+              {
+                "text": "Open the customers form if the Customers form is not opened and filter for sa Customer.",
+                "note": ""
+              },
+              {
+                "text": "Click Refresh if the Customers form is open.",
+                "note": ""
+              },
+              {
+                "text": "Verify that the newly created record appears in the list, and contains the credit limit value that you",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L9",
+    "label": "Lesson 9",
+    "title": "Multi-Level Approvals",
+    "exercises": [
+      {
+        "id": "9.1",
+        "title": "Approving a PO by up to three management levels",
+        "goal": "In this exercise, you will create new event global constants and set up fourteen event actions to prompt first the purchasing manager for approval of a new purchase order, and if certain criteria are met, to prompt the purchasing supervisor and the purchasing senior executive.",
+        "parts": [
+          {
+            "title": "Part 1 – Create event global constants",
+            "steps": [
+              {
+                "text": "Open the Event Global Constants form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type PurchasingSuper in the Name field.",
+                "note": ""
+              },
+              {
+                "text": "Type <your user ID> in the Value text box.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Repeat steps 3-6 by changing the Name and Value fields as per the table below:",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Global Constants form.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Create the handler",
+            "steps": [
+              {
+                "text": "Open the Event Handlers form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Select IdoOnItemUpdate from the Event Name drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Requesing multiple and complex approvals in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Type SLPo* in the Applies to Objects field.",
+                "note": ""
+              },
+              {
+                "text": "Select SLPos from the Applies to Objects drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Create the event action #10-FINISH",
+            "steps": [
+              {
+                "text": "Select the Event Handler you created in Part 2.",
+                "note": ""
+              },
+              {
+                "text": "Click Event Actions.",
+                "note": ""
+              },
+              {
+                "text": "Type 10 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Finish from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click Condition.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 1.",
+                "note": ""
+              },
+              {
+                "text": "Select PROPERTYMODIFIED from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select Stat from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Select the NOT check box.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Type OR P(\"Stat\") <> \"O\" after NOT PROPERTYMODIFIED(\"Stat\") in the Condition field.",
+                "note": "You are appending the condition statement. In plain English, it means \"If the property"
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Show Details.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 4 – Create the event action #20-SET VALUES",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 20 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Set Values from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click Variables.",
+                "note": ""
+              },
+              {
+                "text": "Type Approver in the Variable Name field in row 1.",
+                "note": ""
+              },
+              {
+                "text": "Click in the Value field. The field activates.",
+                "note": ""
+              },
+              {
+                "text": "Type PurchasingMgr in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Type CountMethod in the Variable Name field in row 2.",
+                "note": ""
+              },
+              {
+                "text": "Type Plurality in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK twice.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 5 – Create the event action #30-PROMPT",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 30 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Prompt from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type TGC(POApprovalPrompt) in the Parameters tab text box.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 6 – Create the event action #40-BRANCH",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 40 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Branch from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click Condition.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 1.",
+                "note": ""
+              },
+              {
+                "text": "Select VOTINGRESULT from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select 30 Prompt from the Action drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Select not equal to (<>) from the Operator drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type 1 in the Expression 2 field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Type 140 in the Destination field.",
+                "note": "We have not yet created action 140, but we can reference it before it is created."
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 7 – Create the event action #50-FINISH",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 50 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Finish from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click Condition.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 1.",
+                "note": ""
+              },
+              {
+                "text": "Select P from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select PoCost from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Select less than (<) from the Operator drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 2.",
+                "note": ""
+              },
+              {
+                "text": "Select GC from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select SuperCost from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK twice.",
+                "note": ""
+              },
+              {
+                "text": "Type Approved by Purchasing Manager in the Result field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 8 – Create the event action #60-SET VALUES",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 60 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Set Values from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click Variables.",
+                "note": ""
+              },
+              {
+                "text": "Type Approver in the Variable Name field in row 1.",
+                "note": ""
+              },
+              {
+                "text": "Click in the Value field. The field activates.",
+                "note": ""
+              },
+              {
+                "text": "Type PurchasingSuper in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Type CountMethod in the Variable Name field in row 2.",
+                "note": ""
+              },
+              {
+                "text": "Type Majority in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK twice.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 9 – Create the event action #70-PROMPT",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 70 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Prompt from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Show Details.",
+                "note": ""
+              },
+              {
+                "text": "Type TGC(POApprovalPrompt) in the Parameters tab text box.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 10 – Create the event action #80-BRANCH",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 80 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Branch from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click Condition.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 1.",
+                "note": ""
+              },
+              {
+                "text": "Select VOTINGRESULT from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select 70 Prompt from the Action drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Select not equal to (<>) from the Operator drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type 1 in the Expression 2 field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Type 140 in the Destination field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 11 – Create the event action #90-FINISH",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 90 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Finish from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click Condition.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 1.",
+                "note": ""
+              },
+              {
+                "text": "Select P from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select PoCost from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Select less than (<) from the Operator drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 2.",
+                "note": ""
+              },
+              {
+                "text": "Select GC from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select SeniorCost from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK twice.",
+                "note": ""
+              },
+              {
+                "text": "Type Approved by both the Purchasing Manager and Purchasing Supervisor in the Result field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 12 – Create the event action #100-SET VALUES",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 100 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Set Values from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click Variables.",
+                "note": ""
+              },
+              {
+                "text": "Type Approver in the Variable Name field in row 1.",
+                "note": ""
+              },
+              {
+                "text": "Click in the Value field. The field activates.",
+                "note": ""
+              },
+              {
+                "text": "Type PurchasingSenior in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Type CountMethod in the Variable Name field in row 2.",
+                "note": ""
+              },
+              {
+                "text": "Type EarliestResponse in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK twice.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 13 – Create the event action #110-PROMPT",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 110 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Prompt from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Verify the Parameters tab is visible. If not, click Show Details.",
+                "note": ""
+              },
+              {
+                "text": "Type TGC(POApprovalPrompt) in the Parameters tab text box.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 14 – Create the event action #120 - BRANCH",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 120 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Branch from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click Condition.",
+                "note": ""
+              },
+              {
+                "text": "Click Expression 1.",
+                "note": ""
+              },
+              {
+                "text": "Select VOTINGRESULT from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select 110 Prompt from the Action drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Select not equal to (<>) from the Operator drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type 1 in the Expression 2 field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Type 140 in the Destination field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 15 – Create the event action #130 - FINISH",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 130 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Finish from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Type Purchase order change approved by Senior Executive in the Results field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 16 – Create the event action #140 - NOTIFY",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 140 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Notify from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click To.",
+                "note": ""
+              },
+              {
+                "text": "Click Recipients.",
+                "note": ""
+              },
+              {
+                "text": "Select ORIGINATOR from the Section a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK twice.",
+                "note": ""
+              },
+              {
+                "text": "Click Subject.",
+                "note": ""
+              },
+              {
+                "text": "Select SUBSTITUTE from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Purchase order {0} change request disapproved in the Argument 1 field.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select FP from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select PoNum from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK twice.",
+                "note": ""
+              },
+              {
+                "text": "Type Notification in the Category field.",
+                "note": ""
+              },
+              {
+                "text": "Click Body.",
+                "note": ""
+              },
+              {
+                "text": "Select SUBSTITUTE from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Your purchase order change request for PO {0} for {1}, vendor number: {2} has been",
+                "note": ""
+              },
+              {
+                "text": "Click in row 1 of the Argument grid.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select P from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select PoNum from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Repeat steps 22-26 to add the values in the table below:",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Check Syntax. A dialog box opens with the message, \"No syntax errors were found.\"",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Verify your parameters look as shown below:",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 17 – Create the event action #150 - FAIL",
+            "steps": [
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type 150 in the Action Sequence field.",
+                "note": ""
+              },
+              {
+                "text": "Select Fail from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Type PO change not approved in the Result field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 18 – Mark the handler to suspend",
+            "steps": [
+              {
+                "text": "Click the Event Handlers tab. The form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select the Suspend check box.",
+                "note": "You cannot select this check box until you have an adjourning action. The prompt actions"
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 19 – Test the handler",
+            "steps": [
+              {
+                "text": "Click Ctrl+U to discard the metadata cache.",
+                "note": ""
+              },
+              {
+                "text": "Open the Purchase Orders form.",
+                "note": ""
+              },
+              {
+                "text": "Click the Date calendar. The Calendar displays.",
+                "note": ""
+              },
+              {
+                "text": "Select <today's date>.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place. The purchase order you created in exercise 7.1 displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Lines. The Purchase Order Lines (Linked) form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select FA-10000 Bicycle, Model 30,26\" from the Item drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type 10000 in the Ordered field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Purchase Order Lines (Linked) form.",
+                "note": ""
+              },
+              {
+                "text": "Click Refresh. The total cost of the purchase order, 1,731,751.10, is displayed.",
+                "note": ""
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "Verify that you did not receive a message with the subject \"Purchase Order Update Approval",
+                "note": "You may see a message with the subject, \"A new row was added to Puchase Order Items\""
+              },
+              {
+                "text": "Open the Purchase Orders form, and filter for the Purchase Order you updated.",
+                "note": ""
+              },
+              {
+                "text": "Select Ordered from the Status drop-down list. A dialog box opens with the message, \"[Change",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click the Inbox tab. The Inbox form displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Refresh.",
+                "note": ""
+              },
+              {
+                "text": "Open the message with the subject, Purchase Order Update Needed.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L10",
+    "label": "Lesson 10",
+    "title": "Calling Events from Forms",
+    "exercises": [
+      {
+        "id": "10.1",
+        "title": "Calling an application event from a form",
+        "goal": "In this exercise, you will create a simple form to send an IT problem to the help desk. You will create an event that occurs when the Submit button on the form is pressed. You will also set up an event handler and actions to automatically send the text about each IT problem to a",
+        "parts": [
+          {
+            "title": "Part 1 – Change setting for user permission",
+            "steps": [
+              {
+                "text": "Open the Users from.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Select the <your user ID> record. The record displays.",
+                "note": ""
+              },
+              {
+                "text": "Select Site Developer from the Editing Permissions drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Sign out of CloudSuite and then log back in.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Create a custom form",
+            "steps": [
+              {
+                "text": "Click the Design Mode icon in the toolbar.",
+                "note": ""
+              },
+              {
+                "text": "Select Site Default in the Scope drop-down list in the Identify Your Editing Scope form. The",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Select System > Form > Definition > New. The New Form Wizard displays",
+                "note": ""
+              },
+              {
+                "text": "Click Next.",
+                "note": ""
+              },
+              {
+                "text": "Type SubmitTicket in the Name field.",
+                "note": ""
+              },
+              {
+                "text": "Select Build from Scratch from the Form Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Next.",
+                "note": ""
+              },
+              {
+                "text": "Clear the Save Template check box.",
+                "note": ""
+              },
+              {
+                "text": "Click Finish. The SubmitTicket form displays.",
+                "note": ""
+              },
+              {
+                "text": "Select MultiLineEdit from the Toolbox panel. Your cursor appears as a crossbar.",
+                "note": ""
+              },
+              {
+                "text": "Click and drag anywhere on the form to draw a large rectangle text box.",
+                "note": "You can resize the text box by clicking and dragging on a corner."
+              },
+              {
+                "text": "Select Button in the Toolbox panel. Your cursor appears as a crossbar.",
+                "note": ""
+              },
+              {
+                "text": "Click and drag to draw a small rectangle button under the large rectangle text box.",
+                "note": ""
+              },
+              {
+                "text": "Type Submit in the Caption field in the Properties panel.",
+                "note": "You must have the button graphic selected in the form to see the Properties panel for the"
+              },
+              {
+                "text": "Press Enter. Your form should look similar to what is shown below:",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Enter or exit design mode on this form.",
+                "note": ""
+              },
+              {
+                "text": "Close the SubmitTicket form.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Create a global event constant for IT",
+            "steps": [
+              {
+                "text": "Open the Event Global Constants form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type IT in the Name field.",
+                "note": ""
+              },
+              {
+                "text": "Type <your user ID> in the Value field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Global Constants form.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 4 – Create an event called NotifyIT",
+            "steps": [
+              {
+                "text": "Open the Events form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Add a new object in the current collection.",
+                "note": ""
+              },
+              {
+                "text": "Type NotifyIT in the Event Name field.",
+                "note": ""
+              },
+              {
+                "text": "Type Send information to IT department in the Description field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 5 – Create an event handler and event actions",
+            "steps": [
+              {
+                "text": "Click Event Handlers.",
+                "note": ""
+              },
+              {
+                "text": "Type Notify IT in the Handler Description field.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Event Actions.",
+                "note": ""
+              },
+              {
+                "text": "Select Notify from the Action Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Click Edit Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Click To.",
+                "note": ""
+              },
+              {
+                "text": "Click Recipients.",
+                "note": ""
+              },
+              {
+                "text": "Click GC from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select IT from the Argument 1 drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK twice.",
+                "note": ""
+              },
+              {
+                "text": "Type New IT Issue Reported in the Subject field.",
+                "note": ""
+              },
+              {
+                "text": "Click Body.",
+                "note": ""
+              },
+              {
+                "text": "Select SUBSTITUTE from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type User {0} has reported the following issue: {1} in the text field.",
+                "note": ""
+              },
+              {
+                "text": "Click in the Argument field for row 1. The field activates.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select ORIGINATOR from the Select a function drop-down list",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click in the Argument field for row 2.",
+                "note": ""
+              },
+              {
+                "text": "Click Build Expression.",
+                "note": ""
+              },
+              {
+                "text": "Select E from the Select a function drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Issue in the Expression 1 field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK three times.",
+                "note": ""
+              },
+              {
+                "text": "Click Show Details.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Actions (Linked) form.",
+                "note": ""
+              },
+              {
+                "text": "Close the Event Handlers (Linked) form.",
+                "note": ""
+              },
+              {
+                "text": "Close the Events form.",
+                "note": ""
+              },
+              {
+                "text": "Click Ctrl+U to clear the metadata cache.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 6 – Set up the \"call to the event\" from the form",
+            "steps": [
+              {
+                "text": "Open the SubmitTicket form.",
+                "note": ""
+              },
+              {
+                "text": "Click Enter or exit design mode on this form.",
+                "note": ""
+              },
+              {
+                "text": "Click the SUBMIT button. Information associated with the button displays.",
+                "note": ""
+              },
+              {
+                "text": "Click the Events tab on the Component panel.",
+                "note": ""
+              },
+              {
+                "text": "Click the ellipsis (…) next to the Primary field. The Event Handlers panel displays.",
+                "note": ""
+              },
+              {
+                "text": "Click New. The Event Handlers Properties panel displays.",
+                "note": ""
+              },
+              {
+                "text": "Type SubmitIT in the Event field.",
+                "note": ""
+              },
+              {
+                "text": "Select Generate Application Event from the Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click the ellipsis (…) next to the Parameters field. The Event Handler Parm panel displays.",
+                "note": ""
+              },
+              {
+                "text": "Click Type Specific Parameters. The Edit Parameters for Generate Application Event",
+                "note": ""
+              },
+              {
+                "text": "Select NotifyIT from the Event drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type Issue in the Name field in the Parameters grid.",
+                "note": ""
+              },
+              {
+                "text": "Type C(multiLineEdit1_SITE) in the Value field in the Parameters grid.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Edit Parameters for Generate Application Event Handler panel closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Handler Parms panel closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Handlers Properties panel closes.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The Event Handlers panel closes.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close all open tabs.",
+                "note": ""
+              },
+              {
+                "text": "Click Ctrl+U to clear the metadata cache.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 7 – Test the event",
+            "steps": [
+              {
+                "text": "Open the SubmitTicket form.",
+                "note": ""
+              },
+              {
+                "text": "Type This is a test in the text box.",
+                "note": ""
+              },
+              {
+                "text": "Click Submit.",
+                "note": "Click the button only once. You will not receive feedback that it has been submitted."
+              },
+              {
+                "text": "Open the Inbox form.",
+                "note": ""
+              },
+              {
+                "text": "Verify the message \"New IT Issue Reported\" has been received.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 1 – Set up the SMTP for the system",
+            "steps": [
+              {
+                "text": "Open the Intranets form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place. The record for DEMO opens.",
+                "note": ""
+              },
+              {
+                "text": "Click the Reporting tab.",
+                "note": ""
+              },
+              {
+                "text": "Set all fields in the STMP section as directed by your organization's email system administrator.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Set up individual users for external email",
+            "steps": [
+              {
+                "text": "Open the Users form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter in Place. A list of users displays.",
+                "note": ""
+              },
+              {
+                "text": "Select <your user ID>.",
+                "note": ""
+              },
+              {
+                "text": "Click the Email Address tab.",
+                "note": ""
+              },
+              {
+                "text": "Select Primary from the Email Type Description drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Type <your external email address> in the Email Type Address field.",
+                "note": ""
+              },
+              {
+                "text": "Select Primary from the Primary Email drop-down list.",
+                "note": "The email address you entered will populate the form."
+              },
+              {
+                "text": "Clear the Use Reply To check box.",
+                "note": ""
+              },
+              {
+                "text": "Select the Send External Notifications check box.",
+                "note": ""
+              },
+              {
+                "text": "Select the Send External Prompts check box.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": "This function is"
+              }
+            ]
+          },
+          {
+            "title": "Part 8 – The end customer adds the second business partner's handler",
+            "steps": [
+              {
+                "text": "Create and save the event handler with these settings:",
+                "note": ""
+              },
+              {
+                "text": "Create one action, which sends a prompt to the managers requesting a response:",
+                "note": ""
+              },
+              {
+                "text": "Save the action.",
+                "note": ""
+              },
+              {
+                "text": "Create the second action, which tells the system how to respond if approval is not granted:",
+                "note": ""
+              },
+              {
+                "text": "Save the action and close the Event Actions form.",
+                "note": ""
+              },
+              {
+                "text": "Return to the Event Handlers form and select the Suspend check box.",
+                "note": ""
+              },
+              {
+                "text": "Save the handler.",
+                "note": ""
+              },
+              {
+                "text": "Discard the cached metadata.",
+                "note": ""
+              },
+              {
+                "text": "Open the Engineering Change Notices form and update an existing ECN. Save it. After you",
+                "note": ""
+              },
+              {
+                "text": "Open the Inbox form for the individual designated as the Engineering Manager and verify that the message was received and that the Response tab displays the question and choice buttons. Click the button labeled Yes.",
+                "note": ""
+              },
+              {
+                "text": "Open the Inbox form for the individual designated as the Project Manager and verify that the",
+                "note": ""
+              },
+              {
+                "text": "Refresh the collection on the Engineering Change Notices form and verify that the ECN now displays normally (read/write) and shows your changes. As soon as two managers vote for the preferred choice, voting is closed and the change is approved. The third manager's vote is not needed.",
+                "note": "You could do the same thing using a hand-coded IDO method that calls"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
+function loadState(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')};catch{return{}}}
+function saveState(s){localStorage.setItem(KEY,JSON.stringify(s))}
+let state = loadState();
+
+function allStepIds(){
+  const ids=[];
+  LESSONS.forEach(l=>l.exercises.forEach(ex=>{
+    ex.parts.forEach((pt,pi)=>pt.steps.forEach((_,si)=>ids.push(`${ex.id}-p${pi}-s${si}`)));
+  }));
+  return ids;
+}
+function updateProgress(){
+  const ids=allStepIds();
+  const done=ids.filter(id=>state[id]).length;
+  const pct=ids.length?Math.round((done/ids.length)*100):0;
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-text').textContent=`${done} / ${ids.length} steps complete`;
+}
+function countEx(ex){
+  let t=0,d=0;
+  ex.parts.forEach((pt,pi)=>pt.steps.forEach((_,si)=>{t++;if(state[`${ex.id}-p${pi}-s${si}`])d++;}));
+  return{t,d};
+}
+function updateExHead(exId){
+  const head=document.querySelector(`.ex-head[data-ex="${exId}"]`);
+  if(!head)return;
+  const ex=LESSONS.flatMap(l=>l.exercises).find(e=>e.id===exId);
+  const{t,d}=countEx(ex);
+  const pct=t?Math.round((d/t)*100):0;
+  head.querySelector('.ex-pct').textContent=pct+'%';
+  if(d===t&&t>0)head.classList.add('done');else head.classList.remove('done');
+}
+function updateLessonHead(lid){
+  const lesson=LESSONS.find(l=>l.id===lid);
+  const btn=document.querySelector(`.lesson-btn[data-lesson="${lid}"]`);
+  if(!btn||!lesson)return;
+  let t=0,d=0;
+  lesson.exercises.forEach(ex=>{const c=countEx(ex);t+=c.t;d+=c.d;});
+  btn.querySelector('.l-check').textContent=`${d}/${t}`;
+}
+function render(){
+  const page=document.getElementById('page');
+  page.innerHTML='';
+  LESSONS.forEach(lesson=>{
+    const lDiv=document.createElement('div');
+    lDiv.className='lesson';
+    const btn=document.createElement('button');
+    btn.className='lesson-btn open';
+    btn.dataset.lesson=lesson.id;
+    btn.innerHTML=`<span class="l-badge">${lesson.label}</span><span>${lesson.title}</span><span class="l-check"></span><span class="l-caret">▶</span>`;
+    const body=document.createElement('div');
+    body.className='lesson-body open';
+    btn.addEventListener('click',()=>{btn.classList.toggle('open');body.classList.toggle('open');});
+    lesson.exercises.forEach(ex=>{
+      const card=document.createElement('div');card.className='ex-card';
+      const head=document.createElement('div');head.className='ex-head';head.dataset.ex=ex.id;
+      const stepCount=ex.parts.reduce((a,p)=>a+p.steps.length,0);
+      head.innerHTML=`<span class="ex-num">Ex ${ex.id}</span><div><div class="ex-title">${ex.title}</div><div class="ex-meta">${stepCount} steps</div></div><div class="ex-progress"><div class="ex-pct">0%</div><div class="ex-done-badge">✓ Done</div></div>`;
+      const exBody=document.createElement('div');exBody.className='ex-body open';
+      if(ex.goal){const g=document.createElement('div');g.className='ex-goal';g.textContent=ex.goal;exBody.appendChild(g);}
+      ex.parts.forEach((part,pi)=>{
+        if(part.title!=='Steps'){const pt=document.createElement('div');pt.className='part-title';pt.textContent=part.title;exBody.appendChild(pt);}
+        const ul=document.createElement('ul');ul.className='step-list';
+        part.steps.forEach((step,si)=>{
+          const id=`${ex.id}-p${pi}-s${si}`;
+          const li=document.createElement('li');li.className='step-item'+(state[id]?' checked':'');
+          const cb=document.createElement('div');cb.className='step-cb';
+          const txt=document.createElement('div');txt.className='step-text';
+          txt.innerHTML=step.text;
+          if(step.note)txt.innerHTML+=`<span class="step-note">${step.note}</span>`;
+          li.appendChild(cb);li.appendChild(txt);
+          li.addEventListener('click',()=>{
+            state[id]=!state[id];saveState(state);
+            li.classList.toggle('checked',state[id]);
+            updateExHead(ex.id);updateLessonHead(lesson.id);updateProgress();
+          });
+          ul.appendChild(li);
+        });
+        exBody.appendChild(ul);
+      });
+      const ctrl=document.createElement('div');ctrl.className='ex-controls';
+      const rb=document.createElement('button');rb.className='btn btn-reset';rb.textContent='Reset';
+      rb.addEventListener('click',e=>{e.stopPropagation();
+        ex.parts.forEach((pt,pi)=>pt.steps.forEach((_,si)=>{delete state[`${ex.id}-p${pi}-s${si}`];}));
+        saveState(state);
+        exBody.querySelectorAll('.step-item').forEach(li=>li.classList.remove('checked'));
+        updateExHead(ex.id);updateLessonHead(lesson.id);updateProgress();
+      });
+      const ab=document.createElement('button');ab.className='btn btn-all';ab.textContent='Mark all done';
+      ab.addEventListener('click',e=>{e.stopPropagation();
+        ex.parts.forEach((pt,pi)=>pt.steps.forEach((_,si)=>{state[`${ex.id}-p${pi}-s${si}`]=true;}));
+        saveState(state);
+        exBody.querySelectorAll('.step-item').forEach(li=>li.classList.add('checked'));
+        updateExHead(ex.id);updateLessonHead(lesson.id);updateProgress();
+      });
+      ctrl.appendChild(rb);ctrl.appendChild(ab);exBody.appendChild(ctrl);
+      head.addEventListener('click',()=>exBody.classList.toggle('open'));
+      card.appendChild(head);card.appendChild(exBody);body.appendChild(card);
+    });
+    lDiv.appendChild(btn);lDiv.appendChild(body);page.appendChild(lDiv);
+    lesson.exercises.forEach(ex=>updateExHead(ex.id));
+    updateLessonHead(lesson.id);
+  });
+  updateProgress();
+}
+render();
+</script>
+</body>
+</html>

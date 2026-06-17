@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercises — 03 — Form Personalizations Exercises</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+         background:#1a1a1a;color:#e2e8f0;min-height:100vh}
+    .hdr{background:#0f172a;padding:18px 28px;display:flex;align-items:center;gap:14px;
+          border-bottom:1px solid #1e293b;position:sticky;top:0;z-index:10}
+    .hdr-icon{font-size:28px}
+    .hdr-title{font-size:18px;font-weight:700;color:#f1f5f9}
+    .hdr-sub{font-size:12px;color:#64748b;margin-top:2px}
+    .hdr-right{margin-left:auto;text-align:right}
+    .hdr-home{color:#60a5fa;text-decoration:none;font-size:13px}
+    .hdr-home:hover{text-decoration:underline}
+    .prog-wrap{background:#0f172a;padding:10px 28px;border-bottom:1px solid #1e293b}
+    .prog-label{font-size:12px;color:#94a3b8;margin-bottom:6px;display:flex;justify-content:space-between}
+    .prog-bar{height:6px;background:#1e293b;border-radius:3px;overflow:hidden}
+    .prog-fill{height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:3px;
+               transition:width .4s ease}
+    .page{max-width:860px;margin:0 auto;padding:28px 20px 60px}
+    .lesson{margin-bottom:8px}
+    .lesson-btn{width:100%;text-align:left;background:#2d2d2d;border:none;border-radius:10px;
+                padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;
+                color:#e2e8f0;font-size:15px;font-weight:600;transition:background .15s}
+    .lesson-btn:hover{background:#374151}
+    .lesson-btn .l-badge{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;
+                          padding:2px 8px;border-radius:10px}
+    .lesson-btn .l-check{margin-left:auto;font-size:12px;color:#64748b}
+    .lesson-btn .l-caret{color:#64748b;font-size:12px;transition:transform .2s}
+    .lesson-btn.open .l-caret{transform:rotate(90deg)}
+    .lesson-body{display:none;padding:6px 0 10px}
+    .lesson-body.open{display:block}
+    .ex-card{background:#242424;border-radius:10px;margin-bottom:10px;
+              border:1px solid #2d2d2d;overflow:hidden}
+    .ex-head{padding:14px 18px;cursor:pointer;display:flex;align-items:flex-start;gap:12px}
+    .ex-head:hover{background:#2d2d2d}
+    .ex-num{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;
+             padding:3px 9px;border-radius:8px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+    .ex-title{font-size:14px;font-weight:600;color:#f1f5f9;flex:1}
+    .ex-meta{font-size:12px;color:#64748b;margin-top:3px}
+    .ex-progress{margin-left:auto;flex-shrink:0;text-align:right}
+    .ex-pct{font-size:12px;font-weight:700;color:#60a5fa}
+    .ex-done-badge{font-size:11px;color:#86efac;display:none}
+    .ex-head.done .ex-pct{display:none}
+    .ex-head.done .ex-done-badge{display:block}
+    .ex-body{display:none;padding:0 18px 18px;border-top:1px solid #2d2d2d}
+    .ex-body.open{display:block}
+    .ex-goal{background:#1e293b;border-left:3px solid #0284c7;color:#7dd3fc;
+              padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.6;
+              margin:14px 0 16px}
+    .part-title{font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;
+                letter-spacing:.06em;margin:16px 0 8px}
+    .step-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+    .step-item{display:flex;align-items:flex-start;gap:10px;cursor:pointer;
+               padding:8px 10px;border-radius:7px;transition:background .12s}
+    .step-item:hover{background:#2d2d2d}
+    .step-cb{width:18px;height:18px;border:2px solid #374151;border-radius:4px;
+              flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;
+              transition:all .15s;cursor:pointer}
+    .step-item.checked .step-cb{background:#16a34a;border-color:#16a34a}
+    .step-item.checked .step-cb::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+    .step-text{font-size:13px;color:#cbd5e1;line-height:1.55;flex:1}
+    .step-item.checked .step-text{color:#4b5563;text-decoration:line-through}
+    .step-note{font-size:11.5px;color:#475569;font-style:italic;margin-top:3px;display:block}
+    .ex-controls{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #2d2d2d}
+    .btn{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-size:12px;
+          font-weight:600;transition:background .15s}
+    .btn-reset{background:#374151;color:#94a3b8}
+    .btn-reset:hover{background:#4b5563}
+    .btn-all{background:#1e3a5f;color:#60a5fa}
+    .btn-all:hover{background:#1d4ed8;color:#fff}
+  </style>
+</head>
+<body>
+<div class="hdr">
+  <span class="hdr-icon">🛠️</span>
+  <div>
+    <div class="hdr-title">03 — Form Personalizations Exercises</div>
+    <div class="hdr-sub">CSI v10 · Creating Form Personalizations · Hands-on lab exercises</div>
+  </div>
+  <div class="hdr-right"><a href="../index.html" class="hdr-home">← Back to hub</a></div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-label">
+    <span>Overall progress</span>
+    <span id="prog-text">0 / 0 steps complete</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+<div class="page" id="page"></div>
+<script>
+const KEY = 'ex-03-form-personalizations';
+const LESSONS = [
+  {
+    "id": "L2",
+    "label": "Lesson 2",
+    "title": "Setting Up for Development",
+    "exercises": [
+      {
+        "id": "2.1",
+        "title": "Log in to CloudSuite and assign form editing permission",
+        "goal": "In this exercise, you will log in to CloudSuite and you will use the Users form to assign a form editing permission.",
+        "parts": [
+          {
+            "title": "Part 1 – Log into CloudSuite",
+            "steps": [
+              {
+                "text": "Double-click CSI Click-Once Client on the desktop. The Sign In form opens.",
+                "note": ""
+              },
+              {
+                "text": "Type sa in the Username field.",
+                "note": ""
+              },
+              {
+                "text": "Type G!oba!08 in the Password field.",
+                "note": ""
+              },
+              {
+                "text": "Select CSI_Demo_DALS from the Configuration drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK. The CloudSuite application opens.",
+                "note": ""
+              },
+              {
+                "text": "Select View > User Preference. The User Preference window opens.",
+                "note": ""
+              },
+              {
+                "text": "Select the Unload IDO Metadata with Forms check box.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Create a new user",
+            "steps": [
+              {
+                "text": "Open the Users form.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter In Place on the toolbar to turn off the filter-in-place mode.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection on the toolbar. A blank Users form displays",
+                "note": ""
+              },
+              {
+                "text": "Type <Your Initials> + sitedev in the User ID field. For example: John Smith would type jssitedev",
+                "note": ""
+              },
+              {
+                "text": "Do not enter a password in the User Password field. Verify the field is clear.",
+                "note": ""
+              },
+              {
+                "text": "Select the Super User check box.",
+                "note": ""
+              },
+              {
+                "text": "Select Site Developer from the Editing Permission drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click the User Modules button.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection on the toolbar.",
+                "note": ""
+              },
+              {
+                "text": "Select Developer from the Module Name drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Create a new object in the current collection on the toolbar.",
+                "note": ""
+              },
+              {
+                "text": "Select Transactional from the Module Name drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the User Modules and the Users form and exit out of the system after saving all modified",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Log Back into CloudSuite and check new user functionality",
+            "steps": [
+              {
+                "text": "Log back in to the system using your new Site Developer ID as your user ID.",
+                "note": ""
+              },
+              {
+                "text": "Click Open to locate a form.",
+                "note": ""
+              },
+              {
+                "text": "Select a form and double-click to open it.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter In Place.",
+                "note": ""
+              },
+              {
+                "text": "Click Design Mode. The Identify Your Editing Scope dialog box opens.",
+                "note": "Since you are now a Site Developer and can impersonate other roles in the system, you"
+              },
+              {
+                "text": "Select an editing scope from the Scope drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Close the form.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L3",
+    "label": "Lesson 3",
+    "title": "Setting the Form Appearance",
+    "exercises": [
+      {
+        "id": "3.1",
+        "title": "Change font on form",
+        "goal": "In this exercise, you will change the font on the Users form. Before you begin: • Ensure you have completed Exercise 2.1 because it provides data or configurations for",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Double-click the system icon on the desktop.",
+                "note": ""
+              },
+              {
+                "text": "Log in using the information provided by the instructor. The Infor CloudSuite application opens.",
+                "note": ""
+              },
+              {
+                "text": "Click Open on the toolbar.",
+                "note": ""
+              },
+              {
+                "text": "Locate the Users form from the list.",
+                "note": ""
+              },
+              {
+                "text": "Double-click the form name to open it.",
+                "note": ""
+              },
+              {
+                "text": "Click Filter In Place on the toolbar to turn off the filter-in-place mode.",
+                "note": ""
+              },
+              {
+                "text": "Enter Design-Mode.",
+                "note": ""
+              },
+              {
+                "text": "Click on the User Description static field.",
+                "note": ""
+              },
+              {
+                "text": "Click + to expand the Appearance section in the Form property tab.",
+                "note": ""
+              },
+              {
+                "text": "Click the arrow in the Foreground field and use the color picker to choose a font color.",
+                "note": ""
+              },
+              {
+                "text": "Click the ellipsis in the Font field to select a font style and size.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3.2",
+        "title": "Add background color to form",
+        "goal": "In this exercise, you will add a background color to the Users form and/or its components. You will also regenerate the form and then revert it to its previous version. Before you begin:",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Select the Form sheet to change the color on the entire form or click the component to which you",
+                "note": ""
+              },
+              {
+                "text": "Click Background under the Appearance section to expand the properties.",
+                "note": ""
+              },
+              {
+                "text": "Click the down arrow in the Color dialog box.",
+                "note": ""
+              },
+              {
+                "text": "Select a color for the background.",
+                "note": ""
+              },
+              {
+                "text": "Click out of the box to see your chosen background color.",
+                "note": ""
+              },
+              {
+                "text": "Select System > Edit > Regenerate Form. The form is refreshed.",
+                "note": ""
+              },
+              {
+                "text": "Select System > Edit > Revert Form Definition. The form is reverted to its previous version.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3.3",
+        "title": "Set a background image",
+        "goal": "In this exercise, you will add a background image on the Users form. Before you begin: • Ensure you have completed Exercise 3.2 because it provides data or configurations for",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Open a form to set a background image.",
+                "note": ""
+              },
+              {
+                "text": "Click Design Mode on the toolbar menu, to display the Form sheet for the form.",
+                "note": ""
+              },
+              {
+                "text": "Double-click Appearance in the Form property sheet. The menu expands to display options.",
+                "note": ""
+              },
+              {
+                "text": "Scroll to Background Image.",
+                "note": ""
+              },
+              {
+                "text": "Click Background Image to expand the menu.",
+                "note": ""
+              },
+              {
+                "text": "Select Radar.png from the Image drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select True from the Center drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Behavior > Initial Command to Refresh.",
+                "note": ""
+              },
+              {
+                "text": "Click System > Edit > Regenerate Form. The form is refreshed and your selected background",
+                "note": "You can also save and close the form. Then reopen it to see the added image."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L4",
+    "label": "Lesson 4",
+    "title": "Adding Components to a Form",
+    "exercises": [
+      {
+        "id": "4.1",
+        "title": "Add components to a form",
+        "goal": "In this exercise, you will add some components to a form. Then, you will arrange and align them with each other or existing form components. Before you begin:",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Open the Customer Orders form in the system.",
+                "note": ""
+              },
+              {
+                "text": "Remove the filter-in-place, if applicable.",
+                "note": ""
+              },
+              {
+                "text": "Enter Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Select the User Defined tab.",
+                "note": ""
+              },
+              {
+                "text": "Add ComboBox to your form.",
+                "note": ""
+              },
+              {
+                "text": "Add two Edit boxes and two Static boxes to your form.",
+                "note": ""
+              },
+              {
+                "text": "Add two Buttons to your form.",
+                "note": ""
+              },
+              {
+                "text": "Align your Static and Edit boxes next to each other. They should be the same height.",
+                "note": ""
+              },
+              {
+                "text": "Align the ComboBox to the right of your first Edit box.",
+                "note": ""
+              },
+              {
+                "text": "Place your buttons in the middle toward the bottom of your form. They should be the same height.",
+                "note": ""
+              },
+              {
+                "text": "Add one more Static component to your form.",
+                "note": ""
+              },
+              {
+                "text": "Align and resize this component with your ComboBox. They should be the same height.",
+                "note": ""
+              },
+              {
+                "text": "Click the ‘Edit notebook tab(s)' icon,",
+                "note": ""
+              },
+              {
+                "text": "Click the UserDefinedTab under the Items window.",
+                "note": ""
+              },
+              {
+                "text": "Expand the Behavior node.",
+                "note": ""
+              },
+              {
+                "text": "Select False for the Read-Only/Disable field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Save and regenerate the form.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L5",
+    "label": "Lesson 5",
+    "title": "Working with Inherited Attributes",
+    "exercises": [
+      {
+        "id": "5.1",
+        "title": "Associate inherited attributes",
+        "goal": "In this exercise, you will cover adding a component to a form which will inherit from the property class extension. Before you begin:",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Open the Customer Orders form.",
+                "note": ""
+              },
+              {
+                "text": "Remove filter-in-place, if applicable.",
+                "note": ""
+              },
+              {
+                "text": "Enter Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Click the User Defined tab.",
+                "note": ""
+              },
+              {
+                "text": "Draw a ComboBox component. The Component sheet displays.",
+                "note": ""
+              },
+              {
+                "text": "Type CustNumCombo1 in the Name field of the Component sheet.",
+                "note": ""
+              },
+              {
+                "text": "Select object.CustNum from the Binding drop-down list, in the Data Source section.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": "You may see a warning pop up, click OK to continue."
+              },
+              {
+                "text": "Exit Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Locate your newly added component.",
+                "note": ""
+              },
+              {
+                "text": "Click the drop-down arrow in the component field to see the options associated with the bound",
+                "note": ""
+              },
+              {
+                "text": "Go back into Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Click your new component. The Component sheet displays.",
+                "note": ""
+              },
+              {
+                "text": "Expand the Inheritance section of the Component sheet.",
+                "note": ""
+              },
+              {
+                "text": "Go to the View Attributes Inherited field to see the inherited attributes for the component.",
+                "note": ""
+              },
+              {
+                "text": "Close the form.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L6",
+    "label": "Lesson 6",
+    "title": "Creating List Sources",
+    "exercises": [
+      {
+        "id": "6.1",
+        "title": "Add combo boxes and input list source information",
+        "goal": "In this exercise, you will add two more combo boxes to the User Defined tab of the Customer Orders form. The new components will be filled with list source information that you will provide. One will be an IDO Collection list and the other will be an inline list.",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Type the step.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 1 – Adding components and associating list sources on a form",
+            "steps": [
+              {
+                "text": "Open the Customer Orders form.",
+                "note": ""
+              },
+              {
+                "text": "Remove the filter-in-place, if applicable.",
+                "note": ""
+              },
+              {
+                "text": "Click Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Click the User Defined tab.",
+                "note": ""
+              },
+              {
+                "text": "Draw two ComboBox components.",
+                "note": ""
+              },
+              {
+                "text": "Click the first new combo box. The Component sheet displays.",
+                "note": ""
+              },
+              {
+                "text": "Type IDOlistComb in the Name field of the Component sheet.",
+                "note": ""
+              },
+              {
+                "text": "Click the second new combo box. The Component sheet displays",
+                "note": ""
+              },
+              {
+                "text": "Type InLinelistCombo in the Name field of the Component sheet.",
+                "note": ""
+              },
+              {
+                "text": "Click the IDOlistComb component.",
+                "note": ""
+              },
+              {
+                "text": "Click the ellipsis in the List Source field in the Data Source section. The Edit List Source",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Edit List Source Specification dialog box input",
+            "steps": [
+              {
+                "text": "Select IDO Collection from the Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select.SLCustomers from the IDO drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click Properties. The Properties of SLCutomers to Include dialog box displays.",
+                "note": ""
+              },
+              {
+                "text": "Select CustNum from the list of properties and then click Add.",
+                "note": ""
+              },
+              {
+                "text": "Select Name and then click Add.",
+                "note": ""
+              },
+              {
+                "text": "Click OK to return to the Edit List Source Specification dialog box.",
+                "note": ""
+              },
+              {
+                "text": "Click the Filter etc. button.",
+                "note": ""
+              },
+              {
+                "text": "Type CustSeq=0 in the Filter etc. field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK twice to return to the form.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Exit Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Locate the IDOlistComb component.",
+                "note": ""
+              },
+              {
+                "text": "Click the drop-down arrow in the component field to see the options associated with the IDO",
+                "note": ""
+              },
+              {
+                "text": "Go into Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Click the InLinelistCombo component.",
+                "note": ""
+              },
+              {
+                "text": "Click the ellipsis in the List Source field in the Data Source section. The Edit List Source",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Edit List Source Specification dialog box input…..continued",
+            "steps": [
+              {
+                "text": "Select Inline from the Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click the Entries button.",
+                "note": ""
+              },
+              {
+                "text": "Click the New Col button to add a new column.",
+                "note": ""
+              },
+              {
+                "text": "Add the following entries for the inline list:",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Set the Column for value = 2.",
+                "note": ""
+              },
+              {
+                "text": "Set the Columns to Display value = 1.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Exit Design Mode and click the drop-down arrow in the component field to see the inline list source.",
+                "note": ""
+              },
+              {
+                "text": "Close the form.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L7",
+    "label": "Lesson 7",
+    "title": "Creating Validators",
+    "exercises": [
+      {
+        "id": "7.1",
+        "title": "Add an inline list validator to the combo box form",
+        "goal": "component In this exercise, you will add an inline list validator to the combo box form component, which you created in an earlier exercise.",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Open the Customer Orders form.",
+                "note": ""
+              },
+              {
+                "text": "Remove filter-in-place, if applicable.",
+                "note": ""
+              },
+              {
+                "text": "Click add an inline list validator to the combo box form component, which you created in an earlier",
+                "note": ""
+              },
+              {
+                "text": "Select the User Defined tab.",
+                "note": ""
+              },
+              {
+                "text": "Select the ComboBox with the associated list source of quarters.",
+                "note": ""
+              },
+              {
+                "text": "Add InInLineListGeneric as the validator in the Validators section of the Component sheet.",
+                "note": ""
+              },
+              {
+                "text": "Select True in the Validate Immediately field.",
+                "note": ""
+              },
+              {
+                "text": "Save the form and test your component's validation.",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L8",
+    "label": "Lesson 8",
+    "title": "Creating Strings",
+    "exercises": [
+      {
+        "id": "8.1",
+        "title": "Create static form components and strings",
+        "goal": "In this exercise, you will create static form components and strings. Before you begin: • Ensure you have completed Exercise 7.1 because it provides data or configurations for",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Open the Customer Orders form.",
+                "note": ""
+              },
+              {
+                "text": "Remove the filter-in-place, if applicable.",
+                "note": ""
+              },
+              {
+                "text": "Enter Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Click the User Defined tab.",
+                "note": ""
+              },
+              {
+                "text": "Add two Static components that describe or caption the two ComboBox components from the",
+                "note": ""
+              },
+              {
+                "text": "Type <a name> for the Static labels.",
+                "note": ""
+              },
+              {
+                "text": "Link them to each combo box component.",
+                "note": ""
+              },
+              {
+                "text": "Select an existing caption from the Caption field or create our own.",
+                "note": ""
+              },
+              {
+                "text": "Close the form and reopen it to test the linkage between the Static component and the",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L9",
+    "label": "Lesson 9",
+    "title": "Working with UET Fields",
+    "exercises": [
+      {
+        "id": "9.1",
+        "title": "Add UET field and data",
+        "goal": "In this exercise, you will add a UET field to a database table, and then associate a user defined attribute table to this field for validation and entry. Before you begin:",
+        "parts": [
+          {
+            "title": "Part 1 – Add a UET Class",
+            "steps": [
+              {
+                "text": "Open the UET Classes form.",
+                "note": ""
+              },
+              {
+                "text": "Start a new record and name it ItemSpecs.",
+                "note": ""
+              },
+              {
+                "text": "Type a general description in the Label field.",
+                "note": ""
+              },
+              {
+                "text": "Save the record.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Add a UET Field to a table",
+            "steps": [
+              {
+                "text": "Open the UET User Fields form.",
+                "note": ""
+              },
+              {
+                "text": "Click a new record.",
+                "note": ""
+              },
+              {
+                "text": "Add a record for UFColor, UFLength, and UFWidth.",
+                "note": ""
+              },
+              {
+                "text": "Use a Data Type of ‘nvarchar' and a Length of 20 for UFColor.",
+                "note": ""
+              },
+              {
+                "text": "Use a Data Type of ‘int' for UFLength.",
+                "note": ""
+              },
+              {
+                "text": "Use a Data Type of ‘int' for UFWidth.",
+                "note": "You may use a Data Type of decimal for UFLength and UFWidth if you so desire."
+              }
+            ]
+          },
+          {
+            "title": "Part 3 – Associate a UET Field to a Class",
+            "steps": [
+              {
+                "text": "Open the UET Class/Field Relationships form.",
+                "note": ""
+              },
+              {
+                "text": "Click the Refresh button and begin adding new records.",
+                "note": ""
+              },
+              {
+                "text": "Select ItemSpecs from the Class Name fields. Perform this task three times and each time",
+                "note": ""
+              },
+              {
+                "text": "Save the records.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 4 – Associate a UET Table to a Class",
+            "steps": [
+              {
+                "text": "Go to the UET Table/Class Relationships form.",
+                "note": ""
+              },
+              {
+                "text": "Click the New Record button. Once this button is selected, you can begin associating your new",
+                "note": ""
+              },
+              {
+                "text": "Select the co_mst table and the ItemSpec class from the drop-down options.",
+                "note": ""
+              },
+              {
+                "text": "Save the record.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 5 – Impact the Schema of a Table",
+            "steps": [
+              {
+                "text": "Open the UET Impact Schema form and click Process to impact the schema.",
+                "note": ""
+              },
+              {
+                "text": "Select System > View > User Preferences > Runtime Behaviors.",
+                "note": ""
+              },
+              {
+                "text": "Confirm the Unload IDO Metadata With Forms check box is selected.",
+                "note": ""
+              },
+              {
+                "text": "Select System > Form > Definition > Unload all Global Form Objects. This is critical to",
+                "note": ""
+              },
+              {
+                "text": "Close out of and restart the system.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 6 – Add and Bind the newly created UET Fields to a form",
+            "steps": [
+              {
+                "text": "Open the User Defined Types form and enter at least one new record. Each record should be",
+                "note": ""
+              },
+              {
+                "text": "Name the new User Defined Types Colors, Lengths, and Widths.",
+                "note": ""
+              },
+              {
+                "text": "Draw a ComboBox on the Customer Order form.",
+                "note": ""
+              },
+              {
+                "text": "Type UFColorCombo in the Name field.",
+                "note": ""
+              },
+              {
+                "text": "Click Binding on the Binding tab.",
+                "note": ""
+              },
+              {
+                "text": "Select Properties from the drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select the Customer Orders collection.",
+                "note": ""
+              },
+              {
+                "text": "Scroll down to coUfColor, coUFLength, coUFWidth. The User Extended table fields are",
+                "note": ""
+              },
+              {
+                "text": "Bind this component to coUfcolor.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Associate the ComboBox component data to the User Defined Data Type Color that you",
+                "note": ""
+              },
+              {
+                "text": "Select UserDefinedType from the drop-down box on the Component Class combo box located",
+                "note": ""
+              },
+              {
+                "text": "Type Colors in the Parameter field.",
+                "note": ""
+              },
+              {
+                "text": "Click OK to confirm your action.",
+                "note": ""
+              },
+              {
+                "text": "Save and reload your form. Notice that now you can save this new data into the UET field by",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "9.2",
+        "title": "Work with a UET",
+        "goal": "In this exercise, you will take advantage of either the User Defined Type or the list source combo box created in earlier exercise. You will need to have the Customer Orders form open.",
+        "parts": [
+          {
+            "title": "Steps",
+            "steps": [
+              {
+                "text": "Open the Customer Orders form.",
+                "note": ""
+              },
+              {
+                "text": "Go into Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Click the User Defined tab.",
+                "note": ""
+              },
+              {
+                "text": "Select one of the combo boxes from the previous exercises.",
+                "note": "You have the option of choosing the combo box holding your IDO Collection list source"
+              },
+              {
+                "text": "Select a User Defined Field to save this data.",
+                "note": "The option you select will depend on the combo box you chose since you must know the"
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Close the form.",
+                "note": ""
+              },
+              {
+                "text": "Re-open the form.",
+                "note": ""
+              },
+              {
+                "text": "Return to the combo box for that component.",
+                "note": ""
+              },
+              {
+                "text": "Select a piece of data from the combo box drop-down list for any of the available records.",
+                "note": ""
+              },
+              {
+                "text": "Save the form.",
+                "note": ""
+              },
+              {
+                "text": "Close the form.",
+                "note": ""
+              },
+              {
+                "text": "Reopen the form and refresh the form and data, or navigate off the record then back again to see",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L10",
+    "label": "Lesson 10",
+    "title": "Adding Event Handlers",
+    "exercises": [
+      {
+        "id": "10.1",
+        "title": "Create a new button form component and add an event",
+        "goal": "handler In this exercise, you will create a new button form component and add an event handler. This exercise will require you to move past the material presented in the example. You will be",
+        "parts": [
+          {
+            "title": "Part 1 – Create a new button on a form",
+            "steps": [
+              {
+                "text": "Open the Price Matrix form.",
+                "note": ""
+              },
+              {
+                "text": "Remove the filter-in-place, if applicable.",
+                "note": ""
+              },
+              {
+                "text": "Click Design Mode.",
+                "note": ""
+              },
+              {
+                "text": "Select Site Default from the Scope drop down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Click OK to the message asking you to Unload Global Objects.",
+                "note": ""
+              },
+              {
+                "text": "Click Ctrl+U.",
+                "note": ""
+              },
+              {
+                "text": "Add a Button component.",
+                "note": ""
+              },
+              {
+                "text": "Type <a name> for the button.",
+                "note": ""
+              },
+              {
+                "text": "Type sPriceFormulaLinked for a caption.",
+                "note": "You may need to resize the button for the caption to fit and create the string."
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Add an event handler to the button",
+            "steps": [
+              {
+                "text": "Click Events on the Component property sheet.",
+                "note": "This button looks like a lightning bolt."
+              },
+              {
+                "text": "Type LaunchPriceFormulaLinked on the Primary button as the name of the new event.",
+                "note": ""
+              },
+              {
+                "text": "Click the ellipsis on the Primary field.",
+                "note": ""
+              },
+              {
+                "text": "Click New on the Event Handler form.",
+                "note": ""
+              },
+              {
+                "text": "Select Run Form as Linked Child from the Response Type drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click the ellipsis on the Parameters field.",
+                "note": ""
+              },
+              {
+                "text": "Click Type Specific Parameters.",
+                "note": ""
+              },
+              {
+                "text": "Select the Price Formula form as the form to launch.",
+                "note": ""
+              },
+              {
+                "text": "Tab off the Form dialog box to enable the Link By button.",
+                "note": ""
+              },
+              {
+                "text": "Select the Priceformula property from the Parent Property field.",
+                "note": ""
+              },
+              {
+                "text": "Select the Priceformula property from the Child Property field.",
+                "note": ""
+              },
+              {
+                "text": "Click the Add button.",
+                "note": ""
+              },
+              {
+                "text": "Click OK until all open forms are closed and you are left with the Price Matrix form in design",
+                "note": ""
+              },
+              {
+                "text": "Click Save.",
+                "note": ""
+              },
+              {
+                "text": "Exit Design-Mode.",
+                "note": ""
+              },
+              {
+                "text": "Click CTRL+U.",
+                "note": ""
+              },
+              {
+                "text": "Open and test the Price Matrix form.",
+                "note": "These utilities are available only with the standalone version of FormSync, and not with theForm"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L11",
+    "label": "Lesson 11",
+    "title": "Using FormSync",
+    "exercises": [
+      {
+        "id": "11.1",
+        "title": "Form Sync the Price Matrix form",
+        "goal": "In this exercise, you will FormSync the Price Matrix form that you customized in exercise 10.1. On completion of this exercise you will see your customizations carried forward to the target configuration.",
+        "parts": [
+          {
+            "title": "Part 1 – Create an Export XML file of the Price Matrix form",
+            "steps": [
+              {
+                "text": "Make sure you are logged into the system using the CSI Click Once Client.",
+                "note": ""
+              },
+              {
+                "text": "Log into the system with the credentials provided to you by your instructor.",
+                "note": ""
+              },
+              {
+                "text": "Open the FormSync form.",
+                "note": ""
+              },
+              {
+                "text": "Select CSI_Demo_DALS from the Source drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select CSI_Demo_DALS from the Target drop-down list..",
+                "note": ""
+              },
+              {
+                "text": "Click the OK button.",
+                "note": ""
+              },
+              {
+                "text": "Click OK to the message that will be displayed.",
+                "note": ""
+              },
+              {
+                "text": "Click the Utilities button.",
+                "note": ""
+              },
+              {
+                "text": "Select Site from the Scope Type drop down list.",
+                "note": ""
+              },
+              {
+                "text": "Click the Refresh List button. You should see a list of all Site Default versions of forms displayed",
+                "note": ""
+              },
+              {
+                "text": "Click the Deselect All button.",
+                "note": ""
+              },
+              {
+                "text": "Select the Price Matrix form by clicking the checkbox under the Inc column.",
+                "note": ""
+              },
+              {
+                "text": "Select the Export Tab.",
+                "note": ""
+              },
+              {
+                "text": "Make note of the filename path and the name of the .XML file. You may click the ellipsis",
+                "note": ""
+              },
+              {
+                "text": "Click the Export button.",
+                "note": ""
+              },
+              {
+                "text": "Select Yes to the Form Sync message that displays.",
+                "note": ""
+              },
+              {
+                "text": "Close the Form Sync form.",
+                "note": ""
+              },
+              {
+                "text": "Log out of the system.",
+                "note": ""
+              }
+            ]
+          },
+          {
+            "title": "Part 2 – Import the XML file of the Price Matrix form you created in Part 1.",
+            "steps": [
+              {
+                "text": "Log into the Target configuration.",
+                "note": "For this exercise, we will log into the system using the Train Click Once Client."
+              },
+              {
+                "text": "Type train01@gdeinfor2.com in the User ID field.",
+                "note": ""
+              },
+              {
+                "text": "Type train01 in the Password field.",
+                "note": ""
+              },
+              {
+                "text": "Select Train01 from the Configuration drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Click OK.",
+                "note": ""
+              },
+              {
+                "text": "Open the FormSync form.",
+                "note": ""
+              },
+              {
+                "text": "Select Train01 from the Source drop-down list.",
+                "note": ""
+              },
+              {
+                "text": "Select Train01 from the Target drop-down list..",
+                "note": ""
+              },
+              {
+                "text": "Click the OK button.",
+                "note": ""
+              },
+              {
+                "text": "Click OK to the message that will be displayed.",
+                "note": ""
+              },
+              {
+                "text": "Click the Utilities button.",
+                "note": ""
+              },
+              {
+                "text": "Select the Import tab.",
+                "note": ""
+              },
+              {
+                "text": "Click the ellipsis next to the Filename field and select the XML file you created in Part 1. You",
+                "note": ""
+              },
+              {
+                "text": "Click the Import button.",
+                "note": ""
+              },
+              {
+                "text": "Click OK to the Form Sync message.",
+                "note": ""
+              },
+              {
+                "text": "Click OK to the Import complete message.",
+                "note": ""
+              },
+              {
+                "text": "Close the Form Sync form.",
+                "note": ""
+              },
+              {
+                "text": "Press Ctrl+U.",
+                "note": ""
+              },
+              {
+                "text": "Open the Price Matrix and make sure your customizations have been applied to the system.",
+                "note": "If you are taking this course as self-directed learning, refer to the Training Desktop Login"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
+function loadState(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')};catch{return{}}}
+function saveState(s){localStorage.setItem(KEY,JSON.stringify(s))}
+let state = loadState();
+
+function allStepIds(){
+  const ids=[];
+  LESSONS.forEach(l=>l.exercises.forEach(ex=>{
+    ex.parts.forEach((pt,pi)=>pt.steps.forEach((_,si)=>ids.push(`${ex.id}-p${pi}-s${si}`)));
+  }));
+  return ids;
+}
+function updateProgress(){
+  const ids=allStepIds();
+  const done=ids.filter(id=>state[id]).length;
+  const pct=ids.length?Math.round((done/ids.length)*100):0;
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-text').textContent=`${done} / ${ids.length} steps complete`;
+}
+function countEx(ex){
+  let t=0,d=0;
+  ex.parts.forEach((pt,pi)=>pt.steps.forEach((_,si)=>{t++;if(state[`${ex.id}-p${pi}-s${si}`])d++;}));
+  return{t,d};
+}
+function updateExHead(exId){
+  const head=document.querySelector(`.ex-head[data-ex="${exId}"]`);
+  if(!head)return;
+  const ex=LESSONS.flatMap(l=>l.exercises).find(e=>e.id===exId);
+  const{t,d}=countEx(ex);
+  const pct=t?Math.round((d/t)*100):0;
+  head.querySelector('.ex-pct').textContent=pct+'%';
+  if(d===t&&t>0)head.classList.add('done');else head.classList.remove('done');
+}
+function updateLessonHead(lid){
+  const lesson=LESSONS.find(l=>l.id===lid);
+  const btn=document.querySelector(`.lesson-btn[data-lesson="${lid}"]`);
+  if(!btn||!lesson)return;
+  let t=0,d=0;
+  lesson.exercises.forEach(ex=>{const c=countEx(ex);t+=c.t;d+=c.d;});
+  btn.querySelector('.l-check').textContent=`${d}/${t}`;
+}
+function render(){
+  const page=document.getElementById('page');
+  page.innerHTML='';
+  LESSONS.forEach(lesson=>{
+    const lDiv=document.createElement('div');
+    lDiv.className='lesson';
+    const btn=document.createElement('button');
+    btn.className='lesson-btn open';
+    btn.dataset.lesson=lesson.id;
+    btn.innerHTML=`<span class="l-badge">${lesson.label}</span><span>${lesson.title}</span><span class="l-check"></span><span class="l-caret">▶</span>`;
+    const body=document.createElement('div');
+    body.className='lesson-body open';
+    btn.addEventListener('click',()=>{btn.classList.toggle('open');body.classList.toggle('open');});
+    lesson.exercises.forEach(ex=>{
+      const card=document.createElement('div');card.className='ex-card';
+      const head=document.createElement('div');head.className='ex-head';head.dataset.ex=ex.id;
+      const stepCount=ex.parts.reduce((a,p)=>a+p.steps.length,0);
+      head.innerHTML=`<span class="ex-num">Ex ${ex.id}</span><div><div class="ex-title">${ex.title}</div><div class="ex-meta">${stepCount} steps</div></div><div class="ex-progress"><div class="ex-pct">0%</div><div class="ex-done-badge">✓ Done</div></div>`;
+      const exBody=document.createElement('div');exBody.className='ex-body open';
+      if(ex.goal){const g=document.createElement('div');g.className='ex-goal';g.textContent=ex.goal;exBody.appendChild(g);}
+      ex.parts.forEach((part,pi)=>{
+        if(part.title!=='Steps'){const pt=document.createElement('div');pt.className='part-title';pt.textContent=part.title;exBody.appendChild(pt);}
+        const ul=document.createElement('ul');ul.className='step-list';
+        part.steps.forEach((step,si)=>{
+          const id=`${ex.id}-p${pi}-s${si}`;
+          const li=document.createElement('li');li.className='step-item'+(state[id]?' checked':'');
+          const cb=document.createElement('div');cb.className='step-cb';
+          const txt=document.createElement('div');txt.className='step-text';
+          txt.innerHTML=step.text;
+          if(step.note)txt.innerHTML+=`<span class="step-note">${step.note}</span>`;
+          li.appendChild(cb);li.appendChild(txt);
+          li.addEventListener('click',()=>{
+            state[id]=!state[id];saveState(state);
+            li.classList.toggle('checked',state[id]);
+            updateExHead(ex.id);updateLessonHead(lesson.id);updateProgress();
+          });
+          ul.appendChild(li);
+        });
+        exBody.appendChild(ul);
+      });
+      const ctrl=document.createElement('div');ctrl.className='ex-controls';
+      const rb=document.createElement('button');rb.className='btn btn-reset';rb.textContent='Reset';
+      rb.addEventListener('click',e=>{e.stopPropagation();
+        ex.parts.forEach((pt,pi)=>pt.steps.forEach((_,si)=>{delete state[`${ex.id}-p${pi}-s${si}`];}));
+        saveState(state);
+        exBody.querySelectorAll('.step-item').forEach(li=>li.classList.remove('checked'));
+        updateExHead(ex.id);updateLessonHead(lesson.id);updateProgress();
+      });
+      const ab=document.createElement('button');ab.className='btn btn-all';ab.textContent='Mark all done';
+      ab.addEventListener('click',e=>{e.stopPropagation();
+        ex.parts.forEach((pt,pi)=>pt.steps.forEach((_,si)=>{state[`${ex.id}-p${pi}-s${si}`]=true;}));
+        saveState(state);
+        exBody.querySelectorAll('.step-item').forEach(li=>li.classList.add('checked'));
+        updateExHead(ex.id);updateLessonHead(lesson.id);updateProgress();
+      });
+      ctrl.appendChild(rb);ctrl.appendChild(ab);exBody.appendChild(ctrl);
+      head.addEventListener('click',()=>exBody.classList.toggle('open'));
+      card.appendChild(head);card.appendChild(exBody);body.appendChild(card);
+    });
+    lDiv.appendChild(btn);lDiv.appendChild(body);page.appendChild(lDiv);
+    lesson.exercises.forEach(ex=>updateExHead(ex.id));
+    updateLessonHead(lesson.id);
+  });
+  updateProgress();
+}
+render();
+</script>
+</body>
+</html>
