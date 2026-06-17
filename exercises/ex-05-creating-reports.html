@@ -6446,7 +6446,7 @@ const LESSONS = [
   }
 ];
 
-function loadState(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')};catch{return{}}}
+function loadState(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}}
 function saveState(s){localStorage.setItem(KEY,JSON.stringify(s))}
 let state = loadState();
 
