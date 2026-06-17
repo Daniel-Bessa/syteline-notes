@@ -20,7 +20,7 @@
       --header-h: 50px;
     }
 
-    html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; }
+    html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1a1a; }
 
     /* ── Layout ── */
     .layout { display: flex; height: 100vh; overflow: hidden; }
@@ -115,23 +115,23 @@
       height: var(--header-h);
       display: flex; align-items: center;
       padding: 0 20px; gap: 12px;
-      background: #fff;
-      border-bottom: 1px solid #e2e8f0;
+      background: #242424;
+      border-bottom: 1px solid #333;
       flex-shrink: 0;
     }
-    .topbar-title { flex: 1; font-size: 13px; color: #334155; font-weight: 500; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-    .topbar-title .crumb { color: #94a3b8; }
+    .topbar-title { flex: 1; font-size: 13px; color: #cbd5e1; font-weight: 500; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .topbar-title .crumb { color: #475569; }
     .topbar-title .crumb span { color: #64748b; }
 
     .btn-newtab {
       font-size: 11.5px; padding: 5px 12px;
-      border: 1px solid #cbd5e1; border-radius: 5px;
-      background: #fff; color: #475569;
+      border: 1px solid #3f3f3f; border-radius: 5px;
+      background: #2d2d2d; color: #94a3b8;
       cursor: pointer; text-decoration: none;
       white-space: nowrap; display: none;
       transition: background .12s;
     }
-    .btn-newtab:hover { background: #f8fafc; }
+    .btn-newtab:hover { background: #333; }
 
     .viewer { flex: 1; overflow: hidden; }
     .viewer iframe { width: 100%; height: 100%; border: none; display: block; }
@@ -140,16 +140,20 @@
     .welcome {
       height: 100%; display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 14px; padding: 48px; color: #94a3b8;
+      gap: 14px; padding: 48px; color: #475569;
     }
     .welcome-icon { font-size: 52px; }
-    .welcome h2 { font-size: 22px; font-weight: 600; color: #475569; }
-    .welcome p  { font-size: 14px; line-height: 1.7; text-align: center; max-width: 340px; }
+    .welcome h2 { font-size: 22px; font-weight: 600; color: #94a3b8; }
+    .welcome p  { font-size: 14px; line-height: 1.7; text-align: center; max-width: 340px; color: #4b5563; }
     .welcome .tip {
-      margin-top: 6px; font-size: 12px; color: #cbd5e1;
-      background: #f1f5f9; padding: 10px 16px;
+      margin-top: 6px; font-size: 12px; color: #64748b;
+      background: #242424; padding: 10px 16px;
+      border: 1px solid #333;
       border-radius: 6px; line-height: 1.6; max-width: 380px; text-align: center;
     }
+
+    /* Quiz badge */
+    .badge-quiz { background: #0c4a6e; color: #7dd3fc; }
   </style>
 </head>
 <body>
@@ -231,6 +235,13 @@
     },
     { type: 'sep' },
     {
+      type: 'folder', icon: '🎯', name: 'Quizzes',
+      children: [
+        { type: 'file', badge: 'quiz', icon: '🎮', name: '02 — UI Navigation',  path: 'quizzes/quiz-02-ui-navigation.html' },
+      ]
+    },
+    { type: 'sep' },
+    {
       type: 'folder', icon: '📁', name: 'Reference Documents',
       children: [
         { type: 'file', icon: '📄', name: 'IDO Development Guide',         path: 'Documents/mg_10.x_IDODevelopment.pdf' },
@@ -262,7 +273,7 @@
 
   function badge(b) {
     if (!b) return '';
-    const labels = { notes: 'Notes', master: 'Master', cyu: 'CYU' };
+    const labels = { notes: 'Notes', master: 'Master', cyu: 'CYU', quiz: 'Quiz' };
     return `<span class="badge badge-${b}">${labels[b]}</span>`;
   }
 

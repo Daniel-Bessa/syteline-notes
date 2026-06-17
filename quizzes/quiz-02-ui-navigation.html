@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — UI Navigation</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .hdr {
+      background: #0f172a;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hdr-left h1 { font-size: 17px; font-weight: 700; color: #f1f5f9; }
+    .hdr-left p  { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .hdr-right   { font-size: 12px; color: #475569; }
+
+    /* ── Progress ── */
+    .progress-track { background: #1e293b; height: 5px; }
+    .progress-fill  { height: 100%; background: #3b82f6; transition: width .3s ease; }
+
+    /* ── Main ── */
+    .wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 48px; }
+
+    /* ── Question meta ── */
+    .q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .q-counter { font-size: 11.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .06em; }
+    .q-section {
+      font-size: 11px; font-weight: 700;
+      padding: 3px 11px; border-radius: 20px;
+      background: #dbeafe; color: #1d4ed8;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 26px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+      margin-bottom: 18px;
+    }
+    .q-text { font-size: 16px; font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px; }
+    .q-hint { font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
+
+    /* ── Options ── */
+    .options { display: flex; flex-direction: column; gap: 9px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 11px;
+      padding: 13px 15px;
+      border: 2px solid #e2e8f0; border-radius: 8px;
+      cursor: pointer; transition: border-color .12s, background .12s;
+      user-select: none;
+    }
+    .opt:hover:not(.locked) { border-color: #93c5fd; background: #eff6ff; }
+    .opt.selected { border-color: #3b82f6; background: #eff6ff; }
+    .opt.correct  { border-color: #16a34a; background: #f0fdf4; }
+    .opt.wrong    { border-color: #dc2626; background: #fef2f2; }
+    .opt.missed   { border-color: #f59e0b; background: #fffbeb; }
+    .opt input { flex-shrink: 0; margin-top: 1px; width: 16px; height: 16px; accent-color: #3b82f6; pointer-events: none; }
+    .opt-label { font-size: 14px; line-height: 1.45; }
+    .opt.correct .opt-label { color: #166534; font-weight: 600; }
+    .opt.wrong   .opt-label { color: #991b1b; }
+    .opt.missed  .opt-label { color: #92400e; font-weight: 600; }
+
+    /* ── Explanation ── */
+    .expl {
+      display: none;
+      margin-top: 16px; padding: 13px 15px;
+      background: #f0f9ff; border-left: 3px solid #0284c7;
+      border-radius: 0 6px 6px 0;
+      font-size: 13.5px; color: #0c4a6e; line-height: 1.65;
+    }
+    .expl.show { display: block; }
+    .expl strong { color: #075985; }
+
+    /* ── Button row ── */
+    .btn-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .btn {
+      padding: 10px 22px; border-radius: 8px; font-size: 13.5px; font-weight: 600;
+      cursor: pointer; border: none; transition: opacity .15s, background .12s;
+    }
+    .btn:disabled { opacity: .3; cursor: default; }
+    .btn-ghost  { background: #e2e8f0; color: #475569; }
+    .btn-ghost:hover:not(:disabled) { background: #cbd5e1; }
+    .btn-dark   { background: #0f172a; color: #fff; }
+    .btn-dark:hover:not(:disabled) { background: #1e293b; }
+    .btn-blue   { background: #3b82f6; color: #fff; }
+    .btn-blue:hover:not(:disabled) { background: #2563eb; }
+    .btn-green  { background: #16a34a; color: #fff; }
+    .btn-green:hover:not(:disabled) { background: #15803d; }
+
+    /* ── Results ── */
+    #results-screen { display: none; }
+
+    .score-card {
+      background: #fff; border-radius: 12px; padding: 36px; text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07); margin-bottom: 24px;
+    }
+    .score-big { font-size: 64px; font-weight: 800; color: #0f172a; line-height: 1; }
+    .score-sub { font-size: 14px; color: #64748b; margin-top: 6px; }
+    .score-pct { font-size: 24px; font-weight: 700; margin-top: 4px; }
+    .score-pct.great { color: #16a34a; }
+    .score-pct.ok    { color: #f59e0b; }
+    .score-pct.low   { color: #dc2626; }
+
+    .r-item {
+      background: #fff; border-radius: 10px; padding: 20px;
+      margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    }
+    .r-badge {
+      display: inline-block; font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em;
+      padding: 2px 10px; border-radius: 20px; margin-bottom: 9px;
+    }
+    .r-correct { background: #dcfce7; color: #15803d; }
+    .r-wrong   { background: #fee2e2; color: #b91c1c; }
+    .r-partial { background: #fef3c7; color: #92400e; }
+    .r-q { font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 8px; line-height: 1.4; }
+    .r-your  { font-size: 12.5px; color: #64748b; margin-bottom: 4px; }
+    .r-right { font-size: 12.5px; color: #15803d; font-weight: 600; margin-bottom: 8px; }
+    .r-expl  {
+      font-size: 12.5px; color: #0c4a6e; background: #f0f9ff;
+      padding: 10px 12px; border-radius: 6px; line-height: 1.6;
+      border-left: 3px solid #0284c7;
+    }
+
+    .results-heading {
+      font-size: 15px; font-weight: 700; color: #334155;
+      margin: 24px 0 12px; padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .restart-row { text-align: center; padding: 24px 0 8px; }
+  </style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>🎯 Quiz — 02 UI Navigation</h1>
+    <p>CSI v10 · Check Your Understanding · 40 questions from all 4 lessons</p>
+  </div>
+  <div class="hdr-right" id="hdr-right"></div>
+</div>
+<div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+
+<div class="wrap">
+
+  <!-- QUIZ SCREEN -->
+  <div id="quiz-screen">
+    <div class="q-meta">
+      <span class="q-counter" id="q-counter">Question 1 of 40</span>
+      <span class="q-section" id="q-section"></span>
+    </div>
+
+    <div class="card">
+      <div class="q-text" id="q-text"></div>
+      <div class="q-hint" id="q-hint"></div>
+      <div class="options" id="q-options"></div>
+      <div class="expl" id="q-expl"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="btn-prev" onclick="nav(-1)">← Previous</button>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;">
+        <button class="btn btn-dark"  id="btn-check"  onclick="check()">Check Answer</button>
+        <button class="btn btn-blue"  id="btn-next"   onclick="nav(1)"  style="display:none">Next →</button>
+        <button class="btn btn-green" id="btn-submit" onclick="showResults()" style="display:none">See Results 🏁</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="results-screen">
+    <div class="score-card">
+      <div class="score-big" id="r-big"></div>
+      <div class="score-sub" id="r-sub"></div>
+      <div class="score-pct" id="r-pct"></div>
+    </div>
+    <div class="results-heading">Question-by-question review</div>
+    <div id="r-list"></div>
+    <div class="restart-row">
+      <button class="btn btn-dark" onclick="restart()">↺ Restart Quiz</button>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+// ──────────────────────────────────────────
+// QUESTION DATA
+// ──────────────────────────────────────────
+const Q = [
+  // ── LESSON 1 ──
+  {
+    sec: "Lesson 1 — Opening and Working with Forms",
+    q:   "Which of the following presents a hierarchical view of the forms in the system and groups forms in folders?",
+    type:"single",
+    opts:["The Explorer","The menu bar","The toolbar","The workspace"],
+    ans: [0],
+    ex:  "The <strong>Explorer</strong> presents a hierarchical view of the forms in the system, similar to Windows® Explorer. It groups forms in folders (My Folders, Master Explorer, Public Folders, User Folders) and allows you to navigate, organize favorites, and open forms."
+  },
+  {
+    sec: "Lesson 1 — Opening and Working with Forms",
+    q:   "What submenus display within the Master Explorer and allow you to navigate to different forms? Select all that apply.",
+    type:"multi",
+    opts:["System","Modules","Roles","My Folders"],
+    ans: [1,2],
+    ex:  "Master Explorer expands into four subfolders: <strong>All Forms, Modules, Optional Modules,</strong> and <strong>Roles</strong>. From the options given, Modules and Roles are correct. 'System' is a subfolder <em>inside</em> Modules (not a top-level item). 'My Folders' is a top-level Explorer section alongside Master Explorer, not within it."
+  },
+  {
+    sec: "Lesson 1 — Opening and Working with Forms",
+    q:   "Which of the following methods can be used to open the Select Form dialog box? Select all that apply.",
+    type:"multi",
+    opts:["Selecting Form > Open","Right-clicking and selecting Open a Form","Pressing Ctrl + O","Clicking Open on the toolbar"],
+    ans: [0,2,3],
+    ex:  "The Select Form dialog opens via <strong>Form > Open</strong>, <strong>Ctrl+O</strong>, or clicking <strong>Open</strong> on the toolbar. Right-clicking to select 'Open a Form' is not a documented method."
+  },
+  {
+    sec: "Lesson 1 — Opening and Working with Forms",
+    q:   "You should always rename the AutoRun and PreLoad subfolders.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False</strong> — the workbook explicitly states: <em>'Do not rename or delete the AutoRun or PreLoad subfolders.'</em> These system folders must keep their exact names to function correctly."
+  },
+  {
+    sec: "Lesson 1 — Opening and Working with Forms",
+    q:   "The system automatically loads AND OPENS any forms placed in the __________ folder when you log in.",
+    type:"single",
+    opts:["PreLoad","AutoRun","System","Master Explorer"],
+    ans: [1],
+    ex:  "<strong>AutoRun</strong> — any forms in this folder open automatically when you log in. <em>PreLoad</em> is different: it retrieves forms into memory (making them load faster later) but does not open them automatically."
+  },
+  // ── LESSON 2 ──
+  {
+    sec: "Lesson 2 — Finding and Displaying Records",
+    q:   "The application is built on three layers. What you see on your desktop is the ______________ layer.",
+    type:"single",
+    opts:["Database","Presentation","Middleware","Interface"],
+    ans: [1],
+    ex:  "The <strong>Presentation</strong> layer is what you see — forms, fields, and collections displayed in WinStudio. The Middleware layer handles business logic (IDO Runtime). The Database layer stores the actual data. Records you see are <em>copies</em> from the database; changes only persist when you save."
+  },
+  {
+    sec: "Lesson 2 — Finding and Displaying Records",
+    q:   "You can save the filter criteria used in filter-in-place mode.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False</strong> — filter-in-place creates a <em>temporary</em> filter only. To save criteria for reuse, use the Query form (Actions > Filter > By Query) and then save the query there with Actions > Filter > Save."
+  },
+  {
+    sec: "Lesson 2 — Finding and Displaying Records",
+    q:   "Which of the following operators and special values does filter-in-place functionality support? Select all that apply.",
+    type:"multi",
+    opts:["< or > (comparison operators)","<> or != (not equal to)","AND and OR (logical operators)","* or NULL (wildcard / blank)"],
+    ans: [0,1,3],
+    ex:  "Filter-in-place supports <strong>&lt; &gt;</strong>, <strong>&lt;&gt; !=</strong>, <strong>*</strong> (wildcard), and <strong>NULL</strong> (blank). It does <strong>NOT</strong> support AND or OR logical operators. For multiple criteria on a single field, you must use the Query form."
+  },
+  {
+    sec: "Lesson 2 — Finding and Displaying Records",
+    q:   "You can get more records beyond the data cap using 'Get More Rows.' By default, the data cap is set to what number?",
+    type:"single",
+    opts:["10","20","100","200"],
+    ans: [3],
+    ex:  "The default data cap is <strong>200 records</strong>. When a filter returns more, the system retrieves the first 200. Click 'Get More Rows' each time to fetch the next batch of up to 200 more."
+  },
+  {
+    sec: "Lesson 2 — Finding and Displaying Records",
+    q:   "A query clause consists of which of the following? Select all that apply.",
+    type:"multi",
+    opts:["A field name","A form name","An operator","A value"],
+    ans: [0,2,3],
+    ex:  "A query clause has three parts: <strong>(1) a field name</strong>, <strong>(2) an operator</strong> (=, &lt;, &gt;, &lt;&gt;, LIKE), and <strong>(3) a value</strong>. Example: <em>State = NY</em>. Form name is not part of a query clause."
+  },
+  {
+    sec: "Lesson 2 — Finding and Displaying Records",
+    q:   "If you frequently use the same search criteria, you can save the criteria entered on a query form and create your own saved filter.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True</strong> — save a query via Actions > Filter > Save. Reapply it later via Actions > Filter > Apply Saved Filter. You can also use a <strong>?</strong> as the value for a field to have the system prompt you for that value each time you apply the saved query."
+  },
+  {
+    sec: "Lesson 2 — Finding and Displaying Records",
+    q:   "Which of the following operators can be used in query forms to define a filter? Select all that apply.",
+    type:"multi",
+    opts:["LIKE","= (equal to)","< or > (less/greater than)","<> (not equal to)"],
+    ans: [0,1,2,3],
+    ex:  "Query forms support all four: <strong>LIKE</strong> (equivalent to using wildcards), <strong>=</strong>, <strong>&lt; &gt;</strong>, and <strong>&lt;&gt;</strong>. This is more powerful than filter-in-place, which doesn't support LIKE or OR logic."
+  },
+  {
+    sec: "Lesson 2 — Finding and Displaying Records",
+    q:   "Which of the following adjustments can be made to the columns in a grid on a form? Select all that apply.",
+    type:"multi",
+    opts:["Resize column widths","Change the font size and color in columns","Change the order of the columns","Hide columns"],
+    ans: [0,2,3],
+    ex:  "You can <strong>resize widths</strong>, <strong>reorder columns</strong>, and <strong>hide columns</strong> via the 'Edit Grid Column Visibility and Order' dialog (right-click the column header > Edit Grid Columns). Changing font size/color per-column in a grid is not a supported option here."
+  },
+  {
+    sec: "Lesson 2 — Finding and Displaying Records",
+    q:   "Which of the following are fields in the Sort dialog box? Select all that apply.",
+    type:"multi",
+    opts:["Collection","By Property","Descending","Case-sensitive"],
+    ans: [0,1,2,3],
+    ex:  "All four are fields in the Sort dialog: <strong>Collection</strong> (which collection to sort), <strong>By Property</strong> (the field to sort by), <strong>Descending</strong> (sort direction toggle), and <strong>Case-sensitive</strong> (whether capitalization matters when sorting text)."
+  },
+  // ── LESSON 3 ──
+  {
+    sec: "Lesson 3 — Adding, Editing, and Deleting Records",
+    q:   "When adding a new record, a field marked with a RED ASTERISK (*) indicates:",
+    type:"single",
+    opts:["The field is required","The field is required but the system will generate a value if blank","The field is optional","The field is read-only"],
+    ans: [0],
+    ex:  "A <strong>red asterisk</strong> means the field is required — you must supply a value. A <em>green</em> asterisk also means required but the system can auto-generate it. White fields are optional; gray (no border) fields are read-only."
+  },
+  {
+    sec: "Lesson 3 — Adding, Editing, and Deleting Records",
+    q:   "When adding a new record, a field marked with a GREEN ASTERISK (*) indicates:",
+    type:"single",
+    opts:["The field is required","The field is required, but the system will generate a value if left blank","The field is optional","The field is read-only"],
+    ans: [1],
+    ex:  "A <strong>green asterisk</strong> means the field is required, but if you leave it blank the system auto-generates a value. You can also supply a prefix + '?' (e.g., 'JB?') and the system will generate 'JB00001', 'JB00002', etc. — common for Customer ID and other key fields."
+  },
+  {
+    sec: "Lesson 3 — Adding, Editing, and Deleting Records",
+    q:   "A gray field (with no border around the data) indicates:",
+    type:"single",
+    opts:["The field is required","The field is required and system-generated","The field is optional","The field is read-only"],
+    ans: [3],
+    ex:  "A <strong>gray</strong> field (no visible border) is read-only — you cannot edit it. This is used for calculated fields or fields that are set by the system. White optional fields and asterisk-marked required fields do have visible borders."
+  },
+  {
+    sec: "Lesson 3 — Adding, Editing, and Deleting Records",
+    q:   "Which of the following methods can be used to find and add values to a drop-down list? Select all that apply.",
+    type:"multi",
+    opts:["Using a drop-down list filter (type characters then click the arrow)","Using the Find menu option (right-click > Find or Ctrl+F)","Using filter-in-place functionality","Using the Add menu option (right-click > Add)"],
+    ans: [0,1,3],
+    ex:  "You can find/add drop-down values by <strong>typing to filter the list</strong>, using <strong>Find</strong> (Ctrl+F or right-click > Find — searches existing values), or <strong>Add</strong> (right-click > Add — opens the related form to create a new value). Filter-in-place is for filtering the main collection, not a drop-down list."
+  },
+  {
+    sec: "Lesson 3 — Adding, Editing, and Deleting Records",
+    q:   "The Find and Add menu options are only available in business data drop-down lists (not option lists).",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True</strong> — business data lists are populated from records you maintain in another form (e.g., Item IDs from the Items form). Option lists are built into the system with a fixed set of values, and Find/Add are not available for those fixed lists."
+  },
+  {
+    sec: "Lesson 3 — Adding, Editing, and Deleting Records",
+    q:   "To copy an existing record and create a new record based on it, you select the record and choose Actions > Copy.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True</strong> — Actions > Copy (or Ctrl+C in Smart Client) creates a copy of the currently selected record as a new record in the collection. Modify any fields you need, then save. This is faster than entering repetitive data from scratch."
+  },
+  {
+    sec: "Lesson 3 — Adding, Editing, and Deleting Records",
+    q:   "If you want to undo any changes made PRIOR TO SAVING, which of the following can you do? Select all that apply.",
+    type:"multi",
+    opts:["Remove the new record (Actions > Delete / Ctrl+D)","Refresh the current record only (Ctrl+F5)","Refresh all records in the collection (F5)","Cancel changes and close the form (Form > Close and Cancel Changes)"],
+    ans: [0,1,2,3],
+    ex:  "All four undo unsaved changes: <strong>F5</strong> reverts the entire collection; <strong>Ctrl+F5</strong> reverts only the selected record; <strong>Close and Cancel Changes</strong> discards all changes and closes the form; <strong>Delete</strong> removes a new unsaved record. Once you save, changes cannot be undone with these methods."
+  },
+  // ── LESSON 4 ──
+  {
+    sec: "Lesson 4 — Additional Record Management",
+    q:   "What button on the Object Notes form opens the System/User Notes form, allowing you to select a reusable note to attach?",
+    type:"single",
+    opts:["System","Attach File","Open Attachment","Attach Detach Reusable"],
+    ans: [3],
+    ex:  "<strong>Attach Detach Reusable</strong> opens the System/User Notes form where you can browse and attach existing reusable notes (system or user) to the current record. 'Attach File' is for attaching an external file like a drawing or document."
+  },
+  {
+    sec: "Lesson 4 — Additional Record Management",
+    q:   "When an activity or utility is NOT processed immediately ('Task Submitted' appears), you can verify it completed by checking the Background Task History form.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True</strong> — open the Background Task History form and look for <strong>Task Succeeded</strong> or <strong>Task Failed</strong> in the Return Status field. The task is not complete until the <em>Completed</em> date/time field is populated, regardless of what the Task Messages area shows."
+  },
+  {
+    sec: "Lesson 4 — Additional Record Management",
+    q:   "You can export data in a collection to an external file. Field values in the exported file can be separated by which of the following? Select all that apply.",
+    type:"multi",
+    opts:["Commas","Forward slashes","Tabs","Semicolons"],
+    ans: [0,2],
+    ex:  "The Export Collection to File dialog offers two Output File Types: <strong>comma-separated (.csv)</strong> and <strong>tab-separated (.txt)</strong>. Forward slashes and semicolons are not supported separator options."
+  },
+  {
+    sec: "Lesson 4 — Additional Record Management",
+    q:   "Which of the following can you copy from the application collection and paste into Excel? Select all that apply.",
+    type:"multi",
+    opts:["Single and multiple records (rows)","All records in a collection","Single and multiple columns","Individual and multiple cells"],
+    ans: [0,1,2,3],
+    ex:  "The <strong>Smart Client</strong> supports copying records, entire collections, columns, and individual/multiple cells to Excel. You can also use Actions > To Excel to export the current collection to a .csv file that opens in Excel automatically. Note: row/column/cell selection features are <em>not</em> available in the Web Client."
+  },
+  // ── COURSE REVIEW ──
+  {
+    sec: "Course Review",
+    q:   "Which best describes a FORM in CloudSuite Industrial?",
+    type:"single",
+    opts:["A group of related pieces of data or information","The window through which you interact with information in a database","An area that displays a particular piece of information from the database","A group of related records"],
+    ans: [1],
+    ex:  "A <strong>Form</strong> is the window through which you interact with a database. A <em>Record</em> is a group of related pieces of data. A <em>Field</em> is an area on a form displaying one piece of information. A <em>Collection</em> is a group of related records."
+  },
+  {
+    sec: "Course Review",
+    q:   "Which best describes a COLLECTION in CloudSuite Industrial?",
+    type:"single",
+    opts:["The window through which you interact with information in a database","A group of related pieces of data or information in a single row","An area on a form that displays one piece of information","A group of related records"],
+    ans: [3],
+    ex:  "A <strong>Collection</strong> is a group of related records. For example, the Customer Orders form can display a collection of all orders for one customer, or all orders with a particular status. You work with specific subsets of records using filters and queries."
+  },
+  {
+    sec: "Course Review",
+    q:   "Which form view displays a collection of records in a tabular (row-column) format?",
+    type:"single",
+    opts:["Detail view","Dual view","Grid view","Split view"],
+    ans: [2],
+    ex:  "<strong>Grid view</strong> displays records in rows and columns, similar to a spreadsheet. <em>Detail view</em> shows details for a single selected record. <em>Dual view</em> (the default) shows both grid and detail panes separated by a splitter bar (Ctrl+1 hides grid, Ctrl+2 hides detail)."
+  },
+  {
+    sec: "Course Review",
+    q:   "Which of the following are ways a form can link to another related form? Select all that apply.",
+    type:"multi",
+    opts:["Linking buttons on the form","Edit menu links (right-click > Details for a field)","List displays within the Actions menu","Notes with attachments"],
+    ans: [0,1,2],
+    ex:  "Forms can link to related forms via <strong>linking buttons</strong> (open a related form showing linked data), <strong>Edit menu links / right-click Details</strong> (drill into a field's source form), and <strong>Actions menu lists</strong> (e.g., Actions > List Receipts). Notes with attachments are for annotating records, not for navigating to related forms."
+  },
+  {
+    sec: "Course Review",
+    q:   "What toolbar button do you click to place a form in filter mode so you can enter search criteria?",
+    type:"single",
+    opts:["Begin In Place","Execute In Place","Filter In Place","Run In Place"],
+    ans: [2],
+    ex:  "<strong>Filter In Place</strong> (F4) both places the form in filter mode AND executes the filter. From Refresh mode, pressing F4 clears the collection and goes back to filter mode. From Filter mode, F4 runs the filter with whatever criteria you have entered."
+  },
+  {
+    sec: "Course Review",
+    q:   "Instead of searching through Master Explorer, you can organize your frequently used forms in My Folders. How can you customize My Folders? Select all that apply.",
+    type:"multi",
+    opts:["Add your own subfolders","Add or copy subfolders and forms into My Folders","Rename existing subfolders and forms","Delete folders and forms"],
+    ans: [0,1,3],
+    ex:  "You can <strong>add new subfolders</strong>, <strong>copy/add forms</strong> (via New Shortcut or drag-and-drop), and <strong>delete</strong> folders and forms from My Folders. The workbook does not list renaming as a customization option."
+  },
+  {
+    sec: "Course Review",
+    q:   "To open a query form, you can do which of the following while the main form is in Refresh or New mode? Select all that apply.",
+    type:"multi",
+    opts:["Press Ctrl + Q (Smart Client only)","Select Actions > Filter > By Query","Click Filter In Place on the toolbar","Right-click anywhere on the form (not a field) and select Filter > By Query"],
+    ans: [0,1,3],
+    ex:  "A query form opens via <strong>Ctrl+Q</strong> (Smart Client), <strong>Actions > Filter > By Query</strong>, or <strong>right-clicking a non-field area</strong> on the form and selecting Filter > By Query. The <em>Filter In Place</em> toolbar button runs the filter-in-place — it does <em>not</em> open a query form."
+  },
+  {
+    sec: "Course Review",
+    q:   "In Refresh mode, you can add a new record by doing which of the following? Select all that apply.",
+    type:"multi",
+    opts:["Pressing Ctrl+N (Smart Client only)","Clicking the New toolbar button","Selecting Actions > New","Right-clicking and selecting New (must be in Dual view)"],
+    ans: [0,1,2,3],
+    ex:  "All four methods add a new record: <strong>Ctrl+N</strong> (Smart Client only), the <strong>New toolbar button</strong>, <strong>Actions > New</strong>, or <strong>right-click > New</strong> (while in Dual view). The new record appears with a <em>blue star</em> indicator in the grid row label."
+  },
+  {
+    sec: "Course Review",
+    q:   "Which of the following will save ALL records in a collection at one time? Select all that apply.",
+    type:"multi",
+    opts:["Press Ctrl+S","Click Save on the toolbar","Select Actions > Save","Select Actions > Save Current"],
+    ans: [0,1,2],
+    ex:  "<strong>Ctrl+S</strong>, the <strong>Save toolbar button</strong>, and <strong>Actions > Save</strong> all save the entire collection at once. <em>Actions > Save Current</em> saves only the currently selected record — not the whole collection."
+  },
+  {
+    sec: "Course Review",
+    q:   "Validation occurs and error messages display when you do which of the following? Select all that apply.",
+    type:"multi",
+    opts:["Navigate away from a new or modified record","Attempt to save new or modified records","Select Actions > Validate"],
+    ans: [0,1,2],
+    ex:  "Validation triggers when you <strong>navigate away</strong> from a changed record, when you <strong>try to save</strong>, or when you explicitly select <strong>Actions > Validate</strong>. Some fields are set to validate immediately (as soon as you leave the field), without waiting for these actions."
+  },
+  {
+    sec: "Course Review",
+    q:   "If the red X row label indicator still displays next to a record, the deletion HAS BEEN SAVED to the database.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False</strong> — the red X means the record is <em>marked</em> for deletion but has <em>not yet</em> been saved to the database. While the red X shows, you can still undo it by refreshing (F5 or Ctrl+F5). It will only be permanently deleted when you save the collection."
+  },
+  {
+    sec: "Course Review",
+    q:   "Which form should you use to create a note that applies ONLY to the current record and will be used only once?",
+    type:"single",
+    opts:["System/User Notes form","Object Notes form","Class Notes (Modal) form","Object Class Notes form"],
+    ans: [1],
+    ex:  "<strong>Object Notes form</strong> (Actions > Notes for Current) creates a note attached to a single specific record. Class Notes attach to every record in the collection. System/User Notes is for creating <em>reusable</em> notes. 'Object Class Notes' is not a real form in the system."
+  },
+  {
+    sec: "Course Review",
+    q:   "Reports usually consist of which of the following parts? Select all that apply.",
+    type:"multi",
+    opts:["Check boxes and drop-down parameters (what type of information to print)","Range filters (select ranges of records to print)","Report output formats (PDF, Excel, CSV, etc.)","Action buttons: Preview and Print"],
+    ans: [0,1,3],
+    ex:  "Reports have three parts: <strong>parameters</strong> (checkboxes/dropdowns for what to print), <strong>range filters</strong> (select date/record ranges), and <strong>action buttons</strong> (Preview and Print). Report output formats are an option within the Print/Report Options dialog — not one of the three main structural parts of a report form."
+  },
+  {
+    sec: "Course Review",
+    q:   "Activities and utilities that include a Preview option let you do a trial run. After reviewing the preview results, what do you select before clicking Process to actually update the database?",
+    type:"single",
+    opts:["Commit","Print","Select","Submit"],
+    ans: [0],
+    ex:  "Select <strong>Commit</strong> radio button before clicking Process to write changes to the database. 'Preview' runs the process without committing. In some utilities, the Commit option only becomes available <em>after</em> you have run a preview first."
+  },
+  {
+    sec: "Course Review",
+    q:   "To export an entire collection to a spreadsheet and have it open automatically in Excel, which option should you use?",
+    type:"single",
+    opts:["Export to File","Export Collection to File","Actions > To Excel","Export File to Excel"],
+    ans: [2],
+    ex:  "<strong>Actions > To Excel</strong> (or the Export to Excel toolbar button) saves the current collection to a .csv file in your My Documents folder and automatically opens it in Excel. 'Export to File' creates a comma- or tab-separated file but does <em>not</em> open Excel automatically."
+  }
+];
+
+// ──────────────────────────────────────────
+// STATE
+// ──────────────────────────────────────────
+let cur     = 0;
+const sel   = Array(Q.length).fill(null).map(() => []); // user selections per question
+const done  = Array(Q.length).fill(false);              // has user checked this question
+
+// ──────────────────────────────────────────
+// RENDER
+// ──────────────────────────────────────────
+function render() {
+  const q = Q[cur];
+  const isMulti = q.type === 'multi';
+  const isChecked = done[cur];
+
+  // progress
+  const pct = Math.round((cur / Q.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('hdr-right').textContent = cur + ' / ' + Q.length + ' answered';
+
+  // meta
+  document.getElementById('q-counter').textContent = 'Question ' + (cur + 1) + ' of ' + Q.length;
+  document.getElementById('q-section').textContent = q.sec;
+
+  // question
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('q-hint').textContent = isMulti ? 'Select all that apply' : 'Choose one answer';
+
+  // options
+  const optsEl = document.getElementById('q-options');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'opt' + (sel[cur].includes(i) ? ' selected' : '');
+
+    if (isChecked) {
+      div.classList.remove('selected');
+      div.classList.add('locked');
+      const isCor = q.ans.includes(i);
+      const isSel = sel[cur].includes(i);
+      if (isCor && isSel)   div.classList.add('correct');
+      else if (!isCor && isSel) div.classList.add('wrong');
+      else if (isCor && !isSel) div.classList.add('missed');
+    }
+
+    const input = document.createElement('input');
+    input.type = isMulti ? 'checkbox' : 'radio';
+    input.name = 'q' + cur;
+    input.checked = sel[cur].includes(i);
+    if (isChecked) input.disabled = true;
+
+    const label = document.createElement('span');
+    label.className = 'opt-label';
+    label.textContent = opt;
+
+    div.appendChild(input);
+    div.appendChild(label);
+
+    if (!isChecked) {
+      div.addEventListener('click', () => toggle(i));
+    }
+    optsEl.appendChild(div);
+  });
+
+  // explanation
+  const explEl = document.getElementById('q-expl');
+  explEl.innerHTML = q.ex;
+  explEl.className = 'expl' + (isChecked ? ' show' : '');
+
+  // buttons
+  document.getElementById('btn-prev').disabled = (cur === 0);
+  const btnCheck  = document.getElementById('btn-check');
+  const btnNext   = document.getElementById('btn-next');
+  const btnSubmit = document.getElementById('btn-submit');
+
+  btnCheck.style.display  = isChecked ? 'none' : 'inline-block';
+  const isLast = cur === Q.length - 1;
+  btnNext.style.display   = (isChecked && !isLast) ? 'inline-block' : 'none';
+  btnSubmit.style.display = (isChecked && isLast)  ? 'inline-block' : 'none';
+}
+
+function toggle(i) {
+  const q = Q[cur];
+  if (q.type === 'single') {
+    sel[cur] = [i];
+  } else {
+    const idx = sel[cur].indexOf(i);
+    if (idx === -1) sel[cur].push(i);
+    else sel[cur].splice(idx, 1);
+  }
+  render();
+}
+
+function nav(dir) {
+  cur = Math.max(0, Math.min(Q.length - 1, cur + dir));
+  render();
+}
+
+function check() {
+  done[cur] = true;
+  render();
+}
+
+// ──────────────────────────────────────────
+// RESULTS
+// ──────────────────────────────────────────
+function isQCorrect(i) {
+  const q = Q[i];
+  const s = sel[i];
+  if (q.ans.length !== s.length) return false;
+  return q.ans.every(a => s.includes(a)) && s.every(a => q.ans.includes(a));
+}
+
+function isQPartial(i) {
+  const q = Q[i];
+  const s = sel[i];
+  if (q.type === 'single') return false;
+  const anyRight = s.some(a => q.ans.includes(a));
+  const anyWrong = s.some(a => !q.ans.includes(a));
+  const allRight = q.ans.every(a => s.includes(a));
+  return (anyRight && !allRight) || anyWrong;
+}
+
+function showResults() {
+  document.getElementById('quiz-screen').style.display    = 'none';
+  document.getElementById('results-screen').style.display = 'block';
+  document.getElementById('progress-fill').style.width   = '100%';
+  document.getElementById('hdr-right').textContent = 'Complete!';
+
+  let score = 0;
+  Q.forEach((_, i) => { if (isQCorrect(i)) score++; });
+  const pct = Math.round((score / Q.length) * 100);
+
+  document.getElementById('r-big').textContent  = score + ' / ' + Q.length;
+  document.getElementById('r-sub').textContent  = 'questions answered correctly';
+  const pctEl = document.getElementById('r-pct');
+  pctEl.textContent = pct + '%';
+  pctEl.className   = 'score-pct ' + (pct >= 80 ? 'great' : pct >= 60 ? 'ok' : 'low');
+
+  const list = document.getElementById('r-list');
+  list.innerHTML = '';
+
+  Q.forEach((q, i) => {
+    const correct = isQCorrect(i);
+    const partial = !correct && isQPartial(i);
+    const status  = correct ? 'correct' : partial ? 'partial' : 'wrong';
+    const badge   = correct ? '✓ Correct' : partial ? '~ Partial' : '✗ Incorrect';
+
+    const correctLabels = q.ans.map(a => q.opts[a]).join(', ');
+    const yourLabels    = sel[i].length ? sel[i].map(a => q.opts[a]).join(', ') : '(no answer)';
+
+    const div = document.createElement('div');
+    div.className = 'r-item';
+    div.innerHTML = `
+      <span class="r-badge r-${status}">${badge}</span>
+      <div class="r-q">Q${i+1}: ${q.q}</div>
+      <div class="r-your">Your answer: ${yourLabels}</div>
+      ${!correct ? `<div class="r-right">Correct answer: ${correctLabels}</div>` : ''}
+      <div class="r-expl">${q.ex}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function restart() {
+  cur = 0;
+  sel.forEach((_, i) => sel[i] = []);
+  done.fill(false);
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display    = 'block';
+  render();
+}
+
+// ──────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
