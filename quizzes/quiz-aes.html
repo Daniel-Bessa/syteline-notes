@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — AES Application Event System</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    .hdr {
+      background: #0f172a;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hdr-left h1 { font-size: 17px; font-weight: 700; color: #f1f5f9; }
+    .hdr-left p  { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .hdr-right   { font-size: 12px; color: #475569; }
+
+    .progress-track { background: #1e293b; height: 5px; }
+    .progress-fill  { height: 100%; background: #3b82f6; transition: width .3s ease; }
+
+    .wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 48px; }
+
+    .q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .q-counter { font-size: 11.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .06em; }
+    .q-section {
+      font-size: 11px; font-weight: 700;
+      padding: 3px 11px; border-radius: 20px;
+      background: #dbeafe; color: #1d4ed8;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 26px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+      margin-bottom: 18px;
+    }
+    .q-text { font-size: 16px; font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px; }
+    .q-hint { font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 11px;
+      padding: 13px 15px;
+      border: 2px solid #e2e8f0; border-radius: 8px;
+      cursor: pointer; transition: border-color .12s, background .12s;
+      user-select: none;
+    }
+    .opt:hover:not(.locked) { border-color: #93c5fd; background: #eff6ff; }
+    .opt.selected { border-color: #3b82f6; background: #eff6ff; }
+    .opt.correct  { border-color: #16a34a; background: #f0fdf4; }
+    .opt.wrong    { border-color: #dc2626; background: #fef2f2; }
+    .opt.missed   { border-color: #f59e0b; background: #fffbeb; }
+    .opt input { flex-shrink: 0; margin-top: 1px; width: 16px; height: 16px; accent-color: #3b82f6; pointer-events: none; }
+    .opt-label { font-size: 14px; line-height: 1.45; }
+    .opt.correct .opt-label { color: #166534; font-weight: 600; }
+    .opt.wrong   .opt-label { color: #991b1b; }
+    .opt.missed  .opt-label { color: #92400e; font-weight: 600; }
+
+    .expl {
+      display: none;
+      margin-top: 16px; padding: 13px 15px;
+      background: #f0f9ff; border-left: 3px solid #0284c7;
+      border-radius: 0 6px 6px 0;
+      font-size: 13.5px; color: #0c4a6e; line-height: 1.65;
+    }
+    .expl.show { display: block; }
+    .expl strong { color: #075985; }
+
+    .btn-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .btn {
+      padding: 10px 22px; border-radius: 8px; font-size: 13.5px; font-weight: 600;
+      cursor: pointer; border: none; transition: opacity .15s, background .12s;
+    }
+    .btn:disabled { opacity: .3; cursor: default; }
+    .btn-ghost  { background: #e2e8f0; color: #475569; }
+    .btn-ghost:hover:not(:disabled) { background: #cbd5e1; }
+    .btn-dark   { background: #0f172a; color: #fff; }
+    .btn-dark:hover:not(:disabled) { background: #1e293b; }
+    .btn-blue   { background: #3b82f6; color: #fff; }
+    .btn-blue:hover:not(:disabled) { background: #2563eb; }
+    .btn-green  { background: #16a34a; color: #fff; }
+    .btn-green:hover:not(:disabled) { background: #15803d; }
+
+    #results-screen { display: none; }
+
+    .score-card {
+      background: #fff; border-radius: 12px; padding: 36px; text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07); margin-bottom: 24px;
+    }
+    .score-big { font-size: 64px; font-weight: 800; color: #0f172a; line-height: 1; }
+    .score-sub { font-size: 14px; color: #64748b; margin-top: 6px; }
+    .score-pct { font-size: 24px; font-weight: 700; margin-top: 4px; }
+    .score-pct.great { color: #16a34a; }
+    .score-pct.ok    { color: #f59e0b; }
+    .score-pct.low   { color: #dc2626; }
+
+    .r-item {
+      background: #fff; border-radius: 10px; padding: 20px;
+      margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    }
+    .r-badge {
+      display: inline-block; font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em;
+      padding: 2px 10px; border-radius: 20px; margin-bottom: 9px;
+    }
+    .r-correct { background: #dcfce7; color: #15803d; }
+    .r-wrong   { background: #fee2e2; color: #b91c1c; }
+    .r-partial { background: #fef3c7; color: #92400e; }
+    .r-q { font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 8px; line-height: 1.4; }
+    .r-your  { font-size: 12.5px; color: #64748b; margin-bottom: 4px; }
+    .r-right { font-size: 12.5px; color: #15803d; font-weight: 600; margin-bottom: 8px; }
+    .r-expl  {
+      font-size: 12.5px; color: #0c4a6e; background: #f0f9ff;
+      padding: 10px 12px; border-radius: 6px; line-height: 1.6;
+      border-left: 3px solid #0284c7;
+    }
+
+    .results-heading {
+      font-size: 15px; font-weight: 700; color: #334155;
+      margin: 24px 0 12px; padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .restart-row { text-align: center; padding: 24px 0 8px; }
+
+    /* ── Dark mode ── */
+    body { background: #1a1a1a; color: #e2e8f0; }
+    .q-section { background: #1e3a5f; color: #60a5fa; }
+    .card, .r-item, .score-card { background: #2d2d2d; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+    .q-text { color: #f1f5f9; }
+    .q-hint { color: #64748b; }
+    .opt { border-color: #374151; }
+    .opt:hover:not(.locked) { border-color: #60a5fa; background: #1e3a5f; }
+    .opt.selected { border-color: #3b82f6; background: #1e3a5f; }
+    .opt-label { color: #e2e8f0; }
+    .opt.correct  { border-color: #16a34a; background: #14532d; }
+    .opt.wrong    { border-color: #dc2626; background: #450a0a; }
+    .opt.missed   { border-color: #f59e0b; background: #451a03; }
+    .opt.correct .opt-label { color: #86efac; }
+    .opt.wrong   .opt-label { color: #fca5a5; }
+    .opt.missed  .opt-label { color: #fcd34d; }
+    .expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
+    .expl strong { color: #38bdf8; }
+    .score-big { color: #f1f5f9; }
+    .score-sub { color: #94a3b8; }
+    .r-q { color: #f1f5f9; }
+    .r-your { color: #94a3b8; }
+    .r-expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
+    .results-heading { color: #94a3b8; border-bottom-color: #374151; }
+    .btn-ghost { background: #374151; color: #94a3b8; }
+    .btn-ghost:hover:not(:disabled) { background: #4b5563; }
+  </style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>🎯 Quiz — AES Application Event System</h1>
+    <p>CSI v10 · Check Your Understanding · 26 questions from 12 lessons</p>
+  </div>
+  <div class="hdr-right" id="hdr-right"></div>
+</div>
+<div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+
+<div class="wrap">
+
+  <div id="quiz-screen">
+    <div class="q-meta">
+      <span class="q-counter" id="q-counter">Question 1 of 26</span>
+      <span class="q-section" id="q-section"></span>
+    </div>
+
+    <div class="card">
+      <div class="q-text" id="q-text"></div>
+      <div class="q-hint" id="q-hint"></div>
+      <div class="options" id="q-options"></div>
+      <div class="expl" id="q-expl"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="btn-prev" onclick="nav(-1)">← Previous</button>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;">
+        <button class="btn btn-dark"  id="btn-check"  onclick="check()">Check Answer</button>
+        <button class="btn btn-blue"  id="btn-next"   onclick="nav(1)"  style="display:none">Next →</button>
+        <button class="btn btn-green" id="btn-submit" onclick="showResults()" style="display:none">See Results 🏁</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results-screen">
+    <div class="score-card">
+      <div class="score-big" id="r-big"></div>
+      <div class="score-sub" id="r-sub"></div>
+      <div class="score-pct" id="r-pct"></div>
+    </div>
+    <div class="results-heading">Question-by-question review</div>
+    <div id="r-list"></div>
+    <div class="restart-row">
+      <button class="btn btn-dark" onclick="restart()">↺ Restart Quiz</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const Q = [
+  // ── LESSON 1 ──
+  {
+    sec: "Lesson 1 — Introduction to the Application Event System",
+    q:   "What are the three basic components of the Application Event System? Select all that apply.",
+    type:"multi",
+    opts:["Events","Event Handlers","Event Actions","Event Listeners"],
+    ans: [0,1,2],
+    ex:  "The three basic components are: <strong>Events</strong> (define what triggers the system), <strong>Event Handlers</strong> (define when and to whom the event fires), and <strong>Event Actions</strong> (define what happens when the event fires). Event Listeners are not a component of the AES."
+  },
+  {
+    sec: "Lesson 1 — Introduction to the Application Event System",
+    q:   "Which of the following are advantages of the Application Event System over hard-coded systems? Select all that apply.",
+    type:"multi",
+    opts:["It reduces the need for writing procedural code","It prevents situations where event handlers could be inadvertently changed","It eliminates the need for metadata","It limits control of the application flow"],
+    ans: [0,1],
+    ex:  "AES advantages: it <strong>reduces procedural code</strong> (a) by using metadata-driven configuration, and it <strong>prevents inadvertent changes</strong> to event handlers (b) through its structured design. It does NOT eliminate metadata (c) — it relies on it. And it does NOT limit control (d) — it actually expands it."
+  },
+  // ── LESSON 2 ──
+  {
+    sec: "Lesson 2 — Understanding How the System Works",
+    q:   "Which of the following statements about events and event handlers are true? Select all that apply.",
+    type:"multi",
+    opts:["You can temporarily disable an event handler","Events are either synchronous or asynchronous","Any event can be suspended","If an event handler attempts an illegal operation, the system will retry"],
+    ans: [0,1,2],
+    ex:  "True: event handlers can be temporarily disabled (a); events are synchronous or asynchronous (b); and any event can be suspended (c). False: if an event handler encounters an illegal operation, the system does <em>not</em> retry — it records the failure."
+  },
+  {
+    sec: "Lesson 2 — Understanding How the System Works",
+    q:   "\"The balance of a customer's order becomes more than $10,000\" — which event-generating situation does this represent?",
+    type:"single",
+    opts:["Time passes","Database calculation is performed","User performs an action","Another event occurs, acting as a trigger"],
+    ans: [1],
+    ex:  "A balance crossing a threshold is a <strong>Database calculation is performed</strong> event — triggered by a computed value change in the database, not by a user action or a scheduled time."
+  },
+  {
+    sec: "Lesson 2 — Understanding How the System Works",
+    q:   "\"A salesperson adds a new customer record\" — which event-generating situation does this represent?",
+    type:"single",
+    opts:["Time passes","Database calculation is performed","User performs an action","Another event occurs, acting as a trigger"],
+    ans: [2],
+    ex:  "A salesperson adding a record is a <strong>User performs an action</strong> event — it is directly triggered by a user interacting with the system."
+  },
+  {
+    sec: "Lesson 2 — Understanding How the System Works",
+    q:   "\"You run out of an item and all new purchases have a backordered status\" — which event-generating situation does this represent?",
+    type:"single",
+    opts:["Time passes","Database calculation is performed","User performs an action","Another event occurs, acting as a trigger"],
+    ans: [3],
+    ex:  "Running out of inventory and triggering a backorder status change is an example of <strong>Another event occurs, acting as a trigger</strong> — the stock depletion event triggers the backorder status change."
+  },
+  // ── LESSON 3 ──
+  {
+    sec: "Lesson 3 — Using Basic System Elements",
+    q:   "Match: \"This form is used to name events.\" Which form is being described?",
+    type:"single",
+    opts:["Access As","Event Actions","Event Handlers","Events"],
+    ans: [3],
+    ex:  "The <strong>Events</strong> form is where you create and name events in the Application Event System."
+  },
+  {
+    sec: "Lesson 3 — Using Basic System Elements",
+    q:   "Match: \"This form contains a button that links to the Edit Parameters form.\" Which form is being described?",
+    type:"single",
+    opts:["Access As","Event Actions","Event Handlers","Events"],
+    ans: [1],
+    ex:  "The <strong>Event Actions</strong> form contains the button that opens the Edit Parameters form, where you configure the specifics of each action."
+  },
+  {
+    sec: "Lesson 3 — Using Basic System Elements",
+    q:   "Match: \"This form displays who is authorized to modify system elements.\" Which form is being described?",
+    type:"single",
+    opts:["Access As","Event Actions","Event Handlers","Events"],
+    ans: [0],
+    ex:  "The <strong>Access As</strong> form displays authorization settings — it shows who has permission to modify system elements like event handlers and event actions."
+  },
+  {
+    sec: "Lesson 3 — Using Basic System Elements",
+    q:   "Which statement best defines an event global constant?",
+    type:"single",
+    opts:["A system-wide event action parameter","A reusable event action","A form for defining global event handlers","A placeholder for a stored value"],
+    ans: [3],
+    ex:  "An event global constant is a <strong>placeholder for a stored value</strong> that can be referenced by name across multiple event handlers and actions — similar to a named constant in programming."
+  },
+  // ── LESSON 4 ──
+  {
+    sec: "Lesson 4 — Designing Events and Handlers",
+    q:   "What functionality allows you to change the execution order of your event handlers? Select all that apply.",
+    type:"multi",
+    opts:["Keep With and Chronology fields","Access As identifier","Queue First field","Event Handlers Sequence form"],
+    ans: [0,3],
+    ex:  "Two tools control execution order: the <strong>Keep With and Chronology fields</strong> (a) within an event handler definition, and the <strong>Event Handlers Sequence form</strong> (d) which lets you explicitly set the firing order."
+  },
+  {
+    sec: "Lesson 4 — Designing Events and Handlers",
+    q:   "For which type of event can you set up event handlers with the New Workflow Wizard?",
+    type:"single",
+    opts:["All notification events","Simple notification events only","All prompt events","Simple prompt events only"],
+    ans: [1],
+    ex:  "The New Workflow Wizard supports <strong>simple notification events only</strong>. More complex event configurations — prompt events, multi-step approvals — must be set up manually."
+  },
+  // ── LESSON 5 ──
+  {
+    sec: "Lesson 5 — Viewing Event Messages",
+    q:   "Which of the following are sources for messages that display in the Inbox form? Select all that apply.",
+    type:"multi",
+    opts:["Application events that use a Notify action type","Application events that use a Prompt action type","Communications sent by one system user to another","Communications sent from external email to system users"],
+    ans: [0,1,2],
+    ex:  "The Inbox receives: Notify action messages (a), Prompt action messages (b), and user-to-user internal messages (c). External email from outside the system does <em>not</em> appear in the Inbox form (d)."
+  },
+  // ── LESSON 6 ──
+  {
+    sec: "Lesson 6 — Tracking Event System Status",
+    q:   "Which form shows the history of events that have FINISHED running?",
+    type:"single",
+    opts:["Event Queue form","Event Revisions form","Event Status form","Suspended Updates form"],
+    ans: [2],
+    ex:  "The <strong>Event Status form</strong> shows the history of completed events. The Event Queue shows events waiting to run; the Suspended Updates form shows paused events."
+  },
+  {
+    sec: "Lesson 6 — Tracking Event System Status",
+    q:   "The Event Revisions form and the Event Handlers Revision form are display-only forms.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> Both the Event Revisions form and the Event Handlers Revision form are read-only — they display historical revision data and cannot be edited directly."
+  },
+  // ── LESSON 7 ──
+  {
+    sec: "Lesson 7 — Requesting Approvals (Basic)",
+    q:   "When setting up an approval event for new purchase orders, which TWO action types are needed? Select all that apply.",
+    type:"multi",
+    opts:["Notify – to notify the manager of each new purchase order","Prompt – to send the manager a message requesting a response","Finish – to tell the system what to do when the approval is received","Fail – to tell the system what to do when approval is denied"],
+    ans: [1,3],
+    ex:  "Two action types are needed: <strong>Prompt</strong> (b) — to request a response from the manager, and <strong>Fail</strong> (d) — to define what happens if the approval is denied."
+  },
+  {
+    sec: "Lesson 7 — Requesting Approvals (Basic)",
+    q:   "What event action parameter function tells the system how to evaluate all possible responses received from a request for approval?",
+    type:"single",
+    opts:["SUBSITUTE","FILTERPROPERTIES","VOTINGRESULT","SETVALUES"],
+    ans: [2],
+    ex:  "<strong>VOTINGRESULT</strong> is the function that evaluates all responses to an approval prompt and determines the outcome (approved, denied, etc.) based on the defined voting rules."
+  },
+  // ── LESSON 8 ──
+  {
+    sec: "Lesson 8 — Adding Information",
+    q:   "Which statement is true about defining an event action that prompts a recipient to send information to add to a record?",
+    type:"single",
+    opts:["The message text cannot exceed 100 characters","Prompts sent to the Inbox form can support free-form responses","The information received must be manually added to the record","Prompts cannot include voting buttons"],
+    ans: [1],
+    ex:  "<strong>Prompts sent to the Inbox form can support free-form responses</strong> — the recipient can type a value that gets automatically written back to the record via the event system."
+  },
+  // ── LESSON 9 ──
+  {
+    sec: "Lesson 9 — Requesting Approvals (Advanced)",
+    q:   "Which action type would you use to determine whether a response received resulted in approval or disapproval?",
+    type:"single",
+    opts:["Prompt","Branch","Set Values","Finish"],
+    ans: [1],
+    ex:  "The <strong>Branch</strong> action type evaluates conditions (like whether a response was 'Approved' or 'Denied') and directs the workflow down different paths accordingly."
+  },
+  // ── LESSON 10 ──
+  {
+    sec: "Lesson 10 — Generating Events from Within a Form",
+    q:   "You can modify framework events but you cannot create a new event from scratch.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> You CAN create new events from scratch in addition to modifying existing framework events. The Application Event System is fully extensible."
+  },
+  {
+    sec: "Lesson 10 — Generating Events from Within a Form",
+    q:   "What action type do you select to call an event from within a form?",
+    type:"single",
+    opts:["Set event properties","Call component","Call event","Generate application event"],
+    ans: [3],
+    ex:  "To trigger an application event from within a form, you use the <strong>Generate application event</strong> action type in the form's event handler."
+  },
+  // ── LESSON 11 ──
+  {
+    sec: "Lesson 11 — Setting Up External Email",
+    q:   "What is the FIRST step to set up external email for the Application Event System?",
+    type:"single",
+    opts:["Configure CloudSuite for email using the Intranets form","Add an email address for each user who is to receive email","Designate if a user is to receive prompts, notifications, or both","Get SMTP settings for your organization's email server"],
+    ans: [3],
+    ex:  "The correct order is: 1) <strong>Get SMTP settings</strong> → 2) Configure CloudSuite via the Intranets form → 3) Add user email addresses → 4) Designate prompt/notification preferences."
+  },
+  {
+    sec: "Lesson 11 — Setting Up External Email",
+    q:   "If a recipient is set up to receive prompts via email, what happens when a prompt message is generated?",
+    type:"single",
+    opts:["Sent ONLY to the recipient's Inbox form","Sent ONLY to the recipient's email address","Sent to BOTH the recipient's Inbox form and email address","The message waits for the Send Email event action to fire"],
+    ans: [2],
+    ex:  "When a recipient is configured for email prompts, the message is sent to <strong>BOTH</strong> the recipient's Inbox form AND their external email address simultaneously."
+  },
+  // ── LESSON 12 ──
+  {
+    sec: "Lesson 12 — Voting",
+    q:   "Match: \"The choice with the highest number of votes wins\" — which voting rule?",
+    type:"single",
+    opts:["1-Majority","2-Plurality","3-ConditionalPlurality","4-EarliestResponse","5-MinimumCount"],
+    ans: [1],
+    ex:  "<strong>2-Plurality:</strong> the choice with the most votes wins, regardless of whether it achieves a majority (>50%). No minimum threshold is required."
+  },
+  {
+    sec: "Lesson 12 — Voting",
+    q:   "Match: \"A choice must receive more than 50% of the vote to win\" — which voting rule?",
+    type:"single",
+    opts:["1-Majority","2-Plurality","3-ConditionalPlurality","4-EarliestResponse","5-MinimumCount"],
+    ans: [0],
+    ex:  "<strong>1-Majority:</strong> a choice must receive more than 50% of all votes cast. If no choice achieves majority, the event may continue to wait or use a fallback."
+  },
+  {
+    sec: "Lesson 12 — Voting",
+    q:   "Match: \"The first response to the prompt wins, regardless of the choice\" — which voting rule?",
+    type:"single",
+    opts:["1-Majority","2-Plurality","3-ConditionalPlurality","4-EarliestResponse","5-MinimumCount"],
+    ans: [3],
+    ex:  "<strong>4-EarliestResponse:</strong> the very first response received is the winning response, no matter what choice was made. Useful when speed of response is the deciding factor."
+  }
+];
+
+let cur     = 0;
+const sel   = Array(Q.length).fill(null).map(() => []);
+const done  = Array(Q.length).fill(false);
+
+function render() {
+  const q = Q[cur];
+  const isMulti   = q.type === 'multi';
+  const isChecked = done[cur];
+
+  const pct = Math.round((cur / Q.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('hdr-right').textContent = cur + ' / ' + Q.length + ' answered';
+
+  document.getElementById('q-counter').textContent = 'Question ' + (cur + 1) + ' of ' + Q.length;
+  document.getElementById('q-section').textContent = q.sec;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('q-hint').textContent = isMulti ? 'Select all that apply' : 'Choose one answer';
+
+  const optsEl = document.getElementById('q-options');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'opt' + (sel[cur].includes(i) ? ' selected' : '');
+
+    if (isChecked) {
+      div.classList.remove('selected');
+      div.classList.add('locked');
+      const isCor = q.ans.includes(i);
+      const isSel = sel[cur].includes(i);
+      if (isCor && isSel)       div.classList.add('correct');
+      else if (!isCor && isSel) div.classList.add('wrong');
+      else if (isCor && !isSel) div.classList.add('missed');
+    }
+
+    const input = document.createElement('input');
+    input.type = isMulti ? 'checkbox' : 'radio';
+    input.name = 'q' + cur;
+    input.checked = sel[cur].includes(i);
+    if (isChecked) input.disabled = true;
+
+    const label = document.createElement('span');
+    label.className = 'opt-label';
+    label.textContent = opt;
+
+    div.appendChild(input);
+    div.appendChild(label);
+
+    if (!isChecked) div.addEventListener('click', () => toggle(i));
+    optsEl.appendChild(div);
+  });
+
+  const explEl = document.getElementById('q-expl');
+  explEl.innerHTML = q.ex;
+  explEl.className = 'expl' + (isChecked ? ' show' : '');
+
+  document.getElementById('btn-prev').disabled = (cur === 0);
+  const btnCheck  = document.getElementById('btn-check');
+  const btnNext   = document.getElementById('btn-next');
+  const btnSubmit = document.getElementById('btn-submit');
+
+  btnCheck.style.display  = isChecked ? 'none' : 'inline-block';
+  const isLast = cur === Q.length - 1;
+  btnNext.style.display   = (isChecked && !isLast) ? 'inline-block' : 'none';
+  btnSubmit.style.display = (isChecked && isLast)  ? 'inline-block' : 'none';
+}
+
+function toggle(i) {
+  if (Q[cur].type === 'single') sel[cur] = [i];
+  else {
+    const idx = sel[cur].indexOf(i);
+    if (idx === -1) sel[cur].push(i);
+    else sel[cur].splice(idx, 1);
+  }
+  render();
+}
+
+function nav(dir) {
+  cur = Math.max(0, Math.min(Q.length - 1, cur + dir));
+  render();
+}
+
+function check() { done[cur] = true; render(); }
+
+function isQCorrect(i) {
+  const q = Q[i], s = sel[i];
+  if (q.ans.length !== s.length) return false;
+  return q.ans.every(a => s.includes(a)) && s.every(a => q.ans.includes(a));
+}
+
+function isQPartial(i) {
+  const q = Q[i], s = sel[i];
+  if (q.type === 'single') return false;
+  const anyRight = s.some(a =>  q.ans.includes(a));
+  const anyWrong = s.some(a => !q.ans.includes(a));
+  const allRight = q.ans.every(a => s.includes(a));
+  return (anyRight && !allRight) || anyWrong;
+}
+
+function showResults() {
+  document.getElementById('quiz-screen').style.display    = 'none';
+  document.getElementById('results-screen').style.display = 'block';
+  document.getElementById('progress-fill').style.width   = '100%';
+  document.getElementById('hdr-right').textContent = 'Complete!';
+
+  let score = 0;
+  Q.forEach((_, i) => { if (isQCorrect(i)) score++; });
+  const pct = Math.round((score / Q.length) * 100);
+
+  document.getElementById('r-big').textContent = score + ' / ' + Q.length;
+  document.getElementById('r-sub').textContent = 'questions answered correctly';
+  const pctEl = document.getElementById('r-pct');
+  pctEl.textContent = pct + '%';
+  pctEl.className   = 'score-pct ' + (pct >= 80 ? 'great' : pct >= 60 ? 'ok' : 'low');
+
+  const list = document.getElementById('r-list');
+  list.innerHTML = '';
+  Q.forEach((q, i) => {
+    const correct = isQCorrect(i);
+    const partial = !correct && isQPartial(i);
+    const status  = correct ? 'correct' : partial ? 'partial' : 'wrong';
+    const badge   = correct ? '✓ Correct' : partial ? '~ Partial' : '✗ Incorrect';
+    const correctLabels = q.ans.map(a => q.opts[a]).join(', ');
+    const yourLabels    = sel[i].length ? sel[i].map(a => q.opts[a]).join(', ') : '(no answer)';
+    const div = document.createElement('div');
+    div.className = 'r-item';
+    div.innerHTML = `
+      <span class="r-badge r-${status}">${badge}</span>
+      <div class="r-q">Q${i+1}: ${q.q}</div>
+      <div class="r-your">Your answer: ${yourLabels}</div>
+      ${!correct ? `<div class="r-right">Correct answer: ${correctLabels}</div>` : ''}
+      <div class="r-expl">${q.ex}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function restart() {
+  cur = 0;
+  sel.forEach((_, i) => sel[i] = []);
+  done.fill(false);
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display    = 'block';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

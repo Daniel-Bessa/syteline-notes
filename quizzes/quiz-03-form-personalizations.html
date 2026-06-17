@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — 03 Form Personalizations</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    .hdr {
+      background: #0f172a;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hdr-left h1 { font-size: 17px; font-weight: 700; color: #f1f5f9; }
+    .hdr-left p  { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .hdr-right   { font-size: 12px; color: #475569; }
+
+    .progress-track { background: #1e293b; height: 5px; }
+    .progress-fill  { height: 100%; background: #3b82f6; transition: width .3s ease; }
+
+    .wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 48px; }
+
+    .q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .q-counter { font-size: 11.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .06em; }
+    .q-section {
+      font-size: 11px; font-weight: 700;
+      padding: 3px 11px; border-radius: 20px;
+      background: #dbeafe; color: #1d4ed8;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 26px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+      margin-bottom: 18px;
+    }
+    .q-text { font-size: 16px; font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px; }
+    .q-hint { font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 11px;
+      padding: 13px 15px;
+      border: 2px solid #e2e8f0; border-radius: 8px;
+      cursor: pointer; transition: border-color .12s, background .12s;
+      user-select: none;
+    }
+    .opt:hover:not(.locked) { border-color: #93c5fd; background: #eff6ff; }
+    .opt.selected { border-color: #3b82f6; background: #eff6ff; }
+    .opt.correct  { border-color: #16a34a; background: #f0fdf4; }
+    .opt.wrong    { border-color: #dc2626; background: #fef2f2; }
+    .opt.missed   { border-color: #f59e0b; background: #fffbeb; }
+    .opt input { flex-shrink: 0; margin-top: 1px; width: 16px; height: 16px; accent-color: #3b82f6; pointer-events: none; }
+    .opt-label { font-size: 14px; line-height: 1.45; }
+    .opt.correct .opt-label { color: #166534; font-weight: 600; }
+    .opt.wrong   .opt-label { color: #991b1b; }
+    .opt.missed  .opt-label { color: #92400e; font-weight: 600; }
+
+    .expl {
+      display: none;
+      margin-top: 16px; padding: 13px 15px;
+      background: #f0f9ff; border-left: 3px solid #0284c7;
+      border-radius: 0 6px 6px 0;
+      font-size: 13.5px; color: #0c4a6e; line-height: 1.65;
+    }
+    .expl.show { display: block; }
+    .expl strong { color: #075985; }
+
+    .btn-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .btn {
+      padding: 10px 22px; border-radius: 8px; font-size: 13.5px; font-weight: 600;
+      cursor: pointer; border: none; transition: opacity .15s, background .12s;
+    }
+    .btn:disabled { opacity: .3; cursor: default; }
+    .btn-ghost  { background: #e2e8f0; color: #475569; }
+    .btn-ghost:hover:not(:disabled) { background: #cbd5e1; }
+    .btn-dark   { background: #0f172a; color: #fff; }
+    .btn-dark:hover:not(:disabled) { background: #1e293b; }
+    .btn-blue   { background: #3b82f6; color: #fff; }
+    .btn-blue:hover:not(:disabled) { background: #2563eb; }
+    .btn-green  { background: #16a34a; color: #fff; }
+    .btn-green:hover:not(:disabled) { background: #15803d; }
+
+    #results-screen { display: none; }
+
+    .score-card {
+      background: #fff; border-radius: 12px; padding: 36px; text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07); margin-bottom: 24px;
+    }
+    .score-big { font-size: 64px; font-weight: 800; color: #0f172a; line-height: 1; }
+    .score-sub { font-size: 14px; color: #64748b; margin-top: 6px; }
+    .score-pct { font-size: 24px; font-weight: 700; margin-top: 4px; }
+    .score-pct.great { color: #16a34a; }
+    .score-pct.ok    { color: #f59e0b; }
+    .score-pct.low   { color: #dc2626; }
+
+    .r-item {
+      background: #fff; border-radius: 10px; padding: 20px;
+      margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    }
+    .r-badge {
+      display: inline-block; font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em;
+      padding: 2px 10px; border-radius: 20px; margin-bottom: 9px;
+    }
+    .r-correct { background: #dcfce7; color: #15803d; }
+    .r-wrong   { background: #fee2e2; color: #b91c1c; }
+    .r-partial { background: #fef3c7; color: #92400e; }
+    .r-q { font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 8px; line-height: 1.4; }
+    .r-your  { font-size: 12.5px; color: #64748b; margin-bottom: 4px; }
+    .r-right { font-size: 12.5px; color: #15803d; font-weight: 600; margin-bottom: 8px; }
+    .r-expl  {
+      font-size: 12.5px; color: #0c4a6e; background: #f0f9ff;
+      padding: 10px 12px; border-radius: 6px; line-height: 1.6;
+      border-left: 3px solid #0284c7;
+    }
+
+    .results-heading {
+      font-size: 15px; font-weight: 700; color: #334155;
+      margin: 24px 0 12px; padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .restart-row { text-align: center; padding: 24px 0 8px; }
+
+    /* ── Dark mode ── */
+    body { background: #1a1a1a; color: #e2e8f0; }
+    .q-section { background: #1e3a5f; color: #60a5fa; }
+    .card, .r-item, .score-card { background: #2d2d2d; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+    .q-text { color: #f1f5f9; }
+    .q-hint { color: #64748b; }
+    .opt { border-color: #374151; }
+    .opt:hover:not(.locked) { border-color: #60a5fa; background: #1e3a5f; }
+    .opt.selected { border-color: #3b82f6; background: #1e3a5f; }
+    .opt-label { color: #e2e8f0; }
+    .opt.correct  { border-color: #16a34a; background: #14532d; }
+    .opt.wrong    { border-color: #dc2626; background: #450a0a; }
+    .opt.missed   { border-color: #f59e0b; background: #451a03; }
+    .opt.correct .opt-label { color: #86efac; }
+    .opt.wrong   .opt-label { color: #fca5a5; }
+    .opt.missed  .opt-label { color: #fcd34d; }
+    .expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
+    .expl strong { color: #38bdf8; }
+    .score-big { color: #f1f5f9; }
+    .score-sub { color: #94a3b8; }
+    .r-q { color: #f1f5f9; }
+    .r-your { color: #94a3b8; }
+    .r-expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
+    .results-heading { color: #94a3b8; border-bottom-color: #374151; }
+    .btn-ghost { background: #374151; color: #94a3b8; }
+    .btn-ghost:hover:not(:disabled) { background: #4b5563; }
+  </style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>🎯 Quiz — 03 Form Personalizations</h1>
+    <p>CSI v10 · Check Your Understanding · 30 questions from 11 lessons</p>
+  </div>
+  <div class="hdr-right" id="hdr-right"></div>
+</div>
+<div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+
+<div class="wrap">
+
+  <div id="quiz-screen">
+    <div class="q-meta">
+      <span class="q-counter" id="q-counter">Question 1 of 30</span>
+      <span class="q-section" id="q-section"></span>
+    </div>
+
+    <div class="card">
+      <div class="q-text" id="q-text"></div>
+      <div class="q-hint" id="q-hint"></div>
+      <div class="options" id="q-options"></div>
+      <div class="expl" id="q-expl"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="btn-prev" onclick="nav(-1)">← Previous</button>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;">
+        <button class="btn btn-dark"  id="btn-check"  onclick="check()">Check Answer</button>
+        <button class="btn btn-blue"  id="btn-next"   onclick="nav(1)"  style="display:none">Next →</button>
+        <button class="btn btn-green" id="btn-submit" onclick="showResults()" style="display:none">See Results 🏁</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results-screen">
+    <div class="score-card">
+      <div class="score-big" id="r-big"></div>
+      <div class="score-sub" id="r-sub"></div>
+      <div class="score-pct" id="r-pct"></div>
+    </div>
+    <div class="results-heading">Question-by-question review</div>
+    <div id="r-list"></div>
+    <div class="restart-row">
+      <button class="btn btn-dark" onclick="restart()">↺ Restart Quiz</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const Q = [
+  // ── LESSON 1 ──
+  {
+    sec: "Lesson 1 — Exploring the Data Architecture",
+    q:   "An IDO (Intelligent Data Object) consists of which of the following elements? Select all that apply.",
+    type:"multi",
+    opts:["A reference to one or more SQL tables","A set of property definitions","A set of zero or more methods","An optional reference to an IDO Extension Class","None of the above"],
+    ans: [0,1,2,3],
+    ex:  "An IDO consists of all four: a reference to one or more SQL tables, a set of property definitions, a set of zero or more methods, and an optional reference to an IDO Extension Class."
+  },
+  {
+    sec: "Lesson 1 — Exploring the Data Architecture",
+    q:   "The Mongoose framework provides standard functionality for all IDOs such as LoadCollection, UpdateCollection, and GetPropertyInfo.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> The Mongoose framework automatically provides standard functionality for all IDOs — including LoadCollection, UpdateCollection, and GetPropertyInfo — without developers needing to write those methods from scratch."
+  },
+  {
+    sec: "Lesson 1 — Exploring the Data Architecture",
+    q:   "When an IDO is created from a database table, which of the following occur? Select all that apply.",
+    type:"multi",
+    opts:["It inherits attributes such as length, nullability, and data type from the table","Each field in the table may be bound by a property of the IDO","The properties are available to a form component to use","None of the above"],
+    ans: [0,1,2],
+    ex:  "When an IDO is created: it inherits attributes (length, nullability, data type) from the table; each table field may be bound by an IDO property; and those properties become available for form components to use."
+  },
+  // ── LESSON 2 ──
+  {
+    sec: "Lesson 2 — Setting Up Form Editing Permissions",
+    q:   "Which form editing permission level has the HIGHEST authority (ranked #1) in the hierarchy?",
+    type:"single",
+    opts:["Site Developer","Full User","Vendor Developer","Basic User"],
+    ans: [2],
+    ex:  "The hierarchy from highest (1) to lowest (5) is: <strong>1) Vendor Developer, 2) Site Developer, 3) Full User, 4) Basic User, 5) None.</strong> Vendor Developer holds the top rank."
+  },
+  {
+    sec: "Lesson 2 — Setting Up Form Editing Permissions",
+    q:   "The Scope Type and Editing Permissions carry out the same functionality.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> Scope Type determines which version of a form is displayed (user, group, or site scope), while Editing Permissions determine what a user is allowed to do in Design mode. They are distinct concepts."
+  },
+  {
+    sec: "Lesson 2 — Setting Up Form Editing Permissions",
+    q:   "A user with Full Editing permissions can create and delete forms.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> Full User editing permissions allow modifying existing forms but NOT creating or deleting them. Creating and deleting forms requires Site Developer or Vendor Developer permission."
+  },
+  // ── LESSON 3 ──
+  {
+    sec: "Lesson 3 — Editing Forms",
+    q:   "To use an image on a form, the image needs to be __________ into the system.",
+    type:"single",
+    opts:["Imported","Exported","Downloaded","None of the above"],
+    ans: [0],
+    ex:  "Images must be <strong>imported</strong> into the system before they can be placed on a form. This is done through the image management tools in WinStudio Design mode."
+  },
+  {
+    sec: "Lesson 3 — Editing Forms",
+    q:   "To change the properties of a component on a form, you must use the:",
+    type:"single",
+    opts:["Component Sheet/Tab","Form Sheet/Tab","Object Sheet/Tab","None of the above"],
+    ans: [0],
+    ex:  "The <strong>Component Sheet/Tab</strong> in Design mode is where you modify a component's properties such as its caption, data binding, size, visibility, and other attributes."
+  },
+  // ── LESSON 4 ──
+  {
+    sec: "Lesson 4 — Customizing Form Components",
+    q:   "Which of the following are valid components that can be added to a form in WinStudio? Select all that apply.",
+    type:"multi",
+    opts:["Button","Combo Box","Grid","DateCombo","Pivot Table"],
+    ans: [0,1,2,3],
+    ex:  "Valid WinStudio form components include Buttons, Combo Boxes, Grids, DateCombos, CheckBoxes, GroupBoxes, MenuItems, RadioButtons, and more. <strong>Pivot Table</strong> is not a standard Mongoose form component."
+  },
+  {
+    sec: "Lesson 4 — Customizing Form Components",
+    q:   "Which of the following steps are required to add a component to a form? Select all that apply.",
+    type:"multi",
+    opts:["Open the form in Design mode","Select (check) the component from the Toolbox","Move the mouse to the form and draw the component","Save the form in Run mode before adding components"],
+    ans: [0,1,2],
+    ex:  "To add a component: 1) Open the form in Design mode, 2) Select the component from the Toolbox, 3) Move the mouse to the form and draw the component. You do <em>not</em> save in Run mode first — saving happens after design is complete."
+  },
+  // ── LESSON 5 ──
+  {
+    sec: "Lesson 5 — Using Inherited Attributes",
+    q:   "Which of the following are valid levels of inheritance in the system? Select all that apply.",
+    type:"multi",
+    opts:["Property Class","Property","Property Class Extension","Component Class","Component"],
+    ans: [0,1,2,3,4],
+    ex:  "All five levels are valid: <strong>Property Class, Property, Property Class Extension, Component Class,</strong> and <strong>Component.</strong> Each provides a different level at which attributes can be inherited or overridden."
+  },
+  {
+    sec: "Lesson 5 — Using Inherited Attributes",
+    q:   "Unbound components can use all 5 levels of inheritance.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> Unbound components (those not bound to an IDO property) cannot use all 5 inheritance levels. Some levels — specifically those tied to IDO properties — are only applicable to bound components."
+  },
+  {
+    sec: "Lesson 5 — Using Inherited Attributes",
+    q:   "Inherited attributes cannot be changed once applied.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> Inherited attributes <em>can</em> be overridden at lower levels of the inheritance hierarchy. You can customize an inherited value for a specific component without affecting other components that share the same base attribute."
+  },
+  // ── LESSON 6 ──
+  {
+    sec: "Lesson 6 — Setting Up List Sources",
+    q:   "A List Source makes it easier for users to select data from displayed lists.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> List Sources populate drop-down lists and combo boxes with pre-defined valid values, making it much easier for users to select correct data rather than typing values manually."
+  },
+  {
+    sec: "Lesson 6 — Setting Up List Sources",
+    q:   "Which of the following are valid list source types? Select all that apply.",
+    type:"multi",
+    opts:["IDO Collection","IDO Method","Inline","Script","None of the above"],
+    ans: [0,1,2,3],
+    ex:  "All four are valid list source types: <strong>IDO Collection</strong> (from a query), <strong>IDO Method</strong> (from a method call), <strong>Inline</strong> (hard-coded values), and <strong>Script</strong> (dynamically generated values)."
+  },
+  {
+    sec: "Lesson 6 — Setting Up List Sources",
+    q:   "To create a List Source, you must be in Design Mode.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> List Sources are created and configured within WinStudio Design Mode as part of the form design process."
+  },
+  {
+    sec: "Lesson 6 — Setting Up List Sources",
+    q:   "An inline list source has a hard-coded table of values as part of the list specification.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> An <strong>inline</strong> list source stores its values directly within the list definition — the values are hard-coded and do not come from an IDO collection or method."
+  },
+  // ── LESSON 7 ──
+  {
+    sec: "Lesson 7 — Adding Validators to Components",
+    q:   "What is the primary purpose of validators in WinStudio?",
+    type:"single",
+    opts:["To validate values entered in components","To format the display of data in fields","To generate automated reports","To control form navigation flow"],
+    ans: [0],
+    ex:  "The purpose of validators is to <strong>validate values entered in components</strong> — they ensure that user input meets defined rules before the data is accepted by the system."
+  },
+  {
+    sec: "Lesson 7 — Adding Validators to Components",
+    q:   "Which of the following are commonly used types of validators? Select all that apply.",
+    type:"multi",
+    opts:["Alphanumeric","Date/Time","Inline List","In Collection","SQL Stored Procedure"],
+    ans: [0,1,2,3],
+    ex:  "The most commonly used validator types are: <strong>Alphanumeric</strong> (character type checking), <strong>Date/Time</strong> (date format validation), <strong>Inline List</strong> (checks against a hard-coded list), and <strong>In Collection</strong> (validates against IDO data). SQL Stored Procedure is not a standard validator type."
+  },
+  {
+    sec: "Lesson 7 — Adding Validators to Components",
+    q:   "To create a Validator, you must be in Design Mode.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> Validators do not require Design Mode — they are created and managed through the Validators form, which is accessible outside of Design Mode."
+  },
+  // ── LESSON 8 ──
+  {
+    sec: "Lesson 8 — Creating and Editing Strings",
+    q:   "What are the key benefits of using strings in the Infor Mongoose framework? Select all that apply.",
+    type:"multi",
+    opts:["Reusability","Consistency","Automatic translation to all languages","Improved database query performance"],
+    ans: [0,1],
+    ex:  "The two main benefits of strings in Mongoose are <strong>Reusability</strong> (define once, use in many places) and <strong>Consistency</strong> (the same text appears uniformly across all forms). Strings also support localization, but automatic translation is not a listed benefit."
+  },
+  {
+    sec: "Lesson 8 — Creating and Editing Strings",
+    q:   "How are strings used in Mongoose forms? Select all that apply.",
+    type:"multi",
+    opts:["As Static label captions","As Form captions","As Messages","As Text","As database column names"],
+    ans: [0,1,2,3],
+    ex:  "Strings are used as: <strong>Static label captions, Form captions, Messages</strong> (dialog/error text), and as <strong>Text</strong> in various components. They are not used as database column names."
+  },
+  {
+    sec: "Lesson 8 — Creating and Editing Strings",
+    q:   "How do you create a new string in WinStudio?",
+    type:"single",
+    opts:["By using the Edit > Select String dialog box","By typing directly into the Static component at runtime","By running the String Creation Wizard","By importing a .strings file through the Configuration Manager"],
+    ans: [0],
+    ex:  "New strings are created through the <strong>Edit &gt; Select String dialog box</strong> in WinStudio, where you can search for existing strings or create a new one."
+  },
+  // ── LESSON 9 ──
+  {
+    sec: "Lesson 9 — Adding UET Fields and User-Defined Type Lists",
+    q:   "The User Extended Tables (UET) feature gives the system administrator the ability to extend existing database tables and add custom user fields to forms.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> UET allows administrators to add custom columns to existing database tables and expose those columns as fields on application forms — without modifying base application code."
+  },
+  {
+    sec: "Lesson 9 — Adding UET Fields and User-Defined Type Lists",
+    q:   "A user-defined type refers to a named group of data values that can be used as a list source for a component.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> A <strong>user-defined type</strong> is a named list of values (e.g., status codes, categories) that can serve as the list source for a combo box or other list component, providing users with valid choices."
+  },
+  // ── LESSON 10 ──
+  {
+    sec: "Lesson 10 — Setting Up Event Handlers",
+    q:   "Event handlers in WinStudio forms can be used to do which of the following? Select all that apply.",
+    type:"multi",
+    opts:["Print Reports","Open Forms","Launch another application","Run a program or script","Modify IDO metadata"],
+    ans: [0,1,2,3],
+    ex:  "Event handlers can: Print Reports, Open Forms, Launch another application, and Run a program or script. Modifying IDO metadata is not an event handler function — that is done through Design Mode."
+  },
+  {
+    sec: "Lesson 10 — Setting Up Event Handlers",
+    q:   "What are the two types of event handlers used in forms? Select all that apply.",
+    type:"multi",
+    opts:["Form type event handlers","Application type event handlers","Script type event handlers","Database type event handlers"],
+    ans: [0,1],
+    ex:  "The two types are <strong>Form type event handlers</strong> (bound to specific form events like OnLoad) and <strong>Application type event handlers</strong> (tied to application-level events)."
+  },
+  // ── LESSON 11 ──
+  {
+    sec: "Lesson 11 — Form Sync",
+    q:   "FormSync is an aid to preserving your customizations when you upgrade, apply a service pack, or distribute your own forms and form modifications.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> FormSync helps preserve client-tier customizations (forms and global objects) when you upgrade the application, apply service packs, or distribute custom forms to other environments."
+  },
+  {
+    sec: "Lesson 11 — Form Sync",
+    q:   "FormSync resolves conflicts between the size and position of customized components and revised settings during synchronization.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> FormSync does <em>not</em> resolve conflicts related to size and position of components. Size/position conflicts must be handled manually after synchronization."
+  },
+  {
+    sec: "Lesson 11 — Form Sync",
+    q:   "FormSync processes customizations made to the client tier only (forms and global objects in WinStudio Design Mode).",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> FormSync processes customizations from both the client tier (forms, global objects) AND the server tier (IDOs, property classes). It is not limited to client-tier changes only."
+  }
+];
+
+let cur     = 0;
+const sel   = Array(Q.length).fill(null).map(() => []);
+const done  = Array(Q.length).fill(false);
+
+function render() {
+  const q = Q[cur];
+  const isMulti   = q.type === 'multi';
+  const isChecked = done[cur];
+
+  const pct = Math.round((cur / Q.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('hdr-right').textContent = cur + ' / ' + Q.length + ' answered';
+
+  document.getElementById('q-counter').textContent = 'Question ' + (cur + 1) + ' of ' + Q.length;
+  document.getElementById('q-section').textContent = q.sec;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('q-hint').textContent = isMulti ? 'Select all that apply' : 'Choose one answer';
+
+  const optsEl = document.getElementById('q-options');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'opt' + (sel[cur].includes(i) ? ' selected' : '');
+
+    if (isChecked) {
+      div.classList.remove('selected');
+      div.classList.add('locked');
+      const isCor = q.ans.includes(i);
+      const isSel = sel[cur].includes(i);
+      if (isCor && isSel)       div.classList.add('correct');
+      else if (!isCor && isSel) div.classList.add('wrong');
+      else if (isCor && !isSel) div.classList.add('missed');
+    }
+
+    const input = document.createElement('input');
+    input.type = isMulti ? 'checkbox' : 'radio';
+    input.name = 'q' + cur;
+    input.checked = sel[cur].includes(i);
+    if (isChecked) input.disabled = true;
+
+    const label = document.createElement('span');
+    label.className = 'opt-label';
+    label.textContent = opt;
+
+    div.appendChild(input);
+    div.appendChild(label);
+
+    if (!isChecked) div.addEventListener('click', () => toggle(i));
+    optsEl.appendChild(div);
+  });
+
+  const explEl = document.getElementById('q-expl');
+  explEl.innerHTML = q.ex;
+  explEl.className = 'expl' + (isChecked ? ' show' : '');
+
+  document.getElementById('btn-prev').disabled = (cur === 0);
+  const btnCheck  = document.getElementById('btn-check');
+  const btnNext   = document.getElementById('btn-next');
+  const btnSubmit = document.getElementById('btn-submit');
+
+  btnCheck.style.display  = isChecked ? 'none' : 'inline-block';
+  const isLast = cur === Q.length - 1;
+  btnNext.style.display   = (isChecked && !isLast) ? 'inline-block' : 'none';
+  btnSubmit.style.display = (isChecked && isLast)  ? 'inline-block' : 'none';
+}
+
+function toggle(i) {
+  if (Q[cur].type === 'single') sel[cur] = [i];
+  else {
+    const idx = sel[cur].indexOf(i);
+    if (idx === -1) sel[cur].push(i);
+    else sel[cur].splice(idx, 1);
+  }
+  render();
+}
+
+function nav(dir) {
+  cur = Math.max(0, Math.min(Q.length - 1, cur + dir));
+  render();
+}
+
+function check() { done[cur] = true; render(); }
+
+function isQCorrect(i) {
+  const q = Q[i], s = sel[i];
+  if (q.ans.length !== s.length) return false;
+  return q.ans.every(a => s.includes(a)) && s.every(a => q.ans.includes(a));
+}
+
+function isQPartial(i) {
+  const q = Q[i], s = sel[i];
+  if (q.type === 'single') return false;
+  const anyRight = s.some(a =>  q.ans.includes(a));
+  const anyWrong = s.some(a => !q.ans.includes(a));
+  const allRight = q.ans.every(a => s.includes(a));
+  return (anyRight && !allRight) || anyWrong;
+}
+
+function showResults() {
+  document.getElementById('quiz-screen').style.display    = 'none';
+  document.getElementById('results-screen').style.display = 'block';
+  document.getElementById('progress-fill').style.width   = '100%';
+  document.getElementById('hdr-right').textContent = 'Complete!';
+
+  let score = 0;
+  Q.forEach((_, i) => { if (isQCorrect(i)) score++; });
+  const pct = Math.round((score / Q.length) * 100);
+
+  document.getElementById('r-big').textContent = score + ' / ' + Q.length;
+  document.getElementById('r-sub').textContent = 'questions answered correctly';
+  const pctEl = document.getElementById('r-pct');
+  pctEl.textContent = pct + '%';
+  pctEl.className   = 'score-pct ' + (pct >= 80 ? 'great' : pct >= 60 ? 'ok' : 'low');
+
+  const list = document.getElementById('r-list');
+  list.innerHTML = '';
+  Q.forEach((q, i) => {
+    const correct = isQCorrect(i);
+    const partial = !correct && isQPartial(i);
+    const status  = correct ? 'correct' : partial ? 'partial' : 'wrong';
+    const badge   = correct ? '✓ Correct' : partial ? '~ Partial' : '✗ Incorrect';
+    const correctLabels = q.ans.map(a => q.opts[a]).join(', ');
+    const yourLabels    = sel[i].length ? sel[i].map(a => q.opts[a]).join(', ') : '(no answer)';
+    const div = document.createElement('div');
+    div.className = 'r-item';
+    div.innerHTML = `
+      <span class="r-badge r-${status}">${badge}</span>
+      <div class="r-q">Q${i+1}: ${q.q}</div>
+      <div class="r-your">Your answer: ${yourLabels}</div>
+      ${!correct ? `<div class="r-right">Correct answer: ${correctLabels}</div>` : ''}
+      <div class="r-expl">${q.ex}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function restart() {
+  cur = 0;
+  sel.forEach((_, i) => sel[i] = []);
+  done.fill(false);
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display    = 'block';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

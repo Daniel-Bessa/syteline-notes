@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — 04 Extending the Application with Mongoose</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    .hdr {
+      background: #0f172a;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hdr-left h1 { font-size: 17px; font-weight: 700; color: #f1f5f9; }
+    .hdr-left p  { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .hdr-right   { font-size: 12px; color: #475569; }
+
+    .progress-track { background: #1e293b; height: 5px; }
+    .progress-fill  { height: 100%; background: #3b82f6; transition: width .3s ease; }
+
+    .wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 48px; }
+
+    .q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .q-counter { font-size: 11.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .06em; }
+    .q-section {
+      font-size: 11px; font-weight: 700;
+      padding: 3px 11px; border-radius: 20px;
+      background: #dbeafe; color: #1d4ed8;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 26px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+      margin-bottom: 18px;
+    }
+    .q-text { font-size: 16px; font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px; }
+    .q-hint { font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 11px;
+      padding: 13px 15px;
+      border: 2px solid #e2e8f0; border-radius: 8px;
+      cursor: pointer; transition: border-color .12s, background .12s;
+      user-select: none;
+    }
+    .opt:hover:not(.locked) { border-color: #93c5fd; background: #eff6ff; }
+    .opt.selected { border-color: #3b82f6; background: #eff6ff; }
+    .opt.correct  { border-color: #16a34a; background: #f0fdf4; }
+    .opt.wrong    { border-color: #dc2626; background: #fef2f2; }
+    .opt.missed   { border-color: #f59e0b; background: #fffbeb; }
+    .opt input { flex-shrink: 0; margin-top: 1px; width: 16px; height: 16px; accent-color: #3b82f6; pointer-events: none; }
+    .opt-label { font-size: 14px; line-height: 1.45; }
+    .opt.correct .opt-label { color: #166534; font-weight: 600; }
+    .opt.wrong   .opt-label { color: #991b1b; }
+    .opt.missed  .opt-label { color: #92400e; font-weight: 600; }
+
+    .expl {
+      display: none;
+      margin-top: 16px; padding: 13px 15px;
+      background: #f0f9ff; border-left: 3px solid #0284c7;
+      border-radius: 0 6px 6px 0;
+      font-size: 13.5px; color: #0c4a6e; line-height: 1.65;
+    }
+    .expl.show { display: block; }
+    .expl strong { color: #075985; }
+
+    .btn-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .btn {
+      padding: 10px 22px; border-radius: 8px; font-size: 13.5px; font-weight: 600;
+      cursor: pointer; border: none; transition: opacity .15s, background .12s;
+    }
+    .btn:disabled { opacity: .3; cursor: default; }
+    .btn-ghost  { background: #e2e8f0; color: #475569; }
+    .btn-ghost:hover:not(:disabled) { background: #cbd5e1; }
+    .btn-dark   { background: #0f172a; color: #fff; }
+    .btn-dark:hover:not(:disabled) { background: #1e293b; }
+    .btn-blue   { background: #3b82f6; color: #fff; }
+    .btn-blue:hover:not(:disabled) { background: #2563eb; }
+    .btn-green  { background: #16a34a; color: #fff; }
+    .btn-green:hover:not(:disabled) { background: #15803d; }
+
+    #results-screen { display: none; }
+
+    .score-card {
+      background: #fff; border-radius: 12px; padding: 36px; text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07); margin-bottom: 24px;
+    }
+    .score-big { font-size: 64px; font-weight: 800; color: #0f172a; line-height: 1; }
+    .score-sub { font-size: 14px; color: #64748b; margin-top: 6px; }
+    .score-pct { font-size: 24px; font-weight: 700; margin-top: 4px; }
+    .score-pct.great { color: #16a34a; }
+    .score-pct.ok    { color: #f59e0b; }
+    .score-pct.low   { color: #dc2626; }
+
+    .r-item {
+      background: #fff; border-radius: 10px; padding: 20px;
+      margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    }
+    .r-badge {
+      display: inline-block; font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em;
+      padding: 2px 10px; border-radius: 20px; margin-bottom: 9px;
+    }
+    .r-correct { background: #dcfce7; color: #15803d; }
+    .r-wrong   { background: #fee2e2; color: #b91c1c; }
+    .r-partial { background: #fef3c7; color: #92400e; }
+    .r-q { font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 8px; line-height: 1.4; }
+    .r-your  { font-size: 12.5px; color: #64748b; margin-bottom: 4px; }
+    .r-right { font-size: 12.5px; color: #15803d; font-weight: 600; margin-bottom: 8px; }
+    .r-expl  {
+      font-size: 12.5px; color: #0c4a6e; background: #f0f9ff;
+      padding: 10px 12px; border-radius: 6px; line-height: 1.6;
+      border-left: 3px solid #0284c7;
+    }
+
+    .results-heading {
+      font-size: 15px; font-weight: 700; color: #334155;
+      margin: 24px 0 12px; padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .restart-row { text-align: center; padding: 24px 0 8px; }
+
+    /* ── Dark mode ── */
+    body { background: #1a1a1a; color: #e2e8f0; }
+    .q-section { background: #1e3a5f; color: #60a5fa; }
+    .card, .r-item, .score-card { background: #2d2d2d; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+    .q-text { color: #f1f5f9; }
+    .q-hint { color: #64748b; }
+    .opt { border-color: #374151; }
+    .opt:hover:not(.locked) { border-color: #60a5fa; background: #1e3a5f; }
+    .opt.selected { border-color: #3b82f6; background: #1e3a5f; }
+    .opt-label { color: #e2e8f0; }
+    .opt.correct  { border-color: #16a34a; background: #14532d; }
+    .opt.wrong    { border-color: #dc2626; background: #450a0a; }
+    .opt.missed   { border-color: #f59e0b; background: #451a03; }
+    .opt.correct .opt-label { color: #86efac; }
+    .opt.wrong   .opt-label { color: #fca5a5; }
+    .opt.missed  .opt-label { color: #fcd34d; }
+    .expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
+    .expl strong { color: #38bdf8; }
+    .score-big { color: #f1f5f9; }
+    .score-sub { color: #94a3b8; }
+    .r-q { color: #f1f5f9; }
+    .r-your { color: #94a3b8; }
+    .r-expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
+    .results-heading { color: #94a3b8; border-bottom-color: #374151; }
+    .btn-ghost { background: #374151; color: #94a3b8; }
+    .btn-ghost:hover:not(:disabled) { background: #4b5563; }
+  </style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>🎯 Quiz — 04 Extending the Application with Mongoose</h1>
+    <p>CSI v10 · Check Your Understanding · 28 questions from 8 lessons</p>
+  </div>
+  <div class="hdr-right" id="hdr-right"></div>
+</div>
+<div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+
+<div class="wrap">
+
+  <div id="quiz-screen">
+    <div class="q-meta">
+      <span class="q-counter" id="q-counter">Question 1 of 28</span>
+      <span class="q-section" id="q-section"></span>
+    </div>
+
+    <div class="card">
+      <div class="q-text" id="q-text"></div>
+      <div class="q-hint" id="q-hint"></div>
+      <div class="options" id="q-options"></div>
+      <div class="expl" id="q-expl"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="btn-prev" onclick="nav(-1)">← Previous</button>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;">
+        <button class="btn btn-dark"  id="btn-check"  onclick="check()">Check Answer</button>
+        <button class="btn btn-blue"  id="btn-next"   onclick="nav(1)"  style="display:none">Next →</button>
+        <button class="btn btn-green" id="btn-submit" onclick="showResults()" style="display:none">See Results 🏁</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results-screen">
+    <div class="score-card">
+      <div class="score-big" id="r-big"></div>
+      <div class="score-sub" id="r-sub"></div>
+      <div class="score-pct" id="r-pct"></div>
+    </div>
+    <div class="results-heading">Question-by-question review</div>
+    <div id="r-list"></div>
+    <div class="restart-row">
+      <button class="btn btn-dark" onclick="restart()">↺ Restart Quiz</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const Q = [
+  // ── LESSON 1 ──
+  {
+    sec: "Lesson 1 — Course Scenario and Overview",
+    q:   "The _______ database hosts all data specific to a CloudSuite application.",
+    type:"single",
+    opts:["Application","Objects","Forms","Property"],
+    ans: [0],
+    ex:  "The <strong>Application</strong> database hosts all customer data, transactions, and other application-specific records. The <em>Objects</em> database hosts IDO metadata (definitions, properties, methods)."
+  },
+  {
+    sec: "Lesson 1 — Course Scenario and Overview",
+    q:   "The metadata for the Intelligent Data Objects (IDOs) for CloudSuite is hosted in the Objects database.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> The <strong>Objects database</strong> stores all IDO metadata — IDO definitions, property definitions, method definitions, and more."
+  },
+  {
+    sec: "Lesson 1 — Course Scenario and Overview",
+    q:   "The WinStudio client __________. Select all that apply.",
+    type:"multi",
+    opts:["Operates on a Windows-based computer","Includes a run-time mode that all Mongoose-based applications use","Includes a Design mode where developers design applications","Is supported in all major Web browsers"],
+    ans: [0,1,2],
+    ex:  "WinStudio: operates on Windows computers (a), includes a run-time mode (b), and has Design mode for developers (c). It is NOT a web browser application — Design mode is a Windows desktop environment only (d is false)."
+  },
+  // ── LESSON 2 ──
+  {
+    sec: "Lesson 2 — Setting Up the System Development Environment",
+    q:   "Which of the following are valid form editing permission levels in the system? Select all that apply.",
+    type:"multi",
+    opts:["None","Basic","Full User","Site Developer","Vendor Developer","Read Only"],
+    ans: [0,1,2,3,4],
+    ex:  "The five valid levels (lowest to highest) are: <strong>None (5), Basic (4), Full User (3), Site Developer (2), Vendor Developer (1).</strong> 'Read Only' is not a defined editing permission level."
+  },
+  {
+    sec: "Lesson 2 — Setting Up the System Development Environment",
+    q:   "What is the FIRST step to create a new user with Site Developer editing permissions?",
+    type:"single",
+    opts:["Select 'Site Developer' in the Edit Permissions field","Open the Users Form","Create a new object (record)","Save the object"],
+    ans: [1],
+    ex:  "The correct sequence is: 1) <strong>Open the Users Form</strong>, 2) Create a new object, 3) Select 'Site Developer' in Edit Permissions, 4) Save. Opening the form always comes first."
+  },
+  {
+    sec: "Lesson 2 — Setting Up the System Development Environment",
+    q:   "The Explorer data provides __________ to CloudSuite users.",
+    type:"single",
+    opts:["Search capability","Navigation","Data entry forms","Report generation"],
+    ans: [1],
+    ex:  "The Explorer provides <strong>Navigation</strong> — it organizes forms in a hierarchical tree so users can easily find and open them. Search capability is a separate feature."
+  },
+  {
+    sec: "Lesson 2 — Setting Up the System Development Environment",
+    q:   "You can change the current theme used by a user in the User Preferences on the __________ tab.",
+    type:"single",
+    opts:["Runtime Behaviors","Runtime Layout","Design Time","Diagnostics"],
+    ans: [1],
+    ex:  "The <strong>Runtime Layout</strong> tab in User Preferences is where you can change the current theme (color scheme / skin) for a user."
+  },
+  // ── LESSON 3 ──
+  {
+    sec: "Lesson 3 — Design Mode Basics",
+    q:   "Only users with Site Developer edit permissions can create or change site default editing scope versions of forms.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> Site default scope forms can only be created or modified by users with Site Developer or Vendor Developer editing permissions."
+  },
+  {
+    sec: "Lesson 3 — Design Mode Basics",
+    q:   "Which of the following statements are true about Design mode? Select all that apply.",
+    type:"multi",
+    opts:["You add and modify application data records in Design mode","By default, the script editor in Design mode is WinStudio","Design mode is the development environment in the system","The form version displayed is determined by your user ID and user/group/site scope hierarchy"],
+    ans: [1,2,3],
+    ex:  "True: the script editor defaults to WinStudio (b); Design mode is the development environment (c); and the form version shown depends on user/group/site scope (d). False: you do NOT add application data in Design mode — it's for building forms, not entering business data (a is false)."
+  },
+  {
+    sec: "Lesson 3 — Design Mode Basics",
+    q:   "The Mongoose Toolbox contains the types of fields and elements that you can add to a Mongoose form.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> The <strong>Mongoose Toolbox</strong> in WinStudio Design Mode contains all available component types — fields, buttons, grids, notebooks, etc. — that you can place on a form."
+  },
+  // ── LESSON 4 ──
+  {
+    sec: "Lesson 4 — Building the Cost Centers Data Maintenance",
+    q:   "Which of the following takes place during the Mongoose data maintenance activity? Select all that apply.",
+    type:"multi",
+    opts:["Assigning user access to the forms","Updating a table in the application database","Publishing an IDO with access to a table","Creating a form as the primary UI"],
+    ans: [1,2,3],
+    ex:  "Data maintenance activities include: updating a table (b), publishing an IDO (c), and creating a form as the UI (d). Assigning user access (a) is a separate security activity, not part of data maintenance."
+  },
+  {
+    sec: "Lesson 4 — Building the Cost Centers Data Maintenance",
+    q:   "Which of the following can be created using the New Data Maintenance Wizard? Select all that apply.",
+    type:"multi",
+    opts:["Table and columns","Primary key definitions","IDOs and properties","Template data and Form","All of the above"],
+    ans: [4],
+    ex:  "The New Data Maintenance Wizard can create <strong>all</strong> of these in a single workflow: table, columns, primary key definitions, IDOs, properties, template data, and a form. 'All of the above' is correct."
+  },
+  {
+    sec: "Lesson 4 — Building the Cost Centers Data Maintenance",
+    q:   "Which of the following are true about derived property classes? Select all that apply.",
+    type:"multi",
+    opts:["They are at the base of the Mongoose inheritance model","They are associated with (inherit from) other property classes","They are a copy of other property classes","They are also known as 'base property classes'"],
+    ans: [1],
+    ex:  "Derived property classes <strong>inherit from (are associated with) base property classes</strong> (b). They are NOT themselves the base (a), they are not copies (c) — they extend and can override, and they are the opposite of base classes (d)."
+  },
+  {
+    sec: "Lesson 4 — Building the Cost Centers Data Maintenance",
+    q:   "Which two statements describe the reasons for using base and non-base property classes in tandem? Select the two correct answers.",
+    type:"multi",
+    opts:["The base property class ensures the correct data type for the database","The derived (non-base) property class provides list source domain data for drop-downs","The base property class is used to validate user choices","The derived property class ensures the correct data type"],
+    ans: [0,1],
+    ex:  "Best practice: the <strong>base property class</strong> ensures the correct data type (a), while the <strong>derived/non-base property class</strong> provides list source domain data for drop-down combo boxes (b)."
+  },
+  // ── LESSON 5 ──
+  {
+    sec: "Lesson 5 — Extending the Employees Data Maintenance",
+    q:   "When you create a property class extension, you can override attributes that are inherited from the IDO property.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> A property class extension lets you override specific inherited attributes (caption, length, format, etc.) for a particular IDO property without changing the original property class."
+  },
+  {
+    sec: "Lesson 5 — Extending the Employees Data Maintenance",
+    q:   "Which of the following is considered to be at the base of the Mongoose inheritance model?",
+    type:"single",
+    opts:["IDO properties","Property classes","Component classes","Individual components"],
+    ans: [1],
+    ex:  "<strong>Property classes</strong> are at the base of the Mongoose inheritance model. They define the fundamental data type and attributes that IDO properties and form components then inherit from."
+  },
+  // ── LESSON 6 ──
+  {
+    sec: "Lesson 6 — Building the Expense Reports Data Maintenance",
+    q:   "To begin using the New Form Wizard, you must already be in Design Mode.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> The New Form Wizard is launched from within WinStudio while in Design Mode. You must enter Design Mode before accessing the wizard."
+  },
+  {
+    sec: "Lesson 6 — Building the Expense Reports Data Maintenance",
+    q:   "Which of the following form types can be created using the New Form Wizard? Select all that apply.",
+    type:"multi",
+    opts:["Query","Multi View","Grid Only","Combination"],
+    ans: [0,1,2],
+    ex:  "The New Form Wizard supports: Multi View, Grid Only, Query, Build from Scratch, Tile, and Detail Only. <strong>'Combination'</strong> is not a valid New Form Wizard form type."
+  },
+  {
+    sec: "Lesson 6 — Building the Expense Reports Data Maintenance",
+    q:   "Which of the following steps are required to change and test the tab order in a form? Select all that apply.",
+    type:"multi",
+    opts:["Enter Design Mode and select the editing scope","Unload Global Objects, then click the Tab Order icon","Set the required tab order and save","Export the form to XML before modifying tab order"],
+    ans: [0,1,2],
+    ex:  "Steps: Enter Design Mode and select scope → Unload Global Objects → Click Tab Order icon → Set tab order → Save → Unload Global Objects again → Exit. <strong>Exporting to XML is not required.</strong>"
+  },
+  // ── LESSON 7 ──
+  {
+    sec: "Lesson 7 — Creating the Expense Report Portal Form",
+    q:   "You must __________ graphics files before you can insert them into a form.",
+    type:"single",
+    opts:["Import","Download","Customize","Resize"],
+    ans: [0],
+    ex:  "Graphics must be <strong>imported</strong> into the system's image library before they can be placed on a form. This import step registers the image for use in WinStudio."
+  },
+  {
+    sec: "Lesson 7 — Creating the Expense Report Portal Form",
+    q:   "Select __________ as the form type to create a dual-paned form.",
+    type:"single",
+    opts:["Multi View","Build from Scratch","Query","Grid Only","Detail Only"],
+    ans: [0],
+    ex:  "<strong>Multi View</strong> is the form type used to create dual-paned forms — forms that have both a grid (list) pane and a detail pane displayed simultaneously."
+  },
+  {
+    sec: "Lesson 7 — Creating the Expense Report Portal Form",
+    q:   "Which of the following are container components in WinStudio? Select all that apply.",
+    type:"multi",
+    opts:["Grid component","Combo Box component","Notebook component","FormPage component","FlexLayout component"],
+    ans: [0,2,3,4],
+    ex:  "Container components are: <strong>Grid, Notebook, FormPage,</strong> and <strong>FlexLayout.</strong> A <em>Combo Box</em> is an input/selection component — not a container."
+  },
+  {
+    sec: "Lesson 7 — Creating the Expense Report Portal Form",
+    q:   "Which of the following are true regarding subcollections? Select all that apply.",
+    type:"multi",
+    opts:["A subcollection is related to a collection","A subcollection is filtered to show results associated with a primary collection","A subcollection contains a copy of the original data for each form","A subcollection relates a record on one form to records in another collection"],
+    ans: [0,1],
+    ex:  "Subcollections: are <strong>related to a primary collection</strong> (a) and <strong>filtered to show records associated with the selected primary record</strong> (b). They do NOT copy data (c is false) — they reference the same underlying data."
+  },
+  {
+    sec: "Lesson 7 — Creating the Expense Report Portal Form",
+    q:   "A form script is a script that can be used within the confines of a single form only.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> A <strong>form script</strong> is scoped to a single form. If you need a script reusable across multiple forms, you use a <strong>global script</strong> instead."
+  },
+  // ── LESSON 8 ──
+  {
+    sec: "Lesson 8 — Checking IDOs In and Out",
+    q:   "Users cannot access changes that have been made to an IDO until they have been checked in.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> IDO changes must be <strong>checked in</strong> before other users can see and use them. While checked out, changes are only visible to the developer who holds the checkout."
+  },
+  {
+    sec: "Lesson 8 — Checking IDOs In and Out",
+    q:   "New IDO property classes do not have to be checked in.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> New IDO property classes <strong>must also be checked in</strong> before other users can see them. The check-in requirement applies to all IDO-related objects, including property classes."
+  },
+  {
+    sec: "Lesson 8 — Checking IDOs In and Out",
+    q:   "Row level filtering allows you to selectively access object rows based on the specified clause.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> Row level filtering applies a permanent WHERE clause to an IDO or form collection so that only rows meeting the filter criteria are accessible — useful for security and data partitioning."
+  },
+  {
+    sec: "Lesson 8 — Checking IDOs In and Out",
+    q:   "The user must install an application client (Windows or Web) to be able to run a Form-Only mode type form.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> Form-Only mode forms are accessed through a standard <strong>web browser</strong> via a URL — no special client installation is required, making them ideal for simple data entry screens."
+  }
+];
+
+let cur     = 0;
+const sel   = Array(Q.length).fill(null).map(() => []);
+const done  = Array(Q.length).fill(false);
+
+function render() {
+  const q = Q[cur];
+  const isMulti   = q.type === 'multi';
+  const isChecked = done[cur];
+
+  const pct = Math.round((cur / Q.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('hdr-right').textContent = cur + ' / ' + Q.length + ' answered';
+
+  document.getElementById('q-counter').textContent = 'Question ' + (cur + 1) + ' of ' + Q.length;
+  document.getElementById('q-section').textContent = q.sec;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('q-hint').textContent = isMulti ? 'Select all that apply' : 'Choose one answer';
+
+  const optsEl = document.getElementById('q-options');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'opt' + (sel[cur].includes(i) ? ' selected' : '');
+
+    if (isChecked) {
+      div.classList.remove('selected');
+      div.classList.add('locked');
+      const isCor = q.ans.includes(i);
+      const isSel = sel[cur].includes(i);
+      if (isCor && isSel)       div.classList.add('correct');
+      else if (!isCor && isSel) div.classList.add('wrong');
+      else if (isCor && !isSel) div.classList.add('missed');
+    }
+
+    const input = document.createElement('input');
+    input.type = isMulti ? 'checkbox' : 'radio';
+    input.name = 'q' + cur;
+    input.checked = sel[cur].includes(i);
+    if (isChecked) input.disabled = true;
+
+    const label = document.createElement('span');
+    label.className = 'opt-label';
+    label.textContent = opt;
+
+    div.appendChild(input);
+    div.appendChild(label);
+
+    if (!isChecked) div.addEventListener('click', () => toggle(i));
+    optsEl.appendChild(div);
+  });
+
+  const explEl = document.getElementById('q-expl');
+  explEl.innerHTML = q.ex;
+  explEl.className = 'expl' + (isChecked ? ' show' : '');
+
+  document.getElementById('btn-prev').disabled = (cur === 0);
+  const btnCheck  = document.getElementById('btn-check');
+  const btnNext   = document.getElementById('btn-next');
+  const btnSubmit = document.getElementById('btn-submit');
+
+  btnCheck.style.display  = isChecked ? 'none' : 'inline-block';
+  const isLast = cur === Q.length - 1;
+  btnNext.style.display   = (isChecked && !isLast) ? 'inline-block' : 'none';
+  btnSubmit.style.display = (isChecked && isLast)  ? 'inline-block' : 'none';
+}
+
+function toggle(i) {
+  if (Q[cur].type === 'single') sel[cur] = [i];
+  else {
+    const idx = sel[cur].indexOf(i);
+    if (idx === -1) sel[cur].push(i);
+    else sel[cur].splice(idx, 1);
+  }
+  render();
+}
+
+function nav(dir) {
+  cur = Math.max(0, Math.min(Q.length - 1, cur + dir));
+  render();
+}
+
+function check() { done[cur] = true; render(); }
+
+function isQCorrect(i) {
+  const q = Q[i], s = sel[i];
+  if (q.ans.length !== s.length) return false;
+  return q.ans.every(a => s.includes(a)) && s.every(a => q.ans.includes(a));
+}
+
+function isQPartial(i) {
+  const q = Q[i], s = sel[i];
+  if (q.type === 'single') return false;
+  const anyRight = s.some(a =>  q.ans.includes(a));
+  const anyWrong = s.some(a => !q.ans.includes(a));
+  const allRight = q.ans.every(a => s.includes(a));
+  return (anyRight && !allRight) || anyWrong;
+}
+
+function showResults() {
+  document.getElementById('quiz-screen').style.display    = 'none';
+  document.getElementById('results-screen').style.display = 'block';
+  document.getElementById('progress-fill').style.width   = '100%';
+  document.getElementById('hdr-right').textContent = 'Complete!';
+
+  let score = 0;
+  Q.forEach((_, i) => { if (isQCorrect(i)) score++; });
+  const pct = Math.round((score / Q.length) * 100);
+
+  document.getElementById('r-big').textContent = score + ' / ' + Q.length;
+  document.getElementById('r-sub').textContent = 'questions answered correctly';
+  const pctEl = document.getElementById('r-pct');
+  pctEl.textContent = pct + '%';
+  pctEl.className   = 'score-pct ' + (pct >= 80 ? 'great' : pct >= 60 ? 'ok' : 'low');
+
+  const list = document.getElementById('r-list');
+  list.innerHTML = '';
+  Q.forEach((q, i) => {
+    const correct = isQCorrect(i);
+    const partial = !correct && isQPartial(i);
+    const status  = correct ? 'correct' : partial ? 'partial' : 'wrong';
+    const badge   = correct ? '✓ Correct' : partial ? '~ Partial' : '✗ Incorrect';
+    const correctLabels = q.ans.map(a => q.opts[a]).join(', ');
+    const yourLabels    = sel[i].length ? sel[i].map(a => q.opts[a]).join(', ') : '(no answer)';
+    const div = document.createElement('div');
+    div.className = 'r-item';
+    div.innerHTML = `
+      <span class="r-badge r-${status}">${badge}</span>
+      <div class="r-q">Q${i+1}: ${q.q}</div>
+      <div class="r-your">Your answer: ${yourLabels}</div>
+      ${!correct ? `<div class="r-right">Correct answer: ${correctLabels}</div>` : ''}
+      <div class="r-expl">${q.ex}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function restart() {
+  cur = 0;
+  sel.forEach((_, i) => sel[i] = []);
+  done.fill(false);
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display    = 'block';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

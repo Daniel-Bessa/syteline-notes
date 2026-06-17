@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — 05 Creating Reports Using Mongoose</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    .hdr {
+      background: #0f172a;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hdr-left h1 { font-size: 17px; font-weight: 700; color: #f1f5f9; }
+    .hdr-left p  { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .hdr-right   { font-size: 12px; color: #475569; }
+
+    .progress-track { background: #1e293b; height: 5px; }
+    .progress-fill  { height: 100%; background: #3b82f6; transition: width .3s ease; }
+
+    .wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 48px; }
+
+    .q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .q-counter { font-size: 11.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .06em; }
+    .q-section {
+      font-size: 11px; font-weight: 700;
+      padding: 3px 11px; border-radius: 20px;
+      background: #dbeafe; color: #1d4ed8;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 26px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+      margin-bottom: 18px;
+    }
+    .q-text { font-size: 16px; font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px; }
+    .q-hint { font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 11px;
+      padding: 13px 15px;
+      border: 2px solid #e2e8f0; border-radius: 8px;
+      cursor: pointer; transition: border-color .12s, background .12s;
+      user-select: none;
+    }
+    .opt:hover:not(.locked) { border-color: #93c5fd; background: #eff6ff; }
+    .opt.selected { border-color: #3b82f6; background: #eff6ff; }
+    .opt.correct  { border-color: #16a34a; background: #f0fdf4; }
+    .opt.wrong    { border-color: #dc2626; background: #fef2f2; }
+    .opt.missed   { border-color: #f59e0b; background: #fffbeb; }
+    .opt input { flex-shrink: 0; margin-top: 1px; width: 16px; height: 16px; accent-color: #3b82f6; pointer-events: none; }
+    .opt-label { font-size: 14px; line-height: 1.45; }
+    .opt.correct .opt-label { color: #166534; font-weight: 600; }
+    .opt.wrong   .opt-label { color: #991b1b; }
+    .opt.missed  .opt-label { color: #92400e; font-weight: 600; }
+
+    .expl {
+      display: none;
+      margin-top: 16px; padding: 13px 15px;
+      background: #f0f9ff; border-left: 3px solid #0284c7;
+      border-radius: 0 6px 6px 0;
+      font-size: 13.5px; color: #0c4a6e; line-height: 1.65;
+    }
+    .expl.show { display: block; }
+    .expl strong { color: #075985; }
+
+    .btn-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .btn {
+      padding: 10px 22px; border-radius: 8px; font-size: 13.5px; font-weight: 600;
+      cursor: pointer; border: none; transition: opacity .15s, background .12s;
+    }
+    .btn:disabled { opacity: .3; cursor: default; }
+    .btn-ghost  { background: #e2e8f0; color: #475569; }
+    .btn-ghost:hover:not(:disabled) { background: #cbd5e1; }
+    .btn-dark   { background: #0f172a; color: #fff; }
+    .btn-dark:hover:not(:disabled) { background: #1e293b; }
+    .btn-blue   { background: #3b82f6; color: #fff; }
+    .btn-blue:hover:not(:disabled) { background: #2563eb; }
+    .btn-green  { background: #16a34a; color: #fff; }
+    .btn-green:hover:not(:disabled) { background: #15803d; }
+
+    #results-screen { display: none; }
+
+    .score-card {
+      background: #fff; border-radius: 12px; padding: 36px; text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07); margin-bottom: 24px;
+    }
+    .score-big { font-size: 64px; font-weight: 800; color: #0f172a; line-height: 1; }
+    .score-sub { font-size: 14px; color: #64748b; margin-top: 6px; }
+    .score-pct { font-size: 24px; font-weight: 700; margin-top: 4px; }
+    .score-pct.great { color: #16a34a; }
+    .score-pct.ok    { color: #f59e0b; }
+    .score-pct.low   { color: #dc2626; }
+
+    .r-item {
+      background: #fff; border-radius: 10px; padding: 20px;
+      margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    }
+    .r-badge {
+      display: inline-block; font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em;
+      padding: 2px 10px; border-radius: 20px; margin-bottom: 9px;
+    }
+    .r-correct { background: #dcfce7; color: #15803d; }
+    .r-wrong   { background: #fee2e2; color: #b91c1c; }
+    .r-partial { background: #fef3c7; color: #92400e; }
+    .r-q { font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 8px; line-height: 1.4; }
+    .r-your  { font-size: 12.5px; color: #64748b; margin-bottom: 4px; }
+    .r-right { font-size: 12.5px; color: #15803d; font-weight: 600; margin-bottom: 8px; }
+    .r-expl  {
+      font-size: 12.5px; color: #0c4a6e; background: #f0f9ff;
+      padding: 10px 12px; border-radius: 6px; line-height: 1.6;
+      border-left: 3px solid #0284c7;
+    }
+
+    .results-heading {
+      font-size: 15px; font-weight: 700; color: #334155;
+      margin: 24px 0 12px; padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .restart-row { text-align: center; padding: 24px 0 8px; }
+
+    /* ── Dark mode ── */
+    body { background: #1a1a1a; color: #e2e8f0; }
+    .q-section { background: #1e3a5f; color: #60a5fa; }
+    .card, .r-item, .score-card { background: #2d2d2d; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+    .q-text { color: #f1f5f9; }
+    .q-hint { color: #64748b; }
+    .opt { border-color: #374151; }
+    .opt:hover:not(.locked) { border-color: #60a5fa; background: #1e3a5f; }
+    .opt.selected { border-color: #3b82f6; background: #1e3a5f; }
+    .opt-label { color: #e2e8f0; }
+    .opt.correct  { border-color: #16a34a; background: #14532d; }
+    .opt.wrong    { border-color: #dc2626; background: #450a0a; }
+    .opt.missed   { border-color: #f59e0b; background: #451a03; }
+    .opt.correct .opt-label { color: #86efac; }
+    .opt.wrong   .opt-label { color: #fca5a5; }
+    .opt.missed  .opt-label { color: #fcd34d; }
+    .expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
+    .expl strong { color: #38bdf8; }
+    .score-big { color: #f1f5f9; }
+    .score-sub { color: #94a3b8; }
+    .r-q { color: #f1f5f9; }
+    .r-your { color: #94a3b8; }
+    .r-expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
+    .results-heading { color: #94a3b8; border-bottom-color: #374151; }
+    .btn-ghost { background: #374151; color: #94a3b8; }
+    .btn-ghost:hover:not(:disabled) { background: #4b5563; }
+  </style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>🎯 Quiz — 05 Creating Reports Using Mongoose</h1>
+    <p>CSI v10 · Check Your Understanding · 30 questions from 8 lessons</p>
+  </div>
+  <div class="hdr-right" id="hdr-right"></div>
+</div>
+<div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+
+<div class="wrap">
+
+  <div id="quiz-screen">
+    <div class="q-meta">
+      <span class="q-counter" id="q-counter">Question 1 of 30</span>
+      <span class="q-section" id="q-section"></span>
+    </div>
+
+    <div class="card">
+      <div class="q-text" id="q-text"></div>
+      <div class="q-hint" id="q-hint"></div>
+      <div class="options" id="q-options"></div>
+      <div class="expl" id="q-expl"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="btn-prev" onclick="nav(-1)">← Previous</button>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;">
+        <button class="btn btn-dark"  id="btn-check"  onclick="check()">Check Answer</button>
+        <button class="btn btn-blue"  id="btn-next"   onclick="nav(1)"  style="display:none">Next →</button>
+        <button class="btn btn-green" id="btn-submit" onclick="showResults()" style="display:none">See Results 🏁</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results-screen">
+    <div class="score-card">
+      <div class="score-big" id="r-big"></div>
+      <div class="score-sub" id="r-sub"></div>
+      <div class="score-pct" id="r-pct"></div>
+    </div>
+    <div class="results-heading">Question-by-question review</div>
+    <div id="r-list"></div>
+    <div class="restart-row">
+      <button class="btn btn-dark" onclick="restart()">↺ Restart Quiz</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const Q = [
+  // ── LESSON 1 ──
+  {
+    sec: "Lesson 1 — Using IDO Methods with DataViews",
+    q:   "DataViews are advanced data grids that you can create to query a custom set of data.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> DataViews are specialized, configurable grids that allow you to define custom queries against system data, providing flexible ad-hoc reporting and data exploration."
+  },
+  {
+    sec: "Lesson 1 — Using IDO Methods with DataViews",
+    q:   "When data is returned from a DataView query, the results are typically displayed in a basic _____ on the appropriate DataView results form.",
+    type:"single",
+    opts:["Grid","Stored procedure","Report type","None of the above"],
+    ans: [0],
+    ex:  "DataView results are displayed in a basic <strong>Grid</strong> on the DataView results form, showing rows and columns of data matching the query parameters."
+  },
+  {
+    sec: "Lesson 1 — Using IDO Methods with DataViews",
+    q:   "Which of the following tabs are available on the DataViews Setup Form? Select all that apply.",
+    type:"multi",
+    opts:["General","Input Parameters","User Permission","Layouts","None of the above"],
+    ans: [0,1,2,3],
+    ex:  "The DataViews Setup Form includes all four tabs: <strong>General</strong> (basic configuration), <strong>Input Parameters</strong> (query parameters), <strong>User Permission</strong> (access control), and <strong>Layouts</strong> (display configuration)."
+  },
+  {
+    sec: "Lesson 1 — Using IDO Methods with DataViews",
+    q:   "Which of the following are the two valid IDO method types? Select all that apply.",
+    type:"multi",
+    opts:["Standard Method","Custom Method","IDO Method","IDO Collection"],
+    ans: [0,1],
+    ex:  "The two IDO method types are <strong>Standard Method</strong> (built-in Mongoose framework methods) and <strong>Custom Method</strong> (developer-created methods). 'IDO Method' and 'IDO Collection' are not method type categories."
+  },
+  {
+    sec: "Lesson 1 — Using IDO Methods with DataViews",
+    q:   "DataView reports can be produced from any type of DataView result.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> DataView reports can be generated from any type of DataView result, providing a formatted printable output from the raw DataView query data."
+  },
+  // ── LESSON 2 ──
+  {
+    sec: "Lesson 2 — Creating a Report Type Form",
+    q:   "Report Type forms are specialized Mongoose forms that you can create to produce templates for your own custom reports.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> A Report Type form is a special kind of Mongoose form designed specifically as a report template — it defines the layout and content structure of a printed or exported report."
+  },
+  {
+    sec: "Lesson 2 — Creating a Report Type Form",
+    q:   "What type of collections do report-template forms support? Select all that apply.",
+    type:"multi",
+    opts:["Primary collections","Secondary collections","Sub-collections","None of the above"],
+    ans: [0,1],
+    ex:  "Report Type forms support <strong>Primary collections</strong> (the main data source) and <strong>Secondary collections</strong> (additional related data sources). Sub-collections are not directly supported in report templates."
+  },
+  {
+    sec: "Lesson 2 — Creating a Report Type Form",
+    q:   "To create a Report Type form, you need to be in Design Mode.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> Like all form creation in WinStudio, creating a Report Type form requires you to be in <strong>Design Mode</strong>."
+  },
+  {
+    sec: "Lesson 2 — Creating a Report Type Form",
+    q:   "To create a Report Type form, you need to use the following:",
+    type:"single",
+    opts:["New Data Maintenance Wizard","New Form Wizard","Configuration Manager","Configuration Wizard","None of the above"],
+    ans: [1],
+    ex:  "The <strong>New Form Wizard</strong> is used to create a Report Type form. Within the wizard, you select 'Report Type' as the form type."
+  },
+  {
+    sec: "Lesson 2 — Creating a Report Type Form",
+    q:   "Before you can specify containment for any property, you must first specify at least one container.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> Containment assigns report properties to specific layout containers (header, detail, footer regions). At least one container must be defined before you can assign properties to it."
+  },
+  // ── LESSON 3 ──
+  {
+    sec: "Lesson 3 — Adding FlexLayout Components",
+    q:   "A FlexLayout component is NOT a container component.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> A FlexLayout component IS a container — it is specifically designed to flexibly house other components and organize them in configurable regions."
+  },
+  {
+    sec: "Lesson 3 — Adding FlexLayout Components",
+    q:   "When using multiple regions, the FlexLayout component can be grouped as follows. Select all that apply.",
+    type:"multi",
+    opts:["Horizontally","Vertically","Diagonally","None of the above"],
+    ans: [0,1],
+    ex:  "FlexLayout regions can be arranged <strong>Horizontally</strong> or <strong>Vertically</strong>. Diagonal grouping is not supported."
+  },
+  {
+    sec: "Lesson 3 — Adding FlexLayout Components",
+    q:   "FlexLayout components can be embedded within regions of another FlexLayout component.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> FlexLayout components can be nested — you can place a FlexLayout inside a region of another FlexLayout to create complex, flexible layouts."
+  },
+  {
+    sec: "Lesson 3 — Adding FlexLayout Components",
+    q:   "Additional properties available in the Main FlexLayout depend on what Region Type is selected.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> Different Region Types (Fixed, Stretch, etc.) expose different sets of properties and attributes, giving fine-grained control over each region's behavior."
+  },
+  {
+    sec: "Lesson 3 — Adding FlexLayout Components",
+    q:   "Mongoose character units are calculated in terms relative to the size of the base font designated for the Mongoose-based application.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> Mongoose uses a character-unit measurement system where dimensions are relative to the application's base font size, making layouts scale proportionally across different display settings."
+  },
+  // ── LESSON 4 ──
+  {
+    sec: "Lesson 4 — Adding Components",
+    q:   "WinStudio supports components available in both the Design Mode Toolbox and the Component property sheet, Type property.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> Components can be added via the visual Toolbox in Design Mode or by changing the 'Type' property in the Component property sheet — both methods access the same component library."
+  },
+  {
+    sec: "Lesson 4 — Adding Components",
+    q:   "Which of the following are valid components that can be added to a form? Select all that apply.",
+    type:"multi",
+    opts:["Combo Box","Edit","Notebook","Grid"],
+    ans: [0,1,2,3],
+    ex:  "All four are valid WinStudio form components: <strong>Combo Box</strong> (dropdown selection), <strong>Edit</strong> (text input), <strong>Notebook</strong> (tabbed container), and <strong>Grid</strong> (data grid container)."
+  },
+  {
+    sec: "Lesson 4 — Adding Components",
+    q:   "You can add a component that is NOT on the Toolbox to a form.",
+    type:"single",
+    opts:["True","False"],
+    ans: [1],
+    ex:  "<strong>False.</strong> All components that can be added to a form are available through the Toolbox. You cannot add a component type that isn't present in the Toolbox."
+  },
+  // ── LESSON 5 ──
+  {
+    sec: "Lesson 5 — Using Secondary Collections",
+    q:   "A Secondary Collection can be used as a sub-collection.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> A Secondary Collection can function as a sub-collection, displaying records that are filtered based on the current record in the primary collection."
+  },
+  {
+    sec: "Lesson 5 — Using Secondary Collections",
+    q:   "The collection hierarchy determines the order in which each collection's data is processed in the report output.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> In a report form, the collection hierarchy controls data processing order — parent collection data is processed first, followed by child collections, determining how data is grouped and nested in the output."
+  },
+  {
+    sec: "Lesson 5 — Using Secondary Collections",
+    q:   "Which of the following is true about Secondary Collections?",
+    type:"single",
+    opts:["A Secondary Collection is bound to a form to extract data from different tables without writing code","A Secondary Collection requires custom code to extract data from different tables","You cannot link a secondary collection to another collection","None of the above is true"],
+    ans: [0],
+    ex:  "A <strong>Secondary Collection is an additional IDO collection bound to a form</strong> that allows extracting data from different tables without writing any code — a powerful, code-free data access tool."
+  },
+  // ── LESSON 6 ──
+  {
+    sec: "Lesson 6 — Adding a Sub-Report",
+    q:   "Which of the following are true statements about Sub-Reports? Select all that apply.",
+    type:"multi",
+    opts:["Sub-Reports are reports that can be referenced from within other reports","Any Report Type form can be used as a Sub-Report","When a region contains a Sub-Report, it cannot contain any additional components","All of the above"],
+    ans: [3],
+    ex:  "All three statements are true: Sub-Reports can be embedded in other reports (a); any Report Type form qualifies as a Sub-Report (b); and a Sub-Report region becomes a dedicated placeholder with no other components (c). So <strong>'All of the above'</strong> is correct."
+  },
+  {
+    sec: "Lesson 6 — Adding a Sub-Report",
+    q:   "Paging in a Sub-Report is ignored.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> When a Report Type form is used as a Sub-Report within another report, any paging settings defined in the Sub-Report are <strong>ignored</strong> — paging is controlled by the parent report only."
+  },
+  // ── LESSON 7 ──
+  {
+    sec: "Lesson 7 — Creating a Report Criteria Form",
+    q:   "A bound form is one that is used to retrieve and manipulate one or more collections.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> A <strong>bound form</strong> is linked to an IDO collection, allowing it to retrieve, display, and manipulate data from the underlying database tables."
+  },
+  {
+    sec: "Lesson 7 — Creating a Report Criteria Form",
+    q:   "The relationship between a form and an IDO is determined by specifying the collection to which the form is bound.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> By specifying the IDO collection in the form's Collection property, you establish the link between the form and its data source."
+  },
+  {
+    sec: "Lesson 7 — Creating a Report Criteria Form",
+    q:   "An unbound form is one that is not tied to a particular IDO.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> An <strong>unbound form</strong> has no IDO collection binding — it can serve non-data tasks like displaying information, launching processes, or acting as a Report Criteria form with variables."
+  },
+  {
+    sec: "Lesson 7 — Creating a Report Criteria Form",
+    q:   "Once you have the report definition file and background task created, you must create or modify a form in CloudSuite to make the report available to users.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> After defining the report and the background task, you must provide users with a way to access it — typically by creating or modifying a form that includes criteria inputs and preview/print buttons."
+  },
+  {
+    sec: "Lesson 7 — Creating a Report Criteria Form",
+    q:   "When creating a new Report Criteria form, which of the following tasks would you typically perform? Select all that apply.",
+    type:"multi",
+    opts:["Add components","Bind components to variables","Add labels","Add preview and print buttons","Add Event Handlers","All of the above"],
+    ans: [5],
+    ex:  "Creating a Report Criteria form involves all of these tasks: adding input components, binding them to report variables, adding labels, adding preview/print buttons, and adding event handlers to launch the report. <strong>'All of the above'</strong> is correct."
+  },
+  // ── LESSON 8 ──
+  {
+    sec: "Lesson 8 — Using IDO Collections and Report Type Forms",
+    q:   "If you need to run a report type form directly from a report criteria form with parameters, you need to set a permanent filter on the report type form.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> When the report criteria form passes parameters to a report type form, a <strong>permanent filter</strong> must be set on the report type form to use those parameter values as filter criteria for the data collection."
+  },
+  {
+    sec: "Lesson 8 — Using IDO Collections and Report Type Forms",
+    q:   "The target variables used in the report criteria form need to be created in the report type form.",
+    type:"single",
+    opts:["True","False"],
+    ans: [0],
+    ex:  "<strong>True.</strong> The <strong>target variables</strong> that the report criteria form writes to must be defined in the report type form — they serve as the bridge between the criteria form's inputs and the report template's data filter."
+  }
+];
+
+let cur     = 0;
+const sel   = Array(Q.length).fill(null).map(() => []);
+const done  = Array(Q.length).fill(false);
+
+function render() {
+  const q = Q[cur];
+  const isMulti   = q.type === 'multi';
+  const isChecked = done[cur];
+
+  const pct = Math.round((cur / Q.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('hdr-right').textContent = cur + ' / ' + Q.length + ' answered';
+
+  document.getElementById('q-counter').textContent = 'Question ' + (cur + 1) + ' of ' + Q.length;
+  document.getElementById('q-section').textContent = q.sec;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('q-hint').textContent = isMulti ? 'Select all that apply' : 'Choose one answer';
+
+  const optsEl = document.getElementById('q-options');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'opt' + (sel[cur].includes(i) ? ' selected' : '');
+
+    if (isChecked) {
+      div.classList.remove('selected');
+      div.classList.add('locked');
+      const isCor = q.ans.includes(i);
+      const isSel = sel[cur].includes(i);
+      if (isCor && isSel)       div.classList.add('correct');
+      else if (!isCor && isSel) div.classList.add('wrong');
+      else if (isCor && !isSel) div.classList.add('missed');
+    }
+
+    const input = document.createElement('input');
+    input.type = isMulti ? 'checkbox' : 'radio';
+    input.name = 'q' + cur;
+    input.checked = sel[cur].includes(i);
+    if (isChecked) input.disabled = true;
+
+    const label = document.createElement('span');
+    label.className = 'opt-label';
+    label.textContent = opt;
+
+    div.appendChild(input);
+    div.appendChild(label);
+
+    if (!isChecked) div.addEventListener('click', () => toggle(i));
+    optsEl.appendChild(div);
+  });
+
+  const explEl = document.getElementById('q-expl');
+  explEl.innerHTML = q.ex;
+  explEl.className = 'expl' + (isChecked ? ' show' : '');
+
+  document.getElementById('btn-prev').disabled = (cur === 0);
+  const btnCheck  = document.getElementById('btn-check');
+  const btnNext   = document.getElementById('btn-next');
+  const btnSubmit = document.getElementById('btn-submit');
+
+  btnCheck.style.display  = isChecked ? 'none' : 'inline-block';
+  const isLast = cur === Q.length - 1;
+  btnNext.style.display   = (isChecked && !isLast) ? 'inline-block' : 'none';
+  btnSubmit.style.display = (isChecked && isLast)  ? 'inline-block' : 'none';
+}
+
+function toggle(i) {
+  if (Q[cur].type === 'single') sel[cur] = [i];
+  else {
+    const idx = sel[cur].indexOf(i);
+    if (idx === -1) sel[cur].push(i);
+    else sel[cur].splice(idx, 1);
+  }
+  render();
+}
+
+function nav(dir) {
+  cur = Math.max(0, Math.min(Q.length - 1, cur + dir));
+  render();
+}
+
+function check() { done[cur] = true; render(); }
+
+function isQCorrect(i) {
+  const q = Q[i], s = sel[i];
+  if (q.ans.length !== s.length) return false;
+  return q.ans.every(a => s.includes(a)) && s.every(a => q.ans.includes(a));
+}
+
+function isQPartial(i) {
+  const q = Q[i], s = sel[i];
+  if (q.type === 'single') return false;
+  const anyRight = s.some(a =>  q.ans.includes(a));
+  const anyWrong = s.some(a => !q.ans.includes(a));
+  const allRight = q.ans.every(a => s.includes(a));
+  return (anyRight && !allRight) || anyWrong;
+}
+
+function showResults() {
+  document.getElementById('quiz-screen').style.display    = 'none';
+  document.getElementById('results-screen').style.display = 'block';
+  document.getElementById('progress-fill').style.width   = '100%';
+  document.getElementById('hdr-right').textContent = 'Complete!';
+
+  let score = 0;
+  Q.forEach((_, i) => { if (isQCorrect(i)) score++; });
+  const pct = Math.round((score / Q.length) * 100);
+
+  document.getElementById('r-big').textContent = score + ' / ' + Q.length;
+  document.getElementById('r-sub').textContent = 'questions answered correctly';
+  const pctEl = document.getElementById('r-pct');
+  pctEl.textContent = pct + '%';
+  pctEl.className   = 'score-pct ' + (pct >= 80 ? 'great' : pct >= 60 ? 'ok' : 'low');
+
+  const list = document.getElementById('r-list');
+  list.innerHTML = '';
+  Q.forEach((q, i) => {
+    const correct = isQCorrect(i);
+    const partial = !correct && isQPartial(i);
+    const status  = correct ? 'correct' : partial ? 'partial' : 'wrong';
+    const badge   = correct ? '✓ Correct' : partial ? '~ Partial' : '✗ Incorrect';
+    const correctLabels = q.ans.map(a => q.opts[a]).join(', ');
+    const yourLabels    = sel[i].length ? sel[i].map(a => q.opts[a]).join(', ') : '(no answer)';
+    const div = document.createElement('div');
+    div.className = 'r-item';
+    div.innerHTML = `
+      <span class="r-badge r-${status}">${badge}</span>
+      <div class="r-q">Q${i+1}: ${q.q}</div>
+      <div class="r-your">Your answer: ${yourLabels}</div>
+      ${!correct ? `<div class="r-right">Correct answer: ${correctLabels}</div>` : ''}
+      <div class="r-expl">${q.ex}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function restart() {
+  cur = 0;
+  sel.forEach((_, i) => sel[i] = []);
+  done.fill(false);
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display    = 'block';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
