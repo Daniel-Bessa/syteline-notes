@@ -93,6 +93,26 @@
     .expl.show { display: block; }
     .expl strong { color: #075985; }
 
+    /* ── Workbook excerpt ── */
+    .ref-wrap { display: none; margin-top: 8px; }
+    .ref-wrap.show { display: block; }
+    .ref-toggle {
+      background: none; border: 1px solid #cbd5e1; color: #64748b;
+      font-size: 12px; padding: 4px 11px; border-radius: 6px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 5px; transition: all .15s;
+    }
+    .ref-toggle:hover { border-color: #0284c7; color: #0284c7; }
+    .ref-content {
+      display: none; margin-top: 7px;
+      background: #fffbeb; border-left: 3px solid #d97706;
+      padding: 11px 14px; border-radius: 0 6px 6px 0;
+      font-size: 13px; color: #78350f; line-height: 1.65;
+    }
+    .ref-content.open { display: block; }
+    .ref-label { font-size: 10px; font-weight: 700; color: #b45309;
+                 text-transform: uppercase; letter-spacing: .07em;
+                 display: block; margin-bottom: 5px; }
+
     /* ── Button row ── */
     .btn-row {
       display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
@@ -140,6 +160,20 @@
     .r-q { font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 8px; line-height: 1.4; }
     .r-your  { font-size: 12.5px; color: #64748b; margin-bottom: 4px; }
     .r-right { font-size: 12.5px; color: #15803d; font-weight: 600; margin-bottom: 8px; }
+    .r-ref-wrap { margin-top: 7px; }
+    .r-ref-toggle {
+      font-size: 12px; color: #64748b; cursor: pointer; user-select: none;
+      list-style: none; display: inline-flex; align-items: center; gap: 5px;
+    }
+    .r-ref-toggle::-webkit-details-marker { display: none; }
+    .r-ref-content {
+      margin-top: 6px; background: #fffbeb; border-left: 3px solid #d97706;
+      padding: 10px 13px; border-radius: 0 6px 6px 0;
+      font-size: 12.5px; color: #78350f; line-height: 1.6;
+    }
+    .r-ref-label { font-size: 10px; font-weight: 700; color: #b45309;
+                   text-transform: uppercase; letter-spacing: .07em;
+                   display: block; margin-bottom: 4px; }
     .r-expl  {
       font-size: 12.5px; color: #0c4a6e; background: #f0f9ff;
       padding: 10px 12px; border-radius: 6px; line-height: 1.6;
@@ -172,11 +206,18 @@
     .opt.missed  .opt-label { color: #fcd34d; }
     .expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
     .expl strong { color: #38bdf8; }
+    .ref-toggle { border-color: #374151; color: #64748b; }
+    .ref-toggle:hover { border-color: #60a5fa; color: #60a5fa; }
+    .ref-content { background: #1c1a08; border-left-color: #d97706; color: #fcd34d; }
+    .ref-label { color: #f59e0b; }
     .score-big { color: #f1f5f9; }
     .score-sub { color: #94a3b8; }
     .r-q { color: #f1f5f9; }
     .r-your { color: #94a3b8; }
     .r-expl { background: #0c2237; border-left-color: #0284c7; color: #7dd3fc; }
+    .r-ref-toggle { color: #64748b; }
+    .r-ref-content { background: #1c1a08; border-left-color: #d97706; color: #fcd34d; }
+    .r-ref-label { color: #f59e0b; }
     .results-heading { color: #94a3b8; border-bottom-color: #374151; }
     .btn-ghost { background: #374151; color: #94a3b8; }
     .btn-ghost:hover:not(:disabled) { background: #4b5563; }
@@ -207,6 +248,13 @@
       <div class="q-hint" id="q-hint"></div>
       <div class="options" id="q-options"></div>
       <div class="expl" id="q-expl"></div>
+      <div class="ref-wrap" id="q-ref-wrap">
+        <button class="ref-toggle" id="ref-btn" onclick="toggleRef()">📖 Workbook ▾</button>
+        <div class="ref-content" id="q-ref-content">
+          <span class="ref-label">From the workbook</span>
+          <span id="q-ref-text"></span>
+        </div>
+      </div>
     </div>
 
     <div class="btn-row">
@@ -247,7 +295,8 @@ const Q = [
     type:"single",
     opts:["The Explorer","The menu bar","The toolbar","The workspace"],
     ans: [0],
-    ex:  "The <strong>Explorer</strong> presents a hierarchical view of the forms in the system, similar to Windows® Explorer. It groups forms in folders (My Folders, Master Explorer, Public Folders, User Folders) and allows you to navigate, organize favorites, and open forms."
+    ex:  "The <strong>Explorer</strong> presents a hierarchical view of the forms in the system, similar to Windows® Explorer. It groups forms in folders (My Folders, Master Explorer, Public Folders, User Folders) and allows you to navigate, organize favorites, and open forms.",
+    ref: "The Explorer is often the starting point for working in the system. It presents a hierarchical view of the forms in the system, similar to Windows® Explorer."
   },
   {
     sec: "Lesson 1 — Opening and Working with Forms",
@@ -255,7 +304,8 @@ const Q = [
     type:"multi",
     opts:["System","Modules","Roles","My Folders"],
     ans: [1,2],
-    ex:  "Master Explorer expands into four subfolders: <strong>All Forms, Modules, Optional Modules,</strong> and <strong>Roles</strong>. From the options given, Modules and Roles are correct. 'System' is a subfolder <em>inside</em> Modules (not a top-level item). 'My Folders' is a top-level Explorer section alongside Master Explorer, not within it."
+    ex:  "Master Explorer expands into four subfolders: <strong>All Forms, Modules, Optional Modules,</strong> and <strong>Roles</strong>. From the options given, Modules and Roles are correct. 'System' is a subfolder <em>inside</em> Modules (not a top-level item). 'My Folders' is a top-level Explorer section alongside Master Explorer, not within it.",
+    ref: "The Master Explorer folder in the Explorer contains the following subfolders: All Forms, Modules, Optional Modules, and Roles. From these folders, you can navigate to any form in the system."
   },
   {
     sec: "Lesson 1 — Opening and Working with Forms",
@@ -263,7 +313,8 @@ const Q = [
     type:"multi",
     opts:["Selecting Form > Open","Right-clicking and selecting Open a Form","Pressing Ctrl + O","Clicking Open on the toolbar"],
     ans: [0,2,3],
-    ex:  "The Select Form dialog opens via <strong>Form > Open</strong>, <strong>Ctrl+O</strong>, or clicking <strong>Open</strong> on the toolbar. Right-clicking to select 'Open a Form' is not a documented method."
+    ex:  "The Select Form dialog opens via <strong>Form > Open</strong>, <strong>Ctrl+O</strong>, or clicking <strong>Open</strong> on the toolbar. Right-clicking to select 'Open a Form' is not a documented method.",
+    ref: "You can open the Select Form dialog box by selecting Form > Open, pressing Ctrl+O, or clicking Open on the toolbar. The dialog box allows you to search for and open any form in the system."
   },
   {
     sec: "Lesson 1 — Opening and Working with Forms",
@@ -271,7 +322,8 @@ const Q = [
     type:"single",
     opts:["True","False"],
     ans: [1],
-    ex:  "<strong>False</strong> — the workbook explicitly states: <em>'Do not rename or delete the AutoRun or PreLoad subfolders.'</em> These system folders must keep their exact names to function correctly."
+    ex:  "<strong>False</strong> — the workbook explicitly states: <em>'Do not rename or delete the AutoRun or PreLoad subfolders.'</em> These system folders must keep their exact names to function correctly.",
+    ref: "If you consistently use certain forms, you can use the AutoRun and PreLoad subfolders in My Folders to set up forms to load and open automatically when you log on. Do not rename or delete the AutoRun or PreLoad subfolders."
   },
   {
     sec: "Lesson 1 — Opening and Working with Forms",
@@ -279,7 +331,8 @@ const Q = [
     type:"single",
     opts:["PreLoad","AutoRun","System","Master Explorer"],
     ans: [1],
-    ex:  "<strong>AutoRun</strong> — any forms in this folder open automatically when you log in. <em>PreLoad</em> is different: it retrieves forms into memory (making them load faster later) but does not open them automatically."
+    ex:  "<strong>AutoRun</strong> — any forms in this folder open automatically when you log in. <em>PreLoad</em> is different: it retrieves forms into memory (making them load faster later) but does not open them automatically.",
+    ref: "AutoRun: To set up forms to open automatically, copy the forms you want to open automatically into this folder. When you log in, the system automatically loads and opens any forms in the AutoRun folder. PreLoad: Copy forms you want to preload into memory into this folder. The system loads these forms into memory when you log in, but does not open them."
   },
   // ── LESSON 2 ──
   {
@@ -288,7 +341,8 @@ const Q = [
     type:"single",
     opts:["Database","Presentation","Middleware","Interface"],
     ans: [1],
-    ex:  "The <strong>Presentation</strong> layer is what you see — forms, fields, and collections displayed in WinStudio. The Middleware layer handles business logic (IDO Runtime). The Database layer stores the actual data. Records you see are <em>copies</em> from the database; changes only persist when you save."
+    ex:  "The <strong>Presentation</strong> layer is what you see — forms, fields, and collections displayed in WinStudio. The Middleware layer handles business logic (IDO Runtime). The Database layer stores the actual data. Records you see are <em>copies</em> from the database; changes only persist when you save.",
+    ref: "The application is built on three levels: the database, middleware, and presentation layer. The presentation layer is the client interface — the forms and collections you work with on your desktop. Any records you see are copies of data from the database; modifications must be saved to update the actual database."
   },
   {
     sec: "Lesson 2 — Finding and Displaying Records",
@@ -296,7 +350,8 @@ const Q = [
     type:"single",
     opts:["True","False"],
     ans: [1],
-    ex:  "<strong>False</strong> — filter-in-place creates a <em>temporary</em> filter only. To save criteria for reuse, use the Query form (Actions > Filter > By Query) and then save the query there with Actions > Filter > Save."
+    ex:  "<strong>False</strong> — filter-in-place creates a <em>temporary</em> filter only. To save criteria for reuse, use the Query form (Actions > Filter > By Query) and then save the query there with Actions > Filter > Save.",
+    ref: "When you use this functionality to search for records, you create a temporary filter by entering search criteria in selected fields. The filter-in-place method does not allow you to save the filter criteria for later reuse. To save criteria, use a query form instead."
   },
   {
     sec: "Lesson 2 — Finding and Displaying Records",
@@ -304,7 +359,8 @@ const Q = [
     type:"multi",
     opts:["< or > (comparison operators)","<> or != (not equal to)","AND and OR (logical operators)","* or NULL (wildcard / blank)"],
     ans: [0,1,3],
-    ex:  "Filter-in-place supports <strong>&lt; &gt;</strong>, <strong>&lt;&gt; !=</strong>, <strong>*</strong> (wildcard), and <strong>NULL</strong> (blank). It does <strong>NOT</strong> support AND or OR logical operators. For multiple criteria on a single field, you must use the Query form."
+    ex:  "Filter-in-place supports <strong>&lt; &gt;</strong>, <strong>&lt;&gt; !=</strong>, <strong>*</strong> (wildcard), and <strong>NULL</strong> (blank). It does <strong>NOT</strong> support AND or OR logical operators. For multiple criteria on a single field, you must use the Query form.",
+    ref: "The following operators can be used in as many fields as necessary to define a filter: < or > (less/greater than), <> or != (not equal to), * (wildcard for zero or more characters), NULL (matches blank values). Filter in place does not support the logical operators AND and OR. If you need to specify multiple criteria for one field, use the query form."
   },
   {
     sec: "Lesson 2 — Finding and Displaying Records",
@@ -312,7 +368,8 @@ const Q = [
     type:"single",
     opts:["10","20","100","200"],
     ans: [3],
-    ex:  "The default data cap is <strong>200 records</strong>. When a filter returns more, the system retrieves the first 200. Click 'Get More Rows' each time to fetch the next batch of up to 200 more."
+    ex:  "The default data cap is <strong>200 records</strong>. When a filter returns more, the system retrieves the first 200. Click 'Get More Rows' each time to fetch the next batch of up to 200 more.",
+    ref: "Sometimes a filter or query will result in a collection of records that is larger than the data cap. By default, the cap is set to 200. You can display the next set of records in a form using the Get more rows in the current collection button on the toolbar."
   },
   {
     sec: "Lesson 2 — Finding and Displaying Records",
@@ -320,7 +377,8 @@ const Q = [
     type:"multi",
     opts:["A field name","A form name","An operator","A value"],
     ans: [0,2,3],
-    ex:  "A query clause has three parts: <strong>(1) a field name</strong>, <strong>(2) an operator</strong> (=, &lt;, &gt;, &lt;&gt;, LIKE), and <strong>(3) a value</strong>. Example: <em>State = NY</em>. Form name is not part of a query clause."
+    ex:  "A query clause has three parts: <strong>(1) a field name</strong>, <strong>(2) an operator</strong> (=, &lt;, &gt;, &lt;&gt;, LIKE), and <strong>(3) a value</strong>. Example: <em>State = NY</em>. Form name is not part of a query clause.",
+    ref: "Query statements are made up of query clauses. A query clause consists of (1) a field name, (2) an operator, and (3) a value. For example, to retrieve records for vendors located in New York, you would create a clause similar to \"State = NY\"."
   },
   {
     sec: "Lesson 2 — Finding and Displaying Records",
@@ -328,7 +386,8 @@ const Q = [
     type:"single",
     opts:["True","False"],
     ans: [0],
-    ex:  "<strong>True</strong> — save a query via Actions > Filter > Save. Reapply it later via Actions > Filter > Apply Saved Filter. You can also use a <strong>?</strong> as the value for a field to have the system prompt you for that value each time you apply the saved query."
+    ex:  "<strong>True</strong> — save a query via Actions > Filter > Save. Reapply it later via Actions > Filter > Apply Saved Filter. You can also use a <strong>?</strong> as the value for a field to have the system prompt you for that value each time you apply the saved query.",
+    ref: "If you frequently use the same search criteria to retrieve a collection of records, you can save the criteria entered on a query form and create your own saved filter. After the query is saved, you can use the filter to perform a search any time you need to without having to re-enter all the search criteria each time."
   },
   {
     sec: "Lesson 2 — Finding and Displaying Records",
@@ -336,7 +395,8 @@ const Q = [
     type:"multi",
     opts:["LIKE","= (equal to)","< or > (less/greater than)","<> (not equal to)"],
     ans: [0,1,2,3],
-    ex:  "Query forms support all four: <strong>LIKE</strong> (equivalent to using wildcards), <strong>=</strong>, <strong>&lt; &gt;</strong>, and <strong>&lt;&gt;</strong>. This is more powerful than filter-in-place, which doesn't support LIKE or OR logic."
+    ex:  "Query forms support all four: <strong>LIKE</strong> (equivalent to using wildcards), <strong>=</strong>, <strong>&lt; &gt;</strong>, and <strong>&lt;&gt;</strong>. This is more powerful than filter-in-place, which doesn't support LIKE or OR logic.",
+    ref: "Filter in place does not support the logical operators AND and OR. If you need to specify multiple criteria for one field, use the query form associated with your form. Query forms support additional operators including LIKE, which lets you search for patterns similar to using a wildcard."
   },
   {
     sec: "Lesson 2 — Finding and Displaying Records",
@@ -344,7 +404,8 @@ const Q = [
     type:"multi",
     opts:["Resize column widths","Change the font size and color in columns","Change the order of the columns","Hide columns"],
     ans: [0,2,3],
-    ex:  "You can <strong>resize widths</strong>, <strong>reorder columns</strong>, and <strong>hide columns</strong> via the 'Edit Grid Column Visibility and Order' dialog (right-click the column header > Edit Grid Columns). Changing font size/color per-column in a grid is not a supported option here."
+    ex:  "You can <strong>resize widths</strong>, <strong>reorder columns</strong>, and <strong>hide columns</strong> via the 'Edit Grid Column Visibility and Order' dialog (right-click the column header > Edit Grid Columns). Changing font size/color per-column in a grid is not a supported option here.",
+    ref: "Use the Edit Grid Column Visibility and Order dialog box to show, hide, and reorder a form's grid columns. You can also resize columns by dragging the column border in the grid header."
   },
   {
     sec: "Lesson 2 — Finding and Displaying Records",
@@ -352,7 +413,8 @@ const Q = [
     type:"multi",
     opts:["Collection","By Property","Descending","Case-sensitive"],
     ans: [0,1,2,3],
-    ex:  "All four are fields in the Sort dialog: <strong>Collection</strong> (which collection to sort), <strong>By Property</strong> (the field to sort by), <strong>Descending</strong> (sort direction toggle), and <strong>Case-sensitive</strong> (whether capitalization matters when sorting text)."
+    ex:  "All four are fields in the Sort dialog: <strong>Collection</strong> (which collection to sort), <strong>By Property</strong> (the field to sort by), <strong>Descending</strong> (sort direction toggle), and <strong>Case-sensitive</strong> (whether capitalization matters when sorting text).",
+    ref: "The Sort dialog box contains four fields: Collection (which collection in the form to sort), By Property (which field/column to sort by), Descending (check to sort in descending order), and Case-sensitive (check to make the sort case-sensitive for text fields)."
   },
   // ── LESSON 3 ──
   {
@@ -361,7 +423,8 @@ const Q = [
     type:"single",
     opts:["The field is required","The field is required but the system will generate a value if blank","The field is optional","The field is read-only"],
     ans: [0],
-    ex:  "A <strong>red asterisk</strong> means the field is required — you must supply a value. A <em>green</em> asterisk also means required but the system can auto-generate it. White fields are optional; gray (no border) fields are read-only."
+    ex:  "A <strong>red asterisk</strong> means the field is required — you must supply a value. A <em>green</em> asterisk also means required but the system can auto-generate it. White fields are optional; gray (no border) fields are read-only.",
+    ref: "The color of the symbol or field on a form indicates whether it is required, optional, or read-only when adding a new record. A red asterisk (*) indicates a required field — you must enter a value before the record can be saved."
   },
   {
     sec: "Lesson 3 — Adding, Editing, and Deleting Records",
@@ -369,7 +432,8 @@ const Q = [
     type:"single",
     opts:["The field is required","The field is required, but the system will generate a value if left blank","The field is optional","The field is read-only"],
     ans: [1],
-    ex:  "A <strong>green asterisk</strong> means the field is required, but if you leave it blank the system auto-generates a value. You can also supply a prefix + '?' (e.g., 'JB?') and the system will generate 'JB00001', 'JB00002', etc. — common for Customer ID and other key fields."
+    ex:  "A <strong>green asterisk</strong> means the field is required, but if you leave it blank the system auto-generates a value. You can also supply a prefix + '?' (e.g., 'JB?') and the system will generate 'JB00001', 'JB00002', etc. — common for Customer ID and other key fields.",
+    ref: "A green asterisk (*) next to a field indicates the field is required, but the system will generate a value if you leave it blank. You can also type a prefix followed by a question mark (for example, \"JB?\") and the system will generate a unique value using that prefix."
   },
   {
     sec: "Lesson 3 — Adding, Editing, and Deleting Records",
@@ -377,7 +441,8 @@ const Q = [
     type:"single",
     opts:["The field is required","The field is required and system-generated","The field is optional","The field is read-only"],
     ans: [3],
-    ex:  "A <strong>gray</strong> field (no visible border) is read-only — you cannot edit it. This is used for calculated fields or fields that are set by the system. White optional fields and asterisk-marked required fields do have visible borders."
+    ex:  "A <strong>gray</strong> field (no visible border) is read-only — you cannot edit it. This is used for calculated fields or fields that are set by the system. White optional fields and asterisk-marked required fields do have visible borders.",
+    ref: "A field with no border around the data is read-only — you cannot enter or change data in this field. Read-only fields are typically calculated values or fields that are maintained automatically by the system."
   },
   {
     sec: "Lesson 3 — Adding, Editing, and Deleting Records",
@@ -385,7 +450,8 @@ const Q = [
     type:"multi",
     opts:["Using a drop-down list filter (type characters then click the arrow)","Using the Find menu option (right-click > Find or Ctrl+F)","Using filter-in-place functionality","Using the Add menu option (right-click > Add)"],
     ans: [0,1,3],
-    ex:  "You can find/add drop-down values by <strong>typing to filter the list</strong>, using <strong>Find</strong> (Ctrl+F or right-click > Find — searches existing values), or <strong>Add</strong> (right-click > Add — opens the related form to create a new value). Filter-in-place is for filtering the main collection, not a drop-down list."
+    ex:  "You can find/add drop-down values by <strong>typing to filter the list</strong>, using <strong>Find</strong> (Ctrl+F or right-click > Find — searches existing values), or <strong>Add</strong> (right-click > Add — opens the related form to create a new value). Filter-in-place is for filtering the main collection, not a drop-down list.",
+    ref: "In addition to filtering a drop-down list by typing characters, you can search for valid values using the Find menu option (right-click > Find or Ctrl+F), or add a new value using the Add menu option (right-click > Add), which opens the related form so you can create a new entry."
   },
   {
     sec: "Lesson 3 — Adding, Editing, and Deleting Records",
@@ -393,7 +459,8 @@ const Q = [
     type:"single",
     opts:["True","False"],
     ans: [0],
-    ex:  "<strong>True</strong> — business data lists are populated from records you maintain in another form (e.g., Item IDs from the Items form). Option lists are built into the system with a fixed set of values, and Find/Add are not available for those fixed lists."
+    ex:  "<strong>True</strong> — business data lists are populated from records you maintain in another form (e.g., Item IDs from the Items form). Option lists are built into the system with a fixed set of values, and Find/Add are not available for those fixed lists.",
+    ref: "The Find and Add menu options are only available in business data drop-down lists. Business data lists contain values that you maintain in a separate form (for example, item IDs or customer codes). Option lists have a fixed set of values defined by the system and do not support Find or Add."
   },
   {
     sec: "Lesson 3 — Adding, Editing, and Deleting Records",
@@ -401,7 +468,8 @@ const Q = [
     type:"single",
     opts:["True","False"],
     ans: [0],
-    ex:  "<strong>True</strong> — Actions > Copy (or Ctrl+C in Smart Client) creates a copy of the currently selected record as a new record in the collection. Modify any fields you need, then save. This is faster than entering repetitive data from scratch."
+    ex:  "<strong>True</strong> — Actions > Copy (or Ctrl+C in Smart Client) creates a copy of the currently selected record as a new record in the collection. Modify any fields you need, then save. This is faster than entering repetitive data from scratch.",
+    ref: "To create a copy of a selected record, select the record and then click Actions > Copy. A new record is added to the collection with the same field values as the original. You can then change any fields as needed and save the new record."
   },
   {
     sec: "Lesson 3 — Adding, Editing, and Deleting Records",
@@ -409,7 +477,8 @@ const Q = [
     type:"multi",
     opts:["Remove the new record (Actions > Delete / Ctrl+D)","Refresh the current record only (Ctrl+F5)","Refresh all records in the collection (F5)","Cancel changes and close the form (Form > Close and Cancel Changes)"],
     ans: [0,1,2,3],
-    ex:  "All four undo unsaved changes: <strong>F5</strong> reverts the entire collection; <strong>Ctrl+F5</strong> reverts only the selected record; <strong>Close and Cancel Changes</strong> discards all changes and closes the form; <strong>Delete</strong> removes a new unsaved record. Once you save, changes cannot be undone with these methods."
+    ex:  "All four undo unsaved changes: <strong>F5</strong> reverts the entire collection; <strong>Ctrl+F5</strong> reverts only the selected record; <strong>Close and Cancel Changes</strong> discards all changes and closes the form; <strong>Delete</strong> removes a new unsaved record. Once you save, changes cannot be undone with these methods.",
+    ref: "To undo changes made prior to saving: Refresh all records (F5) to undo changes to all records in the collection; Refresh the current record (Ctrl+F5) to undo changes only to the selected record; select Form > Close and Cancel Changes to close the form and discard all changes; or delete the new record (Actions > Delete) to remove it before saving."
   },
   // ── LESSON 4 ──
   {
@@ -418,7 +487,8 @@ const Q = [
     type:"single",
     opts:["System","Attach File","Open Attachment","Attach Detach Reusable"],
     ans: [3],
-    ex:  "<strong>Attach Detach Reusable</strong> opens the System/User Notes form where you can browse and attach existing reusable notes (system or user) to the current record. 'Attach File' is for attaching an external file like a drawing or document."
+    ex:  "<strong>Attach Detach Reusable</strong> opens the System/User Notes form where you can browse and attach existing reusable notes (system or user) to the current record. 'Attach File' is for attaching an external file like a drawing or document.",
+    ref: "Reusable notes are defined on the System/User Notes form. You can create these notes once and attach them multiple times to different records, either as object notes or class notes. Click the Attach Detach Reusable button on the Object Notes form to open the System/User Notes form and select a reusable note to attach."
   },
   {
     sec: "Lesson 4 — Additional Record Management",
@@ -426,7 +496,8 @@ const Q = [
     type:"single",
     opts:["True","False"],
     ans: [0],
-    ex:  "<strong>True</strong> — open the Background Task History form and look for <strong>Task Succeeded</strong> or <strong>Task Failed</strong> in the Return Status field. The task is not complete until the <em>Completed</em> date/time field is populated, regardless of what the Task Messages area shows."
+    ex:  "<strong>True</strong> — open the Background Task History form and look for <strong>Task Succeeded</strong> or <strong>Task Failed</strong> in the Return Status field. The task is not complete until the <em>Completed</em> date/time field is populated, regardless of what the Task Messages area shows.",
+    ref: "When an activity or utility is not processed immediately and a \"Task Submitted\" message appears, you can verify its completion by checking the Background Task History form. Look for \"Task Succeeded\" or \"Task Failed\" in the Return Status field to confirm whether the task completed successfully."
   },
   {
     sec: "Lesson 4 — Additional Record Management",
@@ -434,7 +505,8 @@ const Q = [
     type:"multi",
     opts:["Commas","Forward slashes","Tabs","Semicolons"],
     ans: [0,2],
-    ex:  "The Export Collection to File dialog offers two Output File Types: <strong>comma-separated (.csv)</strong> and <strong>tab-separated (.txt)</strong>. Forward slashes and semicolons are not supported separator options."
+    ex:  "The Export Collection to File dialog offers two Output File Types: <strong>comma-separated (.csv)</strong> and <strong>tab-separated (.txt)</strong>. Forward slashes and semicolons are not supported separator options.",
+    ref: "The Export Collection to File dialog box lets you export data from a collection to an external file. If you designated comma-separated as the output file type, use a file extension of .csv. If you designated tab-separated as the output file type, use a file extension of .txt."
   },
   {
     sec: "Lesson 4 — Additional Record Management",
@@ -442,7 +514,8 @@ const Q = [
     type:"multi",
     opts:["Single and multiple records (rows)","All records in a collection","Single and multiple columns","Individual and multiple cells"],
     ans: [0,1,2,3],
-    ex:  "The <strong>Smart Client</strong> supports copying records, entire collections, columns, and individual/multiple cells to Excel. You can also use Actions > To Excel to export the current collection to a .csv file that opens in Excel automatically. Note: row/column/cell selection features are <em>not</em> available in the Web Client."
+    ex:  "The <strong>Smart Client</strong> supports copying records, entire collections, columns, and individual/multiple cells to Excel. You can also use Actions > To Excel to export the current collection to a .csv file that opens in Excel automatically. Note: row/column/cell selection features are <em>not</em> available in the Web Client.",
+    ref: "In the Smart Client, you can select individual or multiple records (rows), all records in the collection, individual or multiple columns, or individual and multiple cells, and then copy and paste them into Excel."
   },
   // ── COURSE REVIEW ──
   {
@@ -451,7 +524,8 @@ const Q = [
     type:"single",
     opts:["A group of related pieces of data or information","The window through which you interact with information in a database","An area that displays a particular piece of information from the database","A group of related records"],
     ans: [1],
-    ex:  "A <strong>Form</strong> is the window through which you interact with a database. A <em>Record</em> is a group of related pieces of data. A <em>Field</em> is an area on a form displaying one piece of information. A <em>Collection</em> is a group of related records."
+    ex:  "A <strong>Form</strong> is the window through which you interact with a database. A <em>Record</em> is a group of related pieces of data. A <em>Field</em> is an area on a form displaying one piece of information. A <em>Collection</em> is a group of related records.",
+    ref: "Fields and other components on forms are used to present collections of data records from the databases. When using the application, you will be working with forms, records, fields, and collections. A form is the window through which you interact with information in a database."
   },
   {
     sec: "Course Review",
@@ -459,7 +533,8 @@ const Q = [
     type:"single",
     opts:["The window through which you interact with information in a database","A group of related pieces of data or information in a single row","An area on a form that displays one piece of information","A group of related records"],
     ans: [3],
-    ex:  "A <strong>Collection</strong> is a group of related records. For example, the Customer Orders form can display a collection of all orders for one customer, or all orders with a particular status. You work with specific subsets of records using filters and queries."
+    ex:  "A <strong>Collection</strong> is a group of related records. For example, the Customer Orders form can display a collection of all orders for one customer, or all orders with a particular status. You work with specific subsets of records using filters and queries.",
+    ref: "Forms can display many records. A group of related records is called a collection. With many forms, it is possible to view collections of all available records. But, in practice, you typically work with a specific subset of records in a particular collection."
   },
   {
     sec: "Course Review",
@@ -467,7 +542,8 @@ const Q = [
     type:"single",
     opts:["Detail view","Dual view","Grid view","Split view"],
     ans: [2],
-    ex:  "<strong>Grid view</strong> displays records in rows and columns, similar to a spreadsheet. <em>Detail view</em> shows details for a single selected record. <em>Dual view</em> (the default) shows both grid and detail panes separated by a splitter bar (Ctrl+1 hides grid, Ctrl+2 hides detail)."
+    ex:  "<strong>Grid view</strong> displays records in rows and columns, similar to a spreadsheet. <em>Detail view</em> shows details for a single selected record. <em>Dual view</em> (the default) shows both grid and detail panes separated by a splitter bar (Ctrl+1 hides grid, Ctrl+2 hides detail).",
+    ref: "The grid view displays a collection of records using a tabular (row-column) format. A grid can constitute the sole content of a form, in which case it is called a grid form. The detail view displays the data for a single, selected record and allows you to view more fields than are visible in a grid."
   },
   {
     sec: "Course Review",
@@ -475,7 +551,8 @@ const Q = [
     type:"multi",
     opts:["Linking buttons on the form","Edit menu links (right-click > Details for a field)","List displays within the Actions menu","Notes with attachments"],
     ans: [0,1,2],
-    ex:  "Forms can link to related forms via <strong>linking buttons</strong> (open a related form showing linked data), <strong>Edit menu links / right-click Details</strong> (drill into a field's source form), and <strong>Actions menu lists</strong> (e.g., Actions > List Receipts). Notes with attachments are for annotating records, not for navigating to related forms."
+    ex:  "Forms can link to related forms via <strong>linking buttons</strong> (open a related form showing linked data), <strong>Edit menu links / right-click Details</strong> (drill into a field's source form), and <strong>Actions menu lists</strong> (e.g., Actions > List Receipts). Notes with attachments are for annotating records, not for navigating to related forms.",
+    ref: "Many forms have buttons that link you to a related form and record. When you open a form by clicking a linking button, the form will include (Linked) in the title bar. You can also access related forms through right-click > Details on a field, or through lists in the Actions menu."
   },
   {
     sec: "Course Review",
@@ -483,7 +560,8 @@ const Q = [
     type:"single",
     opts:["Begin In Place","Execute In Place","Filter In Place","Run In Place"],
     ans: [2],
-    ex:  "<strong>Filter In Place</strong> (F4) both places the form in filter mode AND executes the filter. From Refresh mode, pressing F4 clears the collection and goes back to filter mode. From Filter mode, F4 runs the filter with whatever criteria you have entered."
+    ex:  "<strong>Filter In Place</strong> (F4) both places the form in filter mode AND executes the filter. From Refresh mode, pressing F4 clears the collection and goes back to filter mode. From Filter mode, F4 runs the filter with whatever criteria you have entered.",
+    ref: "Click the Filter In Place toolbar button (or press F4) to place the form in filter mode. In filter mode, you can type search criteria directly into the fields on the form. Press F4 again (or click Filter In Place again) to execute the filter and retrieve matching records."
   },
   {
     sec: "Course Review",
@@ -491,7 +569,8 @@ const Q = [
     type:"multi",
     opts:["Add your own subfolders","Add or copy subfolders and forms into My Folders","Rename existing subfolders and forms","Delete folders and forms"],
     ans: [0,1,3],
-    ex:  "You can <strong>add new subfolders</strong>, <strong>copy/add forms</strong> (via New Shortcut or drag-and-drop), and <strong>delete</strong> folders and forms from My Folders. The workbook does not list renaming as a customization option."
+    ex:  "You can <strong>add new subfolders</strong>, <strong>copy/add forms</strong> (via New Shortcut or drag-and-drop), and <strong>delete</strong> folders and forms from My Folders. The workbook does not list renaming as a customization option.",
+    ref: "Instead of having to search through the Master Explorer folders in the Explorer, you can create a menu structure in My Folders that includes only the forms you use. You can customize the contents of My Folders by: adding your own subfolders, adding or copying subfolders and forms into My Folders, and deleting folders and forms."
   },
   {
     sec: "Course Review",
@@ -499,7 +578,8 @@ const Q = [
     type:"multi",
     opts:["Press Ctrl + Q (Smart Client only)","Select Actions > Filter > By Query","Click Filter In Place on the toolbar","Right-click anywhere on the form (not a field) and select Filter > By Query"],
     ans: [0,1,3],
-    ex:  "A query form opens via <strong>Ctrl+Q</strong> (Smart Client), <strong>Actions > Filter > By Query</strong>, or <strong>right-clicking a non-field area</strong> on the form and selecting Filter > By Query. The <em>Filter In Place</em> toolbar button runs the filter-in-place — it does <em>not</em> open a query form."
+    ex:  "A query form opens via <strong>Ctrl+Q</strong> (Smart Client), <strong>Actions > Filter > By Query</strong>, or <strong>right-clicking a non-field area</strong> on the form and selecting Filter > By Query. The <em>Filter In Place</em> toolbar button runs the filter-in-place — it does <em>not</em> open a query form.",
+    ref: "To open a query form while the main form is in Refresh or New mode: click Actions > Filter > By Query, press Ctrl+Q (Smart Client only), or right-click anywhere on the form other than a field and click Filter > By Query."
   },
   {
     sec: "Course Review",
@@ -507,7 +587,8 @@ const Q = [
     type:"multi",
     opts:["Pressing Ctrl+N (Smart Client only)","Clicking the New toolbar button","Selecting Actions > New","Right-clicking and selecting New (must be in Dual view)"],
     ans: [0,1,2,3],
-    ex:  "All four methods add a new record: <strong>Ctrl+N</strong> (Smart Client only), the <strong>New toolbar button</strong>, <strong>Actions > New</strong>, or <strong>right-click > New</strong> (while in Dual view). The new record appears with a <em>blue star</em> indicator in the grid row label."
+    ex:  "All four methods add a new record: <strong>Ctrl+N</strong> (Smart Client only), the <strong>New toolbar button</strong>, <strong>Actions > New</strong>, or <strong>right-click > New</strong> (while in Dual view). The new record appears with a <em>blue star</em> indicator in the grid row label.",
+    ref: "In Refresh mode, you can add a new record by pressing Ctrl+N (Smart Client only), clicking the New toolbar button, selecting Actions > New, or right-clicking and selecting New (available in Dual view). A blue star appears in the row label of the new record to indicate it has not yet been saved."
   },
   {
     sec: "Course Review",
@@ -515,7 +596,8 @@ const Q = [
     type:"multi",
     opts:["Press Ctrl+S","Click Save on the toolbar","Select Actions > Save","Select Actions > Save Current"],
     ans: [0,1,2],
-    ex:  "<strong>Ctrl+S</strong>, the <strong>Save toolbar button</strong>, and <strong>Actions > Save</strong> all save the entire collection at once. <em>Actions > Save Current</em> saves only the currently selected record — not the whole collection."
+    ex:  "<strong>Ctrl+S</strong>, the <strong>Save toolbar button</strong>, and <strong>Actions > Save</strong> all save the entire collection at once. <em>Actions > Save Current</em> saves only the currently selected record — not the whole collection.",
+    ref: "To save all records in a collection at once, press Ctrl+S, click Save on the toolbar, or select Actions > Save. To save only the currently selected record without saving others, select Actions > Save Current."
   },
   {
     sec: "Course Review",
@@ -523,7 +605,8 @@ const Q = [
     type:"multi",
     opts:["Navigate away from a new or modified record","Attempt to save new or modified records","Select Actions > Validate"],
     ans: [0,1,2],
-    ex:  "Validation triggers when you <strong>navigate away</strong> from a changed record, when you <strong>try to save</strong>, or when you explicitly select <strong>Actions > Validate</strong>. Some fields are set to validate immediately (as soon as you leave the field), without waiting for these actions."
+    ex:  "Validation triggers when you <strong>navigate away</strong> from a changed record, when you <strong>try to save</strong>, or when you explicitly select <strong>Actions > Validate</strong>. Some fields are set to validate immediately (as soon as you leave the field), without waiting for these actions.",
+    ref: "Validation occurs and error messages display when you navigate away from a new or modified record, attempt to save new or modified records, or select Actions > Validate. Some fields are set to validate as soon as you leave the field, regardless of whether a save has been attempted."
   },
   {
     sec: "Course Review",
@@ -531,7 +614,8 @@ const Q = [
     type:"single",
     opts:["True","False"],
     ans: [1],
-    ex:  "<strong>False</strong> — the red X means the record is <em>marked</em> for deletion but has <em>not yet</em> been saved to the database. While the red X shows, you can still undo it by refreshing (F5 or Ctrl+F5). It will only be permanently deleted when you save the collection."
+    ex:  "<strong>False</strong> — the red X means the record is <em>marked</em> for deletion but has <em>not yet</em> been saved to the database. While the red X shows, you can still undo it by refreshing (F5 or Ctrl+F5). It will only be permanently deleted when you save the collection.",
+    ref: "A red X (✗) symbol in the row label indicates a record has been marked for deletion. The record will not actually be deleted from the database until you save the collection. While the red X is showing, you can still undo the deletion by refreshing the form (F5)."
   },
   {
     sec: "Course Review",
@@ -539,7 +623,8 @@ const Q = [
     type:"single",
     opts:["System/User Notes form","Object Notes form","Class Notes (Modal) form","Object Class Notes form"],
     ans: [1],
-    ex:  "<strong>Object Notes form</strong> (Actions > Notes for Current) creates a note attached to a single specific record. Class Notes attach to every record in the collection. System/User Notes is for creating <em>reusable</em> notes. 'Object Class Notes' is not a real form in the system."
+    ex:  "<strong>Object Notes form</strong> (Actions > Notes for Current) creates a note attached to a single specific record. Class Notes attach to every record in the collection. System/User Notes is for creating <em>reusable</em> notes. 'Object Class Notes' is not a real form in the system.",
+    ref: "Object notes are notes that apply only to a specific record. Use the Object Notes form (Actions > Notes for Current Object) to create a note that applies only to the currently selected record. Class notes, by contrast, apply to every record in a collection."
   },
   {
     sec: "Course Review",
@@ -547,7 +632,8 @@ const Q = [
     type:"multi",
     opts:["Check boxes and drop-down parameters (what type of information to print)","Range filters (select ranges of records to print)","Report output formats (PDF, Excel, CSV, etc.)","Action buttons: Preview and Print"],
     ans: [0,1,3],
-    ex:  "Reports have three parts: <strong>parameters</strong> (checkboxes/dropdowns for what to print), <strong>range filters</strong> (select date/record ranges), and <strong>action buttons</strong> (Preview and Print). Report output formats are an option within the Print/Report Options dialog — not one of the three main structural parts of a report form."
+    ex:  "Reports have three parts: <strong>parameters</strong> (checkboxes/dropdowns for what to print), <strong>range filters</strong> (select date/record ranges), and <strong>action buttons</strong> (Preview and Print). Report output formats are an option within the Print/Report Options dialog — not one of the three main structural parts of a report form.",
+    ref: "Reports usually consist of three parts: check boxes and drop-down parameters that let you specify what type of information to print; range filters that let you select ranges of records to print; and action buttons such as Preview and Print that let you preview the report or send it to the printer."
   },
   {
     sec: "Course Review",
@@ -555,7 +641,8 @@ const Q = [
     type:"single",
     opts:["Commit","Print","Select","Submit"],
     ans: [0],
-    ex:  "Select <strong>Commit</strong> radio button before clicking Process to write changes to the database. 'Preview' runs the process without committing. In some utilities, the Commit option only becomes available <em>after</em> you have run a preview first."
+    ex:  "Select <strong>Commit</strong> radio button before clicking Process to write changes to the database. 'Preview' runs the process without committing. In some utilities, the Commit option only becomes available <em>after</em> you have run a preview first.",
+    ref: "Activities and utilities that include a Preview option allow you to perform a trial run. Nothing is updated in the database, but you will be able to view what will occur. If the results look correct in the preview, you select the Commit radio button and then click Process to actually update the database."
   },
   {
     sec: "Course Review",
@@ -563,7 +650,8 @@ const Q = [
     type:"single",
     opts:["Export to File","Export Collection to File","Actions > To Excel","Export File to Excel"],
     ans: [2],
-    ex:  "<strong>Actions > To Excel</strong> (or the Export to Excel toolbar button) saves the current collection to a .csv file in your My Documents folder and automatically opens it in Excel. 'Export to File' creates a comma- or tab-separated file but does <em>not</em> open Excel automatically."
+    ex:  "<strong>Actions > To Excel</strong> (or the Export to Excel toolbar button) saves the current collection to a .csv file in your My Documents folder and automatically opens it in Excel. 'Export to File' creates a comma- or tab-separated file but does <em>not</em> open Excel automatically.",
+    ref: "Use the Actions > To Excel menu option or the Export the data in the current collection to Excel toolbar button to save a collection to a file and then automatically open the file in Excel. The records are placed in a .csv file in your local My Documents folder."
   }
 ];
 
@@ -636,6 +724,19 @@ function render() {
   explEl.innerHTML = q.ex;
   explEl.className = 'expl' + (isChecked ? ' show' : '');
 
+  // workbook excerpt
+  const refWrap = document.getElementById('q-ref-wrap');
+  const refContent = document.getElementById('q-ref-content');
+  const refBtn = document.getElementById('ref-btn');
+  if (isChecked && q.ref) {
+    document.getElementById('q-ref-text').textContent = q.ref;
+    refWrap.className = 'ref-wrap show';
+    refContent.className = 'ref-content'; // collapsed by default each question
+    refBtn.textContent = '📖 Workbook ▾';
+  } else {
+    refWrap.className = 'ref-wrap';
+  }
+
   // buttons
   document.getElementById('btn-prev').disabled = (cur === 0);
   const btnCheck  = document.getElementById('btn-check');
@@ -658,6 +759,13 @@ function toggle(i) {
     else sel[cur].splice(idx, 1);
   }
   render();
+}
+
+function toggleRef() {
+  const c = document.getElementById('q-ref-content');
+  const btn = document.getElementById('ref-btn');
+  c.classList.toggle('open');
+  btn.textContent = c.classList.contains('open') ? '📖 Workbook ▴' : '📖 Workbook ▾';
 }
 
 function nav(dir) {
@@ -726,6 +834,7 @@ function showResults() {
       <div class="r-your">Your answer: ${yourLabels}</div>
       ${!correct ? `<div class="r-right">Correct answer: ${correctLabels}</div>` : ''}
       <div class="r-expl">${q.ex}</div>
+      ${q.ref ? `<details class="r-ref-wrap"><summary class="r-ref-toggle">📖 Workbook</summary><div class="r-ref-content"><span class="r-ref-label">From the workbook</span>${q.ref}</div></details>` : ''}
     `;
     list.appendChild(div);
   });
