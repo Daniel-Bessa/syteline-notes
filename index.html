@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSI / SyteLine Training Hub</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sidebar-w: 270px;
+      --bg-sidebar: #0f172a;
+      --bg-sidebar-hover: rgba(255,255,255,0.05);
+      --bg-active: #1e3a5f;
+      --border-sidebar: #1e293b;
+      --text-dim: #64748b;
+      --text-mid: #94a3b8;
+      --text-bright: #e2e8f0;
+      --accent: #3b82f6;
+      --header-h: 50px;
+    }
+
+    html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; }
+
+    /* ── Layout ── */
+    .layout { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: var(--bg-sidebar);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sidebar-top {
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border-sidebar);
+      flex-shrink: 0;
+    }
+    .sidebar-top h1 { font-size: 13px; font-weight: 700; color: var(--text-bright); letter-spacing: .08em; text-transform: uppercase; }
+    .sidebar-top p  { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+    .sidebar-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 0 16px;
+    }
+    .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+    .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+    .sidebar-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 2px; }
+
+    /* Separator */
+    .sep { height: 1px; background: var(--border-sidebar); margin: 6px 14px; }
+
+    /* Folder */
+    .folder {}
+    .folder-hdr {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 14px;
+      cursor: pointer;
+      color: var(--text-mid);
+      font-size: 12px; font-weight: 600;
+      user-select: none;
+      transition: color .15s;
+    }
+    .folder-hdr:hover { color: var(--text-bright); }
+    .folder-hdr .chevron { margin-left: auto; font-size: 9px; color: var(--text-dim); transition: transform .2s; }
+    .folder.open .chevron { transform: rotate(90deg); }
+    .folder-body { display: none; }
+    .folder.open .folder-body { display: block; }
+
+    /* File rows */
+    .file {
+      display: flex; align-items: center; gap: 7px;
+      padding: 5px 14px 5px 26px;
+      cursor: pointer;
+      color: var(--text-mid);
+      font-size: 11.5px;
+      border-radius: 5px;
+      margin: 1px 6px;
+      transition: background .1s, color .1s;
+    }
+    .root-file {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 14px;
+      cursor: pointer;
+      color: var(--text-mid);
+      font-size: 12px;
+      border-radius: 5px;
+      margin: 1px 6px;
+      transition: background .1s, color .1s;
+    }
+    .file:hover, .root-file:hover { background: var(--bg-sidebar-hover); color: var(--text-bright); }
+    .file.active, .root-file.active { background: var(--bg-active); color: var(--text-bright); }
+
+    .file-name { flex: 1; line-height: 1.3; }
+
+    .badge {
+      font-size: 9px; font-weight: 700;
+      padding: 1px 5px; border-radius: 3px;
+      text-transform: uppercase; letter-spacing: .04em;
+      flex-shrink: 0;
+    }
+    .badge-notes  { background: #064e3b; color: #6ee7b7; }
+    .badge-master { background: #4c1d95; color: #ddd6fe; }
+    .badge-cyu    { background: #78350f; color: #fde68a; }
+
+    /* ── Main content ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    .topbar {
+      height: var(--header-h);
+      display: flex; align-items: center;
+      padding: 0 20px; gap: 12px;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+    .topbar-title { flex: 1; font-size: 13px; color: #334155; font-weight: 500; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .topbar-title .crumb { color: #94a3b8; }
+    .topbar-title .crumb span { color: #64748b; }
+
+    .btn-newtab {
+      font-size: 11.5px; padding: 5px 12px;
+      border: 1px solid #cbd5e1; border-radius: 5px;
+      background: #fff; color: #475569;
+      cursor: pointer; text-decoration: none;
+      white-space: nowrap; display: none;
+      transition: background .12s;
+    }
+    .btn-newtab:hover { background: #f8fafc; }
+
+    .viewer { flex: 1; overflow: hidden; }
+    .viewer iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* Welcome screen */
+    .welcome {
+      height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 14px; padding: 48px; color: #94a3b8;
+    }
+    .welcome-icon { font-size: 52px; }
+    .welcome h2 { font-size: 22px; font-weight: 600; color: #475569; }
+    .welcome p  { font-size: 14px; line-height: 1.7; text-align: center; max-width: 340px; }
+    .welcome .tip {
+      margin-top: 6px; font-size: 12px; color: #cbd5e1;
+      background: #f1f5f9; padding: 10px 16px;
+      border-radius: 6px; line-height: 1.6; max-width: 380px; text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ── SIDEBAR ── -->
+  <nav class="sidebar">
+    <div class="sidebar-top">
+      <h1>CSI / SyteLine</h1>
+      <p>Training Hub</p>
+    </div>
+    <div class="sidebar-scroll" id="nav"></div>
+  </nav>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Select a document from the sidebar</div>
+      <a class="btn-newtab" id="btn-newtab" target="_blank" rel="noopener">Open in new tab ↗</a>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="welcome">
+        <div class="welcome-icon">📚</div>
+        <h2>CSI Training Hub</h2>
+        <p>Click any document in the left sidebar to open it here.</p>
+        <p class="tip">💡 Start with the <strong>Master Reference Guide</strong> at the top — it maps every topic to the document that covers it.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const TREE = [
+    {
+      type: 'file', badge: 'master', icon: '🗺️',
+      name: 'Master Reference Guide',
+      path: 'CSI_Master_Reference_Guide.pdf'
+    },
+    { type: 'sep' },
+    {
+      type: 'folder', icon: '📁', name: '02 — UI Navigation',
+      children: [
+        { type: 'file', badge: 'notes', icon: '📝', name: 'Study Notes',           path: '02 User Interface Navigation/csi_ui_navigation_notes.md.pdf' },
+        { type: 'file',                icon: '📄', name: 'Training Workbook',       path: '02 User Interface Navigation/csbi_v10_user_interface_navigation_training_guide.pdf' },
+        { type: 'file',                icon: '📄', name: 'Workbook with Answers',   path: '02 User Interface Navigation/csbi_v10_user_interface_navigation_training_guide_with answers.pdf' },
+      ]
+    },
+    {
+      type: 'folder', icon: '📁', name: '03 — Form Personalizations',
+      children: [
+        { type: 'file', badge: 'notes', icon: '📝', name: 'Study Notes',       path: '03 Creating From Personalizations/csi_form_personalizations_notes.md.pdf' },
+        { type: 'file',                icon: '📄', name: 'Training Workbook',   path: '03 Creating From Personalizations/CSIB_CreatingFormPersonalizations_101800_Workbook.pdf' },
+        { type: 'file', badge: 'cyu',  icon: '📄', name: 'CYU Answers',        path: '03 Creating From Personalizations/CSBI_CreatingFormPersonalizations_101800_CYU_Answers.pdf' },
+      ]
+    },
+    {
+      type: 'folder', icon: '📁', name: '04 — Extending with Mongoose',
+      children: [
+        { type: 'file', badge: 'notes', icon: '📝', name: 'Study Notes',       path: '04 Extending the Application with Mongoose/csi_extending_mongoose_notes.pdf' },
+        { type: 'file',                icon: '📄', name: 'Training Workbook',   path: '04 Extending the Application with Mongoose/CSI_v10_ExtendingTheApplicationWithMongoose_10.18_Workbook.pdf' },
+      ]
+    },
+    {
+      type: 'folder', icon: '📁', name: '05 — Creating Reports',
+      children: [
+        { type: 'file', badge: 'notes', icon: '📝', name: 'Study Notes',       path: '05 Creating Reports Using Mongoose/csi_reports_mongoose_notes.pdf' },
+        { type: 'file',                icon: '📄', name: 'Training Workbook',   path: '05 Creating Reports Using Mongoose/CSI_v10_CreatingReportsUsingMongooseReporting_10.18_Workbook.pdf' },
+        { type: 'file', badge: 'cyu',  icon: '📄', name: 'CYU Exercises',      path: '05 Creating Reports Using Mongoose/CSI_v10_CreatingReportsUsingMongooseReporting_10.18_CYU.pdf' },
+      ]
+    },
+    {
+      type: 'folder', icon: '📁', name: 'Application Event System',
+      children: [
+        { type: 'file', badge: 'notes', icon: '📝', name: 'Study Notes',       path: 'Using The Application Event (workflows)/csi_aes_notes.pdf' },
+        { type: 'file',                icon: '📄', name: 'Training Workbook',   path: 'Using The Application Event (workflows)/CSI_UsingTheApplicationEventSystem_101800_Workbook.pdf' },
+        { type: 'file', badge: 'cyu',  icon: '📄', name: 'CYU Exercises',      path: 'Using The Application Event (workflows)/CSI_UsingTheApplicationEventSystem_101800_CYU.pdf' },
+      ]
+    },
+    { type: 'sep' },
+    {
+      type: 'folder', icon: '📁', name: 'Reference Documents',
+      children: [
+        { type: 'file', icon: '📄', name: 'IDO Development Guide',         path: 'Documents/mg_10.x_IDODevelopment.pdf' },
+        { type: 'file', icon: '📄', name: 'App Metadata Transport',        path: 'Documents/_10.x_AppMetadataTransport.pdf' },
+        { type: 'file', icon: '📄', name: 'Integrating IDOs (2020)',       path: 'Documents/mg_2020.xx_Integrating IDOs with External Applications.pdf' },
+        { type: 'file', icon: '📄', name: 'InforOS Config Guide',          path: 'Documents/mg_2020.xx_ConfigurationGuideforInforOS.pdf' },
+        { type: 'file', icon: '📄', name: 'Installation Guide (2020)',     path: 'Documents/mg_2020.09_InstallationGuide.pdf' },
+        { type: 'file', icon: '📄', name: 'New Tenant Guide',              path: 'Documents/InforMongooseNewTenantGuide.pdf' },
+        { type: 'file', icon: '📄', name: 'iOS Config Guide',              path: 'Documents/mg_10.x_config_guide_ios.pdf' },
+        { type: 'file', icon: '📄', name: 'Guide to Technology (9.02)',    path: 'Documents/Mongoose902-GuideToTechnology.pdf' },
+        { type: 'file', icon: '📄', name: 'Guide to Technology (9.03)',    path: 'Documents/mg90312_GuideToTechnology.pdf' },
+        { type: 'file', icon: '📄', name: 'FormSync Guide (9.02)',         path: 'Documents/Mongoose902-FormSync.pdf' },
+        { type: 'file', icon: '📄', name: 'App Event System Guide (9.01)', path: 'Documents/Mongoose901-AppEventSystem.pdf' },
+        { type: 'file', icon: '📄', name: 'System Admin Guide (9.01)',     path: 'Documents/Mongoose901-SystemAdministrationGuide.pdf' },
+        { type: 'file', icon: '📄', name: 'Integrating IDOs (9.00)',       path: 'Documents/Mongoose900-IntegratingIDOs.pdf' },
+        { type: 'file', icon: '📄', name: 'Reports Guide (MG 8.00)',       path: 'Documents/Reports-MG800.pdf' },
+        { type: 'file', icon: '📄', name: 'Replication Reference',         path: 'Documents/mg903_ReplicationReference.pdf' },
+        { type: 'file', icon: '📄', name: 'Multi-Site Implementation',     path: 'Documents/mg903_MultiSiteImplementation.pdf' },
+        { type: 'file', icon: '📄', name: 'Multi-Site Planning',           path: 'Documents/mg903_MultiSitePlanning.pdf' },
+        { type: 'file', icon: '📄', name: 'Licensing (9.03)',              path: 'Documents/mg903_Licensing.pdf' },
+      ]
+    },
+  ];
+
+  // ── Helpers ──
+  function enc(p) {
+    return p.split('/').map(s => encodeURIComponent(s)).join('/');
+  }
+
+  function badge(b) {
+    if (!b) return '';
+    const labels = { notes: 'Notes', master: 'Master', cyu: 'CYU' };
+    return `<span class="badge badge-${b}">${labels[b]}</span>`;
+  }
+
+  // ── PDF open ──
+  let activeEl = null;
+
+  function openPDF(path, name, folder, el) {
+    if (activeEl) activeEl.classList.remove('active');
+    el.classList.add('active');
+    activeEl = el;
+
+    const titleEl = document.getElementById('topbar-title');
+    titleEl.innerHTML = folder
+      ? `<span class="crumb"><span>${folder}</span> / </span>${name}`
+      : name;
+
+    const btn = document.getElementById('btn-newtab');
+    btn.href = enc(path);
+    btn.style.display = 'inline-block';
+
+    document.getElementById('viewer').innerHTML =
+      `<iframe src="${enc(path)}" title="${name}"></iframe>`;
+  }
+
+  // ── Tree render ──
+  function render(nodes, container) {
+    nodes.forEach(node => {
+
+      if (node.type === 'sep') {
+        const d = document.createElement('div');
+        d.className = 'sep';
+        container.appendChild(d);
+        return;
+      }
+
+      if (node.type === 'file') {
+        const el = document.createElement('div');
+        el.className = 'root-file';
+        el.innerHTML = `<span>${node.icon}</span><span class="file-name">${node.name}</span>${badge(node.badge)}`;
+        el.addEventListener('click', () => openPDF(node.path, node.name, null, el));
+        container.appendChild(el);
+        return;
+      }
+
+      if (node.type === 'folder') {
+        const wrap = document.createElement('div');
+        wrap.className = 'folder';
+
+        const hdr = document.createElement('div');
+        hdr.className = 'folder-hdr';
+        hdr.innerHTML = `<span>${node.icon}</span><span>${node.name}</span><span class="chevron">▶</span>`;
+        hdr.addEventListener('click', () => wrap.classList.toggle('open'));
+
+        const body = document.createElement('div');
+        body.className = 'folder-body';
+
+        (node.children || []).forEach(child => {
+          const el = document.createElement('div');
+          el.className = 'file';
+          el.innerHTML = `<span>${child.icon}</span><span class="file-name">${child.name}</span>${badge(child.badge)}`;
+          el.addEventListener('click', () => openPDF(child.path, child.name, node.name, el));
+          body.appendChild(el);
+        });
+
+        wrap.appendChild(hdr);
+        wrap.appendChild(body);
+        container.appendChild(wrap);
+      }
+    });
+  }
+
+  render(TREE, document.getElementById('nav'));
+</script>
+</body>
+</html>
