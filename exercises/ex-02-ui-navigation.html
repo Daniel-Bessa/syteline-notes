@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercises — 02 UI Navigation</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+           background: #1a1a1a; color: #e2e8f0; min-height: 100vh; }
+
+    /* ── Header ── */
+    .hdr { background: #0f172a; padding: 18px 28px; display: flex;
+           align-items: center; gap: 14px; border-bottom: 1px solid #1e293b; position: sticky; top: 0; z-index: 10; }
+    .hdr-icon { font-size: 28px; }
+    .hdr-title { font-size: 18px; font-weight: 700; color: #f1f5f9; }
+    .hdr-sub { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .hdr-right { margin-left: auto; text-align: right; }
+    .hdr-home { color: #60a5fa; text-decoration: none; font-size: 13px; }
+    .hdr-home:hover { text-decoration: underline; }
+
+    /* ── Progress bar ── */
+    .prog-wrap { background: #0f172a; padding: 10px 28px; border-bottom: 1px solid #1e293b; }
+    .prog-label { font-size: 12px; color: #94a3b8; margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .prog-bar { height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden; }
+    .prog-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #60a5fa); border-radius: 3px;
+                 transition: width 0.4s ease; }
+
+    /* ── Layout ── */
+    .page { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
+
+    /* ── Lesson section ── */
+    .lesson { margin-bottom: 8px; }
+    .lesson-btn { width: 100%; text-align: left; background: #2d2d2d;
+                  border: none; border-radius: 10px; padding: 14px 18px;
+                  cursor: pointer; display: flex; align-items: center; gap: 12px;
+                  color: #e2e8f0; font-size: 15px; font-weight: 600; transition: background .15s; }
+    .lesson-btn:hover { background: #374151; }
+    .lesson-btn .l-badge { background: #1e3a5f; color: #60a5fa; font-size: 11px;
+                           font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+    .lesson-btn .l-check { margin-left: auto; font-size: 12px; color: #64748b; }
+    .lesson-btn .l-caret { color: #64748b; font-size: 12px; transition: transform .2s; }
+    .lesson-btn.open .l-caret { transform: rotate(90deg); }
+    .lesson-body { display: none; padding: 6px 0 10px; }
+    .lesson-body.open { display: block; }
+
+    /* ── Exercise card ── */
+    .ex-card { background: #242424; border-radius: 10px; margin-bottom: 10px;
+               border: 1px solid #2d2d2d; overflow: hidden; }
+    .ex-head { padding: 14px 18px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; }
+    .ex-head:hover { background: #2d2d2d; }
+    .ex-num { background: #1e3a5f; color: #60a5fa; font-size: 11px; font-weight: 700;
+              padding: 3px 9px; border-radius: 8px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+    .ex-title { font-size: 14px; font-weight: 600; color: #f1f5f9; flex: 1; }
+    .ex-meta { font-size: 12px; color: #64748b; margin-top: 3px; }
+    .ex-progress { margin-left: auto; flex-shrink: 0; text-align: right; }
+    .ex-pct { font-size: 12px; font-weight: 700; color: #60a5fa; }
+    .ex-done-badge { font-size: 11px; color: #86efac; display: none; }
+    .ex-head.done .ex-pct { display: none; }
+    .ex-head.done .ex-done-badge { display: block; }
+
+    .ex-body { display: none; padding: 0 18px 18px; border-top: 1px solid #2d2d2d; }
+    .ex-body.open { display: block; }
+
+    .ex-goal { background: #1e293b; border-left: 3px solid #0284c7; color: #7dd3fc;
+               padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 13px; line-height: 1.6;
+               margin: 14px 0 16px; }
+
+    /* ── Parts & Steps ── */
+    .part-title { font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase;
+                  letter-spacing: .06em; margin: 16px 0 8px; }
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .step-item { display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+                 padding: 8px 10px; border-radius: 7px; transition: background .12s; }
+    .step-item:hover { background: #2d2d2d; }
+    .step-cb { width: 18px; height: 18px; border: 2px solid #374151; border-radius: 4px;
+               flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;
+               transition: all .15s; cursor: pointer; }
+    .step-item.checked .step-cb { background: #16a34a; border-color: #16a34a; }
+    .step-item.checked .step-cb::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
+    .step-text { font-size: 13px; color: #cbd5e1; line-height: 1.55; flex: 1; }
+    .step-item.checked .step-text { color: #4b5563; text-decoration: line-through; }
+    .step-note { font-size: 11.5px; color: #475569; font-style: italic; margin-top: 3px; display: block; }
+
+    /* ── Controls ── */
+    .ex-controls { display: flex; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #2d2d2d; }
+    .btn { padding: 7px 14px; border-radius: 7px; border: none; cursor: pointer; font-size: 12px;
+           font-weight: 600; transition: background .15s; }
+    .btn-reset { background: #374151; color: #94a3b8; }
+    .btn-reset:hover { background: #4b5563; }
+    .btn-all { background: #1e3a5f; color: #60a5fa; }
+    .btn-all:hover { background: #1d4ed8; color: #fff; }
+  </style>
+</head>
+<body>
+
+<div class="hdr">
+  <span class="hdr-icon">🛠️</span>
+  <div>
+    <div class="hdr-title">02 — UI Navigation Exercises</div>
+    <div class="hdr-sub">CloudSuite Industrial v10 · 19 hands-on exercises across 4 lessons</div>
+  </div>
+  <div class="hdr-right">
+    <a href="../index.html" class="hdr-home">← Back to hub</a>
+  </div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-label">
+    <span>Overall progress</span>
+    <span id="prog-text">0 / 0 steps complete</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+
+<div class="page" id="page"></div>
+
+<script>
+const KEY = 'ex-02-nav';
+
+const LESSONS = [
+  {
+    id: 'L1', label: 'Lesson 1', title: 'Opening and Working with Forms',
+    exercises: [
+      {
+        id: '1.1', title: 'Log in to the application and open forms',
+        goal: 'Log in to the application and open the Items and Purchase Orders forms using the Select Form dialog box, the Master Explorer menu, and the Master Explorer & All Forms folders in the Explorer.',
+        parts: [
+          { title: 'Part 1 – Log in (Web Client)', steps: [
+            { text: 'Double-click <b>Train Web Client</b> on the desktop. The Infor Business Cloud window opens.' },
+            { text: 'Type your trainXX@gdeinfor2.com address in the first field, then type <b>G!oba!08</b> as the password and click <b>Sign In</b>.' },
+            { text: 'On the Sign In form, enter your username and select your configuration from the drop-down list, then click <b>Sign In</b>. The application opens.' },
+          ]},
+          { title: 'Part 2 – Use the Select Form dialog box', steps: [
+            { text: 'Press <b>Ctrl + O</b>. The Select Form dialog box opens.' },
+            { text: 'Type <b>items</b> in the Filter field, select the <b>Items</b> form, then press Enter or click <b>OK</b>. The Items (Filter In Place) form opens.' },
+            { text: 'Click <b>X</b> on the form tab to close it.' },
+            { text: 'Click <b>Open</b> on the toolbar. Type <b>purchase orders</b> in the Filter field, select <b>Purchase Orders</b> and double-click to open it. Then close it.' },
+          ]},
+          { title: 'Part 3 – Use the Master Explorer menu', steps: [
+            { text: 'Click <b>Master Explorer › Modules › Material › Inventory › Items</b>. The Items form opens. Close it.' },
+            { text: 'Click <b>Master Explorer › Modules › Vendor › Purchase Orders › Purchase Orders</b>. The form opens. Close it.' },
+          ]},
+          { title: 'Part 4 – Use the Explorer / All Forms folders', steps: [
+            { text: 'Click <b>View › Explorer</b> to open the Explorer navigation pane.' },
+            { text: 'Click <b>Master Explorer</b>, then expand the <b>All Forms</b> folder by clicking the + sign.' },
+            { text: 'Scroll to find the <b>Items</b> form, press Enter to open it, then close it.' },
+            { text: 'Select <b>Explorer</b> on the Navigation Pane menu bar to close the pane.' },
+          ]},
+        ]
+      },
+      {
+        id: '1.2', title: 'Link to a related form',
+        goal: 'Link to a related form using a linking button, an Edit menu link, and an Actions menu list.',
+        parts: [
+          { title: 'Part 1 – Use a linking button', steps: [
+            { text: 'Open the <b>Purchase Orders</b> form.' },
+            { text: 'Run <b>Filter In Place</b> (click the Filter icon on the main toolbar). The form exits filter mode and shows the first purchase order.' },
+            { text: 'Click the ellipsis <b>(…)</b> button on the upper right corner of the form to reveal linking buttons.' },
+            { text: 'Click <b>Lines</b>. The Purchase Order Lines (Linked) form opens. Close it.' },
+          ]},
+          { title: 'Part 2 – Use an Edit menu link', steps: [
+            { text: 'Right-click in the <b>Vendor</b> field on the Purchase Orders form and select <b>Details</b>. The Vendors form opens. Close it.' },
+          ]},
+          { title: 'Part 3 – Use an Actions menu list', steps: [
+            { text: 'Select <b>DP00000330</b> from the grid on the left.' },
+            { text: 'Click <b>Actions › List Receipts</b>. The Purchase Order Receipts (Linked) form opens with 4 receipts listed. Close it.' },
+            { text: 'Click <b>Window › Close All</b> to close all forms.' },
+          ]},
+        ]
+      },
+      {
+        id: '1.3', title: 'Switch between form modes and form views',
+        goal: 'Switch between Filter, Refresh, and New modes, and toggle between Grid and Detail views.',
+        parts: [
+          { title: 'Part 1 – Switch between form modes', steps: [
+            { text: 'Open the <b>Items</b> form. It opens in Filter mode (all fields blank).' },
+            { text: 'Run <b>Filter In Place</b>. The form switches to Refresh mode and displays data.' },
+            { text: 'Click <b>Actions › New</b>. The form switches to New mode (blue star visible in grid row label).' },
+            { text: 'Close the Items form. Click <b>No</b> when asked to save changes.' },
+          ]},
+          { title: 'Part 2 – Switch between form views', steps: [
+            { text: 'Open the <b>Items</b> form and run Filter In Place.' },
+            { text: 'Click <b>View › Hide/Show 1st Splitter Pane</b> (or Ctrl+Shift+1) to switch to Detail view only.' },
+            { text: 'Click <b>View › Hide/Show 2nd Splitter Pane</b> (or Ctrl+Shift+2) to switch to Grid view only.' },
+            { text: 'Close the Items form.' },
+          ]},
+        ]
+      },
+      {
+        id: '1.4', title: 'Create a personal menu',
+        goal: 'Create a personal Accounts Payable folder in My Folders, add shortcuts to AP forms, then delete one.',
+        parts: [
+          { title: 'Part 1 – Create a folder in My Folders', steps: [
+            { text: 'Click <b>View › Explorer</b> and expand <b>My Folders</b>.' },
+            { text: 'Right-click <b>My Folders</b>, select <b>New Folder</b>, type <b>Accounts Payable</b> in the Caption field, and click <b>OK</b>.' },
+          ]},
+          { title: 'Part 2 – Add shortcuts', steps: [
+            { text: 'Right-click the <b>Accounts Payable</b> folder → <b>New Shortcut</b>. In the dialog, type <b>a/p voucher</b>, select <b>A/P Vouchers and Adjustments</b>, click <b>OK</b>.' },
+            { text: 'Repeat: add <b>A/P Voucher Posting</b> as another shortcut.' },
+            { text: 'Repeat: add the <b>Vendors</b> form as a shortcut.' },
+          ]},
+          { title: 'Part 3 – Delete a shortcut', steps: [
+            { text: 'Right-click the <b>Vendors</b> shortcut → <b>Delete</b>. Click <b>Yes</b> to confirm.' },
+          ]},
+        ]
+      },
+      {
+        id: '1.5', title: 'Set a form to open automatically',
+        goal: 'Add the Items, Purchase Orders, and Order Shipping forms to the AutoRun folder so they open automatically on login.',
+        parts: [
+          { title: 'Steps', steps: [
+            { text: 'In the Explorer, right-click the <b>AutoRun</b> folder (inside My Folders) → <b>New Shortcut</b>.' },
+            { text: 'Type <b>items</b>, select the <b>Items</b> form, click <b>OK</b>.' },
+            { text: 'Repeat steps 1–2 to add <b>Purchase Orders</b> and <b>Order Shipping</b> to AutoRun.' },
+            { text: 'Click <b>Form › Sign Out</b>. Sign back in. All three forms should open automatically.' },
+          ]},
+        ]
+      },
+    ]
+  },
+  {
+    id: 'L2', label: 'Lesson 2', title: 'Finding and Displaying Records',
+    exercises: [
+      {
+        id: '2.1', title: 'Use filter-in-place functionality',
+        goal: 'Filter the Items form for all purchased items (gets more rows twice), then add Cost Type and U/M criteria to narrow the results.',
+        parts: [
+          { title: 'Steps', steps: [
+            { text: 'Open the <b>Items</b> form.' },
+            { text: 'Select <b>Purchased</b> from the Source drop-down list.' },
+            { text: 'Click the <b>Filter</b> icon. Scroll to the bottom — 200 records.' },
+            { text: 'Click <b>Get More Rows</b>. Scroll — now 400 records.' },
+            { text: 'Click <b>Get More Rows</b> again. Scroll — now 553 records.' },
+            { text: 'Press <b>F4</b> to re-enter filter mode (Purchased is still selected).' },
+            { text: 'Select <b>Standard</b> from the Cost Type drop-down list. Press F4 to run. Scroll — now 60 records.' },
+            { text: 'Click <b>Actions › Filter › Begin in place</b>. Select <b>EA-Each</b> from the U/M drop-down list.' },
+            { text: 'Click <b>Actions › Filter › Execute in place</b>. Scroll — now 44 records.' },
+            { text: 'Run Filter In Place, then press <b>F5</b> to clear all filter criteria.' },
+            { text: 'Close the Items form.' },
+          ]},
+        ]
+      },
+      {
+        id: '2.2a', title: 'Use search operators and special values',
+        goal: 'Use wildcard (*) and comparison operator (>) in filter-in-place on the Purchase Order Lines form.',
+        parts: [
+          { title: 'Steps', steps: [
+            { text: 'Open the <b>Purchase Order Lines</b> form.' },
+            { text: 'Type <b>*cycle*</b> in the Name field. Run Filter In Place. All entries with "cycle" in the vendor name appear.' },
+            { text: 'Run Filter In Place again. Type <b>> 12/31/2017</b> in the Due Date field.' },
+            { text: 'Run Filter In Place. All entries with a due date after 12/31/17 display.' },
+            { text: 'Close the Purchase Order Lines form.' },
+          ]},
+        ]
+      },
+      {
+        id: '2.2b', title: 'Use a query',
+        goal: 'Use the Item Stockroom Locations query form to filter with primary and additional criteria, then save the query.',
+        parts: [
+          { title: 'Part 1 – Enter primary criteria', steps: [
+            { text: 'Open the <b>Item Stockroom Locations</b> form. Run Filter In Place.' },
+            { text: 'Click <b>Actions › Filter › By Query</b>. The query form opens on the Primary Criteria tab.' },
+            { text: 'Set <b>Warehouse = MAIN-Progressive Industries</b>.' },
+            { text: 'Set <b>Item LIKE bk*</b> (operator: like, value: bk*).' },
+            { text: 'Set <b>Rank &lt; 3</b>.' },
+            { text: 'Click <b>Refresh</b> to preview results in the Results pane.' },
+          ]},
+          { title: 'Part 2 – Enter additional criteria', steps: [
+            { text: 'Click the <b>Additional Criteria</b> tab.' },
+            { text: 'Select <b>Warehouse On Hand</b> as the field, <b>&lt;</b> as the operator, and type <b>5</b> as the value.' },
+            { text: 'Make sure the "OR instead of AND" check box is NOT selected. Click <b>Add</b>.' },
+            { text: 'Click <b>Refresh</b>. The record with On Hand = 5 no longer appears.' },
+          ]},
+          { title: 'Part 3 – Save the query', steps: [
+            { text: 'Click <b>Actions › Filter › Save</b>. Type <b>My Query</b> in the Name field. Click <b>OK</b>.' },
+            { text: 'Click <b>OK</b> again to return results to the Item Stockroom Locations form.' },
+            { text: 'Close the form.' },
+          ]},
+        ]
+      },
+      {
+        id: '2.3', title: 'Adjust grid columns',
+        goal: 'Hide columns, reorder them, and resize column widths on the Items form.',
+        parts: [
+          { title: 'Part 1 – Hide columns', steps: [
+            { text: 'Open the <b>Items</b> form. Run Filter In Place.' },
+            { text: 'Press <b>Ctrl+Shift+2</b> to switch to grid view.' },
+            { text: 'Right-click a column header → <b>Edit Grid Columns</b>.' },
+            { text: 'Clear the <b>Visible</b> checkbox for <b>Revision</b>, <b>Revision Track</b>, and <b>ECN</b>. Click <b>OK</b>.' },
+          ]},
+          { title: 'Part 2 – Reorder columns', steps: [
+            { text: 'Right-click a column header → <b>Edit Grid Columns</b>.' },
+            { text: 'Select the <b>U/M</b> column and click <b>Up</b> until it appears below the Description column. Click <b>OK</b>.' },
+          ]},
+          { title: 'Part 3 – Resize columns', steps: [
+            { text: 'Run Filter In Place. Click the <b>Description</b> column header to select it.' },
+            { text: 'Position the cursor on the right border of the header until it becomes a double arrow. Drag left to narrow it.' },
+            { text: 'Repeat for the <b>U/M</b> and <b>Buyer</b> columns.' },
+            { text: 'Close the form. When prompted to save grid changes, click <b>Yes</b>.' },
+          ]},
+        ]
+      },
+      {
+        id: '2.4', title: 'Sort data records',
+        goal: 'Sort the Items collection first by clicking a column header, then using the Sort dialog box.',
+        parts: [
+          { title: 'Steps', steps: [
+            { text: 'Re-open the <b>Items</b> form. Run Filter In Place.' },
+            { text: 'Double-click the <b>Description</b> column header to sort ascending.' },
+            { text: 'Click <b>Edit › Sort Collection</b>. Select <b>ABC Code</b> in the By Property drop-down. Click <b>OK</b>. Data sorts by ABC Code.' },
+            { text: 'Close the Items form.' },
+          ]},
+        ]
+      },
+    ]
+  },
+  {
+    id: 'L3', label: 'Lesson 3', title: 'Adding, Editing, and Deleting Records',
+    exercises: [
+      {
+        id: '3.1', title: 'Add and save records',
+        goal: 'Create two new Items — one using a normal drop-down, one by adding a new unit of measure on-the-fly.',
+        parts: [
+          { title: 'Part 1 – Add a new record', steps: [
+            { text: 'Open the <b>Items</b> form. Run Filter In Place.' },
+            { text: 'Click the <b>New</b> icon. Type <b>My New Item</b> in the Item field.' },
+          ]},
+          { title: 'Part 2 – Filter a drop-down list', steps: [
+            { text: 'Type <b>f</b> in the U/M field, then click the down arrow. The list jumps to entries starting with "f".' },
+            { text: 'Select <b>FT-Foot</b> from the list.' },
+            { text: 'Select <b>FG-100-Finished Goods</b> from the Product Code drop-down (required field — red asterisk).' },
+            { text: 'Click the <b>Save</b> icon.' },
+          ]},
+          { title: 'Part 3 – Add a second record', steps: [
+            { text: 'Click <b>Actions › New</b>. Type <b>My Second New Item</b> in the Item field. Press Tab.' },
+          ]},
+          { title: 'Part 4 – Add a new value to a drop-down list', steps: [
+            { text: 'Right-click in the <b>U/M</b> field → <b>Add</b>. The Unit of Measure Codes (Find) form opens.' },
+            { text: 'Type <b>MYS</b> in the U/M field and <b>My Sample Unit of Measure</b> in the Description field. Save.' },
+            { text: 'Close the Unit of Measure form. Click <b>Yes</b> to return "MYS" to the Items form.' },
+            { text: 'Select <b>FG-100-Finished Goods</b> from the Product Code drop-down. Save the record.' },
+          ]},
+        ]
+      },
+      {
+        id: '3.2', title: 'Copy an existing record to create a new record',
+        goal: 'Copy item BMX-13000 and modify it to create BMX-14000.',
+        parts: [
+          { title: 'Steps', steps: [
+            { text: 'Select <b>BMX-13000</b> from the grid in the Items form.' },
+            { text: 'Click <b>Actions › Copy</b>. Click <b>Yes</b> to dismiss the BOM warning. A copy inserts as the next record.' },
+            { text: 'Type <b>BMX-14000</b> in the Item field. Press Tab.' },
+            { text: 'Type <b>Bicycle, BMX, Black</b> in the Item Description field.' },
+            { text: 'Save the record.' },
+          ]},
+        ]
+      },
+      {
+        id: '3.3', title: 'Edit data',
+        goal: 'Update the Drawing Number field for item BMX-14000.',
+        parts: [
+          { title: 'Steps', steps: [
+            { text: 'Select <b>BMX-14000</b> from the grid in the Items form.' },
+            { text: 'Type <b>BMX-14000</b> in the <b>Drawing Number</b> field. Press Tab.' },
+            { text: 'Save the record. Leave the Items form open.' },
+          ]},
+        ]
+      },
+      {
+        id: '3.4', title: 'Delete records',
+        goal: 'Delete the "My New Item" record created in Exercise 3.1.',
+        parts: [
+          { title: 'Steps', steps: [
+            { text: 'On the Items form, select <b>My New Item</b>.' },
+            { text: 'Click <b>Actions › Delete</b> (or Ctrl+D). A red X appears. Click <b>OK</b> in the confirmation dialog.' },
+            { text: 'Save the record. The item is permanently deleted.' },
+            { text: 'Close the Items form.' },
+          ]},
+        ]
+      },
+      {
+        id: '3.5', title: 'Find and replace values',
+        goal: 'Replace due dates for all Ting Tang Bicycles order lines that have a status of Ordered.',
+        parts: [
+          { title: 'Part 1 – Filter the data', steps: [
+            { text: 'Open the <b>Customer Order Lines</b> form.' },
+            { text: 'Type <b>ting*</b> in the Name field. Select <b>Ordered</b> from the Status drop-down. Run Filter In Place.' },
+            { text: 'Press <b>Ctrl+Shift+2</b> to switch to grid view.' },
+          ]},
+          { title: 'Part 2 – Replace values', steps: [
+            { text: 'Move the <b>Due Date</b> column next to the Item column using Edit Grid Columns.' },
+            { text: 'Position the cursor in the first row of the Due Date column.' },
+            { text: 'Click <b>Edit › Replace Value in Collection</b>. Verify <b>Due Date</b> is in the Property field.' },
+            { text: 'Select the <b>All Values</b> check box. Type a date two weeks from today in the <b>With</b> field.' },
+            { text: 'Click <b>Replace All</b>. Click <b>OK</b> on the confirmation. Save. Close the form.' },
+          ]},
+        ]
+      },
+    ]
+  },
+  {
+    id: 'L4', label: 'Lesson 4', title: 'Additional Record Management',
+    exercises: [
+      {
+        id: '4.1', title: 'Create notes',
+        goal: 'View a system note, attach it to customer order DC385, and add a new internal note.',
+        parts: [
+          { title: 'Part 1 – View a system note', steps: [
+            { text: 'Click <b>View › System Notes</b>. Review the System Notes Reusable By All. Close the form.' },
+          ]},
+          { title: 'Part 2 – Attach note to order DC385', steps: [
+            { text: 'Open the <b>Customer Orders</b> form. Type <b>dc385</b> in the Order field. Run Filter In Place.' },
+            { text: 'Click <b>Actions › Notes for Current</b>. The Object Notes (Linked) form opens.' },
+            { text: 'Click <b>Attach Detach Reusable</b>. Select the <b>Attach</b> checkbox next to <b>Customer Thank You</b>. Click <b>OK</b>.' },
+            { text: 'Save the record.' },
+            { text: 'Add a new record. Type <b>Expedite</b> in the Subject field.' },
+            { text: 'Type <b>Customer called to expedite this order</b> in the Note field. Save.' },
+            { text: 'Close the Object Notes form. Notice the yellow dot next to the System Notes icon.' },
+            { text: 'Click the <b>System Notes</b> icon to verify both notes appear. Close all forms.' },
+          ]},
+        ]
+      },
+      {
+        id: '4.2', title: 'Generate, preview, and print a report',
+        goal: 'Run the Accounts Payable Aging Report — first preview it, then print it and verify in Report Output Files.',
+        parts: [
+          { title: 'Part 1 – Preview the report', steps: [
+            { text: 'Open the <b>Accounts Payable Aging Report</b> form.' },
+            { text: 'Select the <b>Print All Posted Transactions</b> check box.' },
+            { text: 'Click <b>Preview</b>. When prompted, select <b>Open</b>.' },
+            { text: 'Close the report viewer and the Print Preview tab. You return to the report form.' },
+          ]},
+          { title: 'Part 2 – Print the report', steps: [
+            { text: 'Click <b>Print</b>. Close the Report Viewer. Click <b>OK</b> on the "Report Submitted" dialog.' },
+            { text: 'Open the <b>Report Output Files</b> form. Run Filter In Place. The AP Aging Report appears in the list.' },
+            { text: 'Click <b>View</b>. The report opens in PDF format. Scroll through the pages.' },
+            { text: 'Close all forms.' },
+          ]},
+        ]
+      },
+      {
+        id: '4.3', title: 'Run activities and utilities',
+        goal: 'Run a warehouse change activity (immediate), a background report, and a quantity move utility.',
+        parts: [
+          { title: 'Part 1 – Run an activity that executes immediately', steps: [
+            { text: 'Open the <b>Change Warehouse</b> form. Select <b>DIST-Distribution Center</b>. Click <b>OK</b>.' },
+            { text: 'Open the <b>Miscellaneous Issue</b> form. Notice DIST displays in the Warehouse field.' },
+            { text: 'Click <b>Actions › Change Warehouse</b>. Select <b>MAIN</b>. Click <b>OK</b>. Warehouse now shows MAIN.' },
+            { text: 'Close the Miscellaneous Issue form.' },
+          ]},
+          { title: 'Part 2 – Run a background report and check history', steps: [
+            { text: 'Open the <b>Inventory Below Safety Stock Report</b> form. Leave defaults. Click <b>Print</b>. Click <b>OK</b>.' },
+            { text: 'Open the <b>Background Task History</b> form. Run Filter In Place.' },
+            { text: 'Confirm <b>Task Succeeded</b> displays in the Return Status field. Close both forms.' },
+          ]},
+          { title: 'Part 3 – Run a utility', steps: [
+            { text: 'Open the <b>Quantity Move</b> form.' },
+            { text: 'Select <b>BR-10000-Rack, Rear, Standard</b> from the Item drop-down.' },
+            { text: 'Type <b>10</b> in the Quantity field. Select <b>INS-1 Inspection</b> from the To Location drop-down.' },
+            { text: 'Click <b>Process</b>. Confirm "[Quantity Move] was successful." Click <b>OK</b>. Close the form.' },
+          ]},
+        ]
+      },
+      {
+        id: '4.4', title: 'Export and move data',
+        goal: 'Export Purchase Order Lines to Excel, paste modified data back to overwrite a row, and append a new row.',
+        parts: [
+          { title: 'Part 1 – Export to Excel', steps: [
+            { text: 'Open the <b>Purchase Order Lines</b> form. Run Filter In Place.' },
+            { text: 'Click the <b>Export to Excel</b> icon. A .csv file downloads. Open it in Excel.' },
+          ]},
+          { title: 'Part 2 – Paste to overwrite a row', steps: [
+            { text: 'In Excel, change the <b>Ordered</b> value for row 5 (vendor 24) from 40 to <b>100</b>.' },
+            { text: 'Click the leftmost cell of row 5 to select the whole row. Copy it.' },
+            { text: 'Return to the Purchase Order Lines form. Press <b>Ctrl+Shift+2</b> to switch to grid view.' },
+            { text: 'Click the leftmost column of row 4. Click <b>Edit › Paste Rows Overwrite</b>. Press <b>Ctrl+V</b> in the dialog. Click <b>OK</b>.' },
+            { text: 'Scroll to Ordered column — confirm it shows 100. Save the record.' },
+          ]},
+          { title: 'Part 3 – Paste to append a new row', steps: [
+            { text: 'In Excel, select and copy the leftmost cell of row 2 (whole row).' },
+            { text: 'In the app, click <b>Edit › Paste Rows Append</b>. Press <b>Ctrl+V</b>. Click <b>OK</b>. A blue star appears.' },
+            { text: 'Close the form without saving changes.' },
+          ]},
+        ]
+      },
+    ]
+  },
+];
+
+// ── State ──────────────────────────────────────────────────────
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch { return {}; }
+}
+function saveState(s) { localStorage.setItem(KEY, JSON.stringify(s)); }
+
+let state = loadState();
+
+// ── Flatten all steps ──────────────────────────────────────────
+function allStepIds() {
+  const ids = [];
+  LESSONS.forEach(l => l.exercises.forEach(ex => {
+    ex.parts.forEach((pt, pi) => pt.steps.forEach((_, si) => ids.push(`${ex.id}-p${pi}-s${si}`)));
+  }));
+  return ids;
+}
+
+function updateProgress() {
+  const ids = allStepIds();
+  const done = ids.filter(id => state[id]).length;
+  const pct = ids.length ? Math.round((done / ids.length) * 100) : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-text').textContent = `${done} / ${ids.length} steps complete`;
+}
+
+function countExDone(ex) {
+  let total = 0, done = 0;
+  ex.parts.forEach((pt, pi) => pt.steps.forEach((_, si) => {
+    total++;
+    if (state[`${ex.id}-p${pi}-s${si}`]) done++;
+  }));
+  return { total, done };
+}
+
+function updateExHead(exId) {
+  const head = document.querySelector(`.ex-head[data-ex="${exId}"]`);
+  if (!head) return;
+  const ex = LESSONS.flatMap(l => l.exercises).find(e => e.id === exId);
+  const { total, done } = countExDone(ex);
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  head.querySelector('.ex-pct').textContent = `${pct}%`;
+  if (done === total && total > 0) head.classList.add('done');
+  else head.classList.remove('done');
+}
+
+function updateLessonHead(lessonId) {
+  const lesson = LESSONS.find(l => l.id === lessonId);
+  const btn = document.querySelector(`.lesson-btn[data-lesson="${lessonId}"]`);
+  if (!btn || !lesson) return;
+  let total = 0, done = 0;
+  lesson.exercises.forEach(ex => {
+    const c = countExDone(ex); total += c.total; done += c.done;
+  });
+  btn.querySelector('.l-check').textContent = `${done}/${total}`;
+}
+
+// ── Render ─────────────────────────────────────────────────────
+function render() {
+  const page = document.getElementById('page');
+  page.innerHTML = '';
+
+  LESSONS.forEach(lesson => {
+    const lDiv = document.createElement('div');
+    lDiv.className = 'lesson';
+
+    const btn = document.createElement('button');
+    btn.className = 'lesson-btn open';
+    btn.dataset.lesson = lesson.id;
+    btn.innerHTML = `
+      <span class="l-badge">${lesson.label}</span>
+      <span>${lesson.title}</span>
+      <span class="l-check"></span>
+      <span class="l-caret">▶</span>`;
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('open');
+      body.classList.toggle('open');
+    });
+
+    const body = document.createElement('div');
+    body.className = 'lesson-body open';
+
+    lesson.exercises.forEach(ex => {
+      const card = document.createElement('div');
+      card.className = 'ex-card';
+
+      const head = document.createElement('div');
+      head.className = 'ex-head';
+      head.dataset.ex = ex.id;
+      head.innerHTML = `
+        <span class="ex-num">Ex ${ex.id}</span>
+        <div>
+          <div class="ex-title">${ex.title}</div>
+          <div class="ex-meta">${ex.parts.reduce((acc, p) => acc + p.steps.length, 0)} steps</div>
+        </div>
+        <div class="ex-progress">
+          <div class="ex-pct">0%</div>
+          <div class="ex-done-badge">✓ Done</div>
+        </div>`;
+
+      const exBody = document.createElement('div');
+      exBody.className = 'ex-body open';
+
+      const goal = document.createElement('div');
+      goal.className = 'ex-goal';
+      goal.textContent = ex.goal;
+      exBody.appendChild(goal);
+
+      ex.parts.forEach((part, pi) => {
+        if (part.title !== 'Steps') {
+          const pt = document.createElement('div');
+          pt.className = 'part-title';
+          pt.textContent = part.title;
+          exBody.appendChild(pt);
+        }
+
+        const ul = document.createElement('ul');
+        ul.className = 'step-list';
+
+        part.steps.forEach((step, si) => {
+          const id = `${ex.id}-p${pi}-s${si}`;
+          const li = document.createElement('li');
+          li.className = 'step-item' + (state[id] ? ' checked' : '');
+
+          const cb = document.createElement('div');
+          cb.className = 'step-cb';
+
+          const txt = document.createElement('div');
+          txt.className = 'step-text';
+          txt.innerHTML = step.text;
+          if (step.note) txt.innerHTML += `<span class="step-note">${step.note}</span>`;
+
+          li.appendChild(cb);
+          li.appendChild(txt);
+          li.addEventListener('click', () => {
+            const wasChecked = state[id];
+            state[id] = !wasChecked;
+            saveState(state);
+            li.classList.toggle('checked', state[id]);
+            updateExHead(ex.id);
+            updateLessonHead(lesson.id);
+            updateProgress();
+          });
+
+          ul.appendChild(li);
+        });
+
+        exBody.appendChild(ul);
+      });
+
+      const controls = document.createElement('div');
+      controls.className = 'ex-controls';
+      const resetBtn = document.createElement('button');
+      resetBtn.className = 'btn btn-reset';
+      resetBtn.textContent = 'Reset';
+      resetBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        ex.parts.forEach((pt, pi) => pt.steps.forEach((_, si) => { delete state[`${ex.id}-p${pi}-s${si}`]; }));
+        saveState(state);
+        renderExSteps(exBody, ex);
+        updateExHead(ex.id);
+        updateLessonHead(lesson.id);
+        updateProgress();
+      });
+      const allBtn = document.createElement('button');
+      allBtn.className = 'btn btn-all';
+      allBtn.textContent = 'Mark all done';
+      allBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        ex.parts.forEach((pt, pi) => pt.steps.forEach((_, si) => { state[`${ex.id}-p${pi}-s${si}`] = true; }));
+        saveState(state);
+        renderExSteps(exBody, ex);
+        updateExHead(ex.id);
+        updateLessonHead(lesson.id);
+        updateProgress();
+      });
+      controls.appendChild(resetBtn);
+      controls.appendChild(allBtn);
+      exBody.appendChild(controls);
+
+      head.addEventListener('click', () => exBody.classList.toggle('open'));
+
+      card.appendChild(head);
+      card.appendChild(exBody);
+      body.appendChild(card);
+    });
+
+    lDiv.appendChild(btn);
+    lDiv.appendChild(body);
+    page.appendChild(lDiv);
+
+    lesson.exercises.forEach(ex => updateExHead(ex.id));
+    updateLessonHead(lesson.id);
+  });
+
+  updateProgress();
+}
+
+function renderExSteps(exBody, ex) {
+  exBody.querySelectorAll('.step-item').forEach((li, idx) => {
+    let globalIdx = 0;
+    let found = false;
+    ex.parts.forEach((pt, pi) => {
+      if (found) return;
+      pt.steps.forEach((_, si) => {
+        if (!found && globalIdx === idx) {
+          const id = `${ex.id}-p${pi}-s${si}`;
+          li.classList.toggle('checked', !!state[id]);
+          found = true;
+        }
+        globalIdx++;
+      });
+    });
+  });
+}
+
+render();
+</script>
+</body>
+</html>

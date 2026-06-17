@@ -154,6 +154,8 @@
 
     /* Quiz badge */
     .badge-quiz { background: #0c4a6e; color: #7dd3fc; }
+    /* Lab badge */
+    .badge-lab { background: #1a3a1a; color: #86efac; }
   </style>
 </head>
 <body>
@@ -231,6 +233,13 @@
         { type: 'file', badge: 'notes', icon: '📝', name: 'Study Notes',       path: 'Using The Application Event (workflows)/csi_aes_notes.pdf' },
         { type: 'file',                icon: '📄', name: 'Training Workbook',   path: 'Using The Application Event (workflows)/CSI_UsingTheApplicationEventSystem_101800_Workbook.pdf' },
         { type: 'file', badge: 'cyu',  icon: '📄', name: 'CYU Exercises',      path: 'Using The Application Event (workflows)/CSI_UsingTheApplicationEventSystem_101800_CYU.pdf' },
+      ]
+    },
+    { type: 'sep' },
+    {
+      type: 'folder', icon: '🛠️', name: 'Exercises',
+      children: [
+        { type: 'file', badge: 'lab', icon: '🔬', name: '02 — UI Navigation',           path: 'exercises/ex-02-ui-navigation.html' },
       ]
     },
     { type: 'sep' },
