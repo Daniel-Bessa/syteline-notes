@@ -1,0 +1,6843 @@
+CloudSuite Industrial: v10 Navigating the 
+User Interface Training Workbook 
+(v10.18) 
+
+CloudSuite Industrial 
+
+November 7, 2018 
+
+Course code: 01_0011018_IEN3524_SYT 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Legal Notice 
+
+Copyright © 2018 Infor. All rights reserved.  
+
+Important Notices 
+
+The material contained in this publication (including any supplementary information) constitutes and 
+contains confidential and proprietary information of Infor.  
+
+By gaining access to the attached, you acknowledge and agree that the material (including any 
+modification, translation or adaptation of the material) and all copyright, trade secrets and all other right, 
+title and interest therein, are the sole property of Infor and that you shall not gain right, title or interest in 
+the material (including any modification, translation or adaptation of the material) by virtue of your review 
+thereof other than the non-exclusive right to use the material solely in connection with and the furtherance 
+of your license and use of software made available to your company from Infor pursuant to a separate 
+agreement, the terms of which separate agreement shall govern your use of this material and all 
+supplemental related materials ("Purpose"). 
+
+In addition, by accessing the enclosed material, you acknowledge and agree that you are required to 
+maintain such material in strict confidence and that your use of such material is limited to the Purpose 
+described above. Although Infor has taken due care to ensure that the material included in this publication 
+is accurate and complete, Infor cannot warrant that the information contained in this publication is 
+complete, does not contain typographical or other errors, or will meet your specific requirements. As such, 
+Infor does not assume and hereby disclaims all liability, consequential or otherwise, for any loss or 
+damage to any person or entity which is caused by or relates to errors or omissions in this publication 
+(including any supplementary information), whether such errors or omissions result from negligence, 
+accident or any other cause. 
+
+Without limitation, U.S. export control laws and other applicable export and import laws govern your use 
+of this material and you will neither export or re-export, directly or indirectly, this material nor any related 
+materials or supplemental information in violation of such laws, or use such materials for any purpose 
+prohibited by such laws. 
+
+Trademark Acknowledgements 
+
+The word and design marks set forth herein are trademarks and/or registered trademarks of Infor and/or 
+related affiliates and subsidiaries. All rights reserved. All other company, product, trade, or service names 
+referenced may be registered trademarks or trademarks of their respective owners. 
+
+ 
+ 
+ 
+Table of contents 
+
+About this workbook ................................................................................................................................ 5 
+Course overview ....................................................................................................................................... 7 
+Course description and agenda .............................................................................................................. 8 
+Identifying your personal training plan ................................................................................................... 11 
+Additional Campus Resources .............................................................................................................. 12 
+User interface ........................................................................................................................................ 13 
+Lesson 1: Opening and working with forms ......................................................................................... 19 
+Basic elements ...................................................................................................................................... 20 
+User interface elements ........................................................................................................................ 22 
+Finding and opening forms .................................................................................................................... 24 
+Form views ............................................................................................................................................ 30 
+Form modes .......................................................................................................................................... 32 
+Setting up basic personalization............................................................................................................ 34 
+Check your understanding .................................................................................................................... 38 
+Lesson 2: Finding and displaying records ........................................................................................... 39 
+Retrieving data ...................................................................................................................................... 40 
+Using filter-in-place functionality............................................................................................................ 41 
+Using queries ........................................................................................................................................ 45 
+Adjusting grid columns .......................................................................................................................... 50 
+Sorting records ...................................................................................................................................... 52 
+Check your understanding .................................................................................................................... 54 
+Lesson 3: Adding, editing, and deleting records ................................................................................. 56 
+Adding records ...................................................................................................................................... 57 
+Saving records ...................................................................................................................................... 59 
+Copying an existing record to create a new one ................................................................................... 61 
+Editing data in a collection .................................................................................................................... 62 
+Checking for errors ................................................................................................................................ 64 
+Undoing changes to records ................................................................................................................. 65 
+Deleting records .................................................................................................................................... 66 
+Finding and replacing values in a collection .......................................................................................... 67 
+Check your understanding .................................................................................................................... 70 
+Lesson 4: Additional record management............................................................................................ 72 
+Working with notes ................................................................................................................................ 73 
+Printing .................................................................................................................................................. 78 
+Running activities and utilities ............................................................................................................... 80 
+Exporting data to a file .......................................................................................................................... 83 
+Moving data to and from Excel .............................................................................................................. 84 
+Check your understanding .................................................................................................................... 92 
+Course summary ..................................................................................................................................... 93 
+Course review ....................................................................................................................................... 94 
+Appendices .............................................................................................................................................. 99 
+Appendix A: Learner user accounts .................................................................................................... 100 
+Appendix B: Add/Remove toolbar icons .............................................................................................. 102 
+Appendix C: Behavioral differences between Smart Client and Web Client ........................................ 104 
+Appendix D: Creating a workspace ..................................................................................................... 106 
+Appendix E: Updates made to this version of the workbook ............................................................... 107 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+About this workbook 
+
+Welcome to this Infor Education course! We hope you will find this learning experience enjoyable and 
+instructive. This Training Workbook is designed to support the following forms of learning: 
+
+  Classroom instructor-led training 
+  Virtual instructor-led training 
+  Self-directed learning 
+
+This Training Workbook is not intended for use as a product user guide. 
+
+Activity data 
+
+You will be asked to complete some practice exercises during this course. Step-by-step instructions are 
+provided in this guide to assist you with completing the exercises. Where necessary, data columns are 
+included for your reference. 
+
+Your instructor will provide more information on systems used in class, including server addresses, login 
+IDs, and passwords. 
+
+Self-directed learning 
+
+If you are taking this course as self-directed learning, there may be instructor-recorded presentations 
+and/or simulations available to assist you.  
+
+If instructor-recorded presentations are available, a hyperlink to the recording will be included on the first 
+page of each corresponding Lesson. 
+
+If simulations are available, the demos and exercises throughout this Training Workbook will include 
+hyperlinks that allow you to view and/or practice the execution of the demo or exercise in a simulated 
+training environment. 
+
+Learning Libraries 
+
+Learning Libraries in Infor Campus include learning materials that are available to you online, anytime, 
+anywhere. These materials can supplement instructor-led training, providing you with additional learning 
+resources to support your day-to-day business tasks and activities.  
+
+Please note that if you accessed this Training Workbook directly via a Learning Library, you will not have 
+access to the Infor Education Training Environment that is provided with all instructor-led and most self-
+directed learning course versions, as referenced above. Therefore, you will not be able to practice the 
+exercises in the specific Training Environment for which the exercises in this Training Workbook were 
+written. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+5 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Symbols used in this workbook 
+
+Hands-on exercise 
+(“Exercise”) 
+
+Instructor demonstration 
+
+(“Demo”) 
+
+For your reference 
+
+Question 
+
+Your notes 
+
+Answer 
+
+Can be used for either 
+(“Scenario” or “Discussion”) 
+
+Important note 
+
+Task simulation 
+
+6  
+
+About this workbook 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Course overview 
+
+Estimated time 
+
+.25 hours 
+
+Learning objectives 
+
+Upon completion of this course, you will be able to:  
+
+Identify the ways a form can link to a related form. 
+
+Identify the application’s main user interface elements. 
+
+  Define forms, records, fields, and collections. 
+ 
+  Describe the different methods used to locate and open forms. 
+ 
+  Explain the differences between the form views and the form modes. 
+  Explain the differences between the form modes. 
+  Explain how the user interface can be customized. 
+  Explain how to use the filter-in-place and query functionality to retrieve records. 
+  Describe how to add, edit, delete, and save records. 
+  Describe how to check for and correct errors in records. 
+  Describe how to find and replace values in a collection. 
+ 
+  Describe how to create notes. 
+  Describe how to print reports. 
+  Explain the process for running activities and utilities. 
+  Describe how to export data to a file and move data to and from Microsoft Excel®. 
+
+Identify the different note types. 
+
+Topics 
+
+  Course description and agenda 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+7 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Course description and agenda 
+
+This course introduces the application’s user interface, including an overview of the basic elements, menu 
+bars, Master Explorer, and main toolbar; how to open and work with forms, customize the interface, use 
+filters and queries, add, edit, delete, and print reports, create and attach notes to records, and export 
+data.  
+
+This course is designed for version 10.18 of the software, but the vast majority of the lesson material 
+applies to other versions as well. 
+
+Course duration 
+
+4 hours 
+
+Audience 
+
+  Customer User  
+  Pre-Sales Consultant  
+  Business Consultant  
+  Technical Consultant  
+  Support 
+  System Administrator  
+
+System requirements 
+
+  CloudSuite Industrial® Training Environment 
+
+Reference materials 
+
+Reference materials are available from the following locations:  
+
+  CloudSuite Help menu 
+ 
+
+Infor Xtreme® 
+
+8   Course overview 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+Course agenda 
+
+The agenda below details the contents of this course, including lesson-level learning objectives and 
+supporting objectives. 
+
+Lesson  Lesson title 
+
+Learning objectives 
+
+Course overview 
+
+Review course expectations. 
+
+1 
+
+Opening and 
+working with forms 
+
+  Define forms, records, fields, and collections. 
+
+  Identify the application’s main user interface elements. 
+
+  Describe the different methods used to locate and open 
+
+forms. 
+
+  Identify the ways a form can link to a related form. 
+
+  Explain the differences between the form views. 
+
+  Explain the differences between the form modes. 
+
+  Explain how the user interface can be customized. 
+
+Time 
+Required 
+
+.25 hours 
+
+.75 hours 
+
+2 
+
+Finding and 
+displaying records 
+
+3 
+
+Adding, editing, 
+and deleting 
+records 
+
+  Explain the process of retrieving data. 
+
+.75 hours 
+
+  Explain how to use the filter-in-place functionality to 
+
+retrieve records. 
+
+  Describe how to copy collections with records beyond 
+
+the data cap. 
+
+  Explain how to use queries to retrieve records. 
+
+  Describe how to adjust grid columns. 
+
+  Describe how to sort records. 
+
+  Describe how to add records. 
+
+1 hour 
+
+  Identify the methods used to find and add values to 
+
+drop-down lists. 
+
+  Describe how to save records. 
+
+  Describe how to copy an existing record to create a 
+
+new record.  
+
+  Identify the row label indicators and symbols used when 
+
+editing a collection. 
+
+  Describe how to check for and correct errors in records. 
+
+  Describe how to find and replace values in a collection. 
+
+  Describe how to undo changes to records. 
+
+  Describe how to delete records. 
+
+4 
+
+Additional record 
+management 
+
+  Identify the different note types. 
+
+  Describe how to create notes. 
+
+1 hour 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+9 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Lesson  Lesson title 
+
+Learning objectives 
+
+Time 
+Required 
+
+  Describe how to print reports. 
+
+  Explain the process for running activities and utilities. 
+
+  Describe how to export data to a file. 
+
+  Identify the options for moving data to and from Excel. 
+
+Course summary 
+
+Debrief course. 
+
+.25 hours 
+
+Appendices 
+
+This section contains information that is not part of the instructional content of this course, but provides 
+additional related reference information. 
+
+Appendix 
+
+Appendix title 
+
+Content description 
+
+Appendix A 
+
+Learner user 
+accounts 
+
+This appendix provides a reference for student login 
+credentials. 
+
+Appendix B 
+
+Add/Remove 
+Toolbar Icons 
+
+This appendix provides steps to Add/Remove Toolbar Icons 
+
+Appendix C 
+
+Behavioral 
+differences 
+between 
+Desktop/Smart 
+Client and Web 
+Client 
+
+This appendix lists the differences in behavior between the 
+standard WinStudio Smart Client and the Web Client. 
+
+Appendix D 
+
+Creating a 
+Workspace 
+
+This appendix provides steps to create a personal workspace 
+
+Appendix E 
+
+Updates made to 
+this version of the 
+workbook 
+
+This appendix provides: 
+
+  Updates on navigation changes 
+
+10   Course overview 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Identifying your personal training plan 
+
+If you’re new to the application, your 1st step is to identify what you need to learn and the sequence you 
+need to learn it in.  
+Follow these steps: 
+
+1.  Download the Excel learning path document from the Campus page (located at the bottom of the 
+
+page). 
+
+2.  Find the tab with your version 
+3. 
+
+Identify the role that most closely matches what you do in your job. 
+
+Once you’ve identified the role, you’ll see a list of courses, the sequence you need to take them in, and 
+how much time you’ll need to schedule for it.  Your job is to finish this Navigating the User Interface 
+course, then work through the courses for your role from start to finish. 
+
+For every role, there are multiple options for getting the training and support you need as you learn the 
+application, including: 
+
+  Self-directed courses that include videos, an optional training environment, and a group chat for 
+
+your questions 
+
+ 
+
+Instructor-assisted courses that include videos, a group chat for questions, and support from an 
+instructor 
+
+  Office hours that provide 1X1 or group sessions with an instructor who can answer your training 
+
+related questions 
+
+If you have questions about your personal training plan, please email “InforCampus@Infor.com” 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+11 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Additional Campus Resources 
+
+The following links can be found on Campus: 
+
+  Certifications – the certification program is role-based and you can validate your product 
+
+knowledge and skills by taking one of the certification exams.  
+
+  TechEd events – these events provide advanced technical training and networking with Infor 
+
+product experts and developers.  You can view upcoming events and registration. 
+
+  Webinars – these webinars provide tips and tricks to more effectively use the application.  Get 
+
+notifications of upcoming webinars and view recordings of past webinars  
+
+12   Course overview 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+User interface 
+
+Standard user interface elements include the navigation pane menus and the main toolbar. 
+
+Navigation pane menus and main toolbar 
+
+Navigation pane menus 
+
+You can browse all available folders through the navigation pane menus and submenus. Click the down 
+arrow for each of the navigation pane menus, this allows you to explore the submenus contained 
+beneath. 
+
+Navigation pane menus and submenus 
+
+For information on how to pin submenus to the navigation pane, please refer to the Creating Form 
+Personalizations workbook or ILT. For example, if you know that you will be using the Customer Service 
+submenus frequently, you can display the menus at the top level, by pinning them to the navigation pane. 
+
+Main toolbar 
+
+The main toolbar contains icons that allow you to quickly complete commonly used tasks, such as saving 
+data or closing a form. You can position your mouse pointer over an icon on the toolbar to reveal its 
+description and functionality.  
+
+To view a list of all toolbar icons and for steps on how to add/remove icons from the default toolbar, See 
+Appendix B. Note: Availability to make hiding buttons visible is not available for Web users. 
+
+Keyboard shortcuts 
+
+Some navigation pane submenus display available keyboard shortcuts that can be used to save multiple 
+steps when completing certain tasks.  
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+13 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The following tables display the available shortcut keys and their actions. 
+
+Navigating forms 
+
+Action 
+
+Menu Path 
+
+Smart Client 
+Shortcut 
+
+Web Client 
+Shortcut 
+
+Icon 
+
+Close current 
+form 
+
+Form > Close and 
+Cancel Changes 
+
+Ctrl + F4 
+
+N/A 
+
+Button 
+Default 
+
+Hidden 
+
+Open Select Form 
+
+Form > Open 
+
+Ctrl + O 
+
+Ctrl + O 
+
+Visible 
+
+Open workspaces 
+
+Form > Workspaces 
+
+Ctrl + W 
+
+Switch view to 
+next open form 
+
+Navigating records 
+
+Ctrl + Tab 
+
+N/A 
+
+N/A 
+
+Action 
+
+Menu Path 
+
+Smart 
+Client 
+Shortcut 
+
+Web 
+Client 
+Shortcut 
+
+Icon 
+
+Button 
+Default 
+
+Move to first editable field of 
+form 
+
+View > Home 
+Cursor 
+
+Move to the next field 
+
+Ctrl + 
+Home 
+
+Tab 
+
+Ctrl + 
+Home 
+
+Tab 
+
+Move to the previous field 
+
+Shift + Tab 
+
+Shift + Tab 
+
+Move to the next record 
+
+Actions > Next 
+
+F8 
+
+F8 
+
+F7 
+
+F7 
+
+Ctrl + F8 
+
+N/A 
+
+Hidden 
+
+Hidden 
+
+Visible 
+
+Move to the previous record 
+
+Switch the next collection on 
+the form to become the 
+current collection in a form 
+that contains multiple 
+collections. 
+
+Actions > 
+Previous 
+
+View > 
+Activate Next 
+Collection  
+
+Hide/Show 1st Splitter Pane. 
+Toggles back and forth 
+between form and dual view. 
+
+View > 
+Hide/Show 1st 
+Splitter Pane 
+
+Hide/Show 2nd Splitter Pane. 
+Toggles back and forth 
+between grid and dual view.  
+
+View > 
+Hide/Show 2nd 
+Splitter Pane 
+
+Ctrl + 1 
+
+Ctrl + 2 
+
+Ctrl + Shift 
++ 1 
+
+Ctrl + Shift 
++ 2 
+
+14   Course overview 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Editing records 
+
+Action 
+
+Menu Path 
+
+Activate the drop-down list with 
+an implied asterisk (i.e. wildcard) 
+after the entered text in the field 
+to then populate the list with data 
+entries that begin with the entered 
+text. 
+
+Add a new record 
+
+Note: The Actions menu is only 
+available when a form is open. 
+
+Actions > 
+New 
+
+Smart 
+Client 
+Shortcut 
+
+Web 
+Client 
+Shortcut 
+
+F2 
+
+F2 
+
+Icon 
+
+Button 
+Default 
+
+Ctrl + N 
+
+N/A 
+
+Visible 
+
+Add value for current field 
+
+Edit > Add 
+
+Ctrl + A 
+
+N/A 
+
+Hidden 
+
+Copy (only works to copy a record 
+with web client) 
+
+Actions > 
+Copy 
+
+Ctrl + C 
+
+Ctrl + C 
+
+Cut 
+
+Paste 
+
+Undo 
+
+Delete record 
+
+Find value for current field (only 
+available for certain drop-down 
+fields) 
+
+Display details for current field 
+drill-down (only available for 
+certain drop-down fields) 
+
+Save changes (only available 
+when a form is open) 
+
+Edit > 
+Undo 
+
+Actions > 
+Delete 
+
+Edit > Find 
+Value for 
+Current 
+Field  
+
+Edit > 
+Details for 
+Current 
+Field  
+
+Actions > 
+Save  
+
+Ctrl + X 
+
+Ctrl + X 
+
+Ctrl + V 
+
+Ctrl + Z 
+
+N/A 
+
+N/A 
+
+Ctrl + D 
+
+Ctrl + D 
+
+Visible 
+
+Ctrl + F 
+
+N/A 
+
+Hidden 
+
+Ctrl + L 
+
+N/A 
+
+Hidden 
+
+Ctrl + S 
+
+Ctrl + S 
+
+Visible 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+15 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Filtering records 
+
+Action 
+
+Menu Path 
+
+In Filter Place mode, cancel 
+the filter in place and return to 
+the collection previously 
+displayed 
+
+In Refresh/Run mode, begin 
+filter in place (i.e. clear the 
+collection and go back to Filter 
+In Place mode) 
+
+In Filter In Place Mode, 
+execute in place (i.e. run the 
+filter) 
+
+Actions > 
+Filter > 
+Cancel in 
+Place 
+
+Actions 
+>Filter > 
+Begin in 
+Place 
+
+Actions > 
+Filter > 
+Execute in 
+Place 
+
+In Refresh/Run mode, refresh 
+the current collection. 
+
+Actions > 
+Refresh 
+
+In Filter In Place Mode, clear 
+the filter in place. 
+
+In Refresh/Run mode, refresh 
+the current record. 
+
+Actions > 
+Filter > Clear 
+in Place 
+
+Actions > 
+Refresh 
+current 
+
+Smart 
+Client 
+Shortcut 
+
+Web Client 
+Shortcut 
+
+Icon 
+
+Button 
+Default 
+
+F3 
+
+F3 
+
+F4 
+
+F4 
+
+Visible 
+
+F5 
+
+F5 
+
+Visible 
+
+Ctrl + F5 
+
+Ctrl + F5 
+
+Visible 
+
+In Refresh/Run mode, repeat 
+Find Value in Collection 
+
+Edit > 
+Repeat Find 
+
+Ctrl + F2 
+
+Ctrl + F2 
+
+In Refresh/Run or New mode, 
+open associated query form to 
+specify filter criteria. 
+
+Actions > 
+Filter > By 
+Query 
+
+Ctrl + Q 
+
+N/A 
+
+Open field level help topic 
+
+Help > 
+Current Field 
+
+F1 
+
+N/A 
+
+Toggle design mode on and 
+off. 
+
+Edit > Design 
+Mode 
+
+Ctrl + E 
+
+N/A 
+
+Visible 
+
+Print 
+
+Print 
+
+Ctrl + P 
+
+N/A 
+
+16   Course overview 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Field types 
+
+The following tables display the field types available with a brief description: 
+
+Field type 
+
+Description 
+
+Required, system-generated, and read-only fields 
+
+Standard GUI fields 
+
+  Any field that is required will have a red star 
+  A system-generated field will have a green star  
+  A field with no border around the data is read-only 
+
+Check box indicating Yes or No 
+
+Radio button to select one option from multiple choices 
+
+Drop-down list to select one option from multiple choices 
+
+Icon name differences 
+
+Here are the names of the different icons in the smart client and web client.  
+
+Smart Client 
+
+Open a form 
+
+Save 
+
+Create a new object in the current collection 
+
+Delete an object in the current collection 
+
+Refresh the current collection 
+
+Web Client 
+
+Open 
+
+Save 
+
+New 
+
+Delete 
+
+Refresh 
+
+Filter in Place 
+
+Filter in Place 
+
+Get more rows in the current collection 
+
+Get more rows 
+
+Display notes for the current object 
+
+Notes 
+
+Display documents for the current object 
+
+Documents 
+
+Send email for the current object 
+
+Send email for the current object 
+
+Export the data in the current collection to excel 
+
+Export to excel 
+
+Enter or exit design mode on this form 
+
+Open designer in a new window 
+
+Translate 
+
+Translate 
+
+Get help on the current form 
+
+Help Current Form 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+17 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+18   Course overview 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+Lesson 1: Opening and working with 
+forms 
+
+Estimated time 
+
+.75 hours 
+
+Learning objectives 
+
+After completing this lesson, you will be able to: 
+
+Identify the application’s main user interface elements. 
+
+  Define forms, records, fields, and collections. 
+ 
+  Describe the different methods used to locate and open forms. 
+ 
+  Explain the differences between the form views. 
+  Explain the differences between the form modes. 
+  Explain how the user interface can be customized. 
+
+Identify the ways a form can link to a related form. 
+
+Topics 
+
+  Basic elements 
+  User interface elements 
+  Finding and opening forms 
+  Form views 
+  Form modes 
+  Setting up customized menus and basic personalization 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+19 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Basic elements 
+
+The application is a database-oriented user interface. To retrieve or submit information, you generally 
+access one or more tables in databases.  
+
+Fields and other components on forms are used to present collections of data records from the 
+databases. When using the application, you will be working with forms, records, fields, and collections. 
+Therefore, you will need to know how each of these components works. 
+
+Forms 
+
+Almost everything you do in the system happens through the interface of a form. A form is the window 
+through which you interact with information in a database. Looking up information, entering new 
+information, and generating reports are typical interactions. Each form is devoted to a business task or to 
+several related tasks. 
+
+For example, when you enter a purchase order, you will enter it via a form. When you want to check on 
+the status of a purchase order, you will open the same form. When you want to record the receipt of items 
+on a purchase order, you’ll open a different form. 
+
+The system uses the following basic types of forms: 
+
+  Multiview forms – forms that display collections in a two-pane window separated by a splitter bar 
+  Query forms – forms used to search for and retrieve specific records  
+  Grid-only forms – forms in which all data is displayed and modified using a grid, similar to a 
+
+spreadsheet or table 
+
+  Detail-only forms – forms that display the details for a single record of a collection 
+  Report forms – forms used primarily to generate reports for a wide range of uses 
+  Utilities and activities – specialized forms usually associated with other, more basic forms that 
+typically process multiple records in one operation, performing tasks such as purging records, 
+updating values, posting transactions, or changing the status of records 
+
+Records 
+
+Fields and other components on forms are used to present collections of data records. A record is a 
+group of related pieces of data or information. Each piece of information displays in a separate field on a 
+form. Taken together, they constitute one record.  
+
+For example, a record for item SPX-90 would contain all of the information related to that item. A record 
+for customer order 1001 contains all the information for that specific order. A record for employee Mary 
+Salazar contains all the information for that employee. 
+
+A form can display multiple records in a grid, and you can select the record you want to view from the 
+grid. 
+
+Fields 
+
+Every record is made up of a number of fields. A field is an area on a form that displays a particular piece 
+of information from the database that is part of the record. Forms usually have a number of fields that all 
+display related pieces of information. If the data already exists and can be viewed, the field typically 
+displays the information. Fields also allow you to enter and save new data. 
+
+For example, the record of a journal entry would include fields for the account number, the amount 
+charged to the account, whether the amount is a credit or a debit, the transaction date, and so on. The 
+record of an item would include fields for the item’s description, unit of measure, cost type, and so on. 
+
+20   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+Collections 
+
+Forms can display many records. A group of related records is called a collection. With many forms, it is 
+possible to view collections of all available records. But, in practice, you typically work with a specific 
+subset of records in a particular collection. 
+
+For example, you can open the customer order form to see all orders related to a specific customer, or all 
+the customers in a specific area, or all the customers with a particular status. Each one of these is a 
+collection of customer orders. 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+21 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+User interface elements 
+
+The application user interface is a database-oriented user interface that is designed to be intuitive and 
+easy to use. It also allows for the flexibility to customize the system and set your own preferences. 
+
+The Explorer 
+
+The Explorer is often the starting point for working in the system. It presents a hierarchical view of the 
+forms in the system, similar to Windows® Explorer. 
+
+Use the Explorer to locate and open forms. You can also customize the way you organize and use forms 
+to reflect your preferences. Specifically, you can do the following in the Explorer: 
+
+  Navigate through the folders to find and open a form 
+  Set up your favorite forms as a group, so you can get to them easily 
+  Change the way you view the Explorer, to accommodate the way you work 
+  Set certain forms to open automatically when you log in to the system 
+
+Structure of the Explorer 
+
+Within the Explorer, forms are grouped in folders. Initially, the Explorer displays only the top-level folders: 
+
+  My Folders 
+  Master Explorer 
+  Public Folders 
+  User Folders 
+
+Use the tree pane to expand a folder and display and select subfolders and forms. 
+
+Menu bar 
+
+The top of the application window provides menus that represent folders. You can browse all available 
+folders through these menus and submenus. Click the drop-down on each of the menus allows you to 
+explore the submenus contained beneath.  
+
+A system administrator can remove or hide folders and subfolders for individuals or 
+groups of individuals, so two users may have different folders in their Master Explorer 
+menus. 
+
+Main toolbar 
+
+The main toolbar includes icons that allow you to quickly complete commonly used tasks, such as saving 
+data or adding a record. Positioning the mouse pointer over an icon on the toolbar reveals its description 
+and functionality. The toolbar displays below the menu bar.  
+
+When positioning the mouse pointer over an icon on the toolbar there are some naming 
+differences between the web client and smart client.  Refer to Icon name differences, 
+found in the Course overview section. 
+
+22   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Using keyboard shortcuts 
+
+You can use keyboard shortcuts to navigate and work in the system. Many people prefer to use keyboard 
+shortcuts to accomplish tasks whenever possible, because it is often faster and easier than using a 
+mouse.  
+
+The following are the keyboard shortcuts available in the system: 
+
+  Form shortcuts – shortcuts designed to help at the form level, such as opening and saving forms 
+  Editing shortcuts – shortcuts designed to help with editing actions and functions  
+  Record/Collection shortcuts – shortcuts designed to help work with data in records 
+  Navigation shortcuts – shortcuts designed to help navigate on and between forms 
+
+Refer to the User Interface section in this workbook for a complete list of keyboard 
+shortcuts.  
+
+Using context (right-click) menus  
+
+Context menus are shortcuts to perform actions on the current field or value. Context menus are 
+commonly known as right-click menus, because they are typically opened by right-clicking an area. The 
+application makes widespread use of context menus. 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+23 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Finding and opening forms 
+
+To complete any work in the system, you must know how to locate and open the forms you need. The 
+following basic methods can be used to find and open forms. 
+
+  Using the Select Form dialog box 
+  Using the menu bar 
+  Using the Explorer 
+  Using linking features 
+
+Using the Select Form dialog box 
+
+The Select Form dialog box allows you to search for a form by the form’s caption (the name displayed in 
+the title bar of each form) or the form’s internal system name (the name used by the system to identify the 
+form). In most cases, you will want to search by caption. 
+
+The setting of the Select by Name Instead of Caption option in the Select Form dialog box 
+affects the order in which forms display in the Select Form dialog box. If the Select by 
+Name Instead of Caption option is selected, the forms display in alphabetical order 
+according to the form name; otherwise, they display in order by the form caption. 
+
+In almost all cases, the only difference between the form name and caption is that the 
+form name is Hungarianized. In programming, Hungarian notation is a set of conventions 
+for naming data objects in which a meaningful prefix of one or several characters is added 
+to the object's name to identify what type of object it is. The conventions suggest using 
+prefixes that are suggestive of the type of object named and easy to remember. However, 
+some forms, like Scheduling Shifts (caption), have a different name. 
+
+Open the Select Form dialog box by doing one of the following: 
+
+  Pressing Ctrl+O 
+  Clicking Open on the toolbar 
+  Clicking Form > Open 
+
+The following table describes the fields on the Select Form dialog box. 
+
+Field 
+
+Description 
+
+(List of forms) 
+
+This field lists all forms in the current forms database in two columns, one by 
+Caption (form title) and one by internal system name. By default, the Caption 
+column is primary and displays on the left side. Forms are listed alphabetically by 
+caption or by internal system name. 
+
+Select by Name 
+Instead of Caption 
+(Smart Client Only) 
+
+When this check box is selected, the columns are switched so that the internal 
+system Name column is primary and displays on the left side. Forms are arranged 
+alphabetically by these names. 
+
+Filter (Web Client)  Use the Filter to narrow the form choices available and make it easier to find the 
+
+form you want. 
+
+24   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Field 
+
+Description 
+
+All containing 
+(Smart Client Only) 
+
+This field allows you to type a word or set of characters by which you want to filter 
+the form list. This field is useful when you don’t know a form’s exact name, but 
+know a word it contains. Entering the word displays only those forms that have that 
+word in them. For example, if you wanted to locate the Items form easily, you would 
+type Items in this field. As you type, the system retrieves a list of only those forms 
+with "Items" in the form caption or name. 
+
+Note: After using the filter, if you want to return all the forms again, delete all values 
+from the All containing field, and click the Filter button. 
+
+Case-sensitive  When this check box is selected, the system searches for forms that have the same 
+capitalization as the value entered in the All containing field. Otherwise, the system 
+disregards capitalization when retrieving the list of forms. For example, if you type 
+App in the All containing field, and select this check box, the resulting search would 
+include the Applicant Education form, but not the Account Number Mapping form. 
+
+Using the Explorer 
+
+You can use the Master Explorer folder in the Explorer to navigate through the folders to find and open a 
+form. This is most useful when you do not know the name of the form, but you know how the form is 
+used, or who uses the form. 
+
+When the Master Explorer folder in the Explorer is expanded, a set of subfolders similar to the following 
+displays: 
+
+  All Forms 
+  Modules 
+  Optional Modules 
+  Roles 
+
+These subfolders are divided into groups that provide different ways of locating any form in the system. 
+Each of these subfolders contains the same forms and can be expanded. 
+
+All Forms subfolder 
+
+Expanding the All Forms subfolder displays all forms available to you, arranged in alphabetical order. If 
+you know the name of the form you want, select this folder and type the first few letters of the form name.  
+
+Modules subfolder 
+
+The Modules subfolder displays forms grouped mostly by application modules. To find a form based on 
+the area of the application where it exists, select the appropriate module subfolder, such as Customer, 
+Material, Finance, and so on.  
+
+The Modules folder also includes the Codes subfolder, which contains forms where you set up codes 
+that are used throughout the system, and the System subfolder, which contains forms used for general 
+application administration. 
+
+Optional Modules subfolder 
+
+The Optional Modules subfolder contains Advanced Plant Maintenance, Industry Packs, Localization, 
+Concepts and Overview, QCS, Service, CCI and Tax Interface modules.  
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+25 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Roles subfolder 
+
+The Roles subfolder displays forms grouped by user role. To find a form based on who uses it, select the 
+subfolder for the type of user who needs to access the form, such as Customer Service, Sales, Material 
+Planning, Financial Controller, and so on. 
+
+Exercise 1.1: Log in to the application and open forms 
+
+In this exercise, you will log in to the application and you will open the Items and Purchase 
+Orders forms using the Select Form dialog box, the Master Explorer menu, and the Master 
+Explorer and All Forms folders in the Explorer. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning (SDL), complete the steps below. 
+
+  The steps below are only for those using the Infor Education training environment that’s 
+
+provided with our live classes or SDL. 
+
+ 
+
+If you are using your own training environment, please contact your system administrator 
+and have them give you a login to a fresh instance of the Demo database. The Demo 
+database ships with the product, and all of the standard training courses for this 
+application have been designed to use that database. 
+
+Exercise steps 
+
+Verify you are logged in to the training environment. If not, log in following instructions 
+provided by your course instructor.  
+
+Note: For an SDL course, follow the instructions on the course Lab On Demand screen. 
+
+Part 1: Log in to the application 
+
+Web Client Login Instructions 
+
+1.  Double-click Train Web Client on the desktop. The Infor Business Cloud window opens. 
+
+2.  Type <trainXX@gdeinfor2.com> in the first field. 
+
+3.  Type G!oba!08 in the Password field. 
+
+4.  Click Sign In. 
+
+5.  The Sign In form opens. 
+
+6.  Type <trainXX@gdeinfor2.com> in the Username field.  See Appendix A for a list of usernames 
+
+and passwords. 
+
+7.  Type <trainXX> in the Password field. 
+
+8.  Select <TrainXX> from the Configuration drop-down list.  
+
+9.  Click Sign In. The application opens. 
+
+Smart Client Login Instructions 
+
+1.  Double-click Train Click Once Client on the desktop. The Sign In form opens. 
+
+26   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+2.  Type < trainXX@gdeinfor2.com > in the Username field.  See Appendix A for a list of usernames 
+
+and passwords. 
+
+3.  Type trainXX in the Password field. 
+
+4.  Select <TrainXX> from the Configuration drop-down list.  
+
+5.  Click OK. The application opens. 
+
+Part 2: Use the Select Form dialog box 
+
+1.  Press Ctrl + O. The Select Form dialog box opens. 
+
+2.  Type items in the Filter field. Select the Items form in the list of forms.  
+
+Note: Typing the first few letters of a forms name allows you to quickly locate a form name in a 
+long list of names. The first form name that starts with the letters you typed will be selected. You 
+can then use the up and down arrow keys or the scroll wheel to navigate through the list of forms. 
+
+3.  Press Enter or click OK. The Items (Filter In Place) form opens.  
+
+Note: You can also double-click the Items form name. 
+
+4.  Click X on the form tab to close it.  
+
+Note: To close any form in the application, click X on the form tab.   
+
+5.  Click Open on the toolbar. The Select Form dialog box opens.  
+
+Note: An additional method to open the Select Form dialog box is to click Form > Open. 
+
+6.  Type purchase orders in the Filter field. A list of forms containing the words Purchase Orders 
+
+displays.  
+
+Note: To prepare any field in the system for text entry, first click in the text field. 
+
+7.  Select the Purchase Orders form from the list of forms displayed. 
+
+8.  Double-click the Purchase Orders form name. The Purchase Orders (Filter In Place) form 
+
+opens.  
+
+9.  Close the Purchase Orders (Filter In Place) form. 
+
+Part 3: Use the Master Explorer menu 
+
+1.  Click Master Explorer > Modules > Material > Inventory > Items. The Items (Filter In Place) 
+
+form opens. 
+
+2.  Close the Items (Filter In Place) form.  
+
+3.  Click Master Explorer > Modules > Vendor > Purchase Orders > Purchase Orders. The 
+
+Purchase Orders (Filter In Place) form opens. 
+
+4.  Close the Purchase Orders (Filter In Place) form.  
+
+Part 4: Use the Master Explorer and All Forms folders in the Explorer 
+
+1.  Click View > Explorer. The Explorer navigation pane opens. 
+
+An alternative method to open the Explorer navigation pane is to select Explorer in 
+the Navigation Pane menu bar. 
+
+2.  Click Master Explorer. The Master Explorer folders display. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+27 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.  Click the plus sign (+) next to the All Forms folder to expand the folder. A complete list of forms 
+
+displays. 
+
+4.  Use the scroll bar to locate and select the Items form. 
+
+5.  Press Enter. The Items (Filter In Place) form opens.  
+
+Note: You can also double-click the Items form name. 
+
+6.  Close the Items (Filter In Place) form. 
+
+7.  Select Explorer on the Navigation Pane menu bar to close the Explorer navigation pane. 
+
+Using linking features 
+
+An open form may have one or more of the following features allowing you to link to other related forms: 
+
+  Buttons linking to another form 
+  Edit menu links 
+  List displays within the Action menu 
+
+Linking buttons 
+
+Many forms have buttons that link you to a related form and record. When you open a form by clicking a 
+linking button, the form will include (Linked) in the title bar of the form. This means the linked form will 
+display data related to the originating record. 
+
+Edit menu links 
+
+Many forms have fields that use values you set up on another form. For example, the Items form uses 
+units of measure. You set up unit of measures on another form, but you can link to that form to find a 
+specific unit of measure, add a new one, or see the details of the one currently in the field. If you are 
+adding or finding a value, when you close the form, the system will ask you if you want to use that record 
+for the originating record. 
+
+Actions menu lists 
+
+At times, you may want to view data associated with the current record on a form. Many forms have lists 
+that display this data within the Actions menu. For example, if you want to see the bill of material (BOM) 
+for the current record in the Items form, select Actions > List Routing BOMs. 
+
+Some of the list forms look like other forms that exist in the system, but are read-only. At 
+other times, they open a linked form like linking buttons do. 
+
+28   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+Exercise 1.2: Link to a related form 
+
+In this exercise, you will link to a related form using a linking button, an edit menu link, and an 
+action menu list. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Use a linking button 
+
+1.  Open the Purchase Orders form. 
+
+2.  Run Filter In Place.  Note: To run filter in place click the Filter icon on the main toolbar. The filter 
+
+is cancelled and details for the first purchase order display. 
+
+Note: Notice the name of the form no longer displays (Filter In Place). 
+
+To display the linking buttons on any form you must first click the ellipsis (…) button 
+on the upper right corner of the form. 
+
+3.  Click Lines. The Purchase Order Lines (Linked) form opens displaying the line items for the 
+
+purchase order. 
+
+4.  Close the linked form. 
+
+Part 2: Use an Edit menu link 
+
+1.  Right-click in the Vendor field on the Purchase Orders form and select Details from the drop-
+
+down list.  The Vendors form opens displaying the details for the vendor. 
+
+2.  Close the Vendors form.  You are returned to the Purchase Orders form. 
+
+Part 3: Use an Actions menu list 
+
+1.  Select DP00000330 from the grid on the left. 
+
+2.  Click Actions > List Receipts. The Purchase Order Receipts (Linked) form opens. 
+
+Note:  There are 4 purchase order receipts listed with the Date Received, Qty Received and 
+costing information. 
+
+3.  Close the Purchase Order Receipts (Linked) form. 
+
+4.  Click Window > Close All.  This will close all forms. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+29 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Form views 
+
+A multiview form displays a collection in a two-pane window separated by a splitter bar. 
+
+Multiview form 
+
+Grid view 
+
+This pane, commonly the left pane, displays the collection's records in a grid. The grid view displays a 
+collection of records using a tabular (row-column) format. A grid can constitute the sole content of a form, 
+in which case it is called a grid form. All the fields displayed in the detail view, except for those contained 
+in a sub-grid, are displayed in the grid view. The grid view, however, does not include the buttons found 
+on the detail view. Any data you enter in one view is entered in the other view.  
+
+Detail view 
+
+This pane displays details for a single record in the collection (the record currently selected in the grid). 
+
+Dual view 
+
+This is the default view of a form and shows both the grid and detail view. 
+
+Splitter bar 
+
+Forms with more than one pane have a splitter bar between the panes. The splitter bar can be either 
+vertical or horizontal, but it is most commonly vertical. 
+
+When working in a multiview form, you can: 
+
+  Navigate the collection by selecting records in the grid view. 
+  Edit data in either view. 
+  Move the splitter bar to see more or less of either view. 
+  Completely hide either view by: 
+
+o  Clicking View > Hide/Show 1st Splitter Pane to toggle to and from the grid view or use the 
+
+shortcut key listed in the User Interface section. 
+
+30   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+o  Clicking View > Hide/Show 2nd Splitter Pane to toggle to and from the detail view or use 
+
+the shortcut key listed in the User Interface section. 
+
+  Save the state of the views and the relative position of the splitter bar when the form is closed.  
+
+The number of records that can be displayed at one time is controlled by system-level and 
+user-level settings. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+31 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Form modes 
+
+Forms have three modes: 
+
+  Filter – This mode allows you to enter filter criteria. 
+  Refresh – This mode allows you to view and modify data. 
+  New – This mode allows you to enter a new record 
+
+A system administrator can set a form to open by default in any one of these three modes. 
+
+Filter mode 
+
+In filter mode, all the fields on a form will be blank. You cannot do anything in this mode except enter filter 
+criteria. If you are in filter mode and want to access refresh mode, run the filter (with or without filter 
+criteria) by doing one of the following: 
+
+  Clicking Filter In Place on the toolbar 
+  Pressing F4  
+  Clicking Actions > Filter > Execute in Place 
+
+Refresh mode 
+
+In refresh mode, data displays in the fields on both the form and grid view. You can add, update, or delete 
+when you are in refresh mode. Required fields will be noted with a red star.  
+
+You must be in refresh mode to enter or update records. 
+
+New mode 
+
+New mode looks a lot like refresh mode; however, you can tell you are in new mode by looking at the left 
+column of the grid for the current record. There will be a blue star on the new record. You will see an 
+orange diamond for records that have been modified and a red X for those that have been selected to be 
+deleted. 
+
+Exercise 1.3: Switch between form modes and form views 
+
+In this exercise, you will switch between form modes and form views. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Switch between form modes 
+
+1.  Open the Items form. The Items (Filter In Place) form opens. The form is currently in filter mode.  
+
+2.  Run Filter In Place.  The form displays in refresh mode.  
+
+32   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+3.  Click Actions > New. A new blank form opens and the form displays in new mode.  
+
+Note: You can also click the New icon and Smart Client users can also press Ctrl+N.  
+
+4.  Close the Items form. A dialog box opens with the message, “Do you want to save your changes 
+
+to primary collection?” 
+
+5.  Click No. 
+
+Part 2: Switch between form views 
+
+1.  Open the Items form. The Items (Filter In Place) form opens. 
+
+2.  Run Filter In Place. 
+
+3.  Click View > Hide/Show 1st Splitter Pane to toggle to the detail view on the Items form.  
+
+Note: Smart Client users can also press Ctrl + 1 and Web Client users can also press Ctrl + 
+Shift + 1. 
+
+4.  Click View > Hide/Show 2nd Splitter Pane to toggle to the grid view.  
+
+Note: Smart Client users can also press Ctrl + 2 and Web Client users can also press Ctrl + 
+Shift + 2. 
+
+5.  Close the Items form. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+33 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Setting up basic personalization 
+
+There are various ways you can customize menus and other user interface elements to accommodate the 
+way you work. 
+
+Creating a personal menu by customizing My Folders  
+
+Instead of having to search through the Master Explorer folders in the Explorer, you can create a menu 
+structure in My Folders that includes only the forms you use. You can customize the contents of My 
+Folders in the following ways: 
+
+  Add or copy subfolders or forms into your My Folders 
+  Delete folders and forms 
+
+Exercise 1.4: Create a personal menu 
+
+In this exercise, you will create a personal menu for Accounts Payable by customizing My 
+Folders. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Create a folder in My Folders 
+
+1.  Click View > Explorer.  
+
+2.  Click the plus sign (+) next to My Folders to expand the folder. 
+
+3.  Right-click the My Folders folder. A drop-down list displays.  
+
+4.  Select New Folder from the drop-down list. 
+
+5.  Type Accounts Payable in the Caption field. 
+
+6.  Click OK. 
+
+Part 2: Create new shortcuts to the Accounts Payable folder  
+
+1.  Right-click the Accounts Payable folder. A drop-down list displays. 
+
+2.  Select New Shortcut from the drop-down list. The Select Form dialog box opens. 
+
+3.  Type a/p voucher. Select the A/P Vouchers and Adjustments form.  You need to click the plus 
+
+sign (+) next to Accounts Payable to expand the folder. 
+
+4.  Click OK.  The A/P Vouchers and Adjustments form now displays within the Accounts 
+
+Payable folder. 
+
+5.  Right-click the Accounts Payable folder. A drop-down list displays. 
+
+6.  Select New Shortcut from the drop-down list. The Select Form dialog box opens.  Note: a/p 
+
+voucher is still showing in the filter field 
+
+34   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+7.  Select the A/P Voucher Posting form.  The A/P Voucher Posting form now displays within the 
+
+Accounts Payable folder. 
+
+8.  Right-click the Accounts Payable folder. 
+
+9.  Select New Shortcut from the drop-down list. The Select Form dialog box opens. 
+
+10.  Type vendors. Select the Vendors form. 
+
+11.  Click OK.  The Vendors form now displays within the Accounts Payable folder. 
+
+Part 3: Delete a form 
+
+1.  Right-click the Vendors form. A drop-down list displays. 
+
+2.  Select Delete from the drop-down list. A dialog box opens with the message, “Are you sure you 
+
+want to delete this explorer object [Vendors]?”. 
+
+3.  Click Yes. The form is deleted. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+35 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Setting up forms to load and open automatically 
+
+If you consistently use certain forms, you can use the AutoRun and PreLoad subfolders in My Folders to 
+set up forms to load and open automatically when you log on. 
+
+  AutoRun: To set up forms to open automatically, copy the forms you want to open automatically 
+into this folder. You can also add shortcuts or drag and drop shortcuts in the My Folders area into 
+this folder. When you log in, the system automatically loads and opens any forms in the AutoRun 
+folder. The system opens them at their default size in the workspace. 
+
+  PreLoad: When you log in, the system automatically retrieves any forms in the PreLoad folder 
+from the database into memory. This allows them to display more quickly when you open them 
+later. Copy the forms you want to load, add shortcuts or drag and drop shortcuts into this folder. 
+
+Do not rename or delete the AutoRun or PreLoad subfolders. 
+
+Exercise 1.5: Set a form to open automatically 
+
+In this exercise, you will set a form to open automatically when you log in. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+1.  Right-click the AutoRun folder in the My Folders section of the Explorer. A drop-down list 
+
+displays. 
+
+2.  Select New Shortcut from the drop-down list. The Select Form dialog box opens. 
+
+3.  Type items in the Filter field. 
+
+4.  Select the Items form. 
+
+5.  Click OK. The Items form is copied to the AutoRun folder. 
+
+6.  Repeat steps 1-5 to copy the Purchase Orders and Order Shipping forms to the AutoRun 
+
+folder. 
+
+7.  Click Form > Sign Out. The Sign In screen displays. 
+
+8.  Sign in to the application. The Items (Filter In Place), Order Shipping, and Purchase Orders 
+
+(Filter In Place) forms open automatically. 
+
+36   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Additional personalization options 
+
+The following are additional personalization options (for more information on these options refer to the 
+course associated with the option): 
+
+Using the Workbench Suite and DataViews 
+
+  DataViews 
+
+Creating forms personalization 
+
+  Changing themes (create your own theme or use one of the two system themes) 
+  Changing the cap on the number of records you can retrieve into a form 
+  Changing the mode (filter-in-place, refresh, new) a form opens in 
+  Adding a field 
+
+Extending the application with Mongoose 
+
+  Publishing a form to the web 
+  Attaching an action to a field 
+  Adding a tab with fields 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+37 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Check your understanding 
+
+Which of the following presents a hierarchical view of the forms in the system and groups 
+forms in folders? 
+
+a)  The Explorer 
+b)  The menu bar 
+c)  The toolbar 
+d)  The workspace 
+
+What submenus display within the Master Explorer menu and allow you to navigate to 
+different forms? Select all that apply. 
+
+a)  System 
+b)  Modules 
+c)  Roles 
+d)  My Folders 
+
+Which of the following methods can be used to open the Select Form dialog box? Select all 
+that apply. 
+
+a)  Selecting Form > Open  
+b)  Right-clicking and selecting Open a Form 
+c)  Pressing Ctrl + O 
+d)  Clicking Open a Form  
+
+You should always rename the AutoRun and PreLoad subfolders. 
+
+a)  True 
+b)  False  
+
+The system automatically loads and opens any forms in the __________ folder.  
+
+a)  PreLoad 
+b)  AutoRun 
+c)  System 
+d)  Master Explorer 
+
+38   Lesson 1: Opening and working with forms 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Lesson 2: Finding and displaying 
+records 
+
+Estimated time 
+
+1 hour 
+
+Learning objectives 
+
+In this lesson, you will: 
+
+  Explain the process of retrieving data. 
+  Explain how to use the filter-in-place functionality to retrieve records. 
+  Describe how to copy collections with records beyond the data cap. 
+  Explain how to use queries to retrieve records. 
+  Describe how to adjust grid columns. 
+  Describe how to sort records. 
+
+Topics 
+
+  Retrieving data 
+  Using filter-in-place functionality 
+  Using queries 
+  Adjusting grid columns  
+  Sorting records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+39 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Retrieving data 
+
+The application is built on three levels: the database, middleware, and presentation layer. 
+
+Application layers 
+
+What you see on your desktop is the presentation layer. Before you can work with a record or a 
+collection, you must retrieve it from the database and display it in a form. There are a number of words 
+used to describe this process, including: retrieve, filter, filter in place, query, refresh, refreshing a form, 
+find, and copy. All of these terms refer to the same process—copying records from the database to your 
+desktop.  
+
+If you do not like the changes you have made to the data, you can re-copy the data from the database, 
+overwriting the changes, using the refresh features. Because the data is a copy, what you do with that 
+data will not affect the data in the database until you save. At that time, the data you have on your 
+desktop is saved back to the database, overwriting the records there. 
+
+When there are hundreds or thousands of records associated with a form, you will not want to copy them 
+all to your desktop. Instead of trying to copy all the records to your desktop, you will want to copy only 
+those that you are interested in. You tell the system which records to copy using one of the following: 
+
+  Filter In Place 
+  Query 
+
+Specifications that determine which records are retrieved are referred to as filter criteria.  
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+40   Lesson 2: Finding and displaying records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Using filter-in-place functionality 
+
+The system provides different methods to use filter criteria to help locate only those records and 
+collections you actually need. One of these methods uses filter-in-place functionality. When you use this 
+functionality to search for records, you create a temporary filter by entering search criteria in selected 
+fields. You cannot save the filter criteria used in filter mode. 
+
+The following table identifies the menu options and keystrokes used to process filter-in-place searches. 
+
+To… 
+
+Select this option 
+from the Actions > 
+Filter menu 
+
+Click this 
+toolbar button 
+
+Or press this key 
+
+Place the form in filter mode 
+
+Begin in place 
+
+Filter In Place 
+
+F4 
+
+Run the filter 
+
+Execute in place 
+
+Filter In Place 
+
+F4 
+
+Cancel a filter you are creating and go 
+back to the previous collection 
+
+Cancel in place 
+
+n/a 
+
+Clear all the current filter criteria while 
+in filter view 
+
+Clear in place 
+
+n/a 
+
+F3 
+
+F5 
+
+When filter in place is activated, any collection currently associated with a form is cleared and fields on the 
+form become blank. You can then enter filter criteria in the fields and retrieve a collection of records that 
+meet those criteria. 
+
+Records matching the criteria are displayed on the form. If no records meet the criteria, the form is placed in 
+new mode. If all fields are left blank, the system starts with the beginning record and retrieves up to the 
+current cap on data records. 
+
+Retrieving collections with records beyond the data cap 
+
+Sometimes a filter or query will result in a collection of records that is larger than the data cap. By default, 
+the cap is set to 200. You can display the next set of records in a form using the Get more rows in the 
+current collection button on the toolbar. This button retrieves the next set of records in the collection. 
+Each time you click the button, the system will retrieve the next set of records up to the record cap. 
+
+For example, if your filter resulted in 450 records, you would retrieve the first 200 when you initially run 
+the filter. The first time you click the Get more rows in the current collection button, the system retrieves 
+records 201-400 and adds those to the first 200 records already displayed. The second time you click the 
+button, the system retrieves records 401-450 and adds those to the collection on your desktop so that you 
+are now viewing all 450 records. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+41 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Exercise 2.1: Use filter-in-place functionality 
+
+In this exercise, you will use filter-in-place functionality to locate all purchased items, you will 
+need to get more rows twice to bring in all the purchased items.  You will add to your criteria 
+to include in your search all standard costed items and then include all items that have a unit 
+of measure of ea. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+1.  Open the Items form. The Items (Filter In Place) form opens. 
+
+2.  Select Purchased from the Source drop-down list. 
+
+3.  Click the Filter icon on the main toolbar. 
+
+4.  Scroll to the bottom of the grid.  Note: There are 200 records. 
+
+5.  Click Get More Rows. 
+
+6.  Scroll to the bottom of the grid.  Note: There are 400 records. 
+
+7.  Click the Get More Rows. 
+
+8.  Scroll to the bottom of the grid.  Note: There are 553 records. 
+
+9.  Click F4 on the keyboard.  Note: Purchased is still selected in the source field. 
+
+10.  Select Standard from the Cost Type drop-down list. 
+
+11.  Click F4. 
+
+12.  Scroll to the bottom of the grid.  Note: There are now only 60 records.  The additional criteria of 
+
+Standard costed items shortened the list to 60 records. 
+
+13.  Click Actions > Filter > Begin in place. Note: Purchased is still selected in the Source field and 
+
+Standard is still selected in the Cost Type field. 
+
+14.  Select EA-Each from the U/M drop-down list. 
+
+15.  Click Actions > Filter > Execute in place. 
+
+16.  Scroll to the bottom of the grid.  Note: There are now only 44 records. 
+
+17.  Run Filter in Place using one of the above methods. 
+
+18.  Press F5 on your keyboard.  This will clear all filter criteria. 
+
+19.  Close the Items form. 
+
+42   Lesson 2: Finding and displaying records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+Using filter search operators and special values  
+
+The following operators can be used in as many fields as necessary to define a filter. 
+
+Operator 
+
+Description 
+
+< or > 
+
+These are the less than or greater than operators. You cannot use wildcard 
+characters with these operators. 
+
+<> or != 
+
+These are not equal to operators. 
+
+  You cannot use wildcard characters with these operators. 
+
+  You cannot use these operators in option drop-down lists. You can use them in 
+business data drop-down lists (those with values you maintain via another form, 
+such as Product Codes for Items records). 
+
+The following special values can be used in addition to actual values. 
+
+Special Value  Description 
+
+* 
+
+This is a wildcard special value. 
+
+  In a text search, the wildcard represents zero or more possible missing 
+
+alphanumeric characters. 
+
+o  You can use the wildcard character at any location in the string. For example: 
+
+the search term "432*" in a Zip Code field would result in records with zip codes 
+of 43215 and 43206. A search term of "*06" would copy records with zip codes 
+of 84006 and 43206. 
+
+  In a date search, the wildcard character matches the month, day of the month, or 
+
+year.  
+
+o  For example, the search term 12/*/2015 returns records for all dates in 
+
+December, 2015. The wildcard character stands for the entire specification for a 
+month, a day, or a year; you cannot use the wildcard in a combination, such as 
+200* to return all years from 2000 to 2009 or in a day specification such as 2* to 
+return all days of a month from 20 to 29. 
+
+  You cannot use this operator on numeric fields. 
+
+  You can change the wildcard character to something other than the * symbol. 
+
+NULL 
+
+This is the blank special value. You can use this with the not equal to operators, for 
+example, <>NULL or !=NULL. 
+
+Filter in place does not support the logical operators AND and OR. If you need to specify 
+multiple criteria for one field, use the query form associated with your form. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+43 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+To filter for deselected check boxes, select the check box first and then deselect it. Until you 
+select the check box in filter mode, the system will not recognize check box filter criteria. 
+
+Exercise 2.2: Use search operators and special value 
+
+In this exercise, you will use filter-in-place functionality. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+1.  Open the Purchase Order Lines form. The Purchase Order Lines (Filter In Place) form opens. 
+
+2.  Type *cycle* in the Name field. 
+
+3.  Run Filter In Place. All entries that include a vendor with cycle in the vendor name are returned. 
+
+4.  Run Filter In Place. 
+
+5.  Type > 12/31/2017 in the Due Date field. 
+
+6.  Run Filter In Place.  All entries that have a due date greater than 12/31/17 are displayed. 
+
+7.  Close the Purchase Order Lines form. 
+
+44   Lesson 2: Finding and displaying records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Using queries 
+
+Most forms have an associated query form. Query forms allow you to create a filter to specify the 
+collection you want to retrieve. When you use a query form to search for records, you create a filter by 
+entering criteria in the query form to identify the records you want to retrieve. Use queries for more 
+complex searching than is possible with the filter-in-place functionality. 
+
+To open a query form, do one of the following while the main form is in refresh or new mode: 
+
+  Click Actions > Filter > By Query 
+  Right-click anywhere on the form other than a field and click Filter > By Query 
+
+Entering primary criteria 
+
+Query forms are split horizontally into two panes. The upper pane contains tabs for primary criteria and 
+additional criteria. The lower pane displays the returned results set in a grid. 
+
+On the Primary Criteria tab on a query form, specify query criteria for the principal fields in the form to 
+which the query form is related. For example, in a form used to maintain information about customers, 
+primary fields may include the customer identification number and customer name. 
+
+Primary criteria are joined by AND logic, which means records are retrieved from the database only if they 
+meet all of the primary criteria. 
+
+You can use the Primary Criteria and/or Additional Criteria tabs to enter search criteria. 
+You do not have to use the Primary Criteria tab; all the fields found on that tab are also listed 
+on the Additional Criteria tab. 
+
+Entering additional criteria 
+
+Use the Additional Criteria tab to build AND and OR search statements. Query statements are made up 
+of query clauses. A query clause consists of (1) a field name, (2) an operator, and (3) a value. For 
+example, to retrieve records for vendors located in New York, you would create a clause similar to "State 
+= NY." In this example, "State" is the field name; "=" is the operator; and "NY" is the value you are 
+searching for. 
+
+You can create multiple clauses and join them by AND or OR. Clauses joined by AND retrieve only those 
+records that meet the criteria specified in each of the clauses. Clauses joined by OR retrieve records that 
+meet any one of the criteria. 
+
+Saving a query 
+
+If you frequently use the same search criteria to retrieve a collection of records, you can save the criteria 
+entered on a query form and create your own saved filter. After the query is saved, you can use the filter 
+to perform a search any time you need to without having to re-enter all the search criteria each time. 
+
+Saving filters and queries saves time when trying to find answers to frequently asked questions about 
+various records, especially if the queries are complex. You can also copy or delete filters that you have 
+saved. Copying a filter allows you to modify and resave it without having to start from scratch.  
+
+If you would like the system to prompt you for a search value for a field when you apply a 
+saved query, enter a question mark (?) as that field’s query value. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+45 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Query search operators and special values 
+
+The following operators can be used on as many fields as necessary in query forms to define a filter. 
+
+Operator 
+
+Description 
+
+LIKE 
+
+This operator is equal to using wildcard characters. If you do not use a wildcard 
+character, LIKE acts the same as =. 
+
+= 
+
+This is the equal to operator. 
+
+< or > 
+
+<> 
+
+These are the less than or greater than operators. You cannot use wildcard 
+characters with these operators. 
+
+This is the not equal to operator. You cannot use wildcard characters with this 
+operator. 
+
+The following special values can be used with query forms in addition to actual values. 
+
+Special value  Description 
+
+* 
+
+This is a wildcard special value. 
+
+  In a text search, the wildcard represents zero or more possible missing 
+
+alphanumeric characters. 
+
+o  You can use the wildcard character at any location in the string. For example: the 
+search term "432*" in a Zip Code field would result in records with zip codes of 
+43215 and 43206. A search term of "*06" would copy records with zip codes of 
+84006 and 43206. 
+
+  In a date search, the wildcard character matches the month, day of the month, or 
+
+year.  
+
+o  For example, the search term 12/*/2015 returns records for all dates in 
+
+December, 2015. The wildcard character stands for the entire specification for a 
+month, a day, or a year; you cannot use the wildcard in a combination, such as 
+200* to return all years from 2000 to 2009 or in a day specification such as 2* to 
+return all days of a month from 20 to 29. 
+
+  You cannot use this operator on numeric fields. 
+
+  You can change the wildcard character to something other than the * symbol. 
+
+Null 
+
+? 
+
+This is the blank special value. If the field is less than four characters, type NULL first 
+in the value field, then select the field. 
+
+This is the search value prompt special value. Use this when you plan to save a query 
+and want the system to prompt you for the search value for the field when you apply 
+the saved query. 
+
+CURDATE( ) 
+
+This special value is the current system date + or - a specified number of calendar 
+days. For example, CURDATE(-1) means yesterday. CURDATE must be written in all 
+capitals. 
+
+46   Lesson 2: Finding and displaying records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Special value  Description 
+
+The argument inside the parentheses specifies the number of calendar days before or 
+after the current system date. Use + to indicate days after; use - to indicate days 
+before. 
+
+For example, a query statement with both of the CURDATE clauses below would 
+search for orders with due dates inside the range starting on the current system date 
+and ending seven days in the future: 
+
+  AND End > CURDATE(-1) 
+
+  AND End < CURDATE(8) 
+
+Accessing predefined queries 
+
+Some forms include default queries. These queries can be modified, just as any saved query can be, by 
+opening the appropriate query from, opening the saved query, making changes, and then saving the 
+query. The following table displays the forms that include default queries. 
+
+Form 
+
+Customer Order Lines 
+
+Customer Order Blanket Line Releases 
+
+Purchase Order Lines 
+
+Purchase Order Blanket Line Releases 
+
+Purchase Order Requisition Lines A/P Transaction Detail A/R 
+Transaction Detail 
+
+Estimate Lines 
+
+Job Orders 
+
+Job Operations 
+
+Projects 
+
+Project Tasks 
+
+Estimate Jobs 
+
+Estimate Operations 
+
+Menu item 
+
+Actions 
+
+  Filter Due Next 7 Days  
+
+  Filter Due Next 14 Days  
+
+  Filter Due Next 30 Days  
+
+  Filter Past Due 
+
+Actions > Filter Current and Future 
+Estimates 
+
+Actions 
+
+  Filter to Start Next 7 Days  
+
+  Filter to Start Next 14 Days  
+
+  Filter to Start Next 30 Days 
+
+  Filter Past Due 
+
+Actions > Filter Current and Future 
+Estimates 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+47 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Exercise 2.2: Use a query 
+
+In this exercise, you will use a query to filter data and you will save the query. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Enter primary criteria 
+
+1.  Open the Item Stockroom Locations form. 
+
+2.  Run Filter in Place. 
+
+3.  Select Actions > Filter > By Query or right-click in any area on the form other than on a field and 
+select Filter > By Query with the Item Stockroom Locations form open. The Item Stockroom 
+Locations Query (Retrieving Filter) form opens with the Primary Criteria tab displayed.  
+
+Note: You can also press Ctrl + Q (This is not available for Web UI).  A form must be in new or 
+refresh mode to build a query. 
+
+4.  Select = as the operator from the drop-down list to the right of the Warehouse field. 
+
+5.  Select MAIN-Progressive Industries from the next drop-down list to the right of the Warehouse 
+
+field. This is the value to use with the operator. 
+
+6.  Confirm like is selected from the drop-down list to the right of the Item field. 
+
+7.  Type bk* in the blank field to the right of the Item field. 
+
+8.  Select < from the drop-down list to the right of the Rank field. 
+
+9.  Type 3 in the blank field to the right of the Rank field. 
+
+10.  Click Refresh to preview the results in the Results pane.  
+
+Note: The number of records returned from the query. Notice how many records have an Item 
+On Hand quantity. 
+
+Part 2: Enter additional criteria 
+
+1.  Click the Additional Criteria tab. This tab allows you to build AND and OR search statements.  
+
+2.  Select Warehouse On Hand from the drop-down list in the first blank field. This is the field you 
+
+want to search. 
+
+3.  Select < as the operator from the drop-down list in the second blank field. 
+
+4.  Type 5 in the third blank field. This is the value you want to use in the search. 
+
+5.  Verify the OR instead of AND with previous clause check box is not selected.  
+
+Note: This check box allows you to specify whether to join the current query clause with any 
+previous clause by AND or OR. If the current clause is the first clause you have specified in the 
+query form, accept the default AND. If you specified primary criteria, be sure to select AND or OR 
+according to how you want to join the current clause with the primary criteria. 
+
+6.  Click Add. The clause is added to the query statement list.  
+
+48   Lesson 2: Finding and displaying records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+Note: To remove a clause, select it in the list and click Remove.  
+
+7.  Click Refresh to preview the results in the Results pane.   
+
+Notice the record with Item On-Hand quantity of 5 no longer displays in the query. 
+
+Part 3: Save the query 
+
+1.  Click Actions > Filter > Save. The Enter a Name for the Filter dialog box opens. 
+
+2.  Type My Query in the Name field. 
+
+3.  Click OK.  
+
+4.  Click OK again to return all results found in the query to the Item Stockroom Locations form. 
+
+5.  Close the Item Stockroom Locations form. 
+
+To apply the saved query, click Actions > Filter > Apply Saved Filter to open the Select 
+Filter dialog box. Then, select the My Query filter.  
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+49 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Adjusting grid columns  
+
+You can make the following adjustments to the columns in a grid on a form: 
+
+  Resize column widths 
+  Change the order of the columns 
+  Hide columns 
+
+Use the Edit Grid Column Visibility and Order dialog box to show, hide, and reorder a form's grid 
+columns. 
+
+If you have appropriate editing permissions, you will be prompted to save the changes when you close 
+the form. Otherwise, the changes are temporary while you are viewing the form. 
+
+Exercise 2.3: Adjust grid columns 
+
+In this exercise, you will adjust grid columns. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Hide a column 
+
+1.  Open the Items form. The Items (Filter In Place) form opens. 
+
+2.  Run Filter in Place. 
+
+3.  Click View > Hide/Show 2nd Splitter Pane to switch to grid view.  
+
+Note: You can also press Ctrl+Shift+2 to switch to grid view or Smart client users can press 
+Ctrl+2. 
+
+4.  Right-click anywhere on the column header. A drop-down list displays.  
+
+5.  Select Edit Grid Columns. The Edit Grid Column Visibility and Order dialog box opens.  
+
+6.  Clear the Visible check boxes for the Revision, Revision Track and ECN grid columns. 
+
+7.  Click OK. The Revision, Revision Track and ECN grid columns no longer display. 
+
+Part 2: Change the column order 
+
+1.  Right-click anywhere on the column header.  
+
+2.  Select Edit Grid Columns. 
+
+3.  Select the U/M grid column.  
+
+Note: Smart Client users can select multiple grid columns by pressing and holding the Ctrl key. 
+You can select a range of grid columns by pressing and holding the Shift key.  
+
+4.  Click Up multiple times until the U/M grid column displays below the Description grid column. 
+
+5.  Click OK. The U/M grid column displays after the Description grid column. 
+
+50   Lesson 2: Finding and displaying records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+Part 3: Resize columns 
+
+1.  Run Filter In Place. Note: You can also press F4 to retrieve data. 
+
+2.  Click the Description column header. The Description column becomes selected. 
+
+3.  Position the mouse cursor over the right border of the Description column heading until the 
+
+cursor changes to a double-sided arrow.  
+
+4.  Click and hold the left mouse button and drag the column to the left to make it narrower.  
+
+Note: You can also double-click the column border to size the column to its contents. 
+
+5.  Repeat steps 2-4 to resize the U/M and Buyer columns. 
+
+6.  Close the Items form. A dialog box opens with the message, “You have made grid-attribute 
+changes to form Items. Do you want to save your changes for the next time you login?” 
+
+7.  Click Yes. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+51 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Sorting records  
+
+After you have retrieved data, you can sort it by any field. There are two ways to sort records: 
+
+ 
+
+ 
+
+In grid view, double-click the column heading to sort in ascending order. Double-click the column 
+heading again to sort in descending order. 
+In grid or detail view, use the Sort dialog box. 
+
+Using the Sort dialog box 
+
+The following table describes key fields in the Sort dialog box.  
+
+Field 
+
+Description 
+
+Collection 
+
+By Property 
+
+This field allows you to select the name of the collection to sort. If you do 
+not know the name, return to the form and click Help > About This Form to 
+view the name of the current collection. 
+
+This field allows you to select the property (field) by which you want to sort 
+the records. For example, if you wanted to select a collection of customer 
+records by zip/postal code, you can select a property known as Zip. 
+
+Descending 
+
+When this check box is selected, records will be sorted in descending 
+order. When not selected, records will be sorted in ascending order.  
+
+For example, text-based records are typically sorted in alphabetic order, A-
+Z. If you select this check box, records will be sorted in reverse alphabetic 
+order, Z-A. 
+
+Note: Some fields that appear to be numeric, for example, the Account 
+field, may actually be character-based. Therefore, they would use text 
+character sort order. In text character (ascending) order: 
+
+  Character strings are generally sorted from left to right. The first 
+character (furthest left) is evaluated, then the second, and so on. 
+
+  A blank field comes before any other character. Blank fields always 
+
+display first. 
+
+  Special characters may come before numerals, between numerals and 
+letters, or after letters. For example, #222 comes before 222, but @201 
+comes after 222. 
+
+  Numerals display in correct numeric order, regardless of size. 
+
+  Numerals display before alphabetic characters. 
+
+  Upper-case characters display before lower-case characters. Thus, XL-
+
+64 comes before xl-64. 
+
+For example, if you attempt an ascending sort by account number, the 
+following accounts would be sorted in this order: 
+
+1. 
+
+(blank field) 
+
+2.  #222 
+
+3.  222 
+
+4.  2220 
+
+52   Lesson 2: Finding and displaying records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+Field 
+
+Description 
+
+5.  @201 
+
+6.  XL-64 
+
+7.  xl-64 
+
+Case-sensitive 
+
+When this check box is selected, records are sorted in ascending order so 
+that records that begin with uppercase letters display before records that 
+begin with lowercase letters. When not selected, the sorting routine ignores 
+capitalization. 
+
+For example, suppose you have three records for customers, whose 
+business names are Electronic Commerce, Ltd., eMall, Inc., and Endzone. 
+If this check box is selected, they would be sorted as follows (in normal, 
+ascending, order): 
+
+  Electronic Commerce, Ltd. 
+
+  Endzone 
+
+  eMall, Inc. 
+
+If this check box is not selected, they would be sorted as follows: 
+
+  Electronic Commerce, Ltd. 
+
+  eMall, Inc. 
+
+  Endzone 
+
+Exercise 2.4: Sort data records 
+
+In this exercise, you will sort data records. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Use the sort dialog box 
+
+1.  Re-open the Items form. 
+
+2.  Run Filter in Place. 
+
+3.  Double click the Description column header.  The data should now be sorted by the description. 
+
+4.  Click Edit > Sort Collection.  A Sort dialog box opens.  
+
+5.  Select ABC Code in the By Property drop-down list.  
+
+6.  Click OK. The data is now sorted in ascending order by ABC Code.  You may have to scroll to the 
+
+right to see the ABC Code column. 
+
+7.  Close the Items form. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+53 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Check your understanding 
+
+The application is built on three layers. What you see on your desktop is the 
+_________________ layer. 
+
+a)  Database 
+b)  Presentation  
+c)  Middleware 
+Interface 
+d) 
+
+You can save the filter criteria used in filter mode. 
+
+a)  True 
+b)  False 
+
+Which of the following operators and special values does the filter-in-place functionality 
+support? Select all that apply. 
+
+a)  < or > 
+b)  <> or != 
+c)  AND and OR 
+d)  * or NULL 
+
+Sometimes a filter or query will result in a collection of records that is larger than the data 
+cap. You can display the next set of records in a form using the Get more rows in the 
+current collection button on the toolbar. By default, the data cap is set to what number? 
+
+a)  10 
+b)  20 
+c)  100 
+d)  200 
+
+A query clause consists of which of the following? Select all that apply. 
+
+a)  A field name 
+b)  A form name 
+c)  An operator 
+d)  A value 
+
+If you frequently use the same search criteria to retrieve a collection of records, you can 
+save the criteria entered on a query form and create your own saved filter. 
+
+a)  True 
+b)  False 
+
+54   Lesson 2: Finding and displaying records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Which of the following operators can be used in query forms to define a filter? Select all 
+that apply. 
+
+a)  LIKE 
+b)  = 
+c)  < or >                                                                                                                                                                                                                                                                                                                                                                                               
+d)  <> 
+
+Which of the following adjustments can be made to the columns in a grid on a form? Select 
+all that apply. 
+
+a)  Resize column widths 
+b)  Change the font size and color in columns 
+c)  Change the order of the columns 
+d)  Hide columns 
+
+After you have retrieved data, you can sort it using the Sort dialog box. Which of the 
+following are fields in the Sort dialog box? Select all that apply. 
+
+a)  Collection 
+b)  By Property 
+c)  Descending 
+d)  Case-sensitive 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+55 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Lesson 3: Adding, editing, and deleting 
+records 
+
+Estimated time 
+
+1 hour 
+
+Learning objectives 
+
+In this lesson, you will: 
+
+Identify the methods used to find and add values to drop-down lists. 
+
+  Describe how to add records. 
+ 
+  Describe how to save records. 
+  Describe how to copy an existing record to create a new record.  
+ 
+  Describe how to check for and correct errors in records. 
+  Describe how to find and replace values in a collection. 
+  Describe how to undo changes to records. 
+  Describe how to delete records. 
+
+Identify the row label indicators and symbols used when editing a collection. 
+
+Topics 
+
+  Adding records 
+  Saving records 
+  Copying an existing record to create a new one 
+  Editing data in a collection 
+  Checking for errors 
+  Finding and replacing values in a collection 
+  Undoing changes to records  
+  Deleting records 
+
+56   Lesson 3: Adding, editing, and deleting records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+Adding records 
+
+In refresh mode, you can add a new record in form or grid view by doing one of the following: 
+
+  Clicking the New toolbar button  
+  Clicking Actions > New 
+  Right-clicking and selecting New (you must be in Dual view) 
+  Pressing Ctrl+N (Note: this is not available for Web UI) 
+
+The color of the symbol or field on a form indicates whether it’s required, optional, or read-only. The 
+following table describes the field symbols and colors when adding a new record. 
+
+Field 
+
+Description 
+
+* (Red asterisk) 
+
+This symbol and color indicate the field is required. 
+
+* (Green asterisk) 
+
+This symbol and color indicate the field is required, however, if you leave the 
+field blank, the system will generate it. In green fields, use the question mark 
+(?) to tell the system to generate the value using a prefix you supply. 
+
+For example, the customer ID field on new customer records is green, meaning 
+it’s required, but the system will generate it if you do not supply the value. If you 
+type "JB?" in the field, the system will expand the ID to use all the characters in 
+the field and increment the number. The first time you enter this and save the 
+record, the system will generate JB00001 as the customer ID. The next time 
+you enter "JB?" the system will increment and generate JB00002 as the 
+customer ID. 
+
+White 
+
+This symbol and color indicate the field is optional. 
+
+Gray 
+
+This symbol and color indicate the field is read-only. 
+
+When you add a record, you have only added it to the collection displaying in the form on 
+your desktop. To add it to the database, you must save the record. 
+
+Finding and adding values to a field with a drop-down list 
+
+The system uses two basic drop-down list types: business data lists and option lists. 
+
+  Business data lists are generated from records you maintain in another form. For example, you 
+
+maintain all your item records in the Items form. When you add an item record to that form, it will 
+display as a drop-down list option in the Item fields on other forms. 
+
+  Option lists are built in to the system, rather than being created and stored in the database. You 
+usually cannot change the options in these lists, and they typically only provide a few options. 
+
+Using the drop-down list filter 
+
+Some drop-down lists have hundreds of possible values. Rather than scrolling through the possibilities, 
+you can use a drop-down list filter to locate a value. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+57 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+There are two ways to filter in a field with a drop-down list: 
+
+  Type the first few characters to narrow down the possible values, and then click the drop-down 
+
+arrow. 
+
+  Type filter criteria using the wild card character, and then click the drop-down arrow. 
+
+For example, if you type "f" in a field for Item ID and click the drop-down arrow, the system displays the 
+item records starting with those that begin with "f." If you type "*f*" and click the drop-down arrow, the 
+system will return all items with an "f" somewhere in the ID. 
+
+Comparison operators (<,>,=,<>) are not supported when filtering a drop-down list. 
+
+Using the Find menu option 
+
+In addition to filtering a drop-down list, you can search for valid values and retrieve a selected value into a 
+field. To find and retrieve a specific value from a drop-down list, position the cursor in the field and do one 
+of the following: 
+
+  Right-click and select Find from the drop-down list 
+  Press Ctrl+F 
+  Click Edit > Find Value for Current Field  
+
+Using the Add menu option 
+
+If a value does not exist in a drop-down list, and you need it, you can add the new value and insert it into 
+the field. To add a value to a drop-down list, position the cursor in the field and do one of the following: 
+
+  Right-click and select Add from the drop-down list 
+  Select Edit > Add Value for Current Field  
+  Click Add Value on the toolbar 
+
+The Find and Add menu options are only available in business data drop-down lists. 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+58   Lesson 3: Adding, editing, and deleting records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Saving records 
+
+When saving records, you have two options:  
+
+  Save a single record, ignoring changes to other records in the collection. To save a single record, 
+
+select the record and click Actions > Save Current. 
+
+  Save all records in a collection at one time. To save all records, do one of the following: 
+
+o  Press Ctrl+S. 
+o  Click Save on the toolbar 
+o  Click Actions > Save 
+
+    Exercise 3.1: Add and save records 
+
+In this exercise, you will add and save records. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Add a new record 
+
+1.  Open the Items form. 
+
+2.  Run Filter In Place. 
+
+3.  Click the New icon on the toolbar. 
+
+4.  Type My New Item in the Item field. 
+
+Part 2: Filter a drop-down list 
+
+1.  Type f in the U/M field. 
+
+2.  Click the down arrow in the U/M field to display the drop-down list.  
+
+Notice the first selected entry in the list begins with the letter f. 
+
+3.  Select FT-Foot from the drop-down list. 
+
+4.  Select FG-100-Finished Goods from the Product Code drop-down list.  
+
+Note: A red asterisk displays next to this field indicating it is required. 
+
+5.  Click the Save icon on the toolbar. 
+
+Part 3: Add a second new record 
+
+1.  Click Actions > New. 
+
+2.  Type My Second New Item in the Item field. 
+
+3.  Press Tab. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+59 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Part 4: Add a new value to a drop-down list 
+
+1.  Right-click in the U/M field for My Second New Item. A drop-down list displays. 
+
+2.  Select Add from the drop-down list.  The Unit of Measure Codes (Find) form opens allowing 
+
+you to add a new unit of measurement. 
+
+3.  Type MYS in the U/M field. 
+
+4.  Type My Sample Unit of Measure in the Description field. 
+
+5.  Save the record. 
+
+6.  Close the Unit of Measure Codes (Find) form.  A dialog box opens with the message, “Do you 
+
+want to return MYS for Find for U/M to form Items?” 
+
+7.  Click Yes.  
+
+8.  Select FG-100-Finished Goods from the Product Code drop-down list. 
+
+9.  Save the record. 
+
+60   Lesson 3: Adding, editing, and deleting records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+Copying an existing record to create a new one 
+
+Copying a record and modifying it, rather than creating a new one, can often save time in repetitive data 
+entry tasks. 
+
+Exercise 3.2: Copy an existing record to create a new record 
+
+In this exercise, you will copy an existing record to create a new record. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+1.  Select BMX-13000 from the list of items in the grid. 
+
+2.  Select Actions > Copy. A dialog box opens with the message, “This copy will not copy the item's 
+current BOM to the other site. Use the Multi-Site Bill of Material Builder to copy item BOMs to 
+other sites. Continue with this copy?” 
+
+3.  Click Yes. A copy of the selected record is inserted as the next record. 
+
+4.  Type BMX-14000 in the Item field. 
+
+5.  Press Tab. 
+
+6.  Type Bicycle, BMX, Black in the Item Description field. 
+
+7.  Save the record.  
+
+If the record contained a field with a number that is automatically assigned and cannot be 
+manually changed, the system assigns the next available number to the copied record 
+when you save it. If the record contains a field with a number that is automatically assigned 
+but which can be changed manually, the number is duplicated in the copied record. You 
+can update the value manually before you save the record. To allow the system to assign 
+the next available number automatically, make the field blank before you save the record. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+61 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Editing data in a collection 
+
+As you learned, when you open a form and retrieve records, you are actually copying data from the 
+application database to the desktop. For example, when you copy item records, bill of material records, or 
+customer orders, the data copied is called a collection. When you edit the collection by updating, adding, 
+or marking records for deletion, you are only editing the data in the collection on your desktop, not the 
+application database. Only after you save the collection does the system update the application database 
+with all of the changes. 
+
+Because the collection is a copy of the data, you can edit, add, or mark multiple records for deletion. You 
+do not have to save the data after every change you make. While you are editing the collection, the 
+system keeps track of all the changes and marks each record with the types of changes made using the 
+indicators in the table below. These indicators display in the row labels in grid mode. 
+
+The following table describes row label indicators and symbols in grid view. 
+
+Row label 
+
+Description 
+
+indicator 
+
+ (Blue arrow)  This symbol indicates that a record is already saved in the database and is the currently 
+
+selected record in the collection. In a multiview form, this is the record that displays in 
+the detail view. 
+
+<blank> 
+
+If there is no indicator, the record is already saved in the database and is not the 
+currently selected record in the collection. 
+
+ (Blue star)  This symbol indicates a record is new, contains no validation errors, and has not yet 
+
+been saved. 
+
+(Orange 
+diamond) 
+
+This symbol indicates a record has been modified, contains no validation errors, and has 
+not yet been saved. A modification refers to any time a change has been made to a 
+value in any field. 
+
+(Red X)  This symbol indicates a record has been marked for deletion. The record will be 
+
+removed from the database when the record is saved or the collection containing the 
+record is saved. 
+
+ (Red 
+
+exclamation 
+point) 
+
+This symbol indicates a record is new, has been modified or has been marked for 
+deletion, and contains at least one validation error. The letter e is added to the row label 
+when you navigate away from the record, receive a validation error message regarding 
+the record, and do not correct the error. When you subsequently try to save the record, 
+or the entire collection containing the record, the system repeats the validation error 
+message, and you cannot save it until the error has been corrected. 
+
+62   Lesson 3: Adding, editing, and deleting records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+Exercise 3.3: Edit data 
+
+In this exercise, you will update the drawing number for your new item. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+1.  Select BMX-14000 from the list of items in the grid. 
+
+2.  Type BMX-14000 in the Drawing Number field. 
+
+3.  Press Tab. 
+
+4.  Save the record. 
+
+5.  Leave the Items form open. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+63 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Checking for errors 
+
+Most forms validate new and modified records and report validation errors. The system displays 
+messages about any field that contains an invalid value or about any field that requires a value, but does 
+not contain one. For example, one such validation error is a faulty date typed in a date field. If the field 
+requires a date after today's date and you type an earlier date, the system displays an error message. 
+
+The validation procedure occurs, and any error messages display, when you: 
+
+  Navigate away from a new or modified record. 
+  Attempt to save new or modified records. 
+  Click Actions > Validate. 
+
+To check records for errors, perform any of the above actions. 
+
+Some fields are set to validate immediately and not wait until you perform one of these actions. In these 
+cases, validation occurs as soon as you attempt to move the focus to another field in the same record. 
+
+Correcting errors 
+
+When you perform an action that triggers validation, other than an action to save all records, the system 
+displays an error message for the first field in the current record that contains an error. If there are 
+multiple errors, the system then cycles through each field with an error. 
+
+If you attempt to save a form that has multiple records with errors, the system reports which records in the 
+current collection contain errors. You cannot save the form until all errors have been corrected. 
+
+The following is a high-level overview of how to correct a current record.  
+
+How to correct a current record 
+
+Step 1 
+
+Click Yes when the system displays the error message and prompts you to respond. The 
+insertion point displays automatically moves to the field containing the error. 
+
+Step 2 
+
+Enter a valid value. 
+
+Step 3 
+
+Click Actions > Validate. If the system displays an error message, repeat steps 1 and 2 
+until no field in the record contains an invalid value. 
+
+The following is a high-level overview of how to correct all records in the collection.  
+
+How to correct all records in the collection 
+
+Step 1 
+
+Navigate to a record indicated by a row number in the error message. Note: The record 
+numbers correspond to row labels in the grid form. 
+
+Step 2 
+
+Click Actions > Validate.  
+
+Step 3 
+
+Move the insertion point to the field reported in the error message.  
+
+Step 4 
+
+Enter a valid value. 
+
+Step 5 
+
+Repeat steps 3 and 4 until all fields in the current record are valid. 
+
+Step 6 
+
+Repeat the entire procedure until you have corrected all records indicated in the error 
+message from the save operation. 
+
+64   Lesson 3: Adding, editing, and deleting records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Undoing changes to records 
+
+To undo any changes made prior to saving, do one of the following: 
+
+  Refresh all records by clicking Actions > Refresh, clicking Refresh, or pressing F5. This undoes 
+the changes made to all records in the collection and reapply any original filter criteria used on 
+the form before making the changes. 
+
+  Refresh the current record by clicking Actions > Refresh Current, clicking Refresh Current, or 
+
+pressing Ctrl+F5. This undoes changes for the selected record only. 
+
+  Cancel changes and close the form by clicking Form > Close and cancel changes, cancelling 
+
+unsaved changes. This discards any changes made and close the form. 
+
+  Remove the new record by clicking Actions > Delete, clicking Delete, or selecting the record and 
+
+pressing Ctrl+D. 
+
+Refresh in the options above refers to refreshing your collection by updating the record in 
+the collection with the current values in the database. 
+
+After saving records that have been changed or marked for deletion, you cannot undo the 
+changes. If a yellow diamond, red exclamation point, blue star, or red X row label indicator 
+still displays, the changes have not been saved and can still be undone. 
+
+If the form contains a sub-collection (displayed as a grid in the detail view), the system will 
+refresh either the sub-grid only or the whole record, depending on where you have placed 
+focus. To refresh the sub-collection, make sure you have placed the cursor in a field of the 
+sub-collection. Position the cursor in a field of the main record to refresh the main records. 
+
+For example, if your cursor is in the sub-grid displayed in the detail view and you refresh, 
+the system will only refresh the records in the sub-grid. It will not refresh the other fields in 
+the main record. 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+_________________________________________________________________________ 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+65 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Deleting records 
+
+You can delete a single record or a group of adjacent records from a collection. 
+
+The system does not actually delete a record from the database until you save changes. If 
+the red X row label indicator still displays next to a record, the deletion has not been saved 
+to the database. If you no longer want to delete a record, you can unmark those records 
+using one of the methods for undoing changes. 
+
+Exercise 3.4: Delete records 
+
+In this exercise, you will delete a single record. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Delete a single record 
+
+1.  Return to the Items form. 
+
+2.  Select the My New Item record on the Items form.  
+
+3.  Select the Delete icon, or click Actions > Delete, or press Ctrl+D. A dialog box opens with the 
+
+message, “This record will be permanently deleted upon Save.”  
+
+4.  Click OK. A red X displays to the left of the record. 
+
+5.  Save the record. The record is permanently deleted from the database. 
+
+6.  Close the Items form. 
+
+66   Lesson 3: Adding, editing, and deleting records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Finding and replacing values in a collection 
+
+You can search the records in a collection for a specific value in a field. For example, if you wanted to 
+locate the records for all customers located in the state of Ohio, you would search on the State/Prov field 
+for the abbreviation OH on the Customers form. The Find Value in Collection feature locates the first 
+record for the state of Ohio. You can then repeat the Find action until you locate the particular customer 
+you want. 
+
+If you want to update a number of records with the same value, you can copy and paste, but a quicker 
+method is to use the Replace Value in Collection feature. This feature allows you to search a collection 
+for records that contain certain field values and replace them with new values. 
+
+The following are tips when using this feature: 
+
+  The search begins with the selected record and moves forward from there. It does not loop back 
+through the beginning of the records. Therefore, if you want to search only the last part of a 
+collection, you can start with the focus on the first record from which you actually want to search. 
+
+  When you use this dialog box and click OK, the system prompts you and queries whether you 
+
+want to change an individual value found, or all values that match the criteria. This allows you to 
+selectively replace values only in certain records, by selecting Yes or No, or in all records at 
+once, by selecting Yes to All. 
+
+When entering values on which you want to search, you can use a partial value. For example, to find any 
+value that contains the string "test," you would type “test” and clear the Case Sensitive check box. This 
+would locate values such as Test case, Amy's testing results, and Sales Contest. This is known as using 
+an implied wildcard. 
+
+The find value and replace value features do not support use of the wildcard character, the 
+Null keyword, or comparison operators. These characters in such searches are treated as 
+literal values. 
+
+The following table describes the fields in the Replace dialog box. 
+
+Title 
+
+Description 
+
+Replace 
+
+This field allows you to enter the value that you want to find and replace. 
+
+All Values  When this check box is selected information in a field is replaced regardless of the 
+
+field's current value. When this check box is not selected, information in a field is only 
+replaced if it contains the value contained in the Replace field. 
+
+With 
+
+This field allows you to enter the new value to replace the value entered in the 
+Replace field. When performing a find and replace on a check box, 0 = deselected 
+and 1 = selected. For example, if you wanted to replace item records that have their 
+Backflush check box selected, you would enter "1" in the Replace field. 
+
+In Collection  This field identifies the collection you want to search. This should default to the 
+
+collection you are currently working with. If you do not know the collection name, 
+return to the form, click a section of the form that displays the collection you want, and 
+select Help > About This From to display the name of the current collection. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+67 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Title 
+
+Description 
+
+In Property 
+
+This field identifies the name of the field whose values you are replacing. The default 
+value for this field is the field the cursor was in when the dialog box was opened. 
+Therefore, to have the field in which you want to replace values preselected, make 
+sure the field is selected when this dialog box is opened. 
+
+Case Sensitive  When this check box is selected, the system will search for the exact case of the text 
+(capital and lowercase letters) typed in the Replace field. When this check box is not 
+selected, the system will match values even if they differ in case with the value 
+specified in the Replace box. 
+
+Exercise 3.5: Find and replace values 
+
+In this exercise, you will find and replace values in a range of records by changing the due 
+date on a number of order lines for Ting Tang Bicycles. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Filter the data 
+
+1.  Open the Customer Order Lines form. The Customer Order Lines (Filter In Place) form 
+
+opens. 
+
+2.  Type ting* in the Name field. 
+
+3.  Select Ordered from the Status drop-down list.  
+
+4.  Run Filter In Place to filter for order lines from Ting Tang Bicycles that have a status of Ordered. 
+
+5.  Click Ctrl+Shift+2. This allows you to more easily view the changes in this exercise. 
+
+Part 2: Replace values 
+
+1.  Edit grid columns to move the Due Date column to the right of the Item column. 
+
+1.  Position the cursor in the first row of the Due Date column. The current row and all subsequent 
+
+rows will be included in the find and replace process.  
+
+2.  Click Edit > Replace Value in Collection. The Replace dialog box opens.  
+
+3.  Select or Verify Due Date (DueDate) is in the Property field. 
+
+4.  Select the All Values check box. 
+
+5.  Type <the date two weeks from the current date> in the With field. 
+
+6.  Click Replace All. A dialog box opens with the message, “Replace complete” 
+
+7.  Click OK. 
+
+8.  Save the record. 
+
+68   Lesson 3: Adding, editing, and deleting records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+9.  Close the Customer Order Lines form. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+69 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Check your understanding 
+
+Match each of the following field symbols when adding a record to the corresponding 
+description. The possible form modes are: Gray, White, Green asterisk, and Red asterisk. 
+
+Description 
+
+Field symbol 
+
+Indicates the field is required 
+
+Indicates the field is required, however, if 
+you leave the field blank, the system will 
+generate it 
+
+Indicates the field is optional 
+
+Indicates the field is read-only 
+
+Which of the following methods can be used to find and add values to a drop-down list? 
+Select all that apply. 
+
+a)  Using a drop-down list filter 
+b)  Using the Find menu option 
+c)  Using filter-in-place functionality 
+d)  Using the Add menu option 
+
+The Find and Add menu options are only available in business data drop-down lists. 
+
+a)  True 
+b)  False 
+
+Copying a record and modifying it, rather than creating a new one, can often save time in 
+repetitive data entry tasks. To copy an existing record, select the record and select Actions 
+> Copy. 
+
+a)  True 
+b)  False 
+
+70   Lesson 3: Adding, editing, and deleting records 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+If you want to undo any changes you have made prior to saving, which of the following can 
+you do? Select all that apply. 
+
+a)  Remove the new record 
+b)  Refresh the current record  
+c)  Refresh all records 
+d)  Cancel changes and close the form 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+71 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Lesson 4: Additional record 
+management 
+
+Estimated time 
+
+1 hour 
+
+Learning objectives 
+
+After completing this lesson, you will be able to: 
+
+Identify the different note types. 
+
+ 
+  Describe how to create notes. 
+  Describe how to print reports. 
+  Explain the process for running activities and utilities. 
+  Describe how to export data to a file. 
+ 
+
+Identify the options for moving data to and from Excel. 
+
+Topics 
+
+  Working with notes 
+  Printing 
+  Running activities and utilities  
+  Exporting data to a file 
+  Moving data to and from Excel 
+
+72   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+Working with notes 
+
+You can annotate a record or a collection of records by attaching one or more notes. 
+
+  Each record can have multiple notes. 
+  Each note has two parts, a description and a body. The body can be text or an attachment. For 
+example, a note for a BOM may include text instructions for packaging or the engineering 
+drawing. 
+
+  You can make some notes specific to a particular record; other notes you can use over and over 
+
+on multiple records. 
+
+  A number of standard reports print notes. 
+
+Object and class notes 
+
+The system allows you to create: 
+
+  Notes for a single record (object notes): These notes are attached to the currently selected 
+
+record. Object notes can be internal or external. You can create a note specifically for that record, 
+or you can attach a reusable note. With these notes, you can print the note on reports. 
+
+  Notes for all records in a collection (class notes): These notes are attached to every record in a 
+collection. For example, if you attach a class note to one customer record, it is automatically 
+attached to all customer records. Class notes can be internal or external. You can only attach 
+reusable notes as class notes. Also, class notes do not print on reports. You can view these types 
+of notes only through the form for the collection to which the notes are attached. 
+
+You can attach multiple notes, of either type, to a record. After you attach a note of any type to a record, 
+all other users of the system can read the note. 
+
+When you attach a note, the status bar displays the word NOTES, and the Actions menu displays a check 
+mark next to the Notes for Current option, for single-record notes, or next to the Notes for All option (for 
+notes attached to the entire collection). 
+
+Some forms use application-specific notes instead of the standard object notes and class 
+notes. These notes are similar in purpose, but differ in use from the standard notes.  
+
+Reusable notes 
+
+Reusable notes are defined on the System/User Notes form. You can create these notes once and 
+attach them multiple times, either as object notes or class notes. There are two types of reusable notes: 
+
+  System notes: After they are created, a system note is available for use by anyone else on the 
+system. For example, if Joe creates a system note, both he and Jane can later view that note in 
+the System/User Notes form. They can also both attach it to as many records as they want. 
+System notes can be printed on reports.  
+
+  User notes: After they are created, a user note can be reused and attached to records only by 
+the person who created the note. For example, if Sally creates a user note in the System/User 
+Notes form, she can later view that note and attach it to other records. However, when Pete 
+opens the System/User Notes form, he cannot see the Sally’s notes or attach them to his records. 
+User notes do not print on reports. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+73 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Internal/External notes 
+
+All notes can also be classified as either internal or external notes. If you select the Internal check box for 
+a note, the system tags it as an internal note. Otherwise, the system treats the note as an external note. 
+This classification is used when printing notes on reports. 
+
+Printing notes on reports 
+
+Many reports and utilities allow you to specify the types of notes that can be printed as part of the output. 
+At times, the Print External Notes and Print Internal Notes options are used in conjunction with other note-
+printing options. If you do not select at least one of these options for note-printing options that require 
+them, no notes will print, regardless of the other options selected. At the same time, if you have one or 
+both of these options selected, but you do not also have another option selected, no notes print. 
+
+For example, you are printing a report that allows you to print both customer notes and customer order 
+notes, and you can elect to print internal notes, external notes, or both. Suppose you want to print only 
+external customer notes on the report. In this case, you would select Print Customer Notes (but not Print 
+Order Notes) and Print External Notes (but not Print Internal Notes). If you do not select both options 
+(Print Customer Notes and Print Internal Notes), no notes will print. 
+
+On forms where Print External Notes and Print Internal Notes are the only options, it depends on the form 
+as to which notes the system prints.  
+
+Creating notes 
+
+The following table summarizes the types of notes available and how to create them. 
+
+Note type 
+
+Description 
+
+Object 
+
+Attached to an object record in a collection 
+
+How to create 
+
+Actions > Notes for 
+Current 
+
+Class 
+
+Attached to all records in a collection 
+
+Actions > Notes for All 
+
+Reusable: 
+System 
+
+Can be used as a class or current note by any user 
+
+View > System Notes 
+
+Reusable: User  Can be used as a class or current note only by the user that 
+
+View > System Notes 
+
+created the note 
+
+Creating notes for a single record  
+
+Use the Objects Notes form to create a note that applies only to the current record and used only once in 
+the system. 
+
+The following table describes the fields on the Object Notes form. 
+
+Field/Check 
+box/Button 
+
+Description 
+
+Internal 
+
+When this check box is selected, it indicates the note is for internal use only. The note 
+can subsequently be excluded from report printing based on whether it’s internal or 
+
+74   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Field/Check 
+box/Button 
+
+Description 
+
+external. 
+
+Reusable 
+
+This check box is automatically selected when a reusable note is attached using the 
+Attach/Detach button. In this case, you cannot edit the note. Note: This check box 
+cannot be manually selected. 
+
+System 
+
+This check box is automatically selected when a reusable system note is attached 
+using the Attach/Detach button. In this case, you cannot edit the note. Note: This 
+check box cannot be manually selected. 
+
+Attach File 
+
+This button attaches an external file to a record. This is optimal for drawings or 
+documents stored across the network.  
+
+Open 
+Attachment 
+
+This button opens a file attached to a record as a note. Note: Attachments must be 
+located in a shared folder on the network for other users to view them. 
+
+Note 
+
+This field displays the text of the note. This is the content that can be printed, when 
+applicable.  
+
+  If the note is for an attached file, this field displays the path and filename of the 
+
+attached file. 
+
+  If this field is inactive, you cannot edit the note text in this form because it is an 
+attached reusable note. To change the text, you must edit the reusable note. 
+
+Attach Detach 
+Reusable 
+
+This button opens the System/User Notes form, allowing you to select a reusable 
+system or user note to attach to the record.  
+
+Creating notes for a collection 
+
+Use the Class Notes (Modal) to create class notes for a collection. Class notes, which are attached to all 
+records in a collection, can only be reusable notes. 
+
+Creating or selecting reusable notes 
+
+Use the System/User Notes form to create system and user notes that are reusable.  
+
+  System notes are reusable notes that can be read and attached by any user.  
+  User notes are reusable notes that only the author can read or attach. 
+
+Use reusable notes to retrieve common messages that you plan to use multiple times. Examples of 
+reusable notes include, "Always store this item right side up," or "Check all bolts for proper torque prior to 
+packaging." You can enter these notes one time and reuse them as often as necessary without re-
+entering the note each time. 
+
+  To launch the System/User Notes form standalone (not linked to any record), select View > 
+
+System Notes. 
+
+  To use the form to define or select reusable notes for a specific record or collection, click the 
+
+Attach Detach Reusable button on the Object Notes or Class Notes (Modal) forms. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+75 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+System notes should be organized for ease of use when the file gets to be large. An 
+example would be to use prefixes that match the class in which they will be associated, 
+such as CO (for customer order), PO (for purchase order), Item, TO (transfer orders), JO 
+(job orders), BOM, and so on. 
+
+Exercise 4.1: Create notes 
+
+In this exercise, you will create and attach notes. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: View a system note 
+
+1.  Click View > System Notes. The System/User Notes form opens. 
+
+2.  Review the System Notes Reusable By All. 
+
+3.  Close the System/User Notes form. 
+
+Part 2: Apply the system note to customer order DC385 and add an internal note 
+
+1.  Open the Customer Orders form. The Customer Orders (Filter In Place) form opens. 
+
+2.  Type dc385 in the Order field. 
+
+3.  Run Filter In Place. 
+
+4.  Click Actions > Notes for Current. The Object Notes (Linked) form opens. Note: You can also 
+
+click the System Notes icon. 
+
+5.  Click Attach Detach Reusable. The System/User Notes (Modal) form opens. 
+
+6.  Select the Attach check box next to the Customer Thank You note. 
+
+7.  Click OK. The Subject and Note fields on the Object Notes (Linked) form are populated with 
+
+the thank you note information. 
+
+8.  Save the record. 
+
+9.  Add a new record. 
+
+10.  Type Expedite in the Subject field. 
+
+11.  Type Customer called to expedite this order in the Note field. 
+
+12.  Save the record. 
+
+13.  Close the Object Notes (Linked) form.  Note: There is a yellow dot showing next to the System 
+
+Notes icon. 
+
+14.  Click the System Notes icon on the toolbar. The Object Notes (Linked) form opens. 
+
+15.  View the 2 notes you created. 
+
+76   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+16.  Close all forms. 
+
+For security reasons, web pages are prevented from browsing for files on the local 
+machine or attempting to execute a program associated with a file 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+77 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Printing  
+
+Printing reports 
+
+Reports can be generated in several formats, which can then be delivered to printers, email addresses, or 
+fax machines. Most reports also allow you to set various options and preview the output before actually 
+generating it. 
+
+Reports usually consist of three parts: 
+
+  Check boxes and drop-down parameters used to select the type of information to print 
+  Range filters used to select ranges of records to print 
+  Action buttons: 
+
+o  Preview: Used to display and preview the report prior to printing 
+o  Print: Used to send to the printer or save as a file 
+
+Printing reports is a two-step process; first you define what to print on the report and then you click the 
+Preview or Print button. 
+
+Setting report options 
+
+When printing a report, the report data is first sent to the report generator. You can then send the report 
+to the printer or save it in a number of file formats on your computer. The system looks for report options 
+set on the Intranets form first and then uses the printing options set on the Report Options form.  
+
+The Intranets form allows you to set default settings for all reports. The Report Options form allows you 
+to set default report options for a particular user, a particular report, or a particular device. After these 
+options are set, they remain as defaults until they are changed on this form. Available report output 
+formats include: 
+
+  Portable Document Format (PDF) 
+  Comma Separated Values (CSV) 
+  Excel  
+  Excel (Open XML) 
+  HTML 4.0 (SSRS Only) 
+  MHTML (SSRS Only) 
+  Printer 
+  TIFF (SSRS Only) 
+  Word (Open XML) 
+  Word® for Windows 
+
+The Report Options form is used in two different contexts. What you see and what you 
+can do with this form depends on the context in which you are accessing it. To create a 
+report output profile, access this form from the Explorer or from the Select Form dialog 
+box. To select a printer other than your default printer when printing a report, access this 
+form using the Select Printer button on the toolbar. When you access this form via this 
+button, the system limits what you can do. 
+
+Typically, a system administrator will set up report options. 
+
+78   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Exercise 4.2: Generate, preview, and print a report 
+
+In this exercise, you will generate, preview, and print a report. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Generate and preview a report 
+
+1.  Open the Accounts Payable Aging Report. The Accounts Payable Aging Report form opens. 
+
+2.  Select the Print All Posted Transactions check box. 
+
+3.  Click Preview.  
+
+4.  When prompted to open or save the document, select Open. 
+
+5.  Close the AccountsPayableAgingReportViewer form. 
+
+6.  Close the Print Preview tab.  You are returned to the Accounts Payable Aging Report form. 
+
+Part 2: Print the report 
+
+1.  Click Print on the Accounts Payable Aging Report.  
+
+2.  Close the Report Viewer.  A dialog box opens with the message, “Report Submitted.” 
+
+3.  Click OK. 
+
+4.  Open the Report Output Files form using the Select Form dialog box. The Report Output Files 
+
+(Filter In Place) form opens. 
+
+5.  Run Filter In Place. The Accounts Payable Aging Report displays in the Report list. 
+
+6.  Click View. The Accounts Payable Aging Report displays in PDF format in the Report Viewer. 
+
+7.  Scroll down to view the pages in the report. 
+
+8.  Close all forms. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+79 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Running activities and utilities 
+
+Activities and utilities are specialized forms that are usually associated with other, more basic forms. They 
+typically process multiple records in one operation, performing tasks such as purging records, updating 
+values, posting transactions, or changing the status of records. For example, suppose you need to 
+change the status of a range of job operations to Complete. You can use a Complete Job Operations 
+utility to change all job operations at one time, rather than having to change each job separately. 
+
+Activity and utility forms typically present pairs of fields and other options that allow you to define ranges 
+of criteria and parameters for records to be processed. After you select the parameters, you will process 
+the activity or utility in one of two ways: 
+
+  Previewing and committing 
+  Processing only 
+
+Many, but not all, activity and utility forms include a grid section, in which you can preview records before 
+processing. These forms typically include a Select check box next to each record returned for preview. 
+When you select the check box for a record, the system displays an (m) in the row label for that record. 
+This indicates that the record has been selected, but not yet processed. 
+
+When you select Commit and then click Process, the system processes only the selected records. If all 
+selected records process successfully, the system typically refreshes the form. When the form is 
+refreshed, all selected records, having already been processed, will no longer display. 
+
+When the system is set to process records individually, an error may occur during the processing of 
+records. In this case, typically, the records that were processed before the error occurred are already 
+committed in the database. However, the collection does not get refreshed, so they still display in the grid; 
+but the (m) indicator will no longer display. If you attempt to process the records again, the records that 
+were processed will not be processed again even though they are displaying. 
+
+When the system is set to process all records as a batch, and an error occurs, the system does not 
+complete the processing of any records. In this case, the system returns all records to the status they 
+were at before processing. 
+
+Previewing and committing 
+
+Activities and utilities that include a Preview option allow you to perform a trial run. Nothing is updated in 
+the database, but you will be able to view what will occur in the grid at the bottom of the form. If the 
+results look correct in the preview, you select the Commit radio button and then click Process. When you 
+commit, you update the database. 
+
+In some processes, previewing is not optional and you must preview before committing. 
+Often these processes print a report that you must view first. After you preview, the 
+Commit radio button will activate. 
+
+Processing only 
+
+Process-only activities and utilities do not allow you to perform a trial run. With these forms, you select the 
+desired parameters and then run the process against the database. 
+
+80   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+Verifying the process was successful 
+
+When running activities and utilities, some processes will be executed immediately, while others will be 
+placed in a background queue. 
+
+For activities and utilities that are immediately processed, a system dialog box displays indicating the 
+process was completed. For example, when running the Material Planner Workbench activity 
+successfully, a dialog box will display the message, “359 MRP Receipt(s) were processed.” 
+
+Activities and utilities that are not processed immediately are placed in the background task queue. You 
+can identify this when the system displays a dialog box with the message “Task Submitted.” 
+
+When this dialog box displays, you will need to open the Background Task History form to verity the 
+process completed successfully. The following table describes key fields on the Background Task 
+History window. 
+
+Field 
+
+Description 
+
+Submitted  This field identifies the date and time the activity or utility was processed. 
+
+Started 
+
+This field identifies the date and time the system began executing the process. 
+
+Completed  This field identifies the date and time the system finished the process. Regardless of what 
+
+the Task Messages area displays, a process is not complete until this field is populated. 
+
+Return 
+Status 
+
+When the process completes, the system populates the return status of the task with one 
+of the following: 
+
+  Task Succeeded 
+
+  Task Failed - Error, followed by the return code 
+
+Exercise 4.3: Run activities and utilities 
+
+In this exercise, you will run an activity that executes immediately, run an activity and view it 
+in the Background Task History form, and run a utility. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Run an activity that executes immediately 
+
+1.  Open the Change Warehouse form. The Change Warehouse form opens. 
+
+2.  Select DIST-Distribution Center from the list of warehouses to change this warehouse to the 
+
+default warehouse. 
+
+3.  Click OK.  
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+81 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4.  Open the Miscellaneous Issue form. The Miscellaneous Issue form opens. 
+
+Notice DIST displays in the Warehouse field. 
+
+5.  Click Actions > Change Warehouse. The Change Warehouse (Modal) form opens. 
+
+6.  Select MAIN from the list of warehouses to change this to the default warehouse. 
+
+7.  Click OK. MAIN now displays in the Warehouse field. 
+
+8.  Close the Miscellaneous Issue form. 
+
+Part 2: Run a report and view the task information in the Background Task History form 
+
+1.  Open the Inventory Below Safety Stock Report form. The Inventory Below Safety Stock 
+
+Report form opens. 
+
+2.  Leave all default information. 
+
+3.  Click Print. A dialog box opens with the message, “Report Submitted” 
+
+4.  Click OK. 
+
+5.  Open Background Task History. The Background Task History form opens. 
+
+6.  Run Filter In Place. Background task history displays for the Inventory Below Safety Stock 
+
+Report. 
+
+7.  Confirm Task Succeeded displays in the Return Status field. 
+
+8.  Close the Background Task History and the Inventory Below Safety Stock Report. 
+
+Part 3: Run a utility to move quantities of an item 
+
+1.  Open the Quantity Move form. 
+
+2.  Select BR-10000-Rack, Rear, Standard from the Item drop-down list. 
+
+3.  Type 10 in the Quantity field. 
+
+4.  Select INS-1 Inspection from the To Location drop-down list. 
+
+5.  Click Process. A dialog box opens with the message, “[Quantity Move] was successful.” 
+
+6.  Click OK. 
+
+7.  Close the Quantity Move form. 
+
+82   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+Exporting data to a file 
+
+You can export the data in a collection to an external file, which in turn can be imported into another 
+application. Field values in the external file can be separated by commas or tabs. Each record in the 
+collection becomes a row in the exported file. Each field (property) becomes a column. 
+
+Use the Export to File command to open the Export Collection to File dialog box.  
+
+If you want to export the file to a spreadsheet, you can use the To Excel option instead of 
+this process. 
+
+The following table describes the fields on the Export Collection to File dialog box. 
+
+Operator  Description 
+
+Source 
+Collection 
+
+This is the name of the collection to be exported. To identify the name, return to the form 
+and click the grid displaying the collection you want. The name of the second menu is the 
+name of the current collection. 
+
+Cap Option  This field includes the following options: 
+
+  From data currently in the collection - Export the records retrieved in the current 
+
+collection. 
+
+  Unlimited query - Export all records in the collection from the application database. 
+
+The system applies the current filter criteria and sort order to the collection, then exports 
+records from the collection in the application database. 
+
+Output File 
+Type 
+
+This field includes the following options: 
+
+  Comma-separated – Places a set of double-quotes around each string item and then 
+
+separates all items with commas 
+
+  Tab-separated – Separates record items with tabs 
+
+Output 
+FileName 
+
+This field identifies the full path and file name of the external file being created. If you do 
+not specify a path, the system saves the file in the folder that contains the Infor tools 
+program files or, if you opened the application with a Windows shortcut, in the Start in 
+folder. 
+
+If you designated comma-separated as the output file type, use a file extension of .csv. If 
+you designated tab-separated as the output file type, use a file extension of .txt. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+83 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Moving data to and from Excel 
+
+You can easily move data back and forth to and from Excel without exporting the data as a file. 
+
+Copying an entire collection  
+
+There are two ways to copy an entire collection in a form to a spreadsheet: 
+
+  Use the To Excel menu option 
+  Select all records in the collection 
+
+These procedures can copy only the records that have actually been retrieved from the database. 
+
+Using the To Excel command 
+
+Use the Actions > To Excel menu option or the Export the data in the current collection to Excel 
+toolbar button to save a collection to a file and then automatically open the file in Excel. The records are 
+placed in the file [Form name]+[Export sequence].csv in the local My Documents folder. For example, 
+My Documents\itemsExport4.csv. 
+
+If Excel is installed on your local system, it is launched and the new file is opened as a spreadsheet. If 
+you have a different application set up to open comma-separated value (.csv) files, that application will 
+open the file instead. 
+
+Only data displayed in the current collection is populated in the spreadsheet, and the usual export-to-file 
+rules apply. 
+
+Some collections may not have the To Excel option enabled. 
+
+Selecting and copying all records in a collection 
+
+The following is a high-level overview of how to select and copy all records in a collection and paste them 
+into Excel. This procedure assumes that you have the form open and the collection to copy is displaying 
+in grid view. 
+
+How to select, copy, and paste all records in a collection 
+
+Step 
+1 
+
+Step 
+2 
+
+Step 
+3 
+
+Step 
+4 
+
+Click the shaded square in the upper-left corner of the grid above the record numbers. The 
+entire collection is selected and highlighted.  
+
+Press Ctrl+C or click Edit > Copy. The contents of the collection are copied to the system 
+clipboard. 
+
+Select the cell in the upper-left corner of the spreadsheet. This the first cell in the worksheet. 
+
+Press Ctrl+V or right-click Paste. All records in the collection are pasted in Excel. 
+
+84   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Copying selected rows – this feature is not available for Web UI 
+
+You can copy a single or multiple rows (records) from a collection to a spreadsheet. 
+
+Copying a single row – this feature is not available for Web UI 
+
+The following is a high-level overview of how to select and copy a single row from a collection to a 
+spreadsheet. This procedure assumes that you have the form open and the collection to copy is 
+displaying in grid view. 
+
+How to select, copy, and paste a single row 
+
+Step 1  Click in the left-most column for the row you want to copy. The entire row is selected. 
+
+Step 2  Press Ctrl+C or click Edit > Copy. The contents of the row are copied to the system clipboard. 
+
+Step 3  Select the cell you want to be the first (left-most) cell of the pasted row in the spreadsheet. 
+
+Step 4  Press Ctrl+V or right-click Paste. The selected row is pasted to the spreadsheet. 
+
+Copying multiple records – this feature is not available for Web UI 
+
+The following is a high-level overview of how to select and copy multiple columns from a collection to a 
+spreadsheet. This procedure assumes that you have the form open and the collection to copy is 
+displaying in grid view. 
+
+How to select, copy, and paste multiple rows 
+
+Step 
+1 
+
+Step 
+2 
+
+Step 
+3 
+
+Step 
+4 
+
+Step 
+5 
+
+Click in the left-most column for the first row you want to copy. 
+
+Select and highlight the other rows to be copied. 
+
+  To copy a range of rows, press Shift and then click the row header for the last row you want 
+
+to copy. 
+
+  To copy noncontiguous rows, press Ctrl and then click each of the other row headers. 
+
+Press Ctrl+C or click Edit > Copy. The contents of the rows are copied to the system 
+clipboard. 
+
+Select the cell you want to be the first (most upper-left) cell of the pasted rows in the 
+spreadsheet. 
+
+Press Ctrl+V or right-click Paste. The selected rows are pasted to the spreadsheet. 
+
+Copying selected columns – this feature is not available for Web UI 
+
+You can copy a single or multiple columns from a collection to a spreadsheet.  
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+85 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Copying a single column – this feature is not available for Web UI 
+
+The following is a high-level overview of how to select and copy a single column from a collection to a 
+spreadsheet. This procedure assumes that you have the form open and the collection to copy is 
+displaying in grid view. 
+
+How to select, copy, and paste a single column 
+
+Step 
+1 
+
+Step 
+2 
+
+Step 
+3 
+
+Step 
+4 
+
+Click in the header row of the column you want to copy. The entire column is selected. 
+
+Press Ctrl+C or click Edit > Copy. The contents of the collection are copied to the system 
+clipboard. 
+
+Select the cell you want to be the top (upper-most) cell of the pasted column in the 
+spreadsheet. 
+
+Press Ctrl+V or right-click Paste. The selected column is pasted to the spreadsheet. 
+
+Copying multiple columns – this feature is not available for Web UI 
+
+The following is a high-level overview of how to select and copy multiple columns from a collection to a 
+spreadsheet. This procedure assumes that you have the form open and the collection to copy is 
+displaying in grid view. 
+
+How to select, copy, and paste multiple columns 
+
+Step 
+1 
+
+Step 
+2 
+
+Step 
+3 
+
+Step 
+4 
+
+Step 
+5 
+
+Click in the column header for the first column you want to copy. 
+
+Select and highlight the other columns to be copied. 
+
+  To copy a range of columns, press Shift and then click the column header for the last 
+
+column you want to copy. 
+
+  To copy noncontiguous columns, press Ctrl and then click each of the other column 
+
+headers. 
+
+Press Ctrl+C or click Edit > Copy. The contents of the collection are copied to the system 
+clipboard. 
+
+Select the cell you want to be the top (upper-most) cell of the pasted columns in the 
+spreadsheet. 
+
+Press Ctrl+V or right-click Paste. The selected columns are pasted to the spreadsheet. 
+
+86   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Copying selected cells – this feature is not available for Web UI 
+
+You can copy a single cell or a block of cells from a collection to a spreadsheet. 
+
+Copying a single cell – this feature is not available for Web UI 
+
+The following is a high-level overview of how to select and copy a single cell from a collection to a 
+spreadsheet. This procedure assumes that you have the form open and the collection to copy is 
+displaying in grid view. 
+
+How to select, copy, and paste a single cell in a collection 
+
+Step 1  Click in the cell you want to copy. 
+
+Step 2  Press Ctrl+C or click Edit > Copy. The contents of the cell are copied to the system clipboard. 
+
+Step 3  Select the cell where you want to copy the contents in the spreadsheet. 
+
+Step 4  Press Ctrl+V or right-click Paste. The selected cell is pasted to the spreadsheet. 
+
+Copying multiple cells – this feature is not available for Web UI 
+
+The following is a high-level overview of how to select and copy multiple cells from a collection to a 
+spreadsheet. This procedure assumes that you have the form open and the collection to copy is 
+displaying in grid view. 
+
+How to select, copy, and paste multiple cells from a collection 
+
+Step 
+1 
+
+Step 
+2 
+
+Step 
+3 
+
+Step 
+4 
+
+Step 
+5 
+
+Click in the first (upper-left) cell you want to copy. 
+
+Select and highlight the other cells to be copied. 
+
+  To copy a block of cells, press Shift and then click in the last (lower-right) cell you want to 
+
+copy. 
+
+  To copy noncontiguous cells, press Ctrl and then click each of the other cells. 
+
+Press Ctrl+C or click Edit > Copy. The contents of the cells are copied to the system 
+clipboard. 
+
+Select the cell you want to be the first (most upper-left) cell of the pasted cells in the 
+spreadsheet. 
+
+Press Ctrl+V or right-click Paste. The selected cells are pasted to the spreadsheet. 
+
+Carriage returns and line feeds in a multi-line cell are removed when you copy a row to the 
+clipboard. If you have multi-line cells, you must copy those cells separately or reconstruct 
+them in the spreadsheet. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+87 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Numeric values represented by check boxes in grids are 0 when cleared and 1 when 
+selected. These values are transferred to and displayed in spreadsheets as 0 and 1, 
+respectively. If you plan to paste content from a spreadsheet into a grid and a check box 
+value is included, you must enter the correct values as 0s and 1s in the spreadsheet. 
+
+Pasting from a spreadsheet into a collection grid 
+
+Just as you can paste the contents of a collection to a spreadsheet; you can paste from a spreadsheet to 
+a grid. 
+
+Pasting selected rows 
+
+You can paste the contents of selected records that you have worked on in a spreadsheet to a grid. This 
+can be useful when you have copied a set of records from the system into a spreadsheet for editing and 
+now want to return the contents of the records, with the changes, to the system. 
+
+The following is a high-level overview of how to paste selected rows from a spreadsheet to a grid.  
+
+How to paste selected rows into a grid 
+
+Step 
+1 
+
+Step 
+2 
+
+Open the form into which you want to paste the records. Note: To paste the records into a blank 
+grid, complete a filter-in-place query that you know will retrieve zero records. This places the 
+form in new mode. 
+
+Select the desired rows in the spreadsheet and press Ctrl+C to copy them to the system 
+clipboard. Note: Make sure you do not include the header row. If you do, the paste operation will 
+not complete successfully. 
+
+Step 
+3 
+
+Click in the field at the location in the grid where you want to copy the data. In many cases, 
+especially if you have a blank form in new mode, this will be the first cell in the grid.  
+
+Note: Do not create a new row. The paste action automatically creates the row. Do not click the 
+row label. Instead, click in any field on the row you want to replace or below which you want to 
+append the new rows. If you are replacing multiple rows, the paste action will replace the row in 
+which you clicked and each subsequent row, replacing the contents of those rows except for the 
+read-only fields. 
+
+Step 
+4 
+
+Do one of the following options: 
+
+  Click Edit > Paste Rows Append to insert new records below the selected field. 
+
+  Click Edit > Paste Rows Overwrite to overwrite the content of existing records beginning 
+
+with the selected field. 
+
+Note: This option only overwrites active fields. Fields that are read-only are left unchanged. 
+
+Do not use Ctrl+V to paste the rows. Doing so causes the system to write the entire 
+contents of the source row to a single cell. 
+
+88   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The spreadsheet and the grid must have the same visible column sequence. The first 
+column in the spreadsheet must correspond to the first column in the grid; the second 
+column in the spreadsheet must correspond to the second column in the grid; and so on. 
+
+Normally, if you originally copied from a grid to the spreadsheet, the data schemes are 
+identical. However, in some cases, this is not true because the order of the grid may not 
+match the order of the collection that was exported. In those cases, you must reorder the 
+columns in the spreadsheet to match the grid order. 
+
+Be careful when ordering columns in the grid view. Because the paste order matches that 
+of the spreadsheet, if you paste a value into a column that affects the value of a later 
+column, then when the later column value is pasted, it might overwrite the desired 
+(calculated) value with the value from the spreadsheet. 
+
+The maximum number of rows you can paste into a form at one time depends on the 
+memory resources of the computer. Pasted rows are held in memory until you save them. 
+You can avoid out-of-memory conditions and related errors by dividing a large number of 
+records into smaller batches and then pasting and saving each batch separately. 
+
+Errors 
+
+The system will validate data when it is pasted. Data mismatches will generate data error messages. If 
+you edit a cell in response to a validation message during the paste operation, the paste operation ends 
+with the current record. Therefore, we recommend that you respond No to all prompts for validation 
+during the paste operation, and then go back after the operation is complete to edit these fields. 
+
+Pasting the contents of a single cell – this feature is not available for Web UI 
+
+You can paste the contents of a selected cell in a spreadsheet into a grid. 
+
+This does not work for blocks of cells. If you attempt to copy and paste blocks of cells, the 
+system attempts to write the contents of all source cells to a single cell in the destination 
+grid. 
+
+To paste the contents of a single cell from a spreadsheet into a grid cell: 
+
+  Open the form into which you want to paste the content. 
+
+In the spreadsheet, select the cell you want and then press Ctrl+C to copy the content to the 
+system clipboard. 
+
+To avoid problems when copying content from Microsoft Excel spreadsheets, select 
+(but do not copy) the cell, and then copy only the cell contents in the formula bar 
+field. If you select the entire cell, certain hidden formatting content gets copied that 
+can cause problems in the grid. 
+
+In the grid, click inside the field to which you want to copy the data. 
+
+  Press Ctrl+V or click Edit > Paste. Note that this action overwrites any content previously in the 
+
+field. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+89 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The type of contents in the source cell must match the expected type for the contents of 
+the grid cell. 
+
+For example, if the grid is expecting an alphanumeric character string, the cell in the 
+spreadsheet must contain alphanumeric character content. If the grid cell expects a 
+numeral input, the source cell must contain only numeric content. If the field is a drop-down 
+list, the data being copied must be a valid option. 
+
+Exercise 4.4: Export and move data 
+
+In this exercise, you will export and move data to and from Excel. 
+
+Notes: 
+
+ 
+
+If you are taking this course as classroom or virtual instructor-led training, observe as 
+your instructor first demonstrates this exercise. 
+
+ 
+
+If you are taking this course as self-directed learning, complete the steps below. 
+
+Exercise steps 
+
+Part 1: Use the To Excel command 
+
+1.  Open the Purchase Order Lines form. 
+
+2.  Run Filter In Place. 
+
+3.  Click the Export to Excel icon. A ToExcel_PurchaseOrderLines.csv file downloads. 
+
+4.  Open the .csv file. The Excel application opens and is populated with data from the Purchase 
+
+Order Lines form. 
+
+Part 2: Paste from Excel and overwrite data 
+
+1.  Type 100 to replace 40 in the Ordered column for row 5 for vendor 24. 
+
+2.  Click in the left-most row of row 5 to select the entire row. 
+
+3.  Select Copy.  
+
+4.  Return to the Purchase Order Lines form in the application. 
+
+5.  Click Ctrl+Shift+2 to display the form in grid view. 
+
+6.  Click in the left-most column of row 4 to select the row. 
+
+7.  Click Edit > Paste Rows Overwrite. A Paste Rows Overwrite dialog box opens, with the 
+
+message “Paste the data required into the box below. 
+
+8.  Click Ctrl + V. 
+
+9.  Click OK.  The row is pasted and an orange diamond displays to the left of the row. 
+
+10.  Scroll to the right to the Ordered column and confirm the ordered quantity is now 100. 
+
+11.  Save the record. 
+
+Part 3: Paste from Excel and append data 
+
+1.  Return to the Excel workbook. 
+
+90   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+2.  Click in the left-most column of row 2 to select the entire row. 
+
+3.  Select Copy.  
+
+4.  Return to the Purchase Order Lines form in the application. 
+
+5.  Click Edit > Paste Rows Append. A Paste Rows Append dialog box opens, with the message 
+
+“Paste the data required into the box below. 
+
+6.  Click Ctrl + V. 
+
+7.  Click OK. The row is pasted and a blue star displays to the left of the row. 
+
+8.  Close the form and do not save changes.  
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+91 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Check your understanding 
+
+What button on the Object Notes form opens the System/User Notes form, allowing you to 
+select a reusable system or user note to attach to the record? 
+
+a)  System 
+b)  Attach File 
+c)  Open Attachment 
+d)  Attach Detach Reusable 
+
+When an activity or utility is not processed immediately, you can view the Background 
+Task History form to verify the process completed successfully. 
+
+a)  True 
+b)  False 
+
+You can export the data in a collection to an external file, which in turn can be imported 
+into another application. Field values in the external file can be separated by which of the 
+following? Select all that apply. 
+
+a)  Commas 
+b)  Forward slashes 
+c)  Tabs 
+d)  Semicolons 
+
+Which of the following can you copy and paste from the application into Excel? Select all 
+that apply. 
+
+a)  Single and multiple records 
+b)  All records in a collection 
+c)  Single and multiple columns 
+Individual and multiple cells 
+d) 
+
+92   Lesson 4: Additional record management 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Course summary 
+
+Estimated time 
+
+.25 hours 
+
+Learning objectives 
+
+Now that you have completed this course, you should be able to: 
+
+Identify the ways a form can link to a related form. 
+
+Identify the application’s main user interface elements. 
+
+  Define forms, records, fields, and collections. 
+ 
+  Describe the different methods used to locate and open forms. 
+ 
+  Explain the differences between the form views and the form modes. 
+  Explain how the user interface can be customized. 
+  Explain how to use the filter-in-place and query functionality to retrieve records. 
+  Describe how to add, edit, delete, and save records. 
+  Describe how to check for and correct errors in records. 
+  Describe how to find and replace values in a collection. 
+ 
+  Describe how to create notes. 
+  Describe how to print reports. 
+  Explain the process for running activities and utilities. 
+  Describe how to export data to a file and move data to and from Microsoft Excel. 
+
+Identify the different note types. 
+
+Topics 
+
+  Course review 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+93 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Course review  
+
+Match each of the following application elements to the corresponding description. The 
+possible application elements are: Field, Collection, Form, and Record. 
+
+Description 
+
+Application element 
+
+The window through which you interact with 
+information in a database 
+
+A group of related pieces of data or 
+information 
+
+An area on a form that displays a particular 
+piece of information from the database that 
+is part of the record 
+
+A group of related records 
+
+The main toolbar includes tools to help you accomplish the most common tasks. This 
+toolbar displays below the menu bar. 
+
+a)  True 
+b)  False 
+
+To complete any work in the system, you must know how to locate and open the forms you 
+need. Which of the following basic methods can be used to find and open forms? Select all 
+that apply. 
+
+a)  Using the menus 
+b)  Using the Explorer 
+c)  Using the Select Form tool 
+d)  Using linking features 
+
+An open form may have one or more of the following features allowing you to link to other 
+related forms. Select all that apply. 
+
+a)  Buttons linking to another form 
+b)  Edit menu links 
+c)  List displays within the Action menu 
+d)  Notes with attachments 
+
+94   Course summary 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Match each of the following form views to the corresponding description. The possible form 
+views are: Detail, Dual, and Grid. 
+
+Description 
+
+Form view 
+
+Displays a collection of records using a 
+tabular format 
+
+Displays details for a single record in the 
+collection 
+
+The default view of a form that display both 
+views 
+
+Instead of having to search through the Master Explorer folder in the Explorer, you can 
+create a menu structure in My Folders that includes only the forms you use. In which of the 
+following ways can you customize the contents of My Folders? Select all that apply. 
+
+a)  Add your own subfolders 
+b)  Add or copy subfolders or forms into your My Folders 
+c)  Rename folders or forms to reflect your use of those folders and forms  
+d)  Delete folders and forms 
+
+Before you can work with a record or a collection, you must retrieve it from the database 
+and display it in a form. If you don’t like changes you have made to the data, you can re-
+copy the data from the database, overwriting your changes, using the refresh features. 
+Because the data you see is a copy, what you do with that data will not affect the data in 
+the database until you save. 
+
+a)  True 
+b)  False 
+
+When you use the filter-in-place functionality to search for records, you create a temporary 
+filter by entering search criteria in selected fields. What toolbar button do you use to place 
+the form in filter mode? 
+
+a)  Begin In Place 
+b)  Execute In Place 
+c)  Filter In Place 
+d)  Run In Place 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+95 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+To open a query form, you can do which of the following while the main form is in refresh 
+or new mode? Select all that apply. 
+
+a)  Press Ctrl + Q 
+b)  Select Actions > Filter > By Query 
+c)  Click Filter In Place on the toolbar 
+d)  Right-click anywhere on the form other than a field and select Actions > Filter 
+
+> By Query 
+
+In refresh mode, you can add a new record in form or grid view by doing which of the 
+following? Select all that apply. 
+
+a)  Pressing Ctrl+N  
+b)  Clicking the Create a new object in the current collection toolbar button 
+c)  Selecting Actions > New 
+d)  Right-clicking and selecting New 
+
+Which of the following can you do to save all records in a collection at one time? Select all 
+that apply. 
+
+a)  Press Ctrl+S. 
+b)  Click Save on the toolbar 
+c)  Select Actions > Save 
+d)  Select Actions > Save Current 
+
+Most forms validate new and modified records and report validation errors. The validation 
+procedure occurs, and any error messages display, when you do which of the following? 
+Select all that apply. 
+
+a)  Navigate away from a new or modified record 
+b)  Attempt to save new or modified records 
+c)  Select Actions > Validate 
+
+If you want to update a number of records with the same value, you can copy and paste, 
+but a quicker method is to use the Replace Value in Collection feature. This feature allows 
+you to search a collection for records that contain certain field values and replace them 
+with new values. 
+
+a)  True 
+b)  False 
+
+You can delete a single record or a group of adjacent records from a collection. The 
+system does not actually delete a record from the database until you save changes. If the 
+red X row label indicator still displays next to a record, the deletion has been saved to the 
+database. 
+
+a)  True 
+b)  False 
+
+96   Course summary 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Match each of the following note types to the corresponding description. The possible notes 
+types are: User notes, Object notes, System notes, and Class notes. 
+
+Description 
+
+Note types 
+
+Notes for a single record 
+
+Notes for all records in a collection 
+
+Reusable notes available only to the person 
+who created the note 
+
+Reusable notes available for use by all 
+users 
+
+Which of the following forms should you use to create a note that applies only to the 
+current record and that will be used only once in the system? 
+
+a)  System/User Notes form 
+b)  Object Notes form 
+c)  Class Notes form 
+d)  Object Class Notes form 
+
+Reports usually consist of which of the following parts? Select all that apply. 
+
+a)  Check boxes and drop-down parameters used to select the type of information 
+
+to print 
+
+b)  Range filters used to select ranges of records to print 
+c)  Report output formats used to select how the report will be generated 
+d)  Action buttons, such as Preview and Print used to preview, send to the printer, 
+
+or save as a file 
+
+Activities and utilities that include a Preview option allow you to perform a trial run and 
+preview the results. If the results look correct in the preview, what option do you select 
+before clicking the Process button? 
+
+a)  Commit 
+b)  Print 
+c)  Select 
+d)  Submit 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+97 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+If you want to export an entire file to a spreadsheet, what menu option should you use? 
+
+a)  Export to File  
+b)  Export Collection to File  
+c)  To Excel  
+d)  Export File to Excel 
+
+98   Course summary 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Appendices 
+
+The following are included in this section: 
+
+  Appendix A: Learner user accounts 
+  Appendix B: Add/Remove toolbar icons 
+  Appendix C: Behavioral differences between Smart Client and Web Client 
+  Appendix D: Updates made to this version of the workbook 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18) 
+
+99 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Appendix A: Learner user accounts 
+
+Your instructor will assign you a student user ID from the table listed below to use for class exercises. 
+Note: If you are taking this course as self-directed learning, refer to the Training Desktop Login 
+Instructions on the Lab On Demand page. 
+
+Training Environment Entry Point (VM) 
+
+ID 
+
+User 
+
+CSI SL10.18 Training Desktop 
+
+ALL 
+
+Infor 
+
+Password 
+
+Infor123 
+
+Application 
+
+User ID 
+
+User name 
+
+Password 
+
+Train Click Once Client or Train Web Client 
+
+train01 
+
+train01@gdeinfor2.com 
+
+train01 
+
+Train Click Once Client or Train Web Client 
+
+train02 
+
+train02@gdeinfor2.com 
+
+train02 
+
+Train Click Once Client or Train Web Client 
+
+train03 
+
+train03@gdeinfor2.com 
+
+train03 
+
+Train Click Once Client or Train Web Client 
+
+train04 
+
+train04@gdeinfor2.com 
+
+train04 
+
+Train Click Once Client or Train Web Client 
+
+train05 
+
+train05@gdeinfor2.com 
+
+train05 
+
+Train Click Once Client or Train Web Client 
+
+train06 
+
+train06@gdeinfor2.com 
+
+train06 
+
+Train Click Once Client or Train Web Client 
+
+train07 
+
+train07@gdeinfor2.com 
+
+train07 
+
+Train Click Once Client or Train Web Client 
+
+train08 
+
+train08@gdeinfor2.com 
+
+train08 
+
+Train Click Once Client or Train Web Client 
+
+train09 
+
+train09@gdeinfor2.com 
+
+train09 
+
+Train Click Once Client or Train Web Client 
+
+train10 
+
+train10@gdeinfor2.com 
+
+train10 
+
+Train Click Once Client or Train Web Client 
+
+train11 
+
+train11@gdeinfor2.com 
+
+train11 
+
+Train Click Once Client or Train Web Client 
+
+train12 
+
+train12@gdeinfor2.com 
+
+train12 
+
+Train Click Once Client or Train Web Client 
+
+train13 
+
+train13@gdeinfor2.com 
+
+train13 
+
+Train Click Once Client or Train Web Client 
+
+train14 
+
+train14@gdeinfor2.com 
+
+train14 
+
+Train Click Once Client or Train Web Client 
+
+train15 
+
+train15@gdeinfor2.com 
+
+train15 
+
+Train Click Once Client or Train Web Client 
+
+train16 
+
+train16@gdeinfor2.com 
+
+train16 
+
+100   Appendices 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+Training Environment Entry Point (VM) 
+
+ID 
+
+User 
+
+Password 
+
+Train Click Once Client or Train Web Client 
+
+train17 
+
+train17@gdeinfor2.com 
+
+train17 
+
+Train Click Once Client or Train Web Client 
+
+train18 
+
+train18@gdeinfor2.com 
+
+train18 
+
+Train Click Once Client or Train Web Client 
+
+train19 
+
+train19@gdeinfor2.com 
+
+train19 
+
+Train Click Once Client or Train Web Client 
+
+train20 
+
+train20@gdeinfor2.com 
+
+train20 
+
+Train Click Once Client or Train Web Client 
+
+train21 
+
+train21@gdeinfor2.com 
+
+train21 
+
+Train Click Once Client or Train Web Client 
+
+train22 
+
+train22@gdeinfor2.com 
+
+train22 
+
+Train Click Once Client or Train Web Client 
+
+train23 
+
+train23@gdeinfor2.com 
+
+train23 
+
+Train Click Once Client or Train Web Client 
+
+train24 
+
+train24@gdeinfor2.com 
+
+train24 
+
+Train Click Once Client or Train Web Client 
+
+train25 
+
+train25@gdeinfor2.com 
+
+train25 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18)  101 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Appendix B: Add/Remove toolbar icons  
+
+For Web UI users this feature is not available to individual users.  Your IT can access the Desktop UI and 
+set these features globally. 
+
+Edit User Preferences 
+
+  Click View. 
+
+  Click User Preferences. 
+
+  Click the Runtime Layout tab. 
+
+  Select Classic or Infor (select the one you use) from the Theme drop-down list. 
+
+  Click Edit. 
+
+  Click All Toolbar. 
+
+To add/remove a button on the toolbar, select the name of the button. 
+
+  Select/Clear the Hidden checkbox. 
+
+  Click OK. 
+
+  Click OK again. 
+
+102   Appendices 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18)  103 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Appendix C: Behavioral differences between Smart 
+Client and Web Client  
+
+This appendix lists the differences in behavior between the standard WinStudio Smart Client and the 
+
+Web Client. Subsequent releases will reduce this list. 
+
+Runtime options 
+
+The following functions in the menus listed below are not available in web client: 
+
+From the Form menu 
+
+  Page setup 
+  Print preview 
+  Print 
+  Export to File 
+  Workspaces 
+
+From the View menu 
+
+  Activate Next Collection 
+  Home Cursor 
+  Warnings 
+
+Non-supported items 
+
+The items in this list are not supported for the web client. Many of these items will be supported in 
+
+subsequent releases. 
+
+  The Calculator form is currently not supported in the web client. 
+ 
+
+In the Communication Wizard form, for customers, sales contact groups, and campaigns, the 
+diagram does not display. 
+
+  Browse buttons are disabled on forms that have them. 
+
+On the License Management form, for example, you cannot browse to a license file; you must 
+access the license file outside of the application environment and then copy and paste the 
+contents of that file into the License Document field. 
+
+  The web clients do not support the "auto-insert" (*) row in grids. There is an accessibility-related 
+difference: tabbing inside of a grid in the web client moves focus out of the grid and into the next 
+component in the form that can receive focus. 
+
+  The web clients do not support the use of the response types Execute Exe, Goto Explorer Folder, 
+
+or RunExe for form event handlers. Other response types are supported. 
+
+  The web clients do not support all the options under User Preferences that are available to the 
+
+smart client. See Setting User Preferences in the WinStudio Client and Setting User Preferences 
+in a Web Client 
+
+  The web clients do not support Header Configurations with Infor CPQ. 
+  Double-clicking is not supported in mobile forms, that is, forms that use a .mobi extension. 
+  Tap-and-hold in mobile browsers is treated as a right-click. 
+  The right-click menu in web clients does not include Cut, Copy, or Paste options. 
+  The Explorer displays and works slightly differently in the two clients. 
+
+104   Appendices 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+  The sub-menu on the Dataview Results form works differently in the two clients. 
+  Several other options on the View menu have slightly different labels in the two clients but 
+
+ 
+
+function essentially the same. 
+In the web clients, most modern browsers hide the status bar and only flash it if there is a URL 
+change or URL hover. 
+
+  The web client overrides browser settings when displaying "in-application" values such as 
+
+currency values and date/time settings. The values displayed use the locale settings as specified. 
+
+  The Timer response type for form events behaves a little differently in the two clients: In the web 
+
+ 
+
+client, the minimum valid value for the Timer is 5 seconds, as opposed to the one-second 
+minimum for the smart client. Also, in the web client, the Timer response type works only if the 
+form has the focus, as opposed to simply being active, as in the smart client. 
+If you set the User Preferences default Language to something other than US English, in the 
+web client, you must make sure that that language is actually installed on the system. If you do 
+not, the system generates 404 "Help not found" error messages for any requests for the help. 
+  For information about additional unsupported features in optional modules, see Unsupported 
+
+Features in Web Client for Optional Modules. 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18)  105 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Appendix D: Creating a workspace 
+
+Creating a workspace – this feature is not available for Web UI  
+
+A workspace is a configuration of forms that open together. If you use a group of forms often, you can set 
+up a workspace that allows you to open all the forms with one command. For example, someone who 
+regularly works with job and planning forms may have two sets of forms they commonly use. They could 
+save both sets of forms and retrieve them when they need to work with them using the workspace 
+feature. 
+
+You cannot save a filter with a workspace. 
+
+Steps to create a workspace 
+
+Part 1: Create a workspace 
+
+1.  Click Form > Workspaces. The Workspaces dialog box opens. 
+
+2.  Click New. The Enter a Name for the Workspace dialog box opens. 
+
+3.  Type My Workspace in the Name field. 
+
+4.  Click OK to return to the Workspaces dialog box. 
+
+5.  Select My Workspace in the Name column. 
+
+6.  Click Set from Current Forms. The Number of Forms column is updated from 0 to 3, identifying 
+
+the number of forms open. 
+
+7.  Click Close. 
+
+8.  Click Window > Close All.  This will close all forms. 
+
+Part 2: Open a workspace 
+
+1.  Click Form > Workspaces. 
+
+2.  Select My Workspace. 
+
+3.  Click Open and Exit. The forms in the workspace you created open. 
+
+4.  Close the Purchase Orders (Filter In Place) and Order Shipping forms. 
+
+106   Appendices 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Appendix E: Updates made to this version of the 
+workbook  
+
+Summary of updates 
+
+We updated the versioning of the document and made the following content changes. 
+
+Updates to the training experience 
+
+  Removed CloudSuite Business menu paths from all exercises 
+  User Interface section – added Identifying your personal training plan 
+  User Interface section – added Additional Campus Resources 
+  User Interface section - added web client shortcut key information for Show/Hide 1st or 2nd Splitter 
+
+Pane 
+
+  Added Exercise 3.3 – Edit data 
+  Moved Workspaces to Appendix D 
+
+Updates for new features  
+
+  Added Web Client shortcut key information for Show/Hide 1st or 2nd Splitter Pane 
+
+© 2018 Infor Education. All rights reserved. No part of this Training Workbook may be reproduced or transmitted in any form, without written permission. 
+
+v10 Navigating the User Interface Training Workbook (v10.18)  107 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+

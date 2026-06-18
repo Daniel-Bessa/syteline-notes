@@ -1,0 +1,120 @@
+﻿  // Q1: Explorer
+  ref: 'The Explorer is often the starting point for working in the system. It presents a hierarchical view of the forms in the system, similar to Windows® Explorer.',
+
+  // Q2: Master Explorer
+  ref: 'In this exercise, you will log in to the application and you will open the Items and Purchase Orders forms using the Select Form dialog box, the Master Explorer menu, and the Master Explorer and All Forms folders in the Explorer.',
+
+  // Q3: Select Form
+  ref: '5. Click Open on the toolbar. The Select Form dialog box opens.',
+
+  // Q4: AutoRun
+  ref: 'If you consistently use certain forms, you can use the AutoRun and PreLoad subfolders in My Folders to set up forms to load and open automatically when you log on.',
+
+  // Q5: AutoRun
+  ref: '• AutoRun: To set up forms to open automatically, copy the forms you want to open automatically into this folder. You can also add shortcuts or drag and drop shortcuts in the My Folders area into this folder. When you log in, the system automatically loads and opens any forms in the AutoRun folder.',
+
+  // Q6: presentation layer
+  ref: 'The application is built on three levels: the database, middleware, and presentation layer.',
+
+  // Q7: filter-in-place
+  ref: 'The system provides different methods to use filter criteria to help locate only those records and collections you actually need. One of these methods uses filter-in-place functionality. When you use this functionality to search for records, you create a temporary filter by entering search criteria in selected fields.',
+
+  // Q8: filter-in-place
+  ref: 'The find value and replace value features do not support use of the wildcard character, the Null keyword, or comparison operators. These characters in such searches are treated as literal values.',
+
+  // Q9: data cap
+  ref: 'Sometimes a filter or query will result in a collection of records that is larger than the data cap. By default, the cap is set to 200. You can display the next set of records in a form using the Get more rows in the current collection button on the toolbar.',
+
+  // Q10: query clause
+  ref: 'Use the Additional Criteria tab to build AND and OR search statements. Query statements are made up of query clauses. A query clause consists of (1) a field name, (2) an operator, and (3) a value. For example, to retrieve records for vendors located in New York, you would create a clause similar to "State = NY.',
+
+  // Q11: save
+  ref: 'If you frequently use the same search criteria to retrieve a collection of records, you can save the criteria entered on a query form and create your own saved filter. After the query is saved, you can use the filter to perform a search any time you need to without having to re-enter all the search criteria each time.',
+
+  // Q12: LIKE
+  ref: 'Filter in place does not support the logical operators AND and OR. If you need to specify multiple criteria for one field, use the query form associated with your form.',
+
+  // Q13: grid
+  ref: 'Use the Edit Grid Column Visibility and Order dialog box to show, hide, and reorder a form\'s grid columns.',
+
+  // Q14: Sort dialog
+  ref: 'a) Collection b) By Property c) Descending d) Case-sensitive',
+
+  // Q15: red asterisk
+  ref: 'The color of the symbol or field on a form indicates whether it’s required, optional, or read-only. The following table describes the field symbols and colors when adding a new record.',
+
+  // Q16: green asterisk
+  ref: '• Any field that is required will have a red star • A system-generated field will have a green star • A field with no border around the data is read-only',
+
+  // Q17: gray field
+  ref: '• Any field that is required will have a red star • A system-generated field will have a green star • A field with no border around the data is read-only',
+
+  // Q18: drop-down
+  ref: 'In addition to filtering a drop-down list, you can search for valid values and retrieve a selected value into a field. To find and retrieve a specific value from a drop-down list, position the cursor in the field and do one of the following:',
+
+  // Q19: business data
+  ref: 'The Find and Add menu options are only available in business data drop-down lists.',
+
+  // Q20: Actions > Copy
+  ref: 'About this workbook ................................................................................................................................ 5 Course overview .......................................................................................................................................',
+
+  // Q21: undo
+  ref: '• Refresh all records by clicking Actions > Refresh, clicking Refresh, or pressing F5. This undoes the changes made to all records in the collection and reapply any original filter criteria used on the form before making the changes.',
+
+  // Q22: Object Notes
+  ref: 'Reusable notes are defined on the System/User Notes form. You can create these notes once and attach them multiple times, either as object notes or class notes. There are two types of reusable notes:',
+
+  // Q23: Background Task
+  ref: '7. Confirm Task Succeeded displays in the Return Status field.',
+
+  // Q24: Export Collection
+  ref: '• Portable Document Format (PDF) • Comma Separated Values (CSV) • Excel • Excel (Open XML) • HTML 4.0 (SSRS Only) • MHTML (SSRS Only) • Printer • TIFF (SSRS Only) • Word (Open XML) • Word® for Windows',
+
+  // Q25: Smart Client
+  ref: 'About this workbook ................................................................................................................................ 5 Course overview .......................................................................................................................................',
+
+  // Q26: form
+  ref: 'Fields and other components on forms are used to present collections of data records from the databases. When using the application, you will be working with forms, records, fields, and collections. Therefore, you will need to know how each of these components works.',
+
+  // Q27: collection
+  ref: 'Forms can display many records. A group of related records is called a collection. With many forms, it is possible to view collections of all available records. But, in practice, you typically work with a specific subset of records in a particular collection.',
+
+  // Q28: Grid view
+  ref: 'This pane, commonly the left pane, displays the collection\'s records in a grid. The grid view displays a collection of records using a tabular (row-column) format. A grid can constitute the sole content of a form, in which case it is called a grid form.',
+
+  // Q29: linking button
+  ref: 'Many forms have buttons that link you to a related form and record. When you open a form by clicking a linking button, the form will include (Linked) in the title bar of the form. This means the linked form will display data related to the originating record.',
+
+  // Q30: Filter In Place
+  ref: 'When you use the filter-in-place functionality to search for records, you create a temporary filter by entering search criteria in selected fields. What toolbar button do you use to place the form in filter mode?',
+
+  // Q31: My Folders
+  ref: 'Instead of having to search through the Master Explorer folders in the Explorer, you can create a menu structure in My Folders that includes only the forms you use. You can customize the contents of My Folders in the following ways:',
+
+  // Q32: query form
+  ref: '• Click Actions > Filter > By Query • Right-click anywhere on the form other than a field and click Filter > By Query',
+
+  // Q33: new record
+  ref: 'New mode looks a lot like refresh mode; however, you can tell you are in new mode by looking at the left column of the grid for the current record. There will be a blue star on the new record. You will see an orange diamond for records that have been modified and a red X for those that have been selected to be deleted.',
+
+  // Q34: save
+  ref: 'a) Press Ctrl+S. b) Click Save on the toolbar c) Select Actions > Save d) Select Actions > Save Current',
+
+  // Q35: validation
+  ref: 'This symbol indicates a record is new, has been modified or has been marked for deletion, and contains at least one validation error. The letter e is added to the row label when you navigate away from the record, receive a validation error message regarding the record, and do not correct the error.',
+
+  // Q36: red X
+  ref: '(Red X) This symbol indicates a record has been marked for deletion. The record will be',
+
+  // Q37: Object Notes
+  ref: 'Reusable notes are defined on the System/User Notes form. You can create these notes once and attach them multiple times, either as object notes or class notes. There are two types of reusable notes:',
+
+  // Q38: report
+  ref: 'b) Range filters used to select ranges of records to print c) Report output formats used to select how the report will be generated d) Action buttons, such as Preview and Print used to preview, send to the printer,',
+
+  // Q39: Preview
+  ref: 'Activities and utilities that include a Preview option allow you to perform a trial run. Nothing is updated in the database, but you will be able to view what will occur in the grid at the bottom of the form. If the results look correct in the preview, you select the Commit radio button and then click Process.',
+
+  // Q40: Actions > To Excel
+  ref: 'Use the Actions > To Excel menu option or the Export the data in the current collection to Excel toolbar button to save a collection to a file and then automatically open the file in Excel. The records are placed in the file [Form name]+[Export sequence].csv in the local My Documents folder.',
+
