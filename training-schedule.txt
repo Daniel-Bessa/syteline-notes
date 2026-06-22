@@ -1,0 +1,195 @@
+CSI v10 — Training Schedule & Time Log
+Daniel Santos
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CONTENT OVERVIEW
+────────────────
+
+  Module  │ PDF Reading │ Quiz (Qs) │ Exercises (steps) │ Est. Total
+  ────────┼─────────────┼───────────┼───────────────────┼───────────
+  02 UI   │    2.0 h    │ 1.5 h (40)│  3.0 h (180 steps)│    6.5 h
+  03 Form │    3.0 h    │ 1.0 h (30)│  4.0 h (262 steps)│    8.0 h
+  04 Mng  │    5.0 h    │ 1.5 h (28)│ 14.0 h (1685 steps│   21.5 h
+  05 Rpts │    4.0 h    │ 1.5 h (30)│ 10.0 h (1382 steps│   15.5 h
+  AES     │    4.0 h    │ 1.0 h (26)│  7.0 h (888 steps)│   12.0 h
+  ────────┼─────────────┼───────────┼───────────────────┼───────────
+  TOTAL   │   18.0 h    │  6.5 h    │  38.0 h           │   63.5 h
+  + env setup & notes:  ~3.5 h
+  + review pass (02 re-read after Alberto meeting): ~2.0 h
+  ───────────────────────────────────────────────────────────
+  GRAND TOTAL                                         ~69.0 h
+  ───────────────────────────────────────────────────────────
+  At 8 h/day → estimated ~8.6 working days
+  Start: Wednesday, June 17 → Estimated completion: Tuesday, June 30 (~midday)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DAILY LOG
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WEDNESDAY, JUNE 17  [8.0 h]  ← Day 1 of 9
+──────────────────────────────────────────────────────────────
+  - Read Module 02: UI Navigation PDF in full — covered the
+    Explorer, form modes (Refresh/Filter/New), toolbar buttons,
+    filter-in-place, query forms, record management (add/edit/
+    delete/copy), notes, background tasks, and export.         2.0 h
+  - Created study notes for Module 02, summarizing key
+    shortcuts, field color meanings (red/green asterisk, gray),
+    and the difference between filter-in-place and query forms. 1.5 h
+  - Started reading Module 03: Form Personalizations PDF —
+    worked through setup, form appearance (fonts, colors,
+    background images), components, inherited attributes,
+    list sources, and validators.                               4.0 h
+  - Started notes outline for Module 03.                       0.5 h
+  ─────────────────────────────────────────────────────────────
+  Day total: 8.0 h  │  Cumulative: 8.0 h
+
+
+THURSDAY, JUNE 18  [8.0 h]  ← Day 2 of 9
+──────────────────────────────────────────────────────────────
+  - Finished reading Module 03 PDF — covered static strings,
+    UET fields, event handlers, and FormSync.                  1.0 h
+  - Set up the development environment: configured WinStudio
+    with the correct workspace, assigned form editing
+    permission to the training user via the Users form,
+    verified SQL connection, and opened the Mongoose solution
+    in Visual Studio.                                          2.0 h
+  - Completed the Module 02 quiz (40 questions) and reviewed
+    all incorrect answers against the PDF and study notes.     1.5 h
+  - Completed all Module 02 exercises: logged in and opened
+    forms using Select Form and Master Explorer; used
+    filter-in-place and query forms to find records; added,
+    edited, copied, and deleted records; created object notes;
+    exported the collection to Excel and CSV.                  3.5 h
+  ─────────────────────────────────────────────────────────────
+  Day total: 8.0 h  │  Cumulative: 16.0 h
+
+
+FRIDAY, JUNE 19  [8.0 h]  ← Day 3 of 9
+──────────────────────────────────────────────────────────────
+  - Started the Module 03 quiz (30 questions).                 0.5 h
+  - Began Module 03 exercises: changed font, added background
+    color and image to the form.                               1.0 h
+  - Meeting with Alberto — course expectations review, scope
+    walk-through for the development modules, clarified which
+    SQL instance to use for exercises.                         1.0 h
+  - After the meeting, went back and re-read Module 02 in
+    full: re-read the three-layer architecture section,
+    revisited record validation and error indicators, re-did
+    the filter-in-place operator table, and cross-checked
+    answers on the quiz questions that were missed. Needed
+    to make sure the foundation was solid before going deeper
+    into customization.                                        2.0 h
+  - Returned to Module 03 quiz and finished it.               1.0 h
+  - Continued Module 03 exercises: added components to the
+    form, worked with inherited attributes, added combo boxes
+    with list sources, created an inline validator, added
+    static strings and UET fields.                             2.5 h
+  ─────────────────────────────────────────────────────────────
+  Day total: 8.0 h  │  Cumulative: 24.0 h
+
+
+MONDAY, JUNE 22  [8.0 h]  ← Day 4 of 9  (TODAY)
+──────────────────────────────────────────────────────────────
+  - Finished Module 03 exercises: created a new button
+    component with an event handler, ran FormSync on the
+    Price Matrix form, verified all 13 exercises complete.     1.5 h
+  - Started reading Module 04: Extending with Mongoose PDF —
+    covered the Mongoose architecture, solution and project
+    structure in Visual Studio, IDO objects and how they map
+    to database tables, and the development lifecycle.         6.0 h
+  - Notes for Module 04 so far.                               0.5 h
+  ─────────────────────────────────────────────────────────────
+  Day total: 8.0 h  │  Cumulative: 32.0 h
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PLAN — REMAINING WORK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TUESDAY, JUNE 23  [8.0 h]  ← Day 5 of 9
+──────────────────────────────────────────────────────────────
+  - Finish reading Module 04 PDF (creating new IDOs and forms,
+    extending existing forms, building portal forms, security
+    and check-in).                                             2.0 h
+  - Finish and review Module 04 notes.                         1.0 h
+  - Complete Module 04 quiz (28 questions).                    1.5 h
+  - Start Module 04 exercises: set up environment (ex 2.1-2.3),
+    explore solution structure (ex 3.1), begin building new
+    data maintenance form (ex 4.1+).                          3.5 h
+  ─────────────────────────────────────────────────────────────
+  Planned total: 8.0 h  │  Cumulative: 40.0 h
+
+
+WEDNESDAY, JUNE 24  [8.0 h]  ← Day 6 of 9
+──────────────────────────────────────────────────────────────
+  - Continue Module 04 exercises: complete form components
+    (ex 4.2–4.7), extend the existing expense reports form
+    and IDO (ex 5.1–5.2), build the Expense Reports portal
+    form (ex 6.1–6.3).                                        8.0 h
+  ─────────────────────────────────────────────────────────────
+  Planned total: 8.0 h  │  Cumulative: 48.0 h
+
+
+THURSDAY, JUNE 25  [8.0 h]  ← Day 7 of 9
+──────────────────────────────────────────────────────────────
+  - Finish Module 04 exercises: portal form (ex 7.1–7.6),
+    security configuration and solution check-in (ex 8.1–8.2). 4.0 h
+  - Read Module 05: Creating Reports PDF in full — DataView
+    reports, SimpleReport type, FlexLayout, sub-reports,
+    report criteria forms, stored procedure data sources.      4.0 h
+  ─────────────────────────────────────────────────────────────
+  Planned total: 8.0 h  │  Cumulative: 56.0 h
+
+
+FRIDAY, JUNE 26  [8.0 h]  ← Day 8 of 9
+──────────────────────────────────────────────────────────────
+  - Module 05 notes and quiz (30 questions).                   2.5 h
+  - Start Module 05 exercises: create SQL stored procedures,
+    build DataView report, simple report type form (ex 1.1–2.1). 5.5 h
+  ─────────────────────────────────────────────────────────────
+  Planned total: 8.0 h  │  Cumulative: 64.0 h
+
+
+MONDAY, JUNE 29  [8.0 h]  ← Day 9 of 9
+──────────────────────────────────────────────────────────────
+  - Finish Module 05 exercises: FlexLayout components, report
+    criteria forms, sub-reports, advanced criteria (ex 3.1–8.2). 5.0 h
+  - Read AES: Application Event System PDF in full —
+    event types, notification events, workflow wizard,
+    approval workflows, multi-level approvals, form triggers.   3.0 h
+  ─────────────────────────────────────────────────────────────
+  Planned total: 8.0 h  │  Cumulative: 72.0 h
+
+
+TUESDAY, JUNE 30  [~5.0 h]  ← Final day
+──────────────────────────────────────────────────────────────
+  - AES notes and quiz (26 questions).                         1.5 h
+  - Complete all AES exercises: notification events (ex 3.x),
+    workflow wizard (ex 4.x), approval workflows (ex 7.1),
+    prompting for info (ex 8.1), multi-level approvals (ex 9.1),
+    calling events from forms (ex 10.1).                       3.5 h
+  ─────────────────────────────────────────────────────────────
+  Planned total: 5.0 h  │  Cumulative: 77.0 h
+
+  ✓ Training complete — estimated ~12:30 PM on Tuesday, June 30
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Working days:     9.6  (Wed June 17 → Tue June 30)
+  Hours logged:    77.0 h total
+  Reading:         18.0 h  across 5 PDF workbooks
+  Quizzes:          6.5 h  154 questions answered
+  Exercises:       38.0 h  77 exercises, 4,397 individual steps
+  Notes & review:   7.0 h  (includes 02 re-read after Alberto meeting,
+                             environment setup, end-of-day summaries)
+
+  Modules completed:
+    ✓ 02 — UI Navigation               (done Fri June 19)
+    ✓ 03 — Form Personalizations       (done Mon June 22)
+    ○ 04 — Extending with Mongoose     (in progress)
+    ○ 05 — Creating Reports            (planned Fri June 26)
+    ○ AES — Application Event System   (planned Tue June 30)
