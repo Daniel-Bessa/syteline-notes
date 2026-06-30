@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumo — IDOs, Segurança & Application Events</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a1a1a;color:#e2e8f0;min-height:100vh}
+    .hdr{background:#0f172a;padding:18px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #1e293b;position:sticky;top:0;z-index:10}
+    .hdr-icon{font-size:28px}
+    .hdr-title{font-size:18px;font-weight:700;color:#f1f5f9}
+    .hdr-sub{font-size:12px;color:#64748b;margin-top:2px}
+    .badge-reuniao{background:#3b1f5e;color:#c4b5fd;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em}
+    .page{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+    .section{background:#242424;border-radius:10px;border:1px solid #2d2d2d;margin-bottom:16px;overflow:hidden}
+    .section-hdr{padding:13px 18px;background:#1e293b;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+    .section-hdr:hover{background:#263348}
+    .section-icon{font-size:16px}
+    .section-title{font-size:14px;font-weight:700;color:#f1f5f9;flex:1}
+    .section-caret{color:#64748b;font-size:11px;transition:transform .2s}
+    .section-hdr.open .section-caret{transform:rotate(90deg)}
+    .section-body{padding:16px 18px;display:none}
+    .section-body.open{display:block}
+    .item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d2d;font-size:13px;line-height:1.6;color:#cbd5e1}
+    .item:last-child{border-bottom:none}
+    .item-dot{color:#3b82f6;font-size:16px;flex-shrink:0;margin-top:1px}
+    .note{background:#1e293b;border-left:3px solid #6366f1;padding:10px 14px;border-radius:0 6px 6px 0;font-size:12.5px;color:#a5b4fc;line-height:1.6;margin:10px 0}
+    .steps{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+    .step{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#cbd5e1;line-height:1.6;padding:6px 0}
+    .step-n{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;flex-shrink:0;margin-top:2px}
+    .sec-levels{display:flex;flex-direction:column;gap:6px;margin:12px 0}
+    .sec-level{padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.6}
+    .sec-level b{display:block;font-size:13px;margin-bottom:3px}
+    .event-list{display:flex;flex-direction:column;gap:4px;margin:10px 0}
+    .event-row{display:flex;gap:12px;align-items:flex-start;padding:7px 10px;background:#1a1a1a;border-radius:6px;font-size:12.5px}
+    .event-name{color:#86efac;font-family:monospace;font-size:12px;min-width:220px;flex-shrink:0}
+    .event-desc{color:#94a3b8;line-height:1.5}
+    b{color:#f1f5f9}
+  </style>
+</head>
+<body>
+<div class="hdr">
+  <span class="hdr-icon">📋</span>
+  <div>
+    <div class="hdr-title">IDOs, Segurança & Application Events</div>
+    <div class="hdr-sub">Reunião com Alberto Gómez Martínez · Participantes: João Quelhas, Daniel Santos</div>
+  </div>
+  <span class="badge-reuniao" style="margin-left:auto">Resumo</span>
+</div>
+
+<div class="page">
+
+  <div class="section">
+    <div class="section-hdr open" onclick="toggle(this)">
+      <span class="section-icon">🗄️</span>
+      <span class="section-title">O que é uma IDO</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body open">
+      <div class="item"><span class="item-dot">•</span><span>IDO = <b>Intelligent Data Object</b> — uma vista sobre várias tabelas SQL do SyteLine.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>A IDO <b>standard não pode ser modificada</b> diretamente — para alterar, cria-se uma extensão.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr open" onclick="toggle(this)">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Tipos de Extensão de IDO</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body open">
+      <div class="item"><span class="item-dot">•</span><span><b>Extensão simples</b>: cópia da IDO original à qual se adicionam propriedades/tabelas. Os forms têm de ser atualizados manualmente para usar a nova IDO.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Extend and Replace</b> (marcar check "Replace"): a nova IDO substitui a original em <b>todos</b> os forms do sistema automaticamente.</span></div>
+      <div class="note">📌 <b>Exemplo real:</b> campo de descrição de Items demasiado curto (40/60 chars).<br>
+        → Criou-se propriedade extra numa tabela UD (User Extension Table) ligada a Items.<br>
+        → "Extend and Replace" na IDO SL Items → todos os forms passaram a usar o campo novo sem nenhuma alteração adicional.
+      </div>
+      <div style="margin-top:12px;font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Como criar um Extend & Replace:</div>
+      <div class="steps">
+        <div class="step"><span class="step-n">1</span><span>Abrir IDO maintenance → <b>New IDO</b>.</span></div>
+        <div class="step"><span class="step-n">2</span><span>Preencher "Extension of": nome da IDO original (ex: <code style="font-family:monospace;color:#86efac">SL Items</code>).</span></div>
+        <div class="step"><span class="step-n">3</span><span>Marcar o check <b>Replace</b>.</span></div>
+        <div class="step"><span class="step-n">4</span><span>Clicar <b>Finish</b> — a IDO é gerada com as propriedades herdadas + novas.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr open" onclick="toggle(this)">
+      <span class="section-icon">🖥️</span>
+      <span class="section-title">Tipos de Form (ao criar de raiz)</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body open">
+      <div class="item"><span class="item-dot">•</span><span><b>Multiview</b>: grid em cima + detalhe da linha selecionada em baixo. É o formato mais comum no SyteLine.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Grid Only</b>: todo o ecrã é uma grelha de dados, sem painel de detalhe.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Detail Only</b>: mostra só um registo de cada vez. Típico para forms de report ou registo de consumos.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr open" onclick="toggle(this)">
+      <span class="section-icon">🔐</span>
+      <span class="section-title">Segurança — 3 Níveis</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body open">
+      <div class="sec-levels">
+        <div class="sec-level" style="background:#1a1a2e;border:1px solid #312e81">
+          <b style="color:#818cf8">Nível 1 — Infor OS (plataforma)</b>
+          Controla o acesso à plataforma e às aplicações ligadas (SyteLine, IDM, Factory Track, etc.).<br>
+          <span style="color:#64748b;font-size:12px">Sem acesso aqui, não se entra no SyteLine.</span>
+        </div>
+        <div class="sec-level" style="background:#0f2020;border:1px solid #064e3b">
+          <b style="color:#34d399">Nível 2 — SyteLine (grupos)</b>
+          Grupos com autorizações: System Administration, Purchasing, etc.<br>
+          Cada grupo define acesso a forms, IDOs, IDE e file server.<br>
+          <span style="color:#64748b;font-size:12px">Ver em: Users &gt; Group Authorizations</span>
+        </div>
+        <div class="sec-level" style="background:#1a1a10;border:1px solid #713f12">
+          <b style="color:#fbbf24">Nível 3 — Utilizador individual</b>
+          Permissões específicas do utilizador (adiciona ou restringe em relação ao grupo).<br>
+          Editing Permission: controla se pode editar ou apenas visualizar.
+        </div>
+      </div>
+      <div class="note">⚖️ <b>Regra:</b> o mais restritivo prevalece.<br>
+        Herança: <b>Utilizador → Grupo → Site default</b>.<br>
+        Um utilizador pode herdar permissões do grupo + ter as suas próprias adicionais.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr open" onclick="toggle(this)">
+      <span class="section-icon">⚡</span>
+      <span class="section-title">Application Events (triggers do SyteLine)</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body open">
+      <div class="item"><span class="item-dot">•</span><span>Funcionam como <b>triggers SQL</b>, mas a nível da aplicação SyteLine.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Podem estar ligados a uma tabela/IDO específica <b>ou</b> a qualquer tabela do sistema.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Podem disparar: notificações, emails, BOD (Business Object Documents via Ion), métodos.</span></div>
+      <div style="margin:12px 0 6px;font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">Tipos mais usados:</div>
+      <div class="event-list">
+        <div class="event-row"><span class="event-name">IDO On Item Insert</span><span class="event-desc">Disparado durante o insert — antes de gravar.</span></div>
+        <div class="event-row"><span class="event-name">IDO Post Item Insert</span><span class="event-desc">Disparado após o insert estar concluído.</span></div>
+        <div class="event-row"><span class="event-name">IDO On Item Delete</span><span class="event-desc">Disparado durante o delete.</span></div>
+        <div class="event-row"><span class="event-name">IDO On Item Update</span><span class="event-desc">Disparado durante a atualização de um registo.</span></div>
+      </div>
+      <div class="note">📌 <b>Exemplo real:</b> evento "PDF by Email" — quando uma tarefa de impressão termina, envia email com o documento gerado em anexo com parâmetros definidos.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr" onclick="toggle(this)">
+      <span class="section-icon">🌐</span>
+      <span class="section-title">Ion / Intelligent Connector</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="item"><span class="item-dot">•</span><span><b>Ion</b>: plataforma de integração da Infor — conecta SyteLine com sistemas externos.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Intelligent Connector</b>: monitoriza uma tabela SQL externa e, quando há alteração, atualiza o SyteLine automaticamente (quase em tempo real).</span></div>
+      <div class="note">📌 <b>Caso prático (cliente Citron):</b><br>
+        Empresa envia XML para uma pasta → Ion apanha → extrai dados → preenche tabelas do SyteLine. Tudo automatizado sem intervenção manual.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggle(hdr) {
+    hdr.classList.toggle('open');
+    hdr.nextElementSibling.classList.toggle('open');
+  }
+  document.querySelectorAll('.section-hdr.open').forEach(h => {
+    h.nextElementSibling.classList.add('open');
+  });
+</script>
+</body>
+</html>

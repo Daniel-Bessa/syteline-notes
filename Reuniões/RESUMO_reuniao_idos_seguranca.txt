@@ -1,0 +1,79 @@
+RESUMO — Reunião: IDOs (extensões e replace), Segurança em 3 níveis, Application Events
+Participantes: Alberto Gómez Martínez, João Quelhas, Daniel Santos
+========================================================================================
+
+O QUE É UMA IDO
+- IDO (Intelligent Data Object): uma vista sobre várias tabelas SQL do SyteLine.
+- A IDO standard não pode ser modificada diretamente.
+- Para adicionar campos ou lógica, cria-se uma extensão.
+
+TIPOS DE EXTENSÃO DE IDO
+1. Extensão simples:
+   - Cópia da IDO original à qual se adicionam propriedades/tabelas.
+   - O form continua a usar a IDO original; tens de alterar o form para usar a nova.
+
+2. "Extend and Replace" (extensão com substituição):
+   - A nova IDO substitui a original em TODOS os forms do sistema.
+   - Não é necessário ir a cada form mudar a coleção — é automático.
+   - Caso real: a descrição dos Items ficava curta (campo de 40/60 chars).
+     → Criou-se uma propriedade extra numa tabela UD (User Definition) ligada a Items.
+     → Com "extend and replace" na IDO SL Items, todos os forms passaram a usar o campo novo.
+
+COMO CRIAR UMA IDO "EXTEND AND REPLACE"
+1. Abrir IDO maintenance.
+2. New IDO → nome da nova IDO (ex: "UE_Items").
+3. Preencher "Extension of": nome da IDO original (ex: "SL Items").
+4. Marcar o check "Replace" (extend and replace).
+5. Clicar Finish → a IDO é gerada com as propriedades herdadas + as que se adicionarem.
+
+TIPOS DE FORM (ao criar de raiz)
+- Multiview: grid em cima + detalhe em baixo (o formato mais comum no SyteLine).
+- Grid Only: só a grelha, sem detalhe.
+- Detail Only: só um registo de cada vez (usado para forms de report ou consumo de material).
+
+SEGURANÇA — 3 NÍVEIS
+Nível 1 — Infor OS (plataforma):
+  - Controla acesso à plataforma e às aplicações ligadas (SyteLine, IDM, Factory Track, etc.).
+  - Sem acesso aqui, não se entra no SyteLine.
+
+Nível 2 — SyteLine (grupos):
+  - Dentro do SyteLine existem grupos (ex: Purchasing, System Administration).
+  - Cada grupo tem "Group Authorizations": acesso a forms, IDOs, IDE, file server.
+  - Ver em: Users > Group Authorizations (selecionar o grupo).
+
+Nível 3 — Utilizador individual:
+  - Permissões específicas do utilizador (pode adicionar ou restringir).
+  - A regra: o mais restritivo prevalece.
+  - Herança: Utilizador → Grupo → Site default.
+  - Editing Permission: controla se pode editar ou apenas visualizar.
+
+IDM (Infor Document Management)
+  - Repositório de documentos ligado ao SyteLine.
+  - Exemplos: faturas carregadas por email, PDFs de pedidos de compra.
+  - Tem o seu próprio nível de segurança (gerido pelo Ion/Infor OS).
+
+APPLICATION EVENTS (triggers do SyteLine)
+- São como triggers SQL, mas a nível da aplicação.
+- Definem-se em: Application Events (form próprio).
+- Tipos mais usados:
+  - IDO On Item Insert   → disparado ao inserir um registo (antes de gravar)
+  - IDO Post Item Insert → disparado após gravar o insert
+  - IDO On Item Delete   → disparado ao apagar
+  - IDO On Item Update   → disparado ao alterar
+  - Post Item [...]      → versões "post" (depois da operação estar concluída)
+- Podem estar ligados a uma tabela/IDO específica OU a qualquer tabela do sistema.
+- Podem disparar: notificações, emails, BOD (Business Object Documents via Ion), métodos.
+
+ION / INTELLIGENT CONNECTOR
+- Ion: plataforma de integração da Infor (conecta SyteLine com sistemas externos).
+- Intelligent Connector: conector da Infor que monitoriza uma tabela SQL externa.
+  → Quando há alteração na tabela externa, atualiza automaticamente o SyteLine.
+  → Quase em tempo real.
+- Caso prático (cliente Citron): empresa envia XML para uma pasta → Ion apanha → extrai dados
+  → preenche tabelas do SyteLine. Tudo automatizado.
+
+PRÓXIMOS PASSOS (acordados na reunião)
+- Alberto vai pedir ao Landeiro uma lista de tarefas pequenas para a equipa começar.
+- Luís Falcão (consultor) também vai passar tarefas.
+- Alberto atribui as tarefas com o tempo razoável de faturação incluído.
+- Próxima reunião marcada para sexta-feira às 10h Portugal (11h Espanha).

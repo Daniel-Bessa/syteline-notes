@@ -156,6 +156,9 @@
     .badge-quiz { background: #0c4a6e; color: #7dd3fc; }
     /* Lab badge */
     .badge-lab { background: #1a3a1a; color: #86efac; }
+    /* Meeting badges */
+    .badge-resumo { background: #3b1f5e; color: #c4b5fd; }
+    .badge-exreuniao { background: #1a1008; color: #fbbf24; }
   </style>
 </head>
 <body>
@@ -259,6 +262,20 @@
     },
     { type: 'sep' },
     {
+      type: 'folder', icon: '🗣️', name: 'Reuniões com Alberto',
+      children: [
+        { type: 'file', badge: 'resumo',    icon: '📋', name: 'Resumo — Designer & PO',         path: 'reunioes/resumo-designer-po.html' },
+        { type: 'file', badge: 'resumo',    icon: '📋', name: 'Resumo — FormSync & Cópias',      path: 'reunioes/resumo-formsync.html' },
+        { type: 'file', badge: 'resumo',    icon: '📋', name: 'Resumo — IDOs & Segurança',       path: 'reunioes/resumo-idos-seguranca.html' },
+        { type: 'file', badge: 'resumo',    icon: '📋', name: 'Resumo — Visão Geral SyteLine',   path: 'reunioes/resumo-visao-geral.html' },
+        { type: 'file', badge: 'exreuniao', icon: '🔬', name: 'Ex — Enabled When / Vendor',      path: 'reunioes/ex-reuniao-01-vendor-field.html' },
+        { type: 'file', badge: 'exreuniao', icon: '🔬', name: 'Ex — FormSync & Cópia de Form',   path: 'reunioes/ex-reuniao-02-formsync.html' },
+        { type: 'file', badge: 'exreuniao', icon: '🔬', name: 'Ex — IDOs & Segurança',           path: 'reunioes/ex-reuniao-03-idos.html' },
+        { type: 'file', badge: 'exreuniao', icon: '🔬', name: 'Ex — FormScript & Prevent Delete', path: 'reunioes/ex-reuniao-04-formscript.html' },
+      ]
+    },
+    { type: 'sep' },
+    {
       type: 'folder', icon: '📁', name: 'Reference Documents',
       children: [
         { type: 'file', icon: '📄', name: 'IDO Development Guide',         path: 'Documents/mg_10.x_IDODevelopment.pdf' },
@@ -290,8 +307,8 @@
 
   function badge(b) {
     if (!b) return '';
-    const labels = { notes: 'Notes', master: 'Master', cyu: 'CYU', quiz: 'Quiz' };
-    return `<span class="badge badge-${b}">${labels[b]}</span>`;
+    const labels = { notes: 'Notes', master: 'Master', cyu: 'CYU', quiz: 'Quiz', lab: 'Lab', resumo: 'Resumo', exreuniao: 'Ex' };
+    return `<span class="badge badge-${b}">${labels[b] || b}</span>`;
   }
 
   // ── PDF open ──

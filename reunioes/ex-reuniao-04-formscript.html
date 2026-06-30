@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercício — FormScript, Eventos & Prevent Delete</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a1a1a;color:#e2e8f0;min-height:100vh}
+    .hdr{background:#0f172a;padding:18px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #1e293b;position:sticky;top:0;z-index:10}
+    .hdr-icon{font-size:28px}
+    .hdr-title{font-size:18px;font-weight:700;color:#f1f5f9}
+    .hdr-sub{font-size:12px;color:#64748b;margin-top:2px}
+    .badge-lab{background:#0c2a0c;color:#86efac;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;margin-left:auto}
+    .page{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+    .ex-card{background:#242424;border-radius:10px;margin-bottom:16px;border:1px solid #2d2d2d;overflow:hidden}
+    .ex-head{padding:14px 18px;background:#1e293b;display:flex;align-items:center;gap:12px}
+    .ex-num{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px}
+    .ex-title{font-size:15px;font-weight:700;color:#f1f5f9;flex:1}
+    .ex-body{padding:16px 18px}
+    .goal{background:#1e293b;border-left:3px solid #0284c7;color:#7dd3fc;padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.6;margin-bottom:16px}
+    .part-title{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px}
+    .step-list{display:flex;flex-direction:column;gap:5px}
+    .step-item{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:8px 10px;border-radius:7px;transition:background .12s}
+    .step-item:hover{background:#2d2d2d}
+    .cb{width:18px;height:18px;border:2px solid #374151;border-radius:4px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+    .step-item.checked .cb{background:#16a34a;border-color:#16a34a}
+    .step-item.checked .cb::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+    .step-text{font-size:13px;color:#cbd5e1;line-height:1.55;flex:1}
+    .step-item.checked .step-text{color:#4b5563;text-decoration:line-through}
+    .note{font-size:11.5px;color:#475569;font-style:italic;margin-top:3px;display:block}
+    .info{background:#1e293b;border-left:3px solid #6366f1;padding:9px 13px;border-radius:0 6px 6px 0;font-size:12.5px;color:#a5b4fc;line-height:1.6;margin:10px 0}
+    .code{background:#0f172a;border:1px solid #1e293b;padding:12px 16px;border-radius:7px;font-family:'Consolas','Courier New',monospace;font-size:12.5px;color:#86efac;line-height:1.7;margin:10px 0;white-space:pre}
+    .controls{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #2d2d2d}
+    .btn{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:600;transition:background .15s}
+    .btn-reset{background:#374151;color:#94a3b8}.btn-reset:hover{background:#4b5563}
+    .btn-all{background:#1e3a5f;color:#60a5fa}.btn-all:hover{background:#1d4ed8;color:#fff}
+    b{color:#f1f5f9}
+    code{font-family:monospace;color:#86efac;background:#0f172a;padding:1px 5px;border-radius:3px;font-size:12px}
+  </style>
+</head>
+<body>
+<div class="hdr">
+  <span class="hdr-icon">🔬</span>
+  <div>
+    <div class="hdr-title">FormScript, Eventos & Impedir Delete</div>
+    <div class="hdr-sub">Reunião com Alberto · Visão Geral do SyteLine</div>
+  </div>
+  <span class="badge-lab">Lab</span>
+</div>
+
+<div class="page">
+
+  <div class="ex-card" id="ex1">
+    <div class="ex-head">
+      <span class="ex-num">EX 1</span>
+      <span class="ex-title">Explorar o FormScript de Purchase Orders</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Navegar pelo FormScript do form Purchase Orders e perceber a estrutura de eventos e funções.</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form <b>Purchase Orders</b> e entrar no <b>Designer</b> (lápis).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Ir à secção <b>FormScript</b> (dentro do designer).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Usar o <b>dropdown</b> para ver a lista de todas as funções/sub-rotinas do FormScript.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Localizar a função <code>DefaultVendCurCode</code> (ou similar) — verificar que é uma <b>Function As Integer</b> (devolve inteiro).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Ir ao campo <b>VendNam</b> na grid → ver os Events associados.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Em Event Handlers, localizar o evento <b>"Data Change PO VenNam"</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Ver a sequência de ações que este evento executa (Form Script Method, Method Call, Generate Event, etc.).</div></div>
+      </div>
+
+      <div class="info">💡 A sequência é executada de <b>cima para baixo</b>, por ordem de Sequence Number. Cada passo pode ser um FormScript Method, Method Call, Generate Event ou RunScript.</div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex1')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex1')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" id="ex2">
+    <div class="ex-head">
+      <span class="ex-num">EX 2</span>
+      <span class="ex-title">Explorar os Eventos Standard do form Purchase Orders</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Verificar os eventos standard disponíveis e perceber a diferença entre "Form Copy" e "Form Copy Complete".</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">No designer do form Purchase Orders, ir à secção <b>Event Handlers</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Filtrar por "Standard" para ver os eventos standard disponíveis.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Localizar <b>Standard Form Copy</b> — verificar quando é disparado (ao clicar em Copiar).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Localizar <b>Standard Form Copy Complete</b> — verificar que é o evento de conclusão da cópia.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Verificar se existe <b>Standard Form Predisplay Complete</b> — não deve existir (este não tem par de "Complete").</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Localizar <b>Standard Form Save</b> e <b>Standard Object Save</b> — notar que são dois momentos distintos.</div></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex2')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex2')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" id="ex3">
+    <div class="ex-head">
+      <span class="ex-num">EX 3</span>
+      <span class="ex-title">Impedir delete permanente via Standard Operations</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Desativar o botão de delete permanentemente na cópia de trabalho <code>UE_DS_Items</code> (Opção A — nunca pode apagar).</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form <code>UE_DS_Items</code> (cópia criada no exercício anterior) e entrar no <b>Designer</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Selecionar a <b>coleção principal</b> do form (normalmente "Items").</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">No painel direito, ir à secção <b>Standard Operations</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Desmarcar (desativar) a opção <b>Delete</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Guardar as alterações.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form e confirmar que o botão de delete está <b>cinzento/inativo</b>.</div></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex3')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex3')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" id="ex4">
+    <div class="ex-head">
+      <span class="ex-num">EX 4</span>
+      <span class="ex-title">Escrever uma função FormScript que para a execução (return -1)</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Criar no FormScript da cópia de trabalho uma função que devolve -1, bloqueando qualquer ação que a chame. Base para validações condicionais.</div>
+
+      <div class="part-title">Código a implementar</div>
+      <div class="code">Function StopAction() As Integer
+    Return -1
+End Function</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form <code>UE_DS_Items</code> no <b>Designer</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Ir ao <b>FormScript</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">No final do código existente (antes do fim da classe), adicionar a função <code>StopAction</code> como acima.<span class="note">Atenção: a função tem de estar dentro da classe do FormScript, não fora.</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Guardar o FormScript.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Verificar no dropdown de funções que <code>StopAction</code> aparece listada.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Criar um evento de teste (ex: Standard Form Copy) com um passo "Form Script Method" que chama <code>StopAction</code>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Testar: tentar copiar um registo — a ação deve ser bloqueada silenciosamente (return -1 para a execução).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Remover o passo de teste do evento para não afetar o form.</div></div>
+      </div>
+
+      <div class="info">💡 <b>Regra:</b> Function devolve 0 = sucesso, continua; devolve -1 = erro, para tudo.<br>
+      Esta técnica é usada para: impedir delete condicional, validar campos antes de guardar, bloquear ações em determinados estados.</div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex4')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex4')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggle(el) { el.classList.toggle('checked'); }
+  function checkAll(id) { document.querySelectorAll('#'+id+' .step-item').forEach(e => e.classList.add('checked')); }
+  function resetAll(id) { document.querySelectorAll('#'+id+' .step-item').forEach(e => e.classList.remove('checked')); }
+</script>
+</body>
+</html>

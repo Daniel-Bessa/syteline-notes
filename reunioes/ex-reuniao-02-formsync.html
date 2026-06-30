@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercício — FormSync Export & Cópia de Form</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a1a1a;color:#e2e8f0;min-height:100vh}
+    .hdr{background:#0f172a;padding:18px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #1e293b;position:sticky;top:0;z-index:10}
+    .hdr-icon{font-size:28px}
+    .hdr-title{font-size:18px;font-weight:700;color:#f1f5f9}
+    .hdr-sub{font-size:12px;color:#64748b;margin-top:2px}
+    .badge-lab{background:#0c2a0c;color:#86efac;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;margin-left:auto}
+    .page{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+    .ex-card{background:#242424;border-radius:10px;margin-bottom:16px;border:1px solid #2d2d2d;overflow:hidden}
+    .ex-head{padding:14px 18px;background:#1e293b;display:flex;align-items:center;gap:12px}
+    .ex-num{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px}
+    .ex-title{font-size:15px;font-weight:700;color:#f1f5f9;flex:1}
+    .ex-body{padding:16px 18px}
+    .goal{background:#1e293b;border-left:3px solid #0284c7;color:#7dd3fc;padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.6;margin-bottom:16px}
+    .part-title{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px}
+    .step-list{display:flex;flex-direction:column;gap:5px}
+    .step-item{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:8px 10px;border-radius:7px;transition:background .12s}
+    .step-item:hover{background:#2d2d2d}
+    .cb{width:18px;height:18px;border:2px solid #374151;border-radius:4px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+    .step-item.checked .cb{background:#16a34a;border-color:#16a34a}
+    .step-item.checked .cb::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+    .step-text{font-size:13px;color:#cbd5e1;line-height:1.55;flex:1}
+    .step-item.checked .step-text{color:#4b5563;text-decoration:line-through}
+    .note{font-size:11.5px;color:#475569;font-style:italic;margin-top:3px;display:block}
+    .info{background:#1e293b;border-left:3px solid #6366f1;padding:9px 13px;border-radius:0 6px 6px 0;font-size:12.5px;color:#a5b4fc;line-height:1.6;margin:10px 0}
+    .controls{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #2d2d2d}
+    .btn{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:600;transition:background .15s}
+    .btn-reset{background:#374151;color:#94a3b8}.btn-reset:hover{background:#4b5563}
+    .btn-all{background:#1e3a5f;color:#60a5fa}.btn-all:hover{background:#1d4ed8;color:#fff}
+    b{color:#f1f5f9}
+    code{font-family:monospace;color:#86efac;background:#0f172a;padding:1px 5px;border-radius:3px;font-size:12px}
+  </style>
+</head>
+<body>
+<div class="hdr">
+  <span class="hdr-icon">🔬</span>
+  <div>
+    <div class="hdr-title">FormSync — Backup, Import & Cópia de Form</div>
+    <div class="hdr-sub">Reunião com Alberto · FormSync & Cópias de Forms</div>
+  </div>
+  <span class="badge-lab">Lab</span>
+</div>
+
+<div class="page">
+
+  <div class="ex-card" id="ex1">
+    <div class="ex-head">
+      <span class="ex-num">EX 1</span>
+      <span class="ex-title">Exportar (backup) um form via FormSync antes de editar</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Exportar o form <b>Items</b> como backup em XML antes de o editar. Se algo correr mal, poderás reverter para esta versão.</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form <b>FormSync</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Definir <b>Origem</b> e <b>Destino</b> com o mesmo ambiente e site.<span class="note">Ex: TRN → TRN (training) ou PRD → PRD (produção)</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Em <b>Utilities</b>: desmarcar tudo e selecionar apenas <b>Forms</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">No campo de seleção, escrever o nome do form: <code>Items</code>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Ação: <b>Export</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Dar nome ao ficheiro seguindo a convenção: <code>Items_TRN_DD-MM-AAAA</code><span class="note">Convenção do Alberto: NomeForm + Ambiente + Data</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Confirmar que o ficheiro <b>XML</b> foi gerado — esse é o teu backup.</div></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex1')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex1')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" id="ex2">
+    <div class="ex-head">
+      <span class="ex-num">EX 2</span>
+      <span class="ex-title">Importar (reverter) um form a partir do backup XML</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Reverter o form Items para a versão exportada no exercício anterior, descartando todas as alterações feitas entretanto.</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir <b>FormSync</b> → separador <b>Import</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Clicar em <b>Upload</b> e arrastar o ficheiro XML exportado anteriormente.<span class="note">Alternativa: abrir o XML no Notepad++ e colar o conteúdo diretamente.</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Clicar em <b>Load</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Clicar em <b>Import</b> — o form volta à versão do backup.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Ir a <b>Utilities &gt; Unload All Global Forms Object</b> e selecionar o form Items para forçar a atualização em memória.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form Items e confirmar que voltou ao estado original.</div></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex2')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex2')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" id="ex3">
+    <div class="ex-head">
+      <span class="ex-num">EX 3</span>
+      <span class="ex-title">Criar uma cópia de trabalho do form Items</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Criar uma cópia do form Items com o teu nome (UE_DS_Items) para fazer testes livremente sem tocar no original.</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form <b>Items</b> e entrar no <b>Designer</b> (ícone do lápis).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Selecionar a opção <b>Copy Form</b> (ou "Copiar Form").</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">No campo nome, escrever <code>UE_DS_Items</code><span class="note">Convenção: UE_ + tuas iniciais + nome do form. "DS" = Daniel Santos.</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Confirmar — o SyteLine copia o form inteiro, incluindo FormScript.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Atualizar o <b>Caption</b> (nome visível) para <code>UE_DS_Items</code> para o distinguir do original.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Fazer alterações à vontade nesta cópia — o form original <b>Items</b> não é afetado.</div></div>
+      </div>
+
+      <div class="info">💡 Comparar dois XMLs (original vs modificado) no Notepad++ é uma boa forma de ver exatamente o que mudou.</div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex3')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex3')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" id="ex4">
+    <div class="ex-head">
+      <span class="ex-num">EX 4</span>
+      <span class="ex-title">Ver e desbloquear um form via Form Control</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Verificar quem tem o form Items bloqueado e desbloqueá-lo se necessário.</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form <b>Form Control</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Pesquisar o form <code>Items</code>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Clicar em <b>Refresh Status</b> — aparece o utilizador que tem o lock (se houver).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Se precisar de desbloquear: selecionar ação <b>Unlock</b> → clicar em <b>Execute Action</b>.<span class="note">⚠️ Sempre pedir ao colega para desbloquear ele próprio antes de usar esta opção.</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Confirmar que o form ficou desbloqueado (Refresh Status → sem utilizador listado).</div></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex4')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex4')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggle(el) { el.classList.toggle('checked'); }
+  function checkAll(id) { document.querySelectorAll('#'+id+' .step-item').forEach(e => e.classList.add('checked')); }
+  function resetAll(id) { document.querySelectorAll('#'+id+' .step-item').forEach(e => e.classList.remove('checked')); }
+</script>
+</body>
+</html>

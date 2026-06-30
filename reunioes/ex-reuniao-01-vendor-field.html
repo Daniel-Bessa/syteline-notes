@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercício — Enabled When & Vendor Field</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a1a1a;color:#e2e8f0;min-height:100vh}
+    .hdr{background:#0f172a;padding:18px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #1e293b;position:sticky;top:0;z-index:10}
+    .hdr-icon{font-size:28px}
+    .hdr-title{font-size:18px;font-weight:700;color:#f1f5f9}
+    .hdr-sub{font-size:12px;color:#64748b;margin-top:2px}
+    .badge-lab{background:#0c2a0c;color:#86efac;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;margin-left:auto}
+    .page{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+    .ex-card{background:#242424;border-radius:10px;margin-bottom:16px;border:1px solid #2d2d2d;overflow:hidden}
+    .ex-head{padding:14px 18px;background:#1e293b;display:flex;align-items:center;gap:12px}
+    .ex-num{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px}
+    .ex-title{font-size:15px;font-weight:700;color:#f1f5f9;flex:1}
+    .ex-body{padding:16px 18px}
+    .goal{background:#1e293b;border-left:3px solid #0284c7;color:#7dd3fc;padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.6;margin-bottom:16px}
+    .part-title{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px}
+    .step-list{display:flex;flex-direction:column;gap:5px}
+    .step-item{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:8px 10px;border-radius:7px;transition:background .12s}
+    .step-item:hover{background:#2d2d2d}
+    .cb{width:18px;height:18px;border:2px solid #374151;border-radius:4px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+    .step-item.checked .cb{background:#16a34a;border-color:#16a34a}
+    .step-item.checked .cb::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+    .step-text{font-size:13px;color:#cbd5e1;line-height:1.55;flex:1}
+    .step-item.checked .step-text{color:#4b5563;text-decoration:line-through}
+    .note{font-size:11.5px;color:#475569;font-style:italic;margin-top:3px;display:block}
+    .warn{background:#1c1208;border-left:3px solid #d97706;padding:9px 13px;border-radius:0 6px 6px 0;font-size:12.5px;color:#fcd34d;line-height:1.6;margin:10px 0}
+    .controls{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #2d2d2d}
+    .btn{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:600;transition:background .15s}
+    .btn-reset{background:#374151;color:#94a3b8}.btn-reset:hover{background:#4b5563}
+    .btn-all{background:#1e3a5f;color:#60a5fa}.btn-all:hover{background:#1d4ed8;color:#fff}
+    b{color:#f1f5f9}
+  </style>
+</head>
+<body>
+<div class="hdr">
+  <span class="hdr-icon">🔬</span>
+  <div>
+    <div class="hdr-title">Enabled When — Campo Vendor só editável em "Planned"</div>
+    <div class="hdr-sub">Reunião com Alberto · Designer & Purchase Orders</div>
+  </div>
+  <span class="badge-lab">Lab</span>
+</div>
+
+<div class="page">
+
+  <div class="ex-card" id="ex1">
+    <div class="ex-head">
+      <span class="ex-num">EX 1</span>
+      <span class="ex-title">Desativar o campo Vendor exceto quando a ordem está em "Planned"</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> O campo "Vendor" em Purchase Orders só deve ser editável quando o estado da ordem é <b>"P" (Planned)</b>. Nos restantes estados (Ordered, Complete, History), o campo deve ficar bloqueado.</div>
+
+      <div class="part-title">Parte 1 — Abrir o Designer</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Ir ao form <b>Purchase Orders</b>.<span class="note">Menu Form > Purchase Orders (não o Gen 2)</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Pesquisar a ordem pelo <b>campo Name</b> (não pesquisar por "orders" geral).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Clicar no <b>ícone do lápis</b> para abrir o Designer do form.<span class="note">Alternativa: Form > Open Designer</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Se aparecer mensagem de form bloqueado: fazer <b>Sign Out</b>, confirmar permissões de edição (não apenas "super user"), e voltar a entrar.</div></div>
+      </div>
+
+      <div class="part-title">Parte 2 — Configurar Enabled When</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Selecionar o componente <b>Vendor</b> no designer.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">No painel da direita, ir a <b>Behavior</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Na propriedade <b>Enabled When</b>, clicar nos <b>3 pontinhos (...)</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Escolher <b>Property</b> (propriedade), não Component.<span class="note">⚠️ O nome do componente pode variar com o idioma (EN/ES/PT) e causar falhas.</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Selecionar o objeto <b>Purchase Orders</b> → propriedade <b>Stat</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Definir operador como <b>Equal To</b> (igual a).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">No valor, usar <b>Literal</b> e escrever <b>"P"</b>.<span class="note">⚠️ Não usar "O" (Ordered) — o campo deve estar ativo em Planned, não em Ordered.</span></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Confirmar e <b>guardar</b> a condição.</div></div>
+      </div>
+
+      <div class="warn">⚠️ Os 4 estados possíveis de uma Purchase Order:<br>
+        <b>P</b> = Planned &nbsp;|&nbsp; <b>O</b> = Ordered &nbsp;|&nbsp; <b>C</b> = Complete &nbsp;|&nbsp; <b>H</b> = History<br>
+        Só em "P" é possível editar — nos outros três o pedido já está avançado.
+      </div>
+
+      <div class="part-title">Parte 3 — Boas Práticas</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Guardar <b>frequentemente</b> as alterações no Designer.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Fechar e reabrir o Designer de vez em quando (sincronizações na cloud podem falhar).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Fazer sempre um <b>export do form original via FormSync</b> antes de editar (backup XML).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Depois de confirmar que funciona: enviar <b>email ao Luís</b> a pedir que teste.</div></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex1')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex1')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggle(el) { el.classList.toggle('checked'); }
+  function checkAll(id) { document.querySelectorAll('#'+id+' .step-item').forEach(e => e.classList.add('checked')); }
+  function resetAll(id) { document.querySelectorAll('#'+id+' .step-item').forEach(e => e.classList.remove('checked')); }
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+RESUMO — Reunião: Visão Geral do SyteLine — Forms, Eventos, Application Events, Background Tasks
+Participantes: Alberto Gómez Martínez, João Quelhas, Daniel Santos
+================================================================================================
+
+INTERFACE DO SYTELINE (o que o utilizador e o developer veem — é igual)
+- Grid (lista de registos) + Detalhe (dados do registo selecionado) + Botões de ação.
+- Widgets: painéis laterais com informação relacionada com o registo atual
+  (ex: PDF do pedido carregado no IDM, especificações, etc.).
+- Inbox: notificações de workflows — aprovações, reatribuições, alertas.
+- Os botões navegam entre forms (não abrem janelas separadas — é um ambiente de tabs/ecrãs).
+- O cliente final vê exatamente o mesmo ecrã que o developer — qualquer alteração é imediata.
+
+FORM GEN 2 (porquê não usamos)
+- A Infor lançou "Gen 2" como nova geração de forms, mas:
+  - As personalizações de negócio feitas nos forms antigos não foram migradas.
+  - O cliente não paga duas vezes pela mesma funcionalidade.
+  - Conclusão: continua-se a usar os forms "antigos" (Gen 1). Ninguém se queixou.
+
+DESIGNER — ESTRUTURA
+- Painel esquerdo: toolbar de componentes (botões, grids, campos, etc.).
+- Área central: canvas do form — o que se vê é o que o utilizador vai ver.
+- Painel direito: propriedades do componente selecionado.
+  - Tabs: Design, Appearance, Behavior, Data, Source, Events.
+- Para ver propriedades de uma Grid: clicar no botãozinho da grid (abre as tabs completas).
+
+COMO FUNCIONA A LÓGICA DOS CAMPOS
+- Cada campo de uma grid/form pode ter um evento "Data Change" associado.
+- Ex: mudar o campo "VendNam" (fornecedor) → dispara evento "Data Change PO VenNam".
+- Esse evento executa uma sequência de ações (Event Handler):
+  1. Form Script Method (função dentro do FormScript deste form)
+  2. Method Call (método de uma IDO Collection)
+  3. Generate Event (delega para outro evento)
+  4. RunScript (chama um script global)
+- A sequência é executada de cima para baixo, por ordem de "Sequence Number".
+
+FORMSCRIPT — LINGUAGEM E ESTRUTURA
+- Linguagem: Visual Basic (VB) — todos os FormScripts no SyteLine são em VB.
+- Global Scripts (bibliotecas partilhadas): podem ser em C#.
+- Navegar no FormScript: usar o dropdown (lista todas as funções/sub-rotinas) ou Ctrl+F.
+- Tipos de rotinas:
+  - Sub-routine (Sub): executa ações, não devolve valor.
+  - Function (Function As Integer): devolve um inteiro.
+    → Return 0 = sucesso, execução continua.
+    → Return -1 = erro, execução para imediatamente.
+
+EVENTOS STANDARD (pré-definidos pelo SyteLine)
+- Existem em pares (início + conclusão):
+  - Standard Form Copy         → disparado quando o utilizador clica em "copiar"
+  - Standard Form Copy Complete → disparado quando a cópia termina
+  - Standard Form Save         → quando o utilizador clica em "guardar"
+  - Standard Object Save       → quando a coleção é de facto persistida na BD
+  - Standard Form Predisplay   → antes de o form ser apresentado (não tem "Complete")
+- Qualquer ação pode ser inserida antes ou depois destes eventos (usando a sequência).
+
+COMO IMPEDIR APAGAR UM REGISTO (2 abordagens)
+Opção A — Desativar o botão de delete permanentemente:
+  - Na coleção do form, em "Standard Operations", desmarcar "Delete".
+  - O botão fica sempre cinzento — ninguém pode apagar.
+
+Opção B — Validar no momento de guardar (mais flexível):
+  - Quando o utilizador clica em "eliminar", o registo fica marcado com um X vermelho.
+  - Só é apagado de facto quando se clica em "Guardar".
+  - Nesse momento, pode-se validar no evento "Standard Object Save":
+    → Se o registo não puder ser apagado, mostrar mensagem e devolver -1.
+
+APPLICATION EVENTS (triggers da aplicação — nível IDO/tabela)
+- São triggers ligados a tabelas/IDOs, independentes de um form específico.
+- Tipos mais usados:
+  - IDO On Item Insert    → durante o insert (antes de gravar)
+  - IDO Post Item Insert  → após o insert
+  - IDO On Item Delete    → durante o delete
+  - IDO On Item Update    → durante o update
+- Podem ser lançados também a partir de um form (Generate Application Event).
+- Ações possíveis: enviar notificação a grupo, enviar email, executar método, enviar BOD via Ion.
+- Exemplo real: ao criar um cliente novo (sequence == 0), enviar notificação ao grupo X + email.
+- Exemplo real 2: evento "PDF by Email" — quando uma tarefa de impressão termina,
+  envia email com o documento gerado em anexo.
+
+BACKGROUND TASKS (tarefas agendadas)
+- Executam processos em segundo plano (normalmente à noite ou em intervalos definidos).
+- Usos comuns:
+  - Imprimir / gerar reports automaticamente.
+  - Executar métodos de manutenção (ex: atualizar logs de qualidade de itens).
+  - Executar Stored Procedures SQL de limpeza/sincronização.
+- Configuradas em: Background Tasks (form dedicado).
+- Tipo: "Executable Type = Report" para reports; ou Method para métodos.
+
+GLOBAL SCRIPTS (RunScript)
+- Biblioteca de funções/sub-rotinas partilhadas por todos os forms.
+- Usam-se para lógica repetitiva — em vez de copiar o mesmo código em 10 FormScripts,
+  cria-se uma vez no Global Script e chama-se com "RunScript".
+
+FLUXO TÍPICO DE DESENVOLVIMENTO (resumo prático)
+1. Consultor (Luís Falcão / Landeiro) define o gap (o que há a fazer e em que form).
+2. Developer abre o form indicado, exporta backup via FormSync.
+3. Faz as alterações (designer + FormScript + eventos).
+4. Testa no ambiente de treino/demo.
+5. Avisa o consultor para testar do lado do cliente.
+6. Após validação, exporta o form e faz import em produção via FormSync.
+
+PRÓXIMOS PASSOS (acordados na reunião)
+- Alberto vai receber lista de tarefas do Landeiro na segunda-feira.
+- Também tem tarefas do Luís Falcão para atribuir.
+- Cada tarefa virá com tempo estimado (horas faturáveis) definido pelo Alberto/Serra.
+- Daniel e João atribuem entre si quem faz o quê.
+- Dúvidas: enviar email ao Alberto que responde e, se necessário, marca reunião rápida.

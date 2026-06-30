@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercício — IDOs, Extensões & Segurança</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a1a1a;color:#e2e8f0;min-height:100vh}
+    .hdr{background:#0f172a;padding:18px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #1e293b;position:sticky;top:0;z-index:10}
+    .hdr-icon{font-size:28px}
+    .hdr-title{font-size:18px;font-weight:700;color:#f1f5f9}
+    .hdr-sub{font-size:12px;color:#64748b;margin-top:2px}
+    .badge-lab{background:#0c2a0c;color:#86efac;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;margin-left:auto}
+    .page{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+    .ex-card{background:#242424;border-radius:10px;margin-bottom:16px;border:1px solid #2d2d2d;overflow:hidden}
+    .ex-head{padding:14px 18px;background:#1e293b;display:flex;align-items:center;gap:12px}
+    .ex-num{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px}
+    .ex-title{font-size:15px;font-weight:700;color:#f1f5f9;flex:1}
+    .ex-body{padding:16px 18px}
+    .goal{background:#1e293b;border-left:3px solid #0284c7;color:#7dd3fc;padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.6;margin-bottom:16px}
+    .part-title{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px}
+    .step-list{display:flex;flex-direction:column;gap:5px}
+    .step-item{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:8px 10px;border-radius:7px;transition:background .12s}
+    .step-item:hover{background:#2d2d2d}
+    .cb{width:18px;height:18px;border:2px solid #374151;border-radius:4px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+    .step-item.checked .cb{background:#16a34a;border-color:#16a34a}
+    .step-item.checked .cb::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+    .step-text{font-size:13px;color:#cbd5e1;line-height:1.55;flex:1}
+    .step-item.checked .step-text{color:#4b5563;text-decoration:line-through}
+    .note{font-size:11.5px;color:#475569;font-style:italic;margin-top:3px;display:block}
+    .info{background:#1e293b;border-left:3px solid #6366f1;padding:9px 13px;border-radius:0 6px 6px 0;font-size:12.5px;color:#a5b4fc;line-height:1.6;margin:10px 0}
+    .controls{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #2d2d2d}
+    .btn{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:600;transition:background .15s}
+    .btn-reset{background:#374151;color:#94a3b8}.btn-reset:hover{background:#4b5563}
+    .btn-all{background:#1e3a5f;color:#60a5fa}.btn-all:hover{background:#1d4ed8;color:#fff}
+    b{color:#f1f5f9}
+    code{font-family:monospace;color:#86efac;background:#0f172a;padding:1px 5px;border-radius:3px;font-size:12px}
+  </style>
+</head>
+<body>
+<div class="hdr">
+  <span class="hdr-icon">🔬</span>
+  <div>
+    <div class="hdr-title">IDOs — Extensões, Replace & Segurança</div>
+    <div class="hdr-sub">Reunião com Alberto · IDOs, Segurança & Application Events</div>
+  </div>
+  <span class="badge-lab">Lab</span>
+</div>
+
+<div class="page">
+
+  <div class="ex-card" id="ex1">
+    <div class="ex-head">
+      <span class="ex-num">EX 1</span>
+      <span class="ex-title">Explorar as propriedades de uma IDO standard vs extensão</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Comparar a IDO standard <code>SLGRNLines</code> com a extensão <code>UE_GRNLines</code> e verificar as propriedades adicionadas.</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form de gestão de <b>IDOs</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Pesquisar com filtro: <code>*GRNLines*</code> (asterisco + nome + asterisco) para ver todas as IDOs com esse nome.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir <code>SLGRNLines</code> — contar quantas propriedades tem (esperado: ~40).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir <code>UE_GRNLines</code> — verificar que é marcada como extensão com "Replace" ativo.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Notar as propriedades adicionadas na extensão (esperado: +13 propriedades novas).</div></div>
+      </div>
+
+      <div class="info">💡 Com "Replace" ativo, todos os forms que usavam <code>SLGRNLines</code> passaram a usar automaticamente <code>UE_GRNLines</code> — sem alterar cada form individualmente.</div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex1')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex1')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" id="ex2">
+    <div class="ex-head">
+      <span class="ex-num">EX 2</span>
+      <span class="ex-title">Criar uma extensão "Extend and Replace" da IDO SL Jobs</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Criar uma extensão da IDO <code>SL Jobs</code> com substituição automática (extend and replace). <b>Atenção: não guardar/finalizar</b> — é apenas para praticar o processo.</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form de gestão de <b>IDOs</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Clicar em <b>New IDO</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Preencher nome da nova IDO: <code>UE_DS_Jobs</code></div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">No campo <b>"Extension of"</b>: escrever <code>SL Jobs</code>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Marcar o check <b>Replace</b> (extend and replace).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Verificar que o campo "Extension of" fica preenchido automaticamente (não editável após marcar Replace).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text"><b>Cancelar</b> (não clicar em Finish — esta IDO já existe no sistema).</div></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex2')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex2')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" id="ex3">
+    <div class="ex-head">
+      <span class="ex-num">EX 3</span>
+      <span class="ex-title">Verificar permissões de um grupo em SyteLine</span>
+    </div>
+    <div class="ex-body">
+      <div class="goal">🎯 <b>Objetivo:</b> Verificar quais os forms a que o grupo "Purchasing" tem acesso e com que permissões.</div>
+
+      <div class="part-title">Passos</div>
+      <div class="step-list">
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Abrir o form de gestão de <b>Users</b> (ou User Maintenance).</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Navegar para <b>Group Authorizations</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Selecionar o grupo <b>Purchasing</b>.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Ver a lista de forms autorizados para este grupo.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Verificar as <b>Editing Permissions</b>: quais podem editar vs apenas visualizar.</div></div>
+        <div class="step-item" onclick="toggle(this)"><div class="cb"></div><div class="step-text">Comparar com o grupo <b>System Administration</b> — deve ter acesso a muito mais forms.</div></div>
+      </div>
+
+      <div class="info">💡 Regra da segurança: <b>o mais restritivo prevalece</b>.<br>Herança: Utilizador → Grupo → Site default.<br>Um utilizador pode ter permissões adicionais além do grupo, mas nunca mais permissivas do que o nível Infor OS permite.</div>
+
+      <div class="controls">
+        <button class="btn btn-reset" onclick="resetAll('ex3')">↺ Reset</button>
+        <button class="btn btn-all" onclick="checkAll('ex3')">✓ Marcar tudo</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggle(el) { el.classList.toggle('checked'); }
+  function checkAll(id) { document.querySelectorAll('#'+id+' .step-item').forEach(e => e.classList.add('checked')); }
+  function resetAll(id) { document.querySelectorAll('#'+id+' .step-item').forEach(e => e.classList.remove('checked')); }
+</script>
+</body>
+</html>

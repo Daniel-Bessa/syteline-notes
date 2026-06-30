@@ -1,0 +1,73 @@
+RESUMO — Reunião: FormSync, cópias de forms, extensões e eventos
+Participantes: Alberto Gómez Martínez, João Quelhas, Daniel Santos
+===================================================================
+
+FORMSYNC — O QUE É
+- Ferramenta do SyteLine para exportar e importar forms entre ambientes (ex: TRN → PRD).
+- Também serve como backup: exportar antes de editar, importar para reverter.
+
+NÍVEIS DE UM FORM (do mais genérico ao mais específico)
+- Vendor  → standard da Infor, nunca modificável
+- Site    → nível empresa (é aqui que trabalhamos normalmente)
+- Group   → nível grupo de utilizadores
+- User    → nível utilizador individual
+- Ao carregar, o SyteLine tenta do mais específico para o mais genérico (User → Group → Site → Vendor).
+- Para ver em que versão estás: "About This Form" dentro do designer.
+- Trabalhar sempre sobre a versão Site.
+
+BACKUP / EXPORT COM FORMSYNC (processo passo a passo)
+1. Abrir FormSync.
+2. Origem e Destino: mesmo ambiente e mesmo site.
+3. Em Utilities: selecionar apenas "Forms" + filtrar pelo nome do form (ex: "Items").
+4. Ação: Export.
+5. Nome sugerido: [NomeForm]_[Ambiente]_[Data] → ex: "Items_TRN_2024-06-20"
+6. Gera um ficheiro XML.
+
+REVERTER PARA VERSÃO ORIGINAL (Import)
+1. Abrir FormSync → separador Import.
+2. Upload do XML exportado anteriormente.
+3. Clicar em Load → Import.
+4. Fazer "Unload All Global Forms Object" para atualizar o form em memória.
+
+COMPARAR VERSÕES
+- Exportar a versão atual para um segundo XML.
+- Abrir os dois XMLs no Notepad++ e comparar — mostra exatamente o que mudou.
+
+FORM CONTROL — GERIR BLOQUEIOS
+- Form "Form Control": permite ver quem tem um form bloqueado.
+- Pesquisar o form → Refresh Status → mostra o utilizador que tem o lock.
+- Para desbloquear: selecionar "Unlock" → Execute Action.
+- Regra de cortesia: sempre pedir ao colega para desbloquear antes de entrar, para evitar conflitos.
+
+COPIAR UM FORM (para testes ou personalização)
+1. Abrir o designer do form base.
+2. Opção "Copy Form".
+3. Nome sugerido: UE_[Iniciais]_[NomeForm] → ex: "UE_AGM_Items" ou "UE_DS_PurchaseOrders"
+4. Alterar o Caption (nome visível) para identificar que é cópia de trabalho.
+5. Alterações na cópia não afetam o form original.
+
+EXTENSÕES DE FORM ("Extend Form")
+- Em vez de copiar, pode-se criar uma extensão do form base.
+- Opção "Replace Base Forms": quando ativa, a extensão substitui o original em todo o sistema.
+- Útil quando o cliente quer manter o form original mas com adições.
+- Trabalhar com extensões é mais trabalhoso (tem de se ativar cada campo antes de editar).
+
+QUANDO CRIAR UM FORM NOVO vs COPIAR vs EXTENDER
+- Copiar: quando o form de destino é muito semelhante ao existente (mudar nome + ocultar campos).
+- Extender: quando o cliente não quer form novo nem modificar o standard.
+- Criar de raiz: normalmente para forms de consulta ou que chamam reports — não para forms complexos.
+- Decisão vem sempre da análise do consultor (gap analysis) — o técnico implementa o que lhe é pedido.
+
+FORMSCRIPT
+- Scripts em Visual Basic (VB).
+- Global Scripts podem ser em C# (ficheiros separados, reutilizáveis em vários forms).
+- O FormScript é exportado dentro do XML do FormSync (está incluído no backup).
+
+EVENTOS E BOTÕES (introdução)
+- Cada botão tem um "Primary" que define o evento disparado ao clicar.
+- Eventos permitem chamar outros forms, passar parâmetros, ou executar lógica.
+- Detalhes aprofundados na reunião de "Visão Geral do SyteLine".
+
+CONSELHO DO ALBERTO
+- Se ficares bloqueado mais de ~2 horas sem conseguir avançar, perguntar em vez de sofrer.
+- Praticar é fundamental — mas não perder tempo desnecessário quando há suporte disponível.

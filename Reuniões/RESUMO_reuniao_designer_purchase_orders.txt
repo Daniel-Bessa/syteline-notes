@@ -1,0 +1,49 @@
+RESUMO — Reunião: Designer, Enabled When e FormScript (Purchase Orders)
+Participantes: Alberto Gómez Martínez, João Quelhas, Daniel Santos
+========================================================================
+
+ACESSO AO DESIGNER
+- Para abrir o designer de um form: clicar no ícone do lápis enquanto o form está aberto.
+- Se o form estiver bloqueado por outro utilizador, não é possível editar.
+- Usar "Form > Open Designer" (ou lápis) redireciona diretamente para o designer desse form.
+
+BOAS PRÁTICAS NO DESIGNER (CLOUD)
+- Guardar com frequência durante o desenvolvimento.
+- Fechar e reabrir o designer de vez em quando — sincronizações na cloud podem falhar.
+- As alterações em FormScripts são as mais suscetíveis de desaparecer (bug conhecido).
+- Sempre que terminar uma alteração relevante, guardar uma cópia local do FormScript.
+
+BEFORE DE EDITAR: EXPORTAR COM FORMSYNC
+- Antes de mexer num form, exportar a versão original via FormSync (funciona como backup).
+- Depois das alterações, se precisar de reverter, fazer import do XML exportado.
+
+ENABLED WHEN (ATIVAR/DESATIVAR CAMPOS POR CONDIÇÃO)
+- Cada campo do designer tem a propriedade "Behavior > Enabled When".
+- Nos 3 pontos (...) define-se a condição para o campo estar ativo.
+- Usar a PROPRIEDADE do objeto (ex: "stat" de Purchase Orders) em vez do nome do componente.
+  - Razão: o nome do componente pode variar consoante o idioma do utilizador (EN/ES/PT).
+- Exemplo aplicado (Purchase Orders — campo Vendor):
+  - O campo "vendor" só deve ser editável quando o pedido está em estado "Planned".
+  - Condição: propriedade "stat" == "P" (Planned).
+  - Os 4 estados possíveis: P (Planned), O (Ordered), C (Complete), H (History).
+  - Só em "P" é possível editar — em O, C e H o pedido já está avançado.
+
+IMPEDIR APAGAR (PREVENT DELETE COM CROSS-REFERENCE)
+- O sistema já mostra uma mensagem quando se tenta apagar um registo com cross-reference preenchida.
+- A mensagem aparece no evento associado ao botão de delete (não no "Standard Form Save").
+- O evento relevante encontra-se em torno de "UnlinkXref" (Form Script Method).
+- Para efetivamente bloquear (e não só avisar), adicionar na sequência do evento uma chamada a
+  uma função FormScript que devolva -1:
+    Function StopXRefMessage() As Integer
+        Return -1
+    End Function
+- Devolver -1 num FormScript Function interrompe a execução e impede a ação.
+
+DIFERENÇA: STANDARD FORM SAVE vs STANDARD OBJECT SAVE
+- Standard Form Save: dispara quando o utilizador clica no botão "guardar".
+- Standard Object Save: dispara quando a coleção de dados vai ser de facto persistida.
+- São dois momentos distintos — cuidado para usar o evento correto na validação.
+
+FLUXO DE TRABALHO ACORDADO
+- Alberto faz as alterações, confirma que funcionam, e envia email ao Luís (cliente) a pedir que teste.
+- A equipa não valida do lado do cliente — apenas confirma que as alterações estão implementadas.
