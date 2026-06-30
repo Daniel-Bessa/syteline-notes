@@ -1,0 +1,262 @@
+TRANSCRIÇÃO DA REUNIÃO — ORGANIZADA E TRADUZIDA (ES/EN → PT)
+Participantes: Alberto Gómez Martínez, João Quelhas, Daniel Santos
+Nota: falas em espanhol traduzidas para português; falas em inglês mantidas como no original.
+Saltos detetados: 11:02 → 12:50 e 17:47 → 18:45 (pequenos); o salto 26:49 → 34:12 foi entretanto preenchido com o excerto fornecido.
+
+================================================================
+
+[0:03] Alberto — Não, sim, tens de partilhar outra vez. Sim. Era o que eu dizia.
+[0:10] João — First.
+[0:18] Daniel — E tenho de.
+[0:19] Alberto — E agora peço-te o controlo.
+[0:37] Daniel — Go.
+[0:43] Alberto — Vamos ver. Nada. [0:55] Já vos tenho. [0:59] Como é que eu tenho isto? [1:01] Ok. [1:21] Yes.
+[1:22] Daniel — Mhm.
+[1:23] Alberto — Ou seja, é o que eu disse, agora vais ver isso quando voltarmos a entrar. Viste como eu saio?
+[1:34] João — Já está.
+[1:36] Alberto — Ok, se puseres em standard. Na visualização standard tens esta parte aqui em cima.
+[1:39] João — Yeah.
+[1:44] Alberto — Que a mim me convém muito bem, sabes? Eu prefiro isto e ponho. Isto é um pouco o que vocês se forem habituando, ok?
+[1:46] Daniel — Mm.
+[1:51] João — Sim, ainda está. Straight.
+[1:54] Alberto — Ok, bom, ok, se quiseres, continua, vai a Purchase Orders. Olha, vou tirar a... [2:04] Vou ficar com o controlo. [2:07] E vou-te dizendo.
+[2:15] Daniel — Uh, it's all not copy.
+[2:19] Alberto — Não procures "orders" tal e qual. [2:22] No name. [2:24] Na coluna do name, procura-o, aí o tens.
+[2:28] Daniel — Isto.
+[2:37] Alberto — Bem, agora vai ao designer. [2:43] No lápis, no lápis.
+[2:43] Daniel — Não.
+[2:46] Alberto — Não, and I.
+[2:47] Daniel — Isto.
+[2:49] Alberto — "Open designer" — quando estás a abrir um form e clicas no lápis, abre diretamente o designer desse form, ok? [2:59] Aqui possivelmente vai dizer que isto está bloqueado por alguém. [3:05] Se tivesse... pois não. [3:07] Olha que bem. [3:09] Ah, não.
+[3:14] João — Não é este.
+[3:14] Daniel — Mhm.
+[3:15] Alberto — Não é que não, vamos ver.
+[3:19] Daniel — Message.
+[3:21] Alberto — Name. [3:23] Não, porque não podes editá-lo. [3:31] Daniel, vamos ver, olha. [3:36] Agora tens de sair, ok, e eu vou-te adicionar também.
+[3:42] Daniel — Sanout (sign out).
+[3:44] Alberto — Sim. [3:46] Não sei se vai bastar só com esse sign out, vamos ver agora. Ui, que parvo. Espera, não entres ainda.
+[3:52] Daniel — Spain. Okay.
+[3:54] Alberto — Não entres ainda porque... [3:58] Pus-te pior, acho que não tinha... [4:04] Não. [4:06] Está Daniel Santos. [4:10] Ok, estavas? [4:13] Era super utilizador, mas não tinha... já podes entrar, ok, mas não tinhas permissões para editar nos forms. [4:24] Ok, já podes entrar, já podes entrar. [4:35] Ouves-me?
+[4:36] Daniel — Sim, a minha internet sim.
+[4:37] João — Sim.
+[4:39] Alberto — Sim, a internet vai regular, sim. [4:43] Se quiserem, tiramos as câmaras.
+[4:47] Daniel — A text.
+[4:49] Alberto — Se desligarem a câmara, vai funcionar um pouco melhor, vai aliviar o vídeo.
+[4:59] Daniel — Vou ligar o cabo. [5:02] O...
+[5:03] João — Yeah. [5:05] Olha.
+[5:06] Daniel — Is that kind of?
+[5:09] João — Test board Wi-Fi. [5:12] Se estivesse instantâneo, há uma falha.
+[5:18] Alberto — E eu trabalho com cabo.
+[5:21] João — Pois. [5:23] É mais seguro, mais fiável.
+[5:26] Alberto — Não, é que se tento por internet, corre-me muito mal. Não sei se é a minha placa de rede, o portátil já está a pedir... [5:38] Clemências.
+[5:42] Daniel — Não.
+[5:42] Alberto — Mas bem.
+[5:43] Daniel — Okay. [5:45] Não te ligaste por cabo, não.
+[5:49] Alberto — Já estás ligado ao cabo, perfeito.
+[5:50] Daniel — Okay. [5:52] Sim. [5:54] Yeah.
+[5:54] João — É mais rápido.
+[5:55] Alberto — Sim.
+[5:56] Daniel — Pode entrar.
+[5:57] Alberto — Yeah.
+[5:59] João — This is.
+[5:59] Alberto — Sim, entra, entra.
+[6:23] Daniel — Não.
+[6:28] Alberto — Olha, aí na barra "cancela", vais ver.
+[6:32] Daniel — Mhm.
+[6:32] Alberto — Tenta cancelar, cancelar, fecha. [6:36] Se clicares na pastinha. [6:38] Em baixo, no ícone da pasta, sim.
+[6:40] Daniel — Pronto.
+[6:44] Alberto — Ui, que parvo, nada, cancela, cliquem, não. [6:48] Vai a "form". [6:51] Em cima na folha, e aqui aparecem os últimos que abriste, neste caso queres o purchase order.
+[6:51] Daniel — Okay. [6:56] Okay, good.
+[6:56] João — O... [6:59] I see.
+[7:06] Daniel — A oil design.
+[7:09] Alberto — E vais ao designer, sabes? Já no designer vais ver que tens no painel esquerdo o que antes não te aparecia. [7:18] Era isso que reparei, mas tens o painel esquerdo com as ferramentas, não o...
+[7:20] Daniel — sim, usar.
+[7:28] Alberto — User, no, send default, e OK, e agora vai dizer-te que isto está bloqueado por alguém. [7:35] Vês, soa-me esse nome?
+[7:55] Alberto — Ou seja, para o que nós... para o que vamos fazer agora, ou o que vão ver agora, é perfeito, porque não precisam de guardar as alterações porque vão fazê-las depois, mas que saibam que, se está bloqueado por alguém, não conseguem editar.
+[7:56] João — So.
+[8:13] Daniel — Look up.
+[8:13] Alberto — Agora, bom, um conselho que vos vou dar antes de começarem a desenvolver e tudo isto. [8:22] Para além do que já vos disse, de fazerem uma exportação do original e terem guardado, e depois de terminarem apagam-no ou arquivam-no ou o que quiserem, ok, mas outro dos conselhos que vos vou dar, sobretudo quando estiverem a fazer o design de ecrãs, ok. [8:42] Ao modificar um campo de um sítio para outro, tamanhos e coisas dessas. [8:49] Que guardem com frequência e que de vez em quando fechem o designer e voltem a abri-lo. [8:56] Tenham em conta que estamos a trabalhar numa versão que está na cloud, ok, e estando na cloud há vezes que as sincronizações falham. [9:07] E podem encontrar-se — e eu encontrei-me, não uma, mas várias vezes — com algo que aparentemente está a funcionar... [9:18] ok... [9:20] chegas na manhã seguinte e não está lá.
+[9:22] Daniel — Oof.
+[9:24] Alberto — Ok.
+[9:25] Daniel — Sim.
+[9:26] Alberto — Há alguma coisa que tenha estado a funcionar — sobretudo isto costuma acontecer nos formscripts. [9:33] Quando fazes uma modificação num formscript que funcionou e ficaste todo contente, e não guardas a cópia do formscript tal qual, chegas no dia seguinte e não está lá — não é habitual, também vos digo que isto não é algo que aconteça sempre, mas acontece, ok, e chateia muito. E a mim, das duas vezes que me aconteceu, por sorte, por obra e graça do Espírito Santo...
+[9:47] Daniel — Mhm.
+[9:56] Alberto — ...as duas vezes lembrava-me da alteração que tinha feito.
+[10:02] João — Okay.
+[10:03] Alberto — E refi-la e pronto. Mas se nesse dia tivesses feito oito ou dez alterações e não te lembrasses de todas, é uma chatice.
+[10:13] Daniel — Two.
+[10:15] João — Hello! [10:17] Mas então, Alberto, a primeira coisa que temos de fazer é uma cópia do formulário que vamos editar.
+[10:24] Alberto — Vão mexer?
+[10:27] João — Okay.
+[10:27] Alberto — Exatamente, ok, depois entraremos nisso porque o ideal — ok, o ideal seria, o que agora antes de vos libertar o form já vou fazer eu, ok — mas o ideal seria primeiro verificar se em produção e em training... [10:48] os dois forms estão ao mesmo nível? [10:51] Ok, sobretudo quando um form está bloqueado. [10:56] O ideal é verificar se os dois estão ao mesmo nível, ou seja, se têm as mesmas modificações, porque pode acontecer que, sobretudo neste cliente que desenvolvemos nós, mas eles também têm developers...
+[11:02] Daniel — Mhm.
+
+(salto: 11:02 → 12:50)
+
+[12:50] Alberto — Bom. [12:52] É maravilhoso que tenham acabado as aulas, não sei se têm filhos, mas é super divertido.
+[12:56] Daniel — Não ****.
+[12:58] Alberto — O caso que vos estava a dizer, neste caso em concreto, ok, há uma opção que está ligada a todos os campos. [13:14] Ok, que têm aí, que é em "Behavior" no painel da direita, e em Behavior tens uma opção que diz "Enabled When". [13:27] Ok, e aí se clicares nos 3 pontinhos, podes dizer, "ei, ativa isto quando..."
+[13:29] Daniel — Uh.
+[13:38] Alberto — Agora mesmo estás em "ei, que isto esteja ativado quando o valor do componente de que estamos a ver, ou de que depende, seja diferente de..." é um ordenado, provavelmente seja um "O" ou um...
+[13:57] Daniel — Sim, é verdade, não.
+[13:58] Alberto — So. [13:59] Sim, imagino que será essa ordem, sim.
+[14:00] Daniel — Mas.
+[14:04] Alberto — Será "ordenado" diferente de O.
+[14:05] Daniel — Uh.
+[14:07] Alberto — Têm de ver como se chama o componente.
+[14:08] Daniel — Mas é nisto?
+[14:15] Alberto — Claro, tu desativas esse componente, o de "vendor", quando o componente ou a propriedade dentro do componente do "status"... [14:32] Vês, aqui tens o tipo de propriedade, pode ser o componente ou a propriedade diretamente.
+[14:35] Daniel — Componente.
+[14:43] Alberto — Aí tens de procurar o nome do estado, porque não sei se vai ser o "strategic" ou... mas bem. [14:52] Ok, este é o...
+[15:00] Daniel — Tenho de saber o nome.
+[15:03] Alberto — Claro, tens de saber o nome do componente com o qual vais... o nome tens em baixo.
+[15:06] Daniel — Creio que isto. [15:11] Okay.
+[15:11] Alberto — Aí.
+[15:14] João — Okay.
+[15:14] Alberto — But edit.
+[15:15] Daniel — I'm living a key. [15:25] Then that. [15:31] Não.
+[15:43] Alberto — E o operador seja.
+[15:43] Daniel — Pois aqui é em frente.
+[15:48] Alberto — Yes.
+[15:50] Daniel — E mas é ordenado.
+[15:53] Alberto — Imagino que será — imagino que será um "O", não?
+[15:58] Daniel — Oh, and it's.
+[15:59] Alberto — Não, e outro com isso, fazer assim, literal, ou seja, entrar no campo e pôr literal e que seja o que for. Ok, outro conselho que vos dou é em relação a todos estes cliques, porque, claro, tu agora mesmo, a que puseres, não tem de ser o literal.
+[16:21] Daniel — sim.
+[16:22] Alberto — Tem de ser literal e pões um "O", não pões "O"...
+[16:26] Daniel — Uh-oh.
+[16:29] Alberto — Porque em inglês vai ser uma coisa e em espanhol vai ser outra, ok, e se virmos que assim não funciona, vão ter de refazer isto. Ok, se virem que o componente não funciona, tenham em conta que o valor do componente pode ser que apanhe "ordenado"...
+[16:32] Daniel — sim.
+[16:49] Alberto — Sim, constante — se alguém tiver o ecrã em inglês, vai ser "order", "order O"...
+[16:50] Daniel — Mhm.
+[16:57] Alberto — Sabes, ou "plans" ou o que seja, e?
+[16:58] Daniel — Mhm.
+[16:59] João — Ok, então neste caso é a primeira letra que propomos.
+[17:05] Alberto — Não, o ideal é que em vez do componente, peguem na propriedade, ok, olha, vamos a "cancel". [17:22] Para cancelar aqui.
+[17:25] João — I'm still on you.
+[17:27] Alberto — Sim, cancela, cancela o... [17:33] Não sei se Daniel...
+[17:34] Daniel — Bye.
+[17:34] João — Ficaste parado mais.
+[17:36] Daniel — Play dumpsha internet.
+[17:37] João — Okay.
+[17:39] Alberto — Bom, o caso é que se te vemos, ou seja, se vemos o teu ecrã...
+[17:40] Daniel — Oh.
+[17:47] Alberto — Olha, clica em cancelar.
+
+(salto: 17:47 → 18:45)
+
+[18:45] Daniel — I'm coming.
+[18:56] Alberto — Chillies for his.
+[19:02] Daniel — sim, mas não. [19:08] Com o meu. [19:12] Look.
+[19:12] Alberto — Olha o que eu vos dizia, de qualquer forma, Daniel, como está a gravar, depois se não conseguires voltar a entrar, vês o vídeo, senão não vamos avançar muito mais. [19:26] Isto aqui, como está em espanhol, traduz-te à maneira dele, ou seja, as traduções deixam um pouco a desejar, mas bem. [19:34] Isto é "enabled when", ok, e o que terias de fazer é este campo, que é o estado. [19:43] Procurar que propriedade é.
+[19:43] João — Ok. [19:45] Olá. [20:07] Alex.
+[20:07] Alberto — Com lições, nesse caso é a propriedade do objeto, o "status" — pois aqui no fornecedor eu faria... [20:20] aqui ativado, olha, vês, é isto que vos digo, que o SyteLine faz coisas, quando começa a fazer coisas estranhas.
+[20:24] João — Sim, sim.
+[20:30] Alberto — Eu normalmente fecho e volto a abrir — a mim, por exemplo, aqui agora não me aparecem os 3 pontos. [20:37] Estou num componente onde estes 3 pontinhos deveriam estar, mas não aparecem.
+[20:38] João — Mhm.
+[20:44] Alberto — Bom, sou eu. [20:47] Sem me zangar nem nada, volto a entrar. [20:51] "Purchase orders". [20:55] Olha, o tempo sem ordens. [20:59] Voltamos a entrar. [21:02] So. [21:05] E aqui agora, pois bem, vimos aqui, temos o comportamento "enabled when" e em vez de pôr o componente... [21:20] Põem a propriedade, o valor da propriedade. Aqui selecionam a propriedade. Isto é o objeto que é "purchase orders", o "order" aparece-vos em inglês. [21:34] Yeah, gay (ok). [21:37] O "stat". [21:41] Ok. [21:45] E depois isto, em vez de "igual a", que seja "diferente" e que seja diferente do literal "O", e o mesmo neste caso para ver o que significa o literal "O". [21:58] Pois podem ir dentro de "inheritance" ou "inherit" aqui. [22:08] Provavelmente. [22:10] Temos um "inline entries". [22:15] Onde diz que quando aí está um "O" aparece este literal, que este literal é uma cadeia que recupera o valor. Isto faz-se sozinho, mas bem, basta saberem que com diferente de "O"... [22:34] Não. [22:36] Tem de estar ativado quando seja.
+[22:37] Daniel — Sim.
+[22:41] Alberto — Mhm.
+[22:42] João — Sim, é isso de "ordenado" quando está ordenado.
+[22:44] Alberto — É quando é.
+[22:50] João — Tem de.
+[22:50] Alberto — Quando está ordenado, fica cinzento.
+[22:53] Daniel — So.
+[22:53] João — sim, por isso é a letra "O".
+[22:54] Alberto — Bali (ok).
+[23:00] João — Ok, tens em espanhol, mas é igual, é igual.
+[23:02] Alberto — Não percebo isto, isto não, isto mudem-no, ok, mudem-no porque o Luís está a levar-nos para o engano. [23:16] Ponham igual a "P". [23:20] Ativado quando seja igual a "P". Porquê? Porque "ordenado" — ou seja, estas são as 4 fases que há: planned, ordered, complete e history. [23:32] Nem em "complete", ou seja, nem em "ordenado", nem em "completo", nem em "histórico" se pode editar esse valor. [23:41] Ou seja...
+[23:51] João — Ok.
+[23:52] Alberto — Ok.
+[23:53] Daniel — So, instead, so.
+[23:53] Alberto — Yeah.
+[23:53] João — Sim.
+[23:57] Daniel — Oh.
+[23:57] Alberto — Só tem esses quatro estados.
+[23:58] Daniel — Sim. [23:59] sim, sim.
+[24:03] Alberto — Ok. [24:06] Isto depois é o mesmo no email que enviarmos ao Luís a dizer, "ei, mudámos isto, ou seja, já o tens." Pusemos que a condição seja igual a "P", porque senão pode mudar em "ordenado" ou em "completo", quando já está o pedido todo, e em "histórico" nem te conto, claro. [24:26] Ok, isso por um lado, e a outra coisa era... [24:33] que deve deixar de permitir apagar, ou não deixar de permitir apagar.
+[24:37] João — Sim, não, que não deve permitir.
+[24:41] Alberto — Isso é o "job fitness". Bem, isto é o ponto.
+[24:44] João — Sim, sim.
+[24:49] Alberto — 88.
+[24:50] João — Mas aqui, Alberto, como... ou seja, fizemos as alterações, mas como sabemos que está aí a funcionar — é o cliente que testa, o Luís, ou nós, ou ok.
+[25:05] Alberto — Não é o Luís.
+[25:08] João — Nós só fazemos, só fazemos as alterações, é isso.
+[25:09] Alberto — Ok. [25:13] Claro, nós fazemos as alterações e dizemos ao Luís para nos pôr em cópia, ok, mas nós fazemos a alteração e, assim que tu vires que funciona...
+[25:22] João — Ok.
+[25:26] Alberto — Ok, então mandas um email ao Luís e dizes, "Luís, podes testar isto?"
+[25:34] João — Ok.
+[25:34] Alberto — Pronto, ok, era isto que vos dizia sobre o programa "Job Orders".
+[25:36] João — Ok.
+[25:45] Alberto — Ok, pois vamos, espera, vou fazer uma coisa porque mudei isto esta manhã e não me apercebo, por estar em espanhol, como as traduções são tão más. [26:00] Não percebo. [26:05] Não percebo. [26:08] Vou pôr em inglês, Estados Unidos. [26:13] A sessão e vamos ver. [26:20] E vamos aqui, dizemos, esse é o "job orders", certo? Job orders. [26:29] Isto, à medida que forem trabalhando, já vos vão aparecendo os nomes dos forms mais do que como se chama o ecrã. [26:40] Ok, mas bem, "job orders" e dissemos que isto é onde estou, onde estou, onde estou aqui. O problema "permite apagar" — eu mesmo, suponhamos que tenho uma ordem de compra ligada. Sim, dá-dá-dá, dá o alerta, mas deixa...
+[26:59] João — Aqui de manhã, eu e o Daniel estivemos a falar e ok.
+[27:04] Alberto — Hmm. [27:06] One.
+[27:09] João — Chegámos à conclusão de que tem de ser algum tipo de condição.
+[27:10] Alberto — Partilha, se quiseres, o ecrã.
+[27:16] João — As mensagens que aparecem, que não, onde deveria isso estar?
+[27:25] Alberto — Ok, olha, há aqui — dá-nos uma pista, não? E diz-nos o OK, ou seja, há uma janela, dá um alerta, ok, isto dá um aviso de "ei, vais apagar uma job que não sei quê, que não, que não deve poder ser apagada", ok.
+[27:25] João — Mas é a nossa opinião. [27:41] Sim. [27:44] Ok.
+[27:44] Alberto — Quando dá isto? Isto, percebo que neste botão não há um — ou seja, neste ou nesse form não há nenhum botão de "process" nem nada, com isso percebo que isto tem de ser no momento em que nós guardamos.
+[27:59] Daniel — Mhm.
+[28:00] Alberto — O registo, ok, o momento em que o utilizador clica no botão "guardar" é quando salta a mensagem. Ok, a mensagem temos aqui: "pelo menos 1 material de trabalho tem uma referência cruzada que não está vazia." Toma lá.
+[28:00] João — Sim. [28:02] Sim.
+[28:19] Alberto — Mas que mensagem, meu.
+[28:22] Alberto — Cuidado, que mensagem — "referências cruzadas" é que tem algo preenchido aqui, ok? [28:31] E diz-te que... [28:34] que como tem algo aqui não deveria apagá-lo, mas bem. [28:39] Ok. [28:40] Então vamos ao que vos dizia, aqui estão os eventos. [28:47] E vamos ver o "standard form save". [28:55] Ok.
+[28:58] João — Ok, é quando vamos guardar.
+[29:01] Alberto — Standard form save. [29:05] Standard object save, right? [29:09] Hope they do that change your right up. [29:15] Vamos ver a diferença entre o standard form e o standard object, ok, isto acontece quando clicas no botão, ok, e isto acontece quando a coleção vai ser guardada. [29:30] São 2 momentos distintos. [29:34] Uh, from copy any job delete. [29:39] BDC delete bar, check your Biden compliance, check the odc — poucas pistas nos estão a dar aqui. [29:52] Porque há uma mensagem, ok, vamos ver. [29:58] Vamos ver as mensagens, pode ser. [30:07] Ask. [30:09] É uma pergunta, mas bem. [30:13] Alaska, mas assim seria "Messbox", isto não vai ser, mas assim também não. [30:22] Não. [30:33] Ok, não, isto também não vai ser aqui. [30:38] All right. [30:40] É isto que temos de fazer. [30:44] É encontrar. [30:49] O momento em que salta a mensagem. [31:02] Is the number, seguro do tempo. [31:10] Reciben to the money. [31:15] Ok, only. [31:19] Isso é de nada. [31:30] I'm deleted now. [31:34] Can't delete the start of complete? Muito bem, pois. [31:44] Scarian. Que havia, que havia, que havia. [31:58] Vamos ver onde estamos aqui. [32:16] Set this is singing. [32:37] Off. [32:41] Pois este não é tão imediato. [32:44] Este não é tão imediato, este, vamos ver o que vos dei. [32:55] One. [32:58] Isso é quando se faz o delete. [33:07] Delete. [33:15] Claro, esta mensagem, percebo. [33:20] Esta mensagem hoje. [33:24] Que aparece quando clicas no botão de delete. [33:30] Preferências ainda sincera-esta, ou seja, fica com o eu. [33:45] Western me on that. [34:08] But number is times.
+[34:12] Alberto — Isto que tem. [34:16] Your thing. [34:39] That's fine. [34:45] Tem de ser que não é que assine um "firme" (confirmação). [34:50] No one. [34:52] Vamos voltar a "forms". [34:55] E que tenha aí algo a dizer, não preferências, vamos ver se vou apagar isto. [35:10] Não é a mensagem. [35:18] Estamos na mensagem. [35:28] É pelo menos um... [35:44] Este é. [35:47] Este é, este é a mensagem. [35:52] "One job material has a cross reference that will be linked." [36:02] Ok. [36:09] Que chato. [36:11] Isto tem de estar marcado/ativado. [36:15] Isto tem de estar marcado, então vamos ver se, por dupla graça, vamos ver isto, isto que é um "linked reference", um "linked demand"... [36:31] Pois, um destes dois vai ser. [36:34] Mas são 2 scripts para o... [36:58] Bowers. [37:03] E isto, o que acontece? [37:10] Olha, o que estou a fazer é. [37:14] Mas eu sobre... [37:19] Your type or no friend online your release. [37:24] Mas nenhum destes acontece. [37:29] Como um "link" que este... vamos ver. [37:35] That current there has [x]ref reference on. [37:40] Devem-me um livro do FMC, este é, ok? [37:47] De um script, que chato. [37:53] E isto quer dizer que se... [38:04] Isto quer dizer que se salta esta mensagem? [38:10] Mhm. [38:15] E isto porque tem 2 V's? [38:26] All that. [38:31] Vamos ver, o que vos conto é o que estou a ver, ok? [38:37] Uh. [38:40] O evento que lança a mensagem que vimos. [38:45] Ok. [38:47] Tem de ser o "standard form". [38:51] É o "standard object". [38:54] Ok, ou seja, quando eu clico neste botão... [38:58] Lembra-se, isto é uma mensagem standard e diz-te, "ei, a primeira mensagem que aparece diz-te que isto vai ser..." [39:09] "Que tem um material de... não sei quê, que vai ser o link, e depois saltam mais coisas, ok?" [39:20] O que acontece é que aqui, quando clicas nesse botão, ok? [39:26] Vem aqui um "link" — é um "Form Script Method" chamado "UnlinkXref" — "Edit Form Script", e se aqui pegarmos e dissermos o "Unlink"... [39:40] Only. [39:44] "UnlinkXref". [39:48] Diz-te, "ei, sim." [39:52] "Do #XRef is equal to one." [39:56] "And not" — ou seja, que não é um "1" novo. [40:04] Um. [40:07] "Not this form primary in the collection, the [school] are not getting it." [40:15] Quer dizer, se não está já apagado, se não está já marcado para apagar. [40:22] Então gera-se este evento? [40:27] Ok, entendemos que passa por aqui. [40:32] Por aqui passa, então vimos aqui. [40:37] E vamos a este evento, gera-se este evento. [40:41] E neste evento? [40:44] Executas este script? [40:47] "Unlink Header XF Message." [40:55] Claro, isto tem de ser aqui, sim ou sim. [40:58] Agora, o que vou fazer? [41:07] O que era preciso fazer era ter a mensagem, ou seja, para que não se guarde, não? [41:14] Ou seja, percebo que aqui só vai chegar — ok, o que têm de fazer é isto, não vou ser eu a fazê-lo, fazem vocês para praticarem. [41:27] Neste, neste form, ok, no "Job Orders". [41:32] Quando chegarem a este evento, num "Unlink MSG", ok, isto vai disparar este script, que este script acho que a única coisa que faz é mostrar a mensagem que vimos, ok. [41:48] E o que vamos fazer é adicionar aqui mais um passo. [41:52] Que chame um FormScript. [41:55] Ok. [41:56] Chamem-lhe "UGX3Stop", por exemplo. [42:03] Por exemplo. [42:06] E o que esse evento vai fazer, ou seja, esse formscript, é... [42:12] Vai ser uma função. [42:16] Que vai ser um inteiro e o que vai fazer é devolver "1 menos 1" para parar. [42:22] Ok.
+[42:25] Alberto — Simplesmente chamam essa função e essa função o que vai fazer é parar. [42:34] Ok. [42:37] E depois, se fizerem isso e virem que pára sempre, dizem-me e falamos. [42:46] Ok.
+[42:46] João — Hello, Alberto. [42:49] Onde? Onde fazemos o script? Abrimos esse...
+[42:54] Alberto — No formscript. [42:59] Aqui no FormScript, aqui em baixo de tudo. [43:04] Ok, antes de sair da classe.
+[43:05] João — Sim.
+[43:07] Alberto — Aqui fazem "function". [43:11] Way, stop. [43:15] Por exemplo, "stopXTraveMessage".
+[43:20] João — Oh.
+[43:22] Alberto — A. N. Sung John. [43:25] E isto o que vai fazer, isto vai dizer "as integer". [43:30] E aqui um "return". [43:33] Menos um. [43:36] A nós, e isto vai parar sempre a execução, vem aqui e espera um inteiro, e como o "−1" não é um inteiro, rebenta e para.
+[43:49] João — Ok.
+[43:50] Alberto — Ok, e a esta, a esta função que aqui puserem, é a que têm de chamar a partir daqui.
+[43:58] João — Mas aí nesse, tiramo-lo. O... [44:04] Ok.
+[44:04] Alberto — Vai ser o que faz, o que faz a mensagem, ok, este vai ser o...
+[44:09] João — Sim, temos de pôr outro.
+[44:14] Alberto — Não, o que é preciso fazer é que pare.
+[44:15] João — Qual é esse?
+[44:20] Alberto — O que é preciso fazer é que pare a execução.
+[44:26] João — Sim, mas aí temos esse que vai buscar o programa e o que vamos fazer é que ele vá parar — isso temos de adicionar ali.
+[44:26] Alberto — Sabes? [44:39] Não é preciso mostrar nenhuma mensagem, nada — não, simplesmente o que se quer é que, quando chega aqui, ok, já se cumpre a razão pela qual tem de parar e já está, mostra uma mensagem, e com isso paramos e pronto. [44:55] Ok, param o, a mensagem que aparece, ok?
+[45:01] Alberto — Are you?
+[45:08] Alberto — Ai, que parvo.
+[45:18] Alberto — Não disse nada.
+[45:21] Alberto — Não, isto não é preciso fazer assim, estou a enganar-vos.
+[45:25] Alberto — Pois, estou a enganar como um chinês.
+[45:29] Alberto — Ok, vamos fazer outra coisa.
+[45:47] Alberto — Ok.
+[45:50] Alberto — Apontem.
+[45:53] Alberto — Nesta, nesta função, ok, em vez de chamar... ou seja, neste, neste evento, na sequência 2, ou seja, na sequência um, em vez de chamar a função que para, o que vai fazer é chamar uma sub-rotina que vai preencher uma variável.
+[46:20] Alberto — Deixem-me pensar nisso, já vos digo.
+[46:22] Alberto — Porque não está, não está em direto como eu pensava que ia ser.
+[46:22] João — Ok.
+[46:28] Alberto — Não está em direto porque isto é preciso verificar.
+[46:35] Alberto — Isto é preciso verificar, é que não está bem o que nos aconteceu, Luís, ok.
+[46:40] Alberto — O que nos aconteceu, Luís.
+[46:41] João — Não.
+[46:42] Daniel — Okay.
+[46:44] Alberto — O que nos aconteceu, Luís, é simplesmente um...
+[46:49] Alberto — Uma mensagem que aparece no ecrã, que está muito bem, mas o OK não faz nada.
+[46:56] Alberto — Ok, o problema é quando o guardamos.
+[47:01] Alberto — Se guardarmos este evento, ou seja, se guardarmos esta alteração, é quando vamos guardar que temos de verificar se isto acontece.
+[47:12] Alberto — Ok, deixem-me ver uma coisa e já vos digo algo.
+[47:17] Alberto — Ok.
+[47:17] João — Ok, ok.
+[47:18] Daniel — Okay.
+[47:21] Alberto — Pronto, nada. [47:23] Por agora, se quiserem fazer, vou fazer... já têm a alteração, ou seja, a... [47:33] a cópia do purchase order. [47:38] Já a descarregaram?
+[47:38] Daniel — Não.
+[47:40] Alberto — Do Form Sync.
+[47:43] João — Não o fizemos.
+[47:44] Alberto — Então descarreguem-no, ok, e desbloqueiam o form. [47:50] E depois de desbloquearem o form, fazem a alteração que vimos antes. [47:57] Ok, e eu reviso isto que quero fazer e digo-vos como têm de o fazer.
+[48:03] João — Ok.
+[48:03] Alberto — Ok?
+[48:04] Daniel — Call it.
+[48:06] Alberto — Muito bem, senhores. [48:09] E acham bem assim.
+[48:11] João — Obrigado, tu também, ok, chau.
+[48:13] Daniel — Obrigado.
+[48:13] Alberto — Seguimos para o bingo, chau.
+[48:15] João — Vamos.

@@ -1,0 +1,29 @@
+Encontraste a reunião certa. Aqui está o passo a passo de como fazer a exportação/cópia de segurança de um form via FormSync:
+Como exportar (fazer backup) de um form — antes de o editar
+
+Ir ao form FormSync.
+Definir Origin (origem) e Destination (destino) com o mesmo ambiente/site (ex: TRN para training, PRD para produção) — origem e destino têm de ser iguais quando é só para backup.
+Em Utilities, desmarcar tudo e selecionar apenas Forms (já que é isso que vais alterar).
+No campo de seleção, escrever o nome do form que vais editar (ex: "Items").
+Clicar em Export.
+Dar um nome ao ficheiro — convenção sugerida pelo Alberto: nome-do-form + ambiente + data (ex: Items_TRN_DDMMAAAA).
+Isto gera um ficheiro XML com a versão atual do form — esse é o teu backup.
+
+Como restaurar (importar de volta) se algo correr mal ou quiseres reverter
+
+Voltar ao FormSync.
+Selecionar o mesmo ambiente em Import (em Utilities).
+Clicar em Upload e arrastar o ficheiro XML exportado anteriormente (ou abrir o XML num editor como Notepad++ e colar o conteúdo diretamente).
+Clicar em Load.
+Clicar em Import — isto repõe o form exatamente como estava na altura do export, descartando as alterações feitas entretanto.
+
+Nota importante — atualizar a vista depois de mudanças no Designer
+Depois de fazeres alterações no Designer e gravares, pode ser necessário ir a Unload All Global Forms Object (em Utilities) e selecionar o form em causa, para forçar a atualização do form no ambiente de trabalho.
+Alternativa: fazer uma cópia do form em vez de editar o original
+
+Abrir o form no Designer.
+Em vez de editar diretamente, criar uma cópia com novo nome, seguindo a convenção da equipa: UE_ + iniciais + nome do form (ex: UE_AGM_Items para Alberto Gómez Martínez, ou as tuas iniciais).
+No campo Caption, também atualizar o nome para refletir a cópia.
+Trabalhar e fazer testes/alterações livremente nessa cópia, sem qualquer risco para o form original.
+
+Isto cobre os dois métodos que o Alberto mostrou: exportar como backup XML (para reverter rapidamente) e duplicar o form com um novo nome (para testares à vontade sem tocar no original). Queres que organize isto também num documento Word ou continuo só em texto aqui no chat?

@@ -1,0 +1,46 @@
+Aqui está a transcrição completa traduzida. E agora o passo a passo do que o Alberto está a explicar:
+Resumo — IDOs, Extensões/Replace e Multiview
+
+Uma IDO é uma vista composta por várias tabelas.
+A IDO standard nunca pode ser modificada diretamente.
+Para a alterar, há duas opções:
+
+Extensão simples: copiar a IDO existente e criar uma nova versão, modificável.
+Extend and Replace (marcar o check "Replace"): cria uma extensão que substitui automaticamente a IDO original em todos os forms onde essa IDO é usada — sem teres de ir alterar form a form.
+
+
+Exemplo prático dado: campo de descrição de Items demasiado curto → criaram uma propriedade ligada a uma tabela SQL (User Extension Table), ligaram-na à tabela Items, e fizeram um "Extend and Replace" na IDO — assim todos os forms que usam essa IDO passam a usar automaticamente a versão nova.
+Para criar uma extensão ao replace: ir a New IDO, indicar que é extensão da IDO original (ex: SL Jobs), e marcar Extend and Replace se quiseres substituição automática.
+Ao criar um form do zero, podes gerar em simultâneo: tabela SQL + IDO + Form (opção "Creating a Table, IDO and Optionally Form").
+Tipos de visualização de form:
+
+Grid Only → todo o ecrã é uma grid (lista).
+Multiview → grid + detalhe da linha selecionada.
+Detail Only → mostra só um registo de cada vez (típico para forms que chamam reports ou registam consumos).
+
+
+
+Resumo — Segurança em 3 níveis
+
+A segurança está organizada em 3 camadas:
+
+Nível Infor S (acesso geral à plataforma Infor, ex: IDM/repositório de documentos).
+Nível SyteLine (dentro da aplicação).
+Nível Utilizador (privilégios individuais: grupo, permissões de edição/visualização).
+
+
+Dentro do SyteLine, a hierarquia de permissões segue: Utilizador → Grupo → Site (default) — primeiro verifica-se o que o utilizador tem, depois o grupo, depois o nível geral.
+Regra geral: prevalece sempre a permissão mais restritiva.
+Para teres acesso ao SyteLine, primeiro precisas de permissão a nível Infor; só depois entram em jogo as permissões específicas de utilizador dentro do SyteLine.
+
+Resumo — Application Events (triggers)
+
+Os Application Events funcionam como triggers do SyteLine — disparam automaticamente quando algo acontece numa tabela/IDO.
+Exemplos de eventos mais usados:
+
+On Item Insert → disparado antes do registo ser gravado.
+Post Item Insert → disparado depois do insert estar concluído.
+On Item Update, On Item Delete → equivalentes para alterações e eliminações.
+
+
+Há também eventos não ligados a nenhuma tabela, que são chamados manualmente a partir de um formulário através de Generate Application Event (exemplo dado: um evento "PDF by Email" que espera que uma tarefa termine e depois envia o documento gerado por email com parâmetros definidos).

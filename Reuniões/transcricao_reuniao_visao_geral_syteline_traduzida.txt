@@ -1,0 +1,160 @@
+TRANSCRIÇÃO DA REUNIÃO — ORGANIZADA E TRADUZIDA (ES/EN → PT)
+Tema: Visão geral funcional do SyteLine (Purchase Orders), grids/widgets/inbox, FormScript e Form Script Methods, eventos standard (form copy/complete), Application Events, Background Tasks, atribuição de tarefas
+Participantes: Alberto Gómez Martínez, João Quelhas, Daniel Santos
+Nota: falas em espanhol traduzidas para português; falas em inglês mantidas como no original.
+
+================================================================
+
+[0:03] Alberto — Ok, vou partilhar o ecrã. [0:10] Ok. [0:12] E vou contar-vos um pouco uma visão de cima de como funciona o SyteLine. Ok, bem, a parte aqui, a parte de forms, vocês aqui abrem os forms, aqui têm para. [0:32] Para se orientarem pelo painel que vos pus, isto é parametrizável por vocês. Ok, eu estou habituado com form, com isso não uso isto, mas que saibam. Vamos ver, vamos ao form. [0:51] Items, vamos a Purchase Orders. [0:58] Just orders. [1:05] Muito bem, este não. [1:08] Purchase Orders, bem, tens o Purchase Orders web, o Purchase Orders normal, o Gen 2. Normalmente trabalhamos com o Purchase Orders. Este "Gen 2" é uma coisa que a Infor inventou. [1:29] Iam ser os novos forms que iam mudar a forma de trabalhar, mas viram que ninguém os usa, e claro, todos os desenvolvimentos que tínhamos feito, quando lançaram a geração 2, ficaram perdidos, e não só a nível estético. [1:49] De mudar um campo, pôr aqui, aumentar isto, mas as alterações a nível de negócio. Ou seja, nós aqui em Purchase Orders, por exemplo, invento, sempre que selecionam um fornecedor, quero que vá buscar este número de conta, isto e aquilo, e ponha aqui. Ou quero que as condições de pagamento sejam apanhadas de outra forma em vez do que faz o standard. [2:14] Queremos que apanhem estas condições de pagamento sempre que o cliente, ou o fornecedor, seja da Austrália — pois todas essas modificações de negócio que fizemos não foram levadas para o form novo, com isso o form novo não nos serve, porque teríamos de replicar. [2:32] Tudo outra vez. E claro, isso quem paga? Porque o cliente não vai pagar 2 vezes, e a Infor também não nos vai pagar isso, com isso, aos nossos clientes, dissemos para continuarem a usar o form antigo. Ninguém se queixou, e de facto acho que o form antigo é melhor que o.
+
+[2:33] Daniel — A long works.
+
+[2:53] Alberto — Que o novo, ok? [2:56] No final, um pouco de.
+
+[2:56] Daniel — Yeah.
+
+[3:01] Alberto — Purchase Order, por exemplo, ok, a nível funcional. [3:07] Bem, pois o normal da maioria dos forms dentro do Infor é este modelo, têm aqui. [3:16] Uma grid com os dados. [3:18] Com as diferentes linhas que cumprem a seleção feita; aqui têm os dados da linha em que estão, e estes botões redirecionam-vos para outras coisas relacionadas com o momento em que estamos. Saibam que isto entraremos a explicar mais à frente. Aqui têm uns widgets, ok? [3:38] Que isto é informação relacionada com o sítio onde estão, ou seja, com o registo onde estão. Ok, neste caso, a "P O PDF", estamos no ambiente de teste. O normal é que não tivesse nada. Estes que aparecem são. [3:58] Lixo que foram metendo. [4:01] Olha, este é um "apeo" (??), este sim é "Specification". [4:09] Onde está isto? [4:11] Olha, vês, isto é uma fatura, ou seja, isto é um — isto é um "print" do pedido quando está impresso. [4:24] Pois aparece este. Isto é carregado para o IDM, isto já vos explicarei como funciona, mas para terem em conta que aqui têm a informação relacionada. Depois têm aqui o Inbox, que isto também — isto é dentro dos workflows que se podem estabelecer tanto a partir do SyteLine. [4:45] Como a partir do Infor S, podem-se estabelecer workflows que vos mandam mensagens e têm tarefas — isto é uma notificação e diz-te, "ei, foi dado de alta este artigo", ou esta notificação é uma notificação minha de algum teste que fiz, mas é isto, por exemplo, isto é um fluxo de aprovação em que tens de aprovar, reatribuir, desatribuir. Bem.
+
+[5:11] Alberto — So, all are you.
+
+[5:13] Daniel — Oh.
+
+[5:13] Alberto — Estava, estava a fazer-lhe um resumo porque o Daniel dizia-me que entende as coisas separadamente, ok, mas quer entender um pouco o conjunto, ok.
+
+[5:27] João — Sim, antes vamos falar disso porque os exercícios é uma coisinha aqui, outra vez, mas queremos fazer, queremos saber como é para adicionar.
+
+[5:40] Alberto — Claro. [5:45] Sim, para verem tudo um pouco em conjunto, vou explicar um pouco. Já vos digo, comecei pela parte funcional e assim, chamado resumo bem rápido. O que expliquei ao Daniel é que a maioria dos ecrãs no SyteLine são deste formato. Têm uma grid, têm dados, e têm botões que se relacionam com outros ecrãs.
+
+[5:46] João — Um. [5:50] A.
+
+[6:06] (continuação) — Com outros forms. [6:08] E enviam informação ou fazem coisas, ok, assim que saibam que vamos ver agora, quando entrarmos na parte de design, ok, os forms cada. [6:23] Cada linha ou cada campo aqui pode executar coisas. Ou seja, quando selecionam aqui os 45 dias, isto por trás pode estar a fazer uma série de coisas. Ok, pode chamar um evento, pode fazer validações, pode executar uma forma. [6:44] Uma tarefa dentro do FormScript pode fazer qualquer coisa. Se repararem, mudámos um registo, aqui marca-se que o registo foi alterado. É aquele diamantinho. Isso é uma marca de que este registo foi modificado, e para ser gravado, há que o guardar. [7:03] Ok, todos estes botões podem ser ativados ou desativados consoante o que precisarmos para um determinado form. Ok, isto já vos digo, da parte funcional, não vamos entrar em gravar um pedido, dar como novo, nada, porque isso agora não nos interessa, mas. [7:23] Para saberem um pouco como funcionam os ecrãs agora. [7:28] Na parte de design, ok. [7:33] Na parte de design. [7:35] Têm aqui a barra de tarefas para adicionar botões e coisas ao form, têm aqui o design do form, e têm aqui. [7:48] Aqui à direita, desculpem, as propriedades do componente que selecionarem, ok, seja uma grid. [7:56] Seja um componente, tudo tem o detalhe aqui — no caso de uma grid, por exemplo, como esta. [8:06] Ok, para ver, claro, porque uma grid é um conjunto de dados mostrados numa, numa, numa grid propriamente dita. Para ver os detalhes ou o detalhe dessa grid têm de entrar neste botãozinho, e aqui têm isto mesmo que está aqui à direita. Vai aparecer-vos aqui. Ok, selecionam e têm o Design, Appearance, Behavior, Data, Source, Events, etc. [8:31] Ok, o que vos dizia antes — quando modificam, modificam um campo numa coleção, numa linha, ok, e isso pode desembocar na alteração de algo. Vêem, por exemplo, o "BendNam" nesta grid, e imagino que neste campo também. [8:50] Se mudarem o número de fornecedor, isto vai lançar este evento, este evento, "Data Change PO VenNam". Ok, vou copiá-lo e vamos pô-lo aqui. Se repararem aqui, provavelmente o evento "Data Change PO VenNam". [9:11] Ok, este evento está aqui em "Event Handlers". Temos este evento, este evento faz todas estas coisas. [9:22] Chama um Form Script Method chamado "Default Vend Code". [9:27] O FormScript, quando é um Form Script Method, é dentro do FormScript. O FormScript é o. [9:36] É o script ligado a este form. Ok, quando veem aqui, já vos digo, veem "Form Script, Form Script, Call, Generate, Vend, Method Call, Form Script". Isto vai em sequência, começa em cima e vai descendo. Dentro do FormScript pode ser uma sub-rotina ou pode ser uma função. [9:57] Se for uma função, normalmente há funções que param o processo. Em caso de erro, ok, é algo que nos pode interessar no momento em que dizemos, bem, vamos — eu quero validar, por exemplo, neste caso no "BenNam", quero validar que o "BenNam". [10:16] Não seja modificado — isto invento eu, ok — se o estatuto do pedido for "firme" (confirmado). [10:28] Pois nós podemos fazer uma função que verifique isso. A função tem de devolver um inteiro. Se devolver zero é que correu bem, e se devolver -1, rebenta e para, ok. [10:45] Mas bem, isto já vão ver à medida que começarem a desenvolver. Saibam que o FormScript, o que vos dizia, para navegar um pouco aqui têm o Find, ou têm este dropdown que são todas e cada uma das rotinas criadas neste FormScript. Olha. [11:05] Era o "Vendor Validation". [11:08] Não me lembro, copiei, não, "Default VenCur Code". Vêem? Esta é a sua rotina, é a primeira que se executa, e diz, ei, isto é um — bem, sabem Visual Basic?
+
+[11:21] João — Test me.
+
+[11:23] Alberto — Let's.
+
+[11:24] João — Mais ou menos, mas sim.
+
+[11:24] Alberto — Pois têm de se mexer com isto, porque a maioria dos scripts do SyteLine são em Visual Basic ou Visual Basic ou C#. Em FormScript eu ainda não encontrei nenhum em C#. Em teoria pode existir, ok, mas.
+
+[11:25] Daniel — Sim.
+
+[11:43] João — Yes.
+
+[11:44] Alberto — O normal são em Visual Basic, ok, bem, no final isto é um pouco interpretar o código, diz-te, ei, se isto for novo e o "Get Current Property Event Nam" for igual a vazio, então neste componente pões a data por defeito. [12:04] Ok, é o que vos digo, isto vai fazendo coisas aqui, saibam que um "Method Call", ok, dentro das coleções, ok, dentro das IDO Collection que víamos antes, ou que víamos o outro dia. Há alguma aqui? [12:24] Is the old collection. [12:29] So, you know, be wish. [12:33] Estão os métodos. [12:35] Ok, os métodos são. [12:39] Tarefas que se executam. [12:41] Que estão ligadas a uma coleção, ok, não necessariamente. [12:48] Executam algo nessa coleção, ok, mas simplesmente um método tem de estar ligado a uma coleção, com isso, bem, neste caso o normal — faz sentido que, se fazem um método, que nós podemos fazer, isto já verei mais à frente. [13:06] Se fizermos um método, liguemo-lo à coleção que vai ser atualizada. [13:13] Um pouco a lógica manda isso, ok, mas bem, saibam que a partir daqui se pode chamar um método, passar-lhe parâmetros. [13:24] Ok, passar parâmetros, etc., olha, vejam "Generate Event". Isto está dentro de — isto executa esta linha, esta linha, esta linha chega aqui, diz, ei, vai a este evento, pois. [13:42] Em vez disto vai saltando de evento para evento. [13:46] Pois. [13:50] "Post Bend Validation" e vem aqui, e depois de terminar com isto, pois volta a este. [14:03] Vêem, passámos daqui, pois vimos aqui a outro método, depois volta aqui até terminar. Ok, dentro dos eventos que existem, que são standard, ok, há 2 tipos que são standard. [14:23] Ajá. [14:27] Standard form, olha, "Copy", este não, vou mostrar o que quero. Temos standard, por exemplo, o "Form Copy" e o "Form Copy Complete". [14:39] Isto o que significa? [14:41] O "Standard Form Copy" é exatamente o evento lançado quando clicas, neste caso, no botão de copiar. Ok, quando clicas em copiar no botão de copiar dentro do ecrã de Purchase Order, este evento é o que se lança. [15:01] Ok, e o primeiro que faz é isto, ou seja, se o colocares mesmo antes. [15:08] Vai executar-se o que quiseres primeiro. [15:11] Ok, no caso de irmos meter um evento aí, e isto, o "Standard Form Copy Complete" é exatamente quando termina o evento. [15:20] Ok, lançaste o "Copy" no início, e o "Copy Complete" é exatamente quando termina. [15:29] Dentro dos eventos, pois é o que vos digo, já vão, já vão apanhar o jeito, ok, mas para saberem que dentro dos standard, o normal é terem o início e o "Completed" no final. [15:49] Ok, há alguns que não têm fim, o "Standard Form Predisplay". Acho que não tem. Vêem? O "Predisplay Complete" não existe, parece-me, mas bem, o que mais? "RunScript" são scripts globais. [16:08] Ok, aqui têm um monte de scripts globais. Nós também já desenvolvemos alguns. Ok, todos estes são nossos. [16:18] Estes são, pois imaginem, há um par deles que quero meter em script global para os termos para usarmos indiscriminadamente. [16:31] Mas bem, já os meterei. No final são tarefas repetitivas que vão usar em muitos sítios, e em vez de terem aquele bocado de código metido em todos os sítios, pois pões aqui. É como uma biblioteca que está ali e todos podem usar o que está nessa biblioteca. [16:53] Ok, podem-se pôr condições. Bem, "Collection Refresh" é dentro das coleções. Dentro de um form podes ter uma ou várias coleções que vão alimentando a informação que está lá em cima. [17:11] Ok, depois os eventos.
+
+[17:11] João — Isso também é um pouco, Alberto, desculpa, isso é um pouco também relacionado com o que temos de fazer para o cliente. Ok, teremos de fazer vários eventos conforme.
+
+[17:22] Alberto — Hmm.
+
+[17:31] João — O pedido do cliente, conforme temos de arranjar.
+
+[17:36] Alberto — Claro, agora olha, dou-vos um exemplo, dou-vos um exem-.
+
+[17:38] João — Ou os formulários são um pouco dessa forma, certo?
+
+[17:42] Alberto — Exatamente, depende do que o cliente nos pedir para fazer, pois teremos de mexer em uns eventos, teremos de mexer num campo, teremos de mexer numa coleção. Por exemplo, há um gap por aí que tenho para fazer, um gap ou uma tarefa, chama-lhe como quiseres. [18:02] Que diz algo como que temos de impedir que o cliente, ou que o utilizador, elimine um registo numa determinada situação, ok, mas impedir que eliminem registos. [18:21] Claro, se for "eliminar registos que nunca possam apagar", ok, se for que nunca possam apagar, aqui na coleção. [18:32] Ok, dentro da coleção, quando metem a coleção, temos as opções e as "Standard Operations". Aqui o "Delete" está desativado, ou seja, não podem apagar, chip, ok, se quisermos, diz, não, é que não é assim tanto, porque podem apagar se o registo não estiver de determinada forma, ok. [18:53] Se for esse o caso, então não seria desativá-lo aqui, mas sim. [19:00] No momento em que se lança o evento. [19:05] Do standard. [19:08] Porquê? [19:10] Tu tens, ou seja, já vos digo, haveria várias formas de o fazer. Ok, pode-se desativar o botão de apagar, ok, para não poderem clicar no botão de apagar. Pode-se validar no caso de terem apagado uma linha ou terem selecionado uma linha para apagar. [19:30] Validar se se pode deixar apagar ou não, ok, quando estás num registo no ecrã. [19:37] Aqui, ok, e clicas em eliminar. Olha, não sei, isto está desativado, não te deixa ver — quando clicas em eliminar, isto marca-se para eliminar, não desaparece, sabes, fica uma marquinha aqui com um X vermelho, e diz-te, este registo vai ser eliminado. Quando clicas em guardar, então pode validar-se se esse registo pode ser apagado ou não, e no caso de não poder, aparece uma mensagem. Este.
+
+[19:43] João — Realizado, sim. [19:50] sim.
+
+[20:02] Alberto — Isto não pode ser apagado, ou bem, é um pouco, já vos digo, depende do que nos pedirem para fazer, mas saibam que tanto um campo como um botão, ok. [20:18] Os botões, todos têm o "Primary". [20:23] É porque pode haver um botão aqui — a maioria dos botões o que fazem é chamar outros formulários, mas também pode haver botões disto, eliminar ou atualizar ou o que for, não? E vocês aqui no "Primary" põem o que querem fazer? [20:42] E este "Run Form As (like a) Child" — "Vendor Interactions". Olha, sim, bem, este não usamos muito, mas isto o que faz é chamar um form — dentro da chamada ao form. Ok, podem-se passar parâmetros, ok. [21:01] E pode-se, neste caso está ligado isto, já não vou despejar tudo de uma vez porque não se vão lembrar, já iremos vendo à medida que surgirem dúvidas, ok, mas saibam que se pode chamar um form de formas distintas. Podem chamar um form simplesmente, podem chamá-lo ligado à coleção em que estão. Podem chamá-lo passando-lhe parâmetros, ou. [21:25] Esperando a receção do que se seleciona no ecrã que chamam, e devolve-vos dados. [21:33] Ok, aqui dizem, ei, quero ligar pelo "BenNum" e por este campo do "Interaction Room", por todos estes são alguns. [21:45] Nada. [21:47] Todos estes, e isto, pois chama o form e liga-se por estes campos, e o form que se abre vai abrir com os dados que enviaram daqui. [21:56] Ok, e depois. [21:59] Isto é a parte destes eventos, depois há, há outro tipo de eventos que são os "Application Events" que aparecem aqui. [22:16] Agora isto não terá nenhum "Generate Application Event", ok, mas bem, os Application Events são estes eventos. Ui. [22:36] Ok, são estes eventos. Podem chamar um evento, ok, a partir de um form, ou este evento pode estar ligado a um determinado momento. Ok, o que vos dizia o outro dia? Podem dizer, ei. [22:54] Este, por exemplo, é este evento "IDO On Invoke". [23:00] Ok, este evento "On Invoke", não sei bem o que é, imagino que seja quando abres o form. [23:09] Imagino que sim, ou quando se lança um — imagino que seja quando se abre, quando se abre um evento, quando queres conectar com um objeto ou algo assim. Mas bem, é o que vos digo, isto vocês. [23:27] Chamam, ou seja, o evento lança-se — o que vos dizia o outro dia, o "OnItem Insert", "OnItem Update". Estes eventos lançam-se sempre. [23:38] No insert, só se executam consoante o que tiverem aqui, ok, podem ter na IDO "On IDO On". [23:52] And then Insert, ok. [23:58] Isto é quando inserem um registo, bem, enquanto está a inserir um registo, mas vou pôr o "Post", que há mais. [24:07] Video post. [24:14] "Post Item Insert". [24:21] Ok, todos estes eventos. [24:25] Lançam-se sempre que há um insert. Neste caso, este lança-se a partir do form Customer. Quando no form Customer guardam algo, lança-se este evento, e diz-te, ei, nas ações. [24:41] As ações dizem-te, "condição diferente de zero". [24:49] "Ship To is added". [24:53] Isto, se a condição se cumprir, termina; caso contrário, tem de mandar uma notificação para não sei onde e um email para não sei quem. [25:06] Ou seja, isto é: se gravar um cliente novo porque o "Curse Sequence" é igual a zero, ok, pois manda-lhe uma notificação. Isto são grupos, provavelmente, e o grupo tem de estar criado. E se não, o email não é mandado a ninguém, ok. [25:24] Mas bem. [25:26] Já vos digo aqui, veem as condições que se lançam e tudo isto. [25:33] As condições que — tudo isto. [25:36] So, no needing insert. [25:40] Há um monte de eventos dentro do conjunto de um item. [25:47] E pronto. e. [25:51] O que mais têm de saber? [25:54] Também há as Background Tasks.
+
+[25:54] Daniel — Um.
+
+[26:00] Alberto — Ok, as Background Tasks. [26:04] Ui. [26:07] Background Task, ok, em que, por exemplo, estas são de impressão, ok, "Executable Type is a Report". [26:18] Ok, muitas, muitas das que fizemos são para reports, ok, a maioria, de facto. [26:26] Mas também pode ser para executar um método. [26:32] Por exemplo, este método é um método que executamos à noite para guardar alterações nos logs ou algo assim — isto não foi o Paulo que fez, acho, ok, e tenho "Utilities" — este fi-lo eu. [26:49] Isto executa uma SP. [26:52] Que modifica, ou coisas de qualidade dos itens e tal, bem.
+
+[27:01] João — Mas no final, Alberto, no final, como temos a visão de que estamos a fazer, pois aqui estamos a trabalhar formulário, forma, forma mais forma, mas como temos uma visão de, digamos.
+
+[27:02] Alberto — Bank.
+
+[27:14] Alberto — E.
+
+[27:22] João — A visão que o cliente tem, conseguimos tê-la aqui ou não, não sei se estou a fazer. [27:34] Mas que estou a tentar gerir. é. [27:40] Aqui está em blocos preparados. [27:44] Os formulários, mas no final vai originar um produto. [27:52] Morto.
+
+[27:55] Alberto — Sim, claro, vamos ver, este ecrã, isto é o que o cliente vê. [28:02] O cliente entra aqui.
+
+[28:05] João — Então, ou.
+
+[28:06] Alberto — Ok, aqui não, aqui normalmente não entram.
+
+[28:10] João — Sim, isso está claro, sim, a visão do cliente é essa que nós também temos.
+
+[28:10] Alberto — Ok, no. [28:16] É esta. [28:20] claro. [28:22] Isto é o que o cliente vê quando entra em Purchase Order no SyteLine, exatamente o mesmo que veem vocês. Aliás, se quiserem, olhem, vamos.
+
+[28:27] João — Yes. [28:28] Então o cliente vai chamar os formulários ou "purchase order" como nós estamos a fazer agora para consultar, é assim?
+
+[28:42] Alberto — Exatamente igual a vocês. Há clientes que usam o explorador. Este, ok, o outro dia estive a falar com a Rosana, chama-se, que é uma, é de clientes, é do Citron. Ok, que já adiciona tudo a pastas. Todos os forms que ela usa mete aqui. A mim não me — eu não me arranjo com isto. [29:06] Sabem, mas o que o cliente vê é isto.
+
+[29:08] João — É que venho, venho de um mundo onde abrimos o programa e tem botões, clicas num, outro, e abre outro. É um pouco, é um ambiente diferente. Daí a minha. [29:26] É o meu caso, não era esse, mas já entendi. O ambiente, o ambiente que se tem aqui, os clientes têm-no, tirando o design, sim.
+
+[29:30] Alberto — Não, mas aqui olha. [29:36] Sim, sim, é isto. [29:39] Claro, isto, vamos ver, e o cliente também tem acesso ao designer. Se tiverem os privilégios suficientes, igual a como tu desenvolves, ele pode desenvolver. Ok, aqui, por exemplo, isto não me obedeceu, não, ok, digo que é muito, está a demorar muito. Aqui têm botões que vos levam a sítios. [30:00] Ok, isto abre-vos outro form, isto podem ir para outro form. O que acontece é que isto move-se através de ecrãs. Não te abre, não te abre uma janelinha nem te abre — é um ambiente diferente, se calhar, do que estão habituados, mas no final é o que vos digo, isto é o que o cliente vê. Exatamente isto é o que o cliente vê.
+
+[30:08] João — Isto é parecido. [30:14] sim.
+
+[30:22] Alberto — Sabem isto? Pois move-se da mesma forma ali. Bem, e estas alterações ficam. Pego nisto, agora ponho assim.
+
+[30:23] João — This is. [30:31] É que eu tinha, tinha um design diferente com os programas com que estava habituado a trabalhar, daí a minha questão, mas entendido, está entendido.
+
+[30:40] Alberto — Não, pois aqui é aqui é isto. [30:43] Aqui isto é exatamente o que o cliente vê, o mesmo que vocês veem. Ok, que de certa forma é bom, ei, porque vocês veem. As alterações que fizeram, veem-nas, e sabem o que o cliente vai ver, ok.
+
+[30:52] João — Sim, ok. [30:59] Já vou entender.
+
+[31:00] Alberto — Assim, pois isto é, não sei se ficou um pouco mais claro como funciona, como funciona o SyteLine.
+
+[31:10] João — Sim, agora entendi a estrutura, como funciona, mas como comentaste é.
+
+[31:11] Alberto — Ok.
+
+[31:11] Daniel — Yes.
+
+[31:17] Alberto — Mhm.
+
+[31:22] João — À medida que formos avançando, as dúvidas vão aparecer, mas assim.
+
+[31:25] Alberto — Sim, claro. [31:28] claro, eu olhem. [31:31] O Landeiro vai-me passar. [31:36] Vai-me passar uma lista que lhe pedi, que comentou ontem na reunião. Ok, vai-me passar uma lista com coisas pequeninas que há para fazer, ok, e tenho eu também do que o Luís me foi passando, e vou fazer uma seleção e vou-vo-las mandar. Ok, ou eu não, ou seja, a mim, se quiserem, eu atribuo-vo-las, vocês atribuem-nas entre vocês. [32:00] Ou o que for. Vou-vos pôr o tempo razoável para faturar, porque o Serra disse-me ontem. Ok, o tempo razoável para cobrar ao cliente a modificação que vão fazer. Ok, agora? [32:20] Não quero que se assustem, ok, porque evidentemente não podemos pedir — ou seja, eu não posso pedir que façam as modificações à velocidade que eu as posso fazer. Evidentemente, ok, e isto, eu acho que evidentemente eu entendo, porque eu estava aí onde vocês estão. Eu comecei aí, ou.
+
+[32:33] João — sim.
+
+[32:42] Alberto — Se calhar um pouco mais abaixo, ok, porque eu vinha de um mundo totalmente, absolutamente diferente deste. Eu estava, o meu mundo era AS/400, e tudo AS/400 e séries, ok. [33:02] Pelo que. [33:04] Passar de RPG para isto, para mim foi de ecrã verde. Ok, já viram GSP?
+
+[33:14] João — sim.
+
+[33:15] Daniel — Não.
+
+[33:15] Alberto — Pois o GSP, quando preenchem, quando preenchem os dados de.
+
+[33:16] João — Não é que se. [33:21] Ontem, ontem te levamos, ou o que fazer, ontem te vemos.
+
+[33:25] Daniel — Oh, sim, sim, sim, sim.
+
+[33:26] Alberto — Pois eu vinha de aí, sabem, eu venho de aí, eu comecei, eu estava a trabalhar nisso, ok, e claro, vir agora é uma loucura. Ou seja, para mim foi uma mudança da noite para o dia, com isso entendo que, bem, pois.
+
+[33:29] João — Okay.
+
+[33:45] Alberto — A outra parte, vão demorar o que tiverem de demorar, perguntar, ok, e vamos vendo. Ok, seguir hoje porque este Landeiro ainda não me passou nada e parece-me que não me vai passar esta tarde, com isso eu o mais cedo na segunda-feira. [33:50] I see.
+
+[34:05] Alberto — Vou-vos passar algo para começarem, ok, assim, de momento continuem com o que estão, e já vos digo, na segunda-feira, se tiver, bem, do que tenho do Falcão, acho que também vos poderia passar algo, assim, na segunda-feira, na segunda-feira passo-vos.
+
+[34:10] João — Alepana (??).
+
+[34:25] Alberto — Passo-vos tarefa para começarem, ok?
+
+[34:28] João — Sim, ok, Alberto, ok, obrigado.
+
+[34:28] Daniel — Sim.
+
+[34:30] Alberto — E o que vos digo, qualquer dúvida, qualquer coisa, se estiverem mais à vontade com um email, mandam-me um email e respondo. Se puder, reúno-me convosco e o que precisarem, ok?
+
+[34:42] João — Sim, ok, Alberto, obrigado.
+
+[34:43] Daniel — Yep.
+
+[34:45] Alberto — Muito bem, senhores. [34:47] Adeus, divirtam-se, bom fim de semana, chau.
+
+[34:47] João — Vamos saindo.
+
+[34:48] Daniel — No, yes. No, if it's on that. No.
+
+[34:51] João — Oh.
+
+Alberto Gómez Martínez parou a transcrição

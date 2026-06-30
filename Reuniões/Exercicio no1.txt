@@ -1,0 +1,25 @@
+Aqui está o resumo em passos práticos do Exercício 1 (campo "vendor" só editável quando a ordem está em "Planned"):
+Exercício 1 — Desativar o campo Vendor exceto quando a ordem está em "Planned"
+
+Ir a Purchase Orders e procurar a ordem pelo nome (campo "Name").
+Clicar no ícone do lápis para abrir o Designer do form (ou usar "Open Designer").
+Se aparecer mensagem de que o form está bloqueado por outro utilizador, fazer Sign Out e voltar a entrar (confirmar que o utilizador tem permissões de edição em forms, não apenas "super user").
+Dentro do Designer, selecionar o componente Vendor.
+No painel da direita, ir a Behavior.
+Na propriedade Enabled When, clicar nos 3 pontinhos para abrir a condição.
+Em vez de escolher o componente, escolher a propriedade (Property), porque o componente pode não funcionar de forma fiável.
+Selecionar o objeto Purchase Orders → propriedade Stat (estado da ordem).
+Definir o operador como "Is Not Equal To" (diferente de).
+No valor, usar Literal e escrever "P" (não escrever "O", que era a tentativa inicial — "P" corresponde a Planned).
+
+Nota: a Stat só tem 4 valores possíveis: Planned, Ordered, Complete, History.
+O campo só deve poder ser editado quando está em Planned (P); nos outros três estados (Ordered, Complete, History) deve ficar bloqueado.
+
+
+Confirmar/aplicar a condição: Enabled When Stat ≠ "P" → ou seja, ativo apenas quando Stat = P.
+Guardar frequentemente as alterações no Designer.
+Fechar e reabrir o Designer de vez em quando, porque ao trabalhar na cloud as sincronizações podem falhar e perder alterações.
+Recomenda-se fazer sempre uma exportação/cópia do form original antes de editar, para poder reverter se algo correr mal.
+Depois de confirmado que a alteração funciona, enviar email ao Luís a avisar e pedir para testar.
+
+Queres que eu faça o mesmo tipo de resumo para a segunda parte (a partir dos 24:44 — sobre impedir o "delete" da Job Order quando há referência cruzada / cross reference)?

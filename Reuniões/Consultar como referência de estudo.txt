@@ -1,0 +1,45 @@
+Tens razão em perguntar — esta reunião é mais teórica/conceptual do que prática (não há um exercício tipo "Exercício 1" como nas anteriores), mas o Alberto explica vários conceitos com um exemplo concreto a meio. Aqui vai o resumo em passos do que ele realmente ensina:
+1. Como uma alteração de campo despoleta lógica (Items grid)
+
+Ao alterar um valor numa grid (ex: número de fornecedor), isso pode disparar um evento (ex: Data Change PO VenNam).
+Esse evento está definido em Event Handlers.
+O registo alterado fica marcado com um "diamantinho" — sinal de que há alterações por gravar.
+
+2. Como navegar e perceber o FormScript
+
+O FormScript é o conjunto de código (normalmente Visual Basic, raramente C#) ligado a um form específico.
+Um evento chama um Form Script Method (ex: Default Vend Code).
+Dentro do FormScript podes ter funções (devolvem um inteiro — 0 = ok, -1 = erro/para a execução) ou sub-rotinas.
+Para navegar: usa o Find ou o dropdown que lista todas as rotinas criadas nesse FormScript.
+
+3. Eventos "standard" (padrão início/fim)
+
+A maioria dos eventos standard tem par: ex. Standard Form Copy (dispara ao clicar em "Copy") e Standard Form Copy Complete (dispara quando essa ação termina).
+Permite inserir lógica antes de uma ação correr ou depois dela terminar.
+Nem todos têm o par de "Complete" (ex: Predisplay não tem Predisplay Complete).
+
+4. RunScript / Scripts Globais
+
+Scripts reutilizáveis em vários sítios (uma espécie de "biblioteca" comum), em vez de repetir o mesmo código em cada form.
+
+5. Exemplo prático explicado — impedir apagar um registo (passo a passo real que ele dá)
+Este é o mais próximo de um "exercício" explicado nesta reunião:
+
+Identificar se a regra é "nunca pode apagar" ou "só pode apagar em certas condições".
+Se for nunca: ir à definição da coleção → Standard Operations → desativar Delete diretamente ali.
+Se for condicional (ex: só não pode apagar se o registo estiver num certo estado): não desativar o botão; em vez disso, validar no momento em que se grava (no evento standard correspondente), porque ao clicar "Delete" o registo só fica marcado com um X vermelho — só é mesmo eliminado quando se faz Save.
+Nesse evento de standard (acionado ao guardar), corre-se a validação; se a condição não permitir apagar, mostra-se uma mensagem ao utilizador.
+
+6. Botões e o "Primary"
+
+Todo o botão tem uma ação Primary que define o que faz ao ser clicado (normalmente chamar outro form).
+Podes chamar um form de várias formas: simples, ligado à coleção atual, passando parâmetros, ou esperando que devolva dados selecionados nesse form.
+
+7. Application Events
+
+São "triggers" do sistema, ligados a momentos específicos (On Invoke, On Item Insert, Post Item Insert, etc.), não necessariamente a um botão.
+Exemplo dado: no form Customer, ao gravar um cliente novo (Curse Sequence = 0), dispara automaticamente uma notificação/email para um grupo definido.
+
+8. Background Tasks
+
+Tarefas agendadas/automáticas — podem ser para gerar reports (a maioria dos exemplos da equipa) ou para executar um método (ex: um script que corre à noite para atualizar logs).

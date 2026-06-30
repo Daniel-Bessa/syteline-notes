@@ -1,0 +1,270 @@
+TRANSCRIÇÃO DA REUNIÃO — ORGANIZADA E TRADUZIDA (ES/EN → PT)
+Tema: FormSync — exportação/backup de forms, cópias de forms, extensões, eventos
+Participantes: Alberto Gómez Martínez, João Quelhas, Daniel Santos
+Nota: falas em espanhol traduzidas para português; falas em inglês mantidas como no original.
+
+================================================================
+
+[0:03] Alberto — Podem traduzir. [0:06] Ai, espera, dá-me 1 segundo que tenho de fazer esta chamada.
+[0:12] João — sim.
+[1:22] Alberto — Vamos lá, estou por aqui. [1:24] Olha, vou partilhar, vou fechar este sign out. [1:31] E vou abrir o ambiente do Incertus Dem para... [1:39] para vos comentar uma coisa. [1:44] Yeah. [1:51] E agora partilho eu o meu ecrã. [1:55] Onde estás aqui? [1:58] E. [2:00] In compartir insist. [2:04] Meet house. [2:08] Vamos ao SyteLine. Não sei se isto... porque a verdade é que não me lembro de tudo o que o manual vos ensina ou não, ok, mas é algo super importante, sobretudo quando estamos a fazer testes e quando estamos a mexer em formulários que já existem. Ok, há um form. [2:28] Que se chama FormSync. [2:31] Ok, este formulário é com o qual nós desenvolvemos o que seja num formulário, etc. [2:39] E depois de estar feito, com isto exportamos o formulário e depois fazemos o upload para o ambiente real, onde se vai colocar em produção as alterações que sejam. O que acontece é que isto também serve para fazer uma cópia de segurança. [2:53] Por exemplo, vi que estás com o form Items, ok. [2:58] E digo Items só por dizer um, ok, é-me indiferente qual seja. [3:04] Se tu vamos a... [3:07] Estou habituado, tenho isto em espanhol aqui e estou habituado em inglês e fico perdido. Vês? Tu tens o form de Items aqui e queres ou querem fazer testes, que é o normal, que façam testes, que vejam o que acontece, o que não acontece, etc. O que faria eu no vosso lugar? Primeiro. [3:29] No FormSync. [3:31] Além disso, quero gravar para que vejam como se faz. Ok, aqui pões a origem e o destino, o mesmo, o mesmo ambiente, o mesmo site. [3:41] E aqui em utilidades ou em utilities. [3:47] Tiras tudo e selecionas só Forms, já que é o que vais mexer, e pões Items. [3:55] Vaya. [4:05] Quer apagar — é que quero que vejam que o dropdown funciona, ok? [4:15] O que se passa contigo, espera? [4:18] Claro, já sei o que se passa. [4:23] You says main. [4:27] Que são as coisas do direto. [4:46] Yeah. [4:48] Vamos entrar outra vez. [4:52] Agora sim, já. [5:04] Home. [5:10] Porque é que isto não está a funcionar? [5:24] One. [5:26] Não vamos procurar mais o porquê. [5:29] Vês, temos? [5:32] No form de Items temos uma versão Site e uma versão User. Isto ficou claro no manual, o que são as versões. [5:44] Tu tens, dentro do SyteLine temos quatro níveis: o nível Vendor, que é o standard; o Site, que é mesmo o que está por baixo, que é o que, se modificarmos esse nível, modificamos a nível de empresa; há o nível Group; e há o nível User. [6:05] Ok. [6:06] Normalmente nós trabalhamos sobre o nível Site, ok, a versão Site — pode acontecer que algum cliente queira que as alterações sejam feitas a nível de formulário de utilizador. Bem.
+
+[6:06] João — Ok.
+
+[6:22] Alberto — Nós, todos os "handy" (à mão), implementamo-los na versão Site, ok?
+[6:28] João — Ok.
+[6:29] Alberto — Eh. [6:31] Isto, para ver em que versão estão dentro de um formulário, não sei se já viram, mas aqui... ui. [6:39] "About this form" — quem ajuda? [6:43] Diz-te, "ei, tu estás na versão User", que é uma versão minha. [6:49] Do utilizador — se estás na tua versão, ou seja, se tens uma versão de utilizador, carrega-se esse nível. É o que vos disse: o Vendor é o primeiro, o Site, o Group e o User, e na hora de carregar é no sentido contrário — o primeiro que tenta carregar é o User; se não tiveres o User... [7:08] procura nos Groups; se não tiveres o Group, procura o Site; e se não tiveres o Site, apanha o Vendor. [7:15] Ok. [7:17] E aqui, pois nós, o que eu costumo fazer de momento. [7:24] Esta versão minha vou tirá-la. [7:26] A. [7:28] Delete e. [7:30] Porque não a quero para nada. [7:34] Ok, e agora?
+
+[7:34] João — Mas podemos fazer uma cópia do formulário Items, e...
+
+[7:40] Alberto — Claro, é o que te ia dizer. O que eu faria é o que fiz — o que faço normalmente é, quando vou trabalhar com um form, faço uma exportação do que existe hoje. [7:52] Como fazemos? Pois é o que digo, aqui pões o "for", que é em aí vai. [7:59] A. [8:00] Em Filter, bem, em Utilities. Espera, vamos começar do início para não vos confundir. No FormSync entramos, pomos o...
+
+[8:07] Daniel — Y.
+
+[8:12] Alberto — Ambiente — isto é indiferente o ambiente que usem, ou seja, ponham o que quiserem, desde que seja o mesmo, é indiferente.
+
+[8:18] João — Barra.
+
+[8:22] Alberto — Depois de selecionares em Utilities, aqui procuras o form em causa, que é o "Item Refresh List", tem de estar incluído, e selecionamos Export. [8:35] Em Export pões o nome — bem, é algo que eu faço e se gostarem, podem usar a mesma. [8:45] A mesma nomenclatura, e se não, ponham a vossa. [8:49] Items + ambiente (TRN, PRD) + data em que fizeste a exportação.
+
+[8:55] João — Vamos ver.
+
+[8:56] Alberto — De RN (training) e PRD (produção), e exporta-se. Isto vai gerar um XML. [9:11] Isto produz um XML, que é este XML. Ok, depois de terminarem de fazer as alterações e testar e o que for, e quiserem voltar a deixá-lo igual, entramos outra vez no FormSync. [9:29] I'm seeing.
+
+[9:29] João — Vamos fazer o import.
+
+[9:31] Alberto — E fazes o import, é isso, selecionas o ambiente — ok, em Import, não em Utilities — e aqui em Import clicas em Upload, arrastas o ficheiro. Também podes fazer aqui, se pegares no documento. [9:52] To. [9:55] E pões no Notepad++. [9:59] Copias e colas ali. [10:03] Pois depois apanha igual. [10:05] Ok, mas bem, ao clicar em Upload, arrastas o documento daqui. [10:14] Love honest. [10:17] Aqui. [10:19] Ok, e pronto. [10:24] E. [10:26] Pões ali, clicas em Load e ele coloca, e depois é clicar em Import e pronto, ok, e todas as alterações que fizeram perdem-se e fica a versão que tinham, ok. [10:40] Isso para fazer testes; depois, para mexer, para alterar campos, para entrar — sabem que é através do lápis. Entram no form que seja, clicam no lápis. [10:53] Isso é o que vos dizia: Site, User, Group. O Vendor não podemos mexer, por isso não aparece aqui, claro. [11:00] E. [11:01] Trabalhamos sempre sobre o Site. [11:06] E carrega-te o formulário aqui. Se isto estivesse bloqueado por alguém, ok — isto, dentro da relativa pouca segurança que o SyteLine tem em função do design dos forms. Esta é uma que... [11:25] Se eu estiver a trabalhar com ele, ok, estou a trabalhar com a versão Site ou a User ou a que for. Estou a trabalhar com a versão. Ninguém pode entrar para mexer nessa versão. Ok, até que eu a liberte, ou vocês a libertem, ou a libertem de propósito. [11:44] Quando te diz que não está bloqueado por ninguém, se disseres que sim, ok, entras a desenhar e no momento em que fizeres alterações, ok, do que for, dizes, bem, eu quero pôr a unidade de medida ali. [12:00] Espera, vamos fazer isso. [12:02] Bem, o "4Z" funciona como um "do". [12:06] No Layout aqui, a localização, vamos dizer em vez de Left 20.75, vamos pôr a 25. [12:16] Ok, guardamos. [12:20] Há vezes que aparece o aviso, etc., depois de guardares. [12:25] O normal que isto faz é, "ei, vês, de momento isto está aqui, agora vamos abrir outra vez." Bem, o que fiz aqui, isto de "Unload All Global Forms Object", é quando fazes design, alterações no form e tudo isto. Ao fazer isto, o que faz é, "ei, o que tiver desenhado no ambiente de design..." [12:48] "...traz-mo para o ambiente de trabalho, atualiza-me o form." E isto o que fez foi atualizar o form — se repararem, agora ao entrar em Items.
+
+[12:52] João — Oh. [12:53] Pois sim.
+
+[13:02] Alberto — Temos este que movi aqui para a direita, com isto isto já está movido. [13:10] Agora a versão que tenho — não sei se se lembram, que antes quando entrei tinha a versão do Alberto, que tinha uma versão minha aqui, ao que parece, depois lembrava-me.
+
+[13:19] João — sim.
+
+[13:20] Alberto — E se eu clicar em "this form", como a minha eliminei, carrega diretamente a versão Site. [13:27] Ok, isto por aqui, e o que queria mostrar-vos é que há um form chamado Form Control. [13:37] Ok. [13:38] Form Control, e se procurares o form em concreto — se aqui quiseres ver, olha, sim, se procurares o form Items e clicares em Refresh Status. [13:50] Aqui diz-te quem o tem bloqueado. [13:54] Right.
+
+[13:54] João — Ok.
+
+[13:55] Daniel — But...
+
+[13:55] Alberto — Isso, quando tu entras no form e o tens bloqueado tu, a ti não te aparece a mensagem, evidentemente, mas se entrares tu e eu o tiver bloqueado, aparece-te a mensagenzinha "este form está bloqueado por fulano de tal." O normal é perguntarem a quem aparecer aí, "ei, posso trabalhar com este form? Já terminaste? Ainda não terminaste?" [14:16] Mais que tudo porque há vezes que eu estou a meio de um desenvolvimento, ou o Hernani ou o Paulo ou quem for está a fazer um desenvolvimento. [14:24] E se ele estiver a trabalhar com o form e eu o desbloquear e entrar, depois começam os conflitos e é uma confusão. O melhor é, se vos aparecer a mensagenzinha, perguntarem, e depois de vos dizerem que sim, pegarem nele, para o desbloquear. [14:42] Eu normalmente, quando és tu, Daniel, que o tens, por exemplo, digo, "ei Daniel, posso pegar no form Items?" E dizes que sim — eu peço sempre que vocês mesmos o desbloqueiem. [14:56] Se, por algum motivo, imagina que estás de férias — pois evidentemente não estás a trabalhar com esse form de férias —, então entrarias em Form Control, procuras o item, Refresh Status, chegas aqui. E que ação queres? Um Unlock. [15:14] E ao clicar em Execute Action. [15:18] Diz-te e tal, dizes que ok, e ok, e pronto, desbloqueia-o. [15:25] Ok, e agora, se entrar alguém para trabalhar com este form, entraria e já o teria, já o poderia apanhar. Isto guarda as alterações que tenham sido feitas nesse form. Ok, vês, este campo está aqui e pronto, e liberta-o para que alguém o possa editar.
+
+[15:38] João — Okay.
+
+[15:46] Alberto — Agora o que vou fazer? [15:49] Para que vejam as alterações — se fizeres, "ei, não me lembro que alteração fiz ou como estava" e tens a versão da cópia de segurança, ok? [16:00] Pois entras aqui, eu o que faço. [16:04] Items, Refresh Status. [16:08] E exporta-se outra vez. Esta versão já seria — esta já tem modificação, "RN2", vou-lhe pôr. [16:19] Por... e com o Visual Studio, com o Notepad++ ou com o que vos apetecer, com o que trabalharem. [16:30] Podes pegar nisto? [16:34] Isto pões aqui e comparas os 2 ficheiros. [16:40] E agora está a comparar os 2 ficheiros e diz-me as alterações que fiz no bocadinho em que estive a trabalhar com ele, ok?
+
+[16:48] João — Ok.
+
+[16:48] Alberto — Há alterações aqui — vês? Eu não fiz tantas alterações no tempo em que estive a trabalhar com ele, ok, mas há alterações que, nas importações e exportações, ajustam-se, costumam ser decimais. [17:08] Isto não sei bem. [17:12] Sei que está — não sei bem o que está a fazer aqui, mas bem. [17:16] "ItemPRN" é o que acabei de exportar, são sequências, isto das alterações da sequência, esta alteração. [17:24] It's okay, I said it's side to know. [17:28] Não percebo muito bem que alteração fez, mas bem, se calhar é que me baixa a versão de... [17:38] Não é a versão um, bem. [17:47] Mas bem, que saibam que podem comparar os 2, ok, e isto é o que vamos fazer: importar. [17:58] O que exportámos, para vir aqui ao Import, e eu pego nisto. [18:16] Learning of love at import. [18:26] Sim, e agradecer o Unload de todos os Global Forms e selecionar Items. [18:35] Vêem, isto voltou ao seu lugar, ok? [18:41] Isso para terem uma cópia de segurança e poderem trabalhar com o que quiserem, ocultar campos, mostrar dentro do que exportámos aqui, ok. [18:57] Dentro do que exportámos aqui também está o FormScript.
+
+[18:58] João — Não.
+
+[19:02] Alberto — Ok, não sei se já chegaram aí na formação, mas aqui no FormScript, a maioria dos FormScript estão em Visual Basic. Pode ser que haja algum em C#, mas o normal é que não, ok. [19:20] E bem, o formscript — minto, o formscript está sempre em Visual Basic. Os que podem estar em C# são os scripts daqui, os global scripts. [19:34] Mas bem, que saibam isto, não sei se já chegaram a como funciona o FormScript em termos de eventos e tudo isto. [19:45] Mas bem, para o que de momento estão, primeiro saibam que podem exportar um form e guardá-lo. Ok, podem fazer uma cópia do form. Ok, abres aqui, entras no designer e dizes, "ei, quero copiar o form, o Items." [20:04] Ok, para trabalhar ainda mais à vontade, e dizes, "ei, quero o Items e que mo guardes em..." normalmente quando nós desenhamos um form, os nomes que pomos são "UE" de User Extension, underscore, e o nome que lhe quisermos dar. [20:23] Tu dizes, eu quero um "AGM", que é de Alberto Gómez Martínez, que sou eu, Items. [20:30] Ok. [20:32] "UE_AGM_Items", clicas em OK, isto copia-te tal e qual o form Items para o UE_AGM_Items, para que depois não se enganem. Quando fizerem uma cópia, reparem que estão no form UE, o que acabaram de criar. [20:51] E eu, no Caption, o que faço — o Caption é o nome — ui, estou a apontar para o ecrã como se ele me visse, na mão — o nome Items. [21:00] Ok, isto vai através de uma string, que é esta string, e eu o que faço é "UE_AGM_Items". [21:12] Já agora, estou a falar muito depressa. [21:16] Cortem-me se não entenderem alguma coisa, ok?
+
+[21:21] João — De momento estou, estou a ouvir tudo, estou a entender.
+
+[21:26] Alberto — Não se preocupem porque não me vai... ou seja, não me vai cair mal nem nada, eu vou avançando, mas cortem-me, digam "não entendo", "não sei o que significa isto", digam-me que eu paro e explico. Ok, eu tentaria falar português, mas vocês têm uma facilidade...
+
+[21:42] João — That's ever on.
+
+[21:46] Alberto — Tremenda para falar espanhol, mas os espanhóis somos nulos para falar português.
+
+[21:53] João — Tranquilo, posso falar espanhol.
+
+[21:53] Alberto — Ok, se vocês falarem em português, entendo alguma coisa, mas falá-lo é impossível, não, o meu cérebro não dá para tanto.
+
+[21:56] João — Oh. [22:02] Sin problem.
+
+[22:03] Daniel — Para mim é.
+
+[22:04] João — But...
+
+[22:06] Daniel — Como espanhol, entendo tudo, but.
+
+[22:06] Alberto — É ao contrário.
+
+[22:08] João — Hello.
+
+[22:09] Alberto — Entendes? [22:11] Mas falar é mais difícil, bem.
+
+[22:13] Daniel — Sim.
+
+[22:13] João — O que é o contrário?
+
+[22:16] Alberto — Bem, o que eu dizia, se mudares o nome aqui, ok, depois vai custar-te menos encontrá-lo na hora de o abrir, etc., ok, e evitas...
+
+[22:29] João — Com esta cópia podemos fazer as alterações que queremos com esta cópia.
+
+[22:36] Alberto — Claro, tu neste, claro, tu neste form dizes, ok, não quero este campo ou aquele, apagas e pronto. Isto não afeta em nada o Items. [22:48] Ok, esta alteração em concreto não.
+
+[22:48] João — Não.
+
+[22:49] Daniel — É uma cópia para nós.
+
+[22:52] Alberto — É, é uma cópia, isso é uma cópia para vocês. Para se quiserem, dizerem, bem, hoje vou dedicar-me a redesenhar isto ou a fazer testes no formscript e quero que faça coisas estranhas, que mostre mensagens estranhas, etc. Estamos no ambiente Dem.
+
+[22:55] Daniel — Okay.
+
+[23:11] Alberto — Com isto, bem, em princípio, se copiarem, se fizerem uma cópia de segurança do form com que estão a trabalhar, não deveria haver problemas porque é um ambiente onde não entramos habitualmente. Mas é verdade que o que o João comentou é um ambiente que se utiliza... [23:30] para demos e para mostrar a futuros clientes ou a potenciais clientes ou prospects. [23:37] Com isso, o ambiente tem de estar — o que eu vos dizia o outro dia. [23:43] Pois, ei, se disserem, bem, estou a fazer testes no form Items e querem ver o que acontece se puserem, para que apareça uma mensagem neste momento. [23:55] Que a mensagem não seja nada estranho. [23:59] Sabem, podem pôr "batatas", perfeito, mas se puserem "demo1" ou "test de algo" assim que fique mais profissional, fica melhor. Um "olá mundo", que isso é algo global, mas bem, "hello world".
+
+[24:00] João — sim. [24:13] Não.
+
+[24:21] Alberto — Mas o que vos digo aqui — podem fazer aqui os testes que quiserem, etc. Já vos digo, recomendo sempre que façam uma cópia de segurança do form em que vão mexer, e já que estão os dois em formação. [24:40] Aí podem ir em paralelo, "ei, eu pego no Items e tu pegas no Customer Orders", ou se forem a um, "ei, vou pegar no... sei lá, o Project ou o Opportunity", ou o que quiserem, combinem entre vocês os dois para não brigarem.
+
+[25:01] João — Ok.
+
+[25:02] Alberto — E pronto. O que vos queria dizer é este par de dicas para terem em conta, sobretudo para ser mais simples, ter algum truquezinho. Vês, "AGM"? [25:21] "MG Call Center", isto terão de fazer. [25:26] E já vos digo, não sei se têm, do que viram, alguma dúvida, algo que não entendam. [25:36] Do que viram até agora, querem comentar-me alguma coisa, querem?
+
+[25:42] João — Ok, agora estamos em treino, vamos falar nesse formato, mas adiante haverá alguma oportunidade. [25:59] Teremos de... [26:02] Não. [26:04] De forma desde o início, de que forma é que se avançam os processos? Não sei se fui claro, mas, vamos, vamos para o suporte, que temos uma instrução de um cliente para...
+
+[26:17] Alberto — Para criar um form.
+
+[26:26] João — Construir um form, pegamos nalgum distinto, fazemos de novo.
+
+[26:34] Alberto — Claro, isto depende do que vão fazer. Ok, eu agora tive de fazer para um cliente um form que era, vejam, "Project Resources". [26:52] Ale. [26:54] Tive de fazer um form para um cliente que era o "Project Resources". [27:04] O "Nonconformity Project Resource" e "Nonconformity Project Task", ok, que eram... [27:13] 2 cópias, literalmente 2 cópias deste form que estamos a ver, e do formulário que se vê, se eu clicar em "Task", ok. [27:24] Seriam, eram 2 cópias disto mudando o nome em cima para "Nonconformity Project Resource" e "Nonconformity Project Task". [27:34] E tirando mais dados, tirando coisas, etc., mas no final era exatamente o mesmo form, só que oculto com determinados campos ocultos. [27:45] Claro, não vou fazer um form inteiro. [27:48] Para um que é uma — ou seja, pois copiei, pus-lhe o nome correto, tirei os campos que tinha de tirar, fiz o que tinha de fazer porque este form tinha de filtrar por uma série de tags ou filtrar por uma série de números de não sei quê. Bem, fizemos o que tínhamos de fazer, mas depois. [28:08] Depende, já tenho — isto não é uma ciência exata de "vamos sempre fazer assim". Não há, por exemplo, temos um cliente. [28:18] Que se chama Jarvis, que este eu não — ou seja, trabalhei pouco para o Jarvis, ok, mas no pouco que fiz disseram-me que eles queriam — não queriam form novo nem queriam modificar o form, o Vendor. Ok, eles trabalham com extensões. [28:40] Ok, para criar uma extensão, pois isso no manual vem-vos bem, mas tu aqui. [28:50] Tens de — isto era aqui? [28:55] E "Extend Form", ok? [29:01] E aqui dizes, o form que queres criar, o base seria, por exemplo, o Items. [29:10] A extensão Items. [29:17] Ok. [29:19] E "Replace Base Forms", isto se quiseres. [29:24] Isso, se quiseres que diretamente substitua, clica em fim de Windows Phone (??). [29:35] Ok, e isto o que te faz? Cria-te um... [29:39] É uma extensão do form do base.
+
+[29:46] João — Mas neste caso é o base do...
+
+[29:52] Alberto — Original.
+
+[29:54] João — Mas.
+
+[29:55] Alberto — Sim, esta gente não queria, não quer, não.
+
+[29:58] João — Tem como base o primeiro form e vamos fazer uma sessão.
+
+[30:02] Alberto — Tem como base. [30:05] Tem como base, digamos, tem como base o... [30:12] A versão em que estiveres a trabalhar dentro desse ambiente, ou seja, se houver uma versão Site, apanha como base a Site, ok, e faz uma extensão sobre essa. Se não tiver Site, apanha o Vendor. Ok, mas bem, isto no final.
+
+[30:28] Daniel — Mas se fizermos um ajuste no Items, this.
+
+[30:39] Alberto — O base — se o fizeres, ou seja, quando tens uma extensão que substitui, não podes trabalhar sobre o base, não te deixa. Tentas entrar em Items e abre-te — como tem uma extensão, abre-te diretamente o outro, não te deixa trabalhar sobre isso.
+
+[30:41] Daniel — Sim. [30:55] Ah. [30:59] Okay.
+
+[31:00] Alberto — Ok, e bem, isto, pois isto. Chegado o caso, verão que trabalhar com isto tem a sua graça, ok, porque tens de ativar o campo com que queres trabalhar e depois entrar a editá-lo. Ok, com o formscript é igual, é bom. [31:21] Trabalhar com extensões é um pouco. [31:25] É um pouco aborrecido, a verdade, mas bem, isto é o que vos digo, não é uma ciência exata fazer sempre isto ou sempre aquilo. É um pouco o que vos disser a lógica, "ei, pois é o mesmo form..." [31:46] "...mas o que vou fazer é mudar três coisas", pois ou é um form muito parecido e o que vou fazer é mudar três coisas, bem, ou então — evidentemente podes criar um form de raiz, não sei se aqui tenho fechado. [32:06] Podem criar forms de raiz, todos os que quiserem, e normalmente os forms que criamos de raiz são forms mais do tipo consulta ou para fazer uma chamada a um report. [32:26] Coisas assim, não entramos a montar uma Customer Order. Aí pode acontecer que haja coisas mais complexas. Não sei se os do "picking". [32:42] Que o Paulo fez, etc., mas eu, olhem, por exemplo, para verem, este form fi-lo eu. [32:49] De forma é um "abril" (??). [32:52] Ok, isto é uma grid que tem uma seleção de datas, um botão, e quando clicas — isto já vai — chama um "custom load network" que está metido numa DLL. Isto já tem a sua complexidade, mas no fundo é um form muito simples de... [33:14] de desenhar, não tem nada, tem um botão, 2 combos e sem mais. [33:23] E isto, pois o que vos digo, isto por trás tem a sua graça, mas não, já vos digo, não há uma — não há uma maneira de trabalhar. Fazemos sempre isto — não, depende da situação e do caso. De facto, normalmente os próprios consultores. [33:43] Ok, dizem-te, "ei, por exemplo, no caso que vos digo do Project, se o Project Resources". [33:53] Esses 2 forms, a mim o consultor, que era o Luís Falcão, disse-me: "Ei, faz uma cópia, que não vale a pena fazeres um form porque por trás leva muito mais lógica, e não vale a pena tirar toda essa lógica porque te serve." [34:13] Sabes, é um pouco usar a lógica, o que nos disserem da alteração que pedem ou o form que pedem, etc. Report, pois 3/4 faz o mesmo, os reports há vezes que sai melhor...
+
+[34:15] João — sim.
+
+[34:31] Alberto — ...fazer um report novo. [34:34] E há vezes que sai melhor mudar o design de um. [34:38] Ok, se o que há a fazer é adicionar um campo num report que já existe. [34:46] E não é que também quero que apareça a unidade de medida do artigo, pois isso não vale a pena criar um report do zero. Agora, se te derem um design que não tem absolutamente nada a ver com o que existe, o que também acontece, ou seja, pensem que não é algo fora do normal. [35:07] Olhem, nós temos aqui. [35:10] Vejam, "Invoice Report", ok. [35:18] Este é o formato de fatura que nós temos, que desenhámos nós. Ok, este é o design de fatura de impressão, e o que o SyteLine tem é "Invoice". [35:33] "Consolidate", por exemplo, onde está "Consolidate Team Boy Report", onde estás? [35:42] It's good generation. [35:50] Pauline. [35:51] Invoice, mine. [36:01] Aqui estás, Canadá, não. [36:08] Yeah. [36:20] In the word. [36:24] *****, como se chamam? [36:35] Invoice, o que é isto, Holi? [36:50] Posto menor de. [37:06] Agora não encontro uma fatura a sério. [37:17] But don't task. [37:30] Ohh, so we don't getting boys. [37:37] Bing Bong. [37:43] Por exemplo. [37:48] Olhem, vêem, este é um design de um e este é o nosso design. Pois é, ou seja, não se parecem em nada. Este não tem o logótipo aqui, pois não vale a pena. [38:01] Apanhar o de Purchase Order, esse se calhar teria sido mais rápido, Purchase Order. [38:10] Temos o "UE_Purchase Order" que deve estar por aqui, "Chase Order de Tail Viewer". [38:22] Ok, este é o de Purchase Order que nós desenhámos, e o deles é "Purchase Order". [38:35] I don't know. [38:38] Detail viewer. [38:43] Ok, pois, se é que não têm nada a ver um com o outro, ok, nem com a informação que leva aqui nem com nada, pois aqui saiu-nos melhor criar um novo. [38:59] Ok, mas bem, isto já vão chegar lá. [39:02] Mais alguma dúvida, diz-me?
+
+[39:02] Daniel — Mas se. [39:06] Como sabemos que forma usar? [39:14] What is employee for the if? [39:17] Se a "calhada" (??) que queres ou não é parecida ou igual.
+
+[39:23] Alberto — Vamos ver, normalmente, ok, a nós, os técnicos, isto tem de nos vir dado. [39:33] Ok, têm de te dizer que form tens de modificar e que alterações tens de fazer. Ok, depois outra coisa é que o consultor, no momento em que tiver desenhado o gap ou o que for, não tenha todos os dados certos ou tu tenhas de perguntar, etc., mas normalmente, ok, o normal é que eles...
+
+[39:37] Daniel — Okay.
+
+[39:57] Alberto — Dizem-te que alterações tens de fazer, em que form, ok, olha.
+
+[40:01] Daniel — Okay.
+
+[40:04] Alberto — Agora mesmo estamos numa altura um tanto convulsa, um tanto movimentada quanto a este cliente, o Citron, ok, e os gaps são... [40:14] de qualquer maneira, ok, mas este, por exemplo, isto é um gap que me passaram para fazer, e dizem-te, "ei, precisam de ter, tratar subcontratos", e dizem-te no ecrã "Pure Receiving Node Line" há que adicionar uns 6 campos, que são estes 6, e 2 botões.
+
+[40:16] Daniel — Oh.
+
+[40:34] Alberto — Ok, e o botão, o campo A tem de ter esta informação que pegamos daqui e pomos aqui, o campo, o campo C — ou seja, a nós, os técnicos, têm de nos dizer.
+
+[40:37] João — Vamos ver.
+
+[40:49] Alberto — Simples, porque a análise têm de fazê-la eles.
+
+[40:53] Daniel — Okay.
+
+[40:53] Alberto — Ok, e eles vão dizer-te, pois neste caso é o "Good Receiving Notes", neste caso é o "Job Material Transactions". Aqui isto é no "Job Order". [41:05] Ok, ou seja, não somos nós que temos de o dizer, nós já o que falta é procurar em que form o cliente quer que mexamos.
+
+[41:06] Daniel — Mhm.
+
+[41:14] João — Yes.
+
+[41:15] Alberto — Ok.
+
+[41:16] Daniel — Sim.
+
+[41:16] João — Alberto, em baixo tinha a palavra "añadir". Qual é o significado, "agregar"?
+
+[41:17] Alberto — Deep. [41:23] Añadir. [41:25] Agregar, "to add", sim.
+
+[41:28] João — Ok, ok.
+
+[41:29] Alberto — Añadir, onde está aqui.
+
+[41:33] João — É ali.
+
+[41:34] Alberto — Há que adicionar uns 6 campos, é este, este é o ecrã que vêem, e há que pôr mais 6 campos.
+
+[41:39] João — That. [41:44] Ok.
+
+[41:45] Alberto — De facto, vamos ver, isto não — isto é PRD, ainda não o tenho. [41:50] Essa parte já a tenho feita. [41:58] Não.
+
+[42:00] João — Agora o que teremos de fazer é basicamente o que mostraste. Temos uma folha com modificações, outras medidas, e temos.
+
+[42:05] Alberto — O que nos pedem. [42:14] Isso é, dão-nos uma folha com o que há a fazer, sabes? E nós fazemo-lo, vêem? [42:23] Esta é a imagem que ele me mandou, ok, e isto é com o design já mudado. Aqui têm os que não eram 6 campos. [42:35] Eram 7.
+
+[42:35] João — Podes mostrar-me por trás do botão? [42:42] Tem de haver código e instruções por trás dos 2 botões, sim.
+
+[42:52] Alberto — Desses botões, sim, isso já quando chegarem à parte de Application Event ou Event Handler ou Event Status ou Events, à parte de eventos, ok.
+
+[42:56] João — Yeah.
+
+[43:11] Alberto — É onde se diz como funcionam os botões, para que saibam. Ok, quando clicas num botão, quando pões um botão, que é um destes componentes, isto tem.
+
+[43:25] João — Right.
+
+[43:25] Alberto — Uma série de eventos, ok, os eventos são comuns para todos, ok, mas o botão funciona com o "primary", e o primary que te diz, "ei, quando clicares neste botão vais executar este evento." Onde estão os eventos aqui? [43:45] Event Handlers — aqui em Event Handlers procuras este evento, e este evento o que faz, neste caso este evento — quando clicas no botão, isto vai chamar um "Run Form As Modal Child", ok, e o form que chama é este form chamado "Job Material Transaction". [44:06] E isto, pois passa-lhe uma série de variáveis, eu sufixo, que evento tem de lançar. Bem. [44:13] Isto já mais à frente vão entender tudo isto que está aqui o "churro", mas que saibam que os eventos, ok, este Vendor, por exemplo, standard "PurCom Details". Quando isto, ok, ou quando isto se muda, vês?
+
+[44:13] João — Welcome.
+
+[44:32] Alberto — "Data Change", "GRNum Change". Quando mudas isto, isto lança este evento. Este evento o que faz, "GRNum", onde estás? "GRNum Changed", "GRNum Changed". Isto executa um "inline script" que é um script que está aqui, o design que fará o que tiver de fazer.
+
+[44:38] João — Test.
+
+[44:53] Alberto — Isto são uma série de eventos, podes criar, um evento, podes modificar, podes adicionar um passo, podes desativá-lo.
+
+[44:53] João — Yes.
+
+[45:03] Alberto — Já vos digo, isto vão ver com o tempo.
+
+[45:08] João — ok.
+
+[45:09] Daniel — Sim.
+
+[45:11] Alberto — Ok, eu se quiserem.
+
+[45:11] Daniel — I.
+
+[45:16] Alberto — Ou terça-feira de manhã — se quiserem, terça-feira, que é dia 23, terça-feira de manhã, para terem hoje e segunda, e terça de manhã vemo-nos um bocado.
+
+[45:34] João — Sim.
+
+[45:35] Daniel — To.
+
+[45:35] Alberto — Ok, se tiverem dúvidas, se quiserem, mandam-me um email e eu, à medida que puder, ou se puder, ligo-me com vocês e vemos isso, e se não, vou respondendo, ok?
+
+[45:46] João — Ok, ok, obrigado.
+
+[45:46] Daniel — So.
+
+[45:48] Alberto — Não, ou seja, já não sei se falei isto com o João ou se falámos quando estivemos os quatro. Sou da opinião que o melhor é praticarem, mas também sou da opinião que, se há uma coisa que querem fazer e levam 2 horas. [46:07] E não conseguem, perguntem, ok, não percam tempo, porque quando não tens a quem perguntar.
+
+[46:11] Daniel — Okay, thank you.
+
+[46:11] João — Sim.
+
+[46:15] Alberto — Pois tens de te desenrascar e pronto, mas se houver alguém a quem possas perguntar, é bom investigar. [46:24] Mas também não é preciso sofrerem, sabem, ok?
+
+[46:28] Daniel — Yep.
+
+[46:29] João — Ok, ok, obrigado.
+
+[46:31] Alberto — Pois nada, senhores. [46:33] Seguimos para o bingo, como dizemos por aqui por Espanha.
+
+[46:37] João — Seguimos para o bingo, obrigado.
+
+[46:38] Daniel — Thinking, sorry.
+
+[46:41] Alberto — Chau.
+
+[46:42] João — Não, não.
+
+[46:42] Daniel — So, what?
+
+[46:43] Alberto — Chau.
