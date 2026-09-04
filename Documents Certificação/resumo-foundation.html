@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumo — SyteLine Foundation</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a1a1a;color:#e2e8f0;min-height:100vh}
+    .hdr{background:#0f172a;padding:18px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #1e293b;position:sticky;top:0;z-index:10}
+    .hdr-icon{font-size:28px}
+    .hdr-title{font-size:18px;font-weight:700;color:#f1f5f9}
+    .hdr-sub{font-size:12px;color:#64748b;margin-top:2px}
+    .badge-reuniao{background:#3b1f5e;color:#c4b5fd;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em}
+    .page{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+    .section{background:#242424;border-radius:10px;border:1px solid #2d2d2d;margin-bottom:16px;overflow:hidden}
+    .section-hdr{padding:13px 18px;background:#1e293b;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+    .section-hdr:hover{background:#263348}
+    .section-icon{font-size:16px}
+    .section-title{font-size:14px;font-weight:700;color:#f1f5f9;flex:1}
+    .section-caret{color:#64748b;font-size:11px;transition:transform .2s}
+    .section-hdr.open .section-caret{transform:rotate(90deg)}
+    .section-body{padding:16px 18px;display:none}
+    .section-body.open{display:block}
+    .item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d2d;font-size:13px;line-height:1.6;color:#cbd5e1}
+    .item:last-child{border-bottom:none}
+    .item-dot{color:#3b82f6;font-size:16px;flex-shrink:0;margin-top:1px}
+    .note{background:#1e293b;border-left:3px solid #6366f1;padding:10px 14px;border-radius:0 6px 6px 0;font-size:12.5px;color:#a5b4fc;line-height:1.6;margin:10px 0}
+    .warn{background:#1c1208;border-left:3px solid #d97706;padding:10px 14px;border-radius:0 6px 6px 0;font-size:12.5px;color:#fcd34d;line-height:1.6;margin:10px 0}
+    .steps{list-style:none;display:flex;flex-direction:column;gap:6px;margin:10px 0}
+    .step{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#cbd5e1;line-height:1.6;padding:6px 0}
+    .step-n{background:#1e3a5f;color:#60a5fa;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;flex-shrink:0;margin-top:2px}
+    b{color:#f1f5f9}
+    .sub{font-size:11.5px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em;margin:14px 0 4px}
+    .sub:first-child{margin-top:0}
+  </style>
+</head>
+<body>
+<div class="hdr">
+  <span class="hdr-icon">🎓</span>
+  <div>
+    <div class="hdr-title">SyteLine Foundation</div>
+    <div class="hdr-sub">Resumo de estudo — Workbook de certificação</div>
+  </div>
+  <span class="badge-reuniao" style="margin-left:auto">Resumo</span>
+</div>
+
+<div class="page">
+
+  <div class="section">
+    <div class="section-hdr open" onclick="toggle(this)">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Processos End-to-End &amp; Cenário do curso</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body open">
+      <div class="item"><span class="item-dot">•</span><span>O <b>Infor CloudSuite Industrial (SyteLine)</b> organiza-se em torno de <b>End To End Business Processes</b>: soluções pré-configuradas mas flexíveis, com menus, processos e estruturas específicas da indústria já definidos. São opcionais para instalações on-premises e incluídos por defeito nas subscrições SaaS.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Processos cobertos neste curso: <b>Lead To Order</b>, <b>Quote To Cash</b>, <b>Design To Release</b>, <b>Procure To Pay</b>, <b>Plan To Inventory</b>, <b>Demand To Build</b> e <b>Financial Plan To Report</b>.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Outros processos E2E existentes mas não cobertos: Inspect To Correct, Service To Cash, Service Contract To Cash, Project To Profit, Hire To Retire, Multi-Site Operations and Finance.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Cenário do curso:</b> a empresa fictícia <b>Progressive Cycles</b> (fabricante de bicicletas) decide lançar um novo produto — uma pulseira de fitness <b>Smartwatch</b>. O curso segue este produto do marketing até à contabilidade, atravessando todos os processos E2E.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Tipos de dados a preparar no cenário: <b>procura</b> (campanha/lead/prospect/oportunidade/encomenda), <b>componentes do produto</b>, <b>dados logísticos</b> (clientes, fornecedores), <b>dados operacionais</b> (items, resources, resource groups, work centers, employees), <b>BOM</b> e <b>dados contabilísticos</b>.</span></div>
+      <div class="note">💡 O produto Smartwatch é composto por: item fabricado (Face/LCD do Smartwatch) + 3 materiais comprados (LCD, correia/Watchstrap, bateria). Este exemplo repete-se ao longo de todas as lições.</div>
+      <div class="sub">Preparação antes de começar (Exercise 1.1)</div>
+      <ol class="steps">
+        <li class="step"><span class="step-n">1</span><span>Abrir <b>General Parameters</b> e verificar/atualizar o <b>Current Fiscal Year</b>.</span></li>
+        <li class="step"><span class="step-n">2</span><span>Abrir <b>Accounting Periods</b> e verificar/atualizar o <b>Current Period</b> para o mês corrente.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr open" onclick="toggle(this)">
+      <span class="section-icon">🤝</span>
+      <span class="section-title">Lição 2 — Lead To Order</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body open">
+      <div class="item"><span class="item-dot">•</span><span>Suporta a função de <b>CRM</b> (Customer Relationship Management): gestão de campanhas, geração de leads, tracking de oportunidades, conversão de prospects a clientes e conversão de oportunidades em encomendas.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>4 componentes principais: <b>Campaign To ROI</b> → <b>Lead To Opportunity</b> → <b>Prospect To Customer</b> → Opportunity To Sales Order (este último só é introduzido na lição Quote To Cash).</span></div>
+      <div class="sub">Campaign To ROI</div>
+      <div class="item"><span class="item-dot">•</span><span>Campanha criada no form <b>Campaigns</b> (descrição, tipo, estado, custo, datas de início/fim). O <b>ROI</b> é estimado comparando custo vs receita alvo; a eficácia real mede-se ligando leads e oportunidades à campanha.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Sales contacts e comunicações podem ser associados ao registo da campanha (ficam registados também no registo do contacto).</span></div>
+      <div class="sub">Lead To Opportunity</div>
+      <div class="item"><span class="item-dot">•</span><span>Um <b>Lead</b> é registado no form <b>Leads</b> com estado, qualidade e fonte (ex.: uma campanha). O objetivo é qualificar o contacto (território, dimensão da empresa, mercado) e evoluir para uma <b>Opportunity</b>.</span></div>
+      <div class="warn">⚠️ Para converter um Lead numa Opportunity, o Lead <b>tem de ter um Customer ou Prospect associado</b> — caso contrário a conversão não é possível.</div>
+      <div class="sub">Prospect To Customer</div>
+      <div class="item"><span class="item-dot">•</span><span>Antes de converter, faz-se um <b>credit check</b> ao prospect. A conversão usa o utilitário <b>Move to Customer</b> (menu External do form Prospects).</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Depois de convertido, atualiza-se o novo registo de cliente com <b>credit limit, order credit limit, payment terms e contact info</b> antes de se poder introduzir uma encomenda.</span></div>
+      <div class="note">💡 Depois da conversão, o registo de Prospect é <b>eliminado</b> e deixa de aparecer no form Prospects — só existe como Customer.</div>
+      <div class="sub">Key capabilities</div>
+      <div class="item"><span class="item-dot">•</span><span>Rastrear eficácia de campanhas, criar leads, converter prospect→customer, criar oportunidades ligadas a estimate orders, gerir tarefas de oportunidade, manter sales contacts (com território, receita, nº de empregados) e comunicações associadas.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr open" onclick="toggle(this)">
+      <span class="section-icon">💰</span>
+      <span class="section-title">Lição 3 — Quote To Cash</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body open">
+      <div class="item"><span class="item-dot">•</span><span>5 componentes: <b>Quote To Sales Order</b>, <b>Sales Order To Shipping</b>, <b>Shipping To Invoice</b>, <b>Invoice To Cash</b>, <b>Return To Credit</b>. Cobre desde o envio de um orçamento até ao recebimento do pagamento.</span></div>
+      <div class="sub">Quote To Sales Order</div>
+      <div class="item"><span class="item-dot">•</span><span>Fluxo: <b>Opportunity</b> → <b>Estimate</b> (com Estimate Lines: item, quantidade, preço) → relatório <b>Estimate Response Form Report</b> enviado ao cliente/prospect → se aceite, opportunity é "awarded" → estimate convertido em <b>Sales Order</b>.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Duas formas de criar uma encomenda: converter um estimate via <b>Copy Orders and Estimates</b> form, ou criar diretamente no form <b>Customer Orders</b> (sem opportunity/estimate prévio).</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Se a opportunity vencida for de um prospect, esse prospect tem primeiro de ser convertido a customer antes de existir a encomenda.</span></div>
+      <div class="sub">Dados de suporte (Items e Customers)</div>
+      <div class="item"><span class="item-dot">•</span><span>Form <b>Items</b>: mantém todos os itens comprados, fabricados e vendidos. Campos-chave: <b>Type</b> (Material), <b>Source</b> (Manufactured/Purchased), <b>Product Code</b>, checkbox <b>Stocked</b> (marcar quando se usa APS/MRP) e <b>Lot Track</b>.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Form <b>Customers</b>: nome, endereço, idioma, <b>Bank Code</b>, <b>Credit Limit</b> e <b>Order Credit Limit</b>.</span></div>
+      <div class="warn">⚠️ Se o campo <b>Bank Code</b> do cliente não estiver preenchido, a linha da encomenda assume por defeito o estado <b>Planned</b> (não pode avançar para shipping).</div>
+      <div class="sub">Sales Order To Shipping / Shipping To Invoice / Invoice To Cash</div>
+      <div class="item"><span class="item-dot">•</span><span>Sales Order To Shipping: da receção da PO do cliente até ao envio do item (acknowledgment + shipping). Os passos de <b>shipment</b> são revistos na lição Demand To Build.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Shipping To Invoice / Invoice To Cash: os passos de <b>faturação</b> são revistos na lição Financial Plan To Report.</span></div>
+      <div class="sub">Return To Credit (não coberto em detalhe no curso)</div>
+      <div class="item"><span class="item-dot">•</span><span>Fluxo típico: unship do produto → autorizar crédito → registar <b>RMA</b> (Return Material Authorization) → enviar disposição/substituição → gerar credit memo e posting.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr" onclick="toggle(this)">
+      <span class="section-icon">🏗️</span>
+      <span class="section-title">Lição 4 — Design To Release (BOM / Routing)</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="item"><span class="item-dot">•</span><span>3 componentes: <b>Design To BOM/Routing</b>, <b>Engineering Request To Approve</b> (ECN), <b>Approve To Release</b>.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>BOM</b> (Bill of Materials): lista hierárquica de matérias-primas, componentes e sub-conjuntos necessários para fabricar/montar um produto — nível topo = produto acabado, nível inferior = componentes individuais.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Routing</b>: conjunto de operações/passos que têm de ser executados para montar um item (ex.: pintar quadro, montar engrenagem, montar guiador).</span></div>
+      <div class="sub">Ordem de configuração de uma BOM completa</div>
+      <ol class="steps">
+        <li class="step"><span class="step-n">1</span><span>Criar registos de <b>Employees</b> (shift, wage account, taxas Mfg Reg/OT/DT Rate).</span></li>
+        <li class="step"><span class="step-n">2</span><span>Criar <b>Resources</b> (mão-de-obra/máquinas) e agrupar em <b>Resource Groups</b>.</span></li>
+        <li class="step"><span class="step-n">3</span><span>Criar <b>Work Centers</b> — usados para captar custos de fabrico; quando se usa APS, os resource groups são normalmente atribuídos aos work centers para planeamento.</span></li>
+        <li class="step"><span class="step-n">4</span><span>Definir <b>Current Operations</b> por item: work center a usar, horas de máquina/mão-de-obra por operação (define o routing).</span></li>
+        <li class="step"><span class="step-n">5</span><span>Definir <b>Current Materials</b> por operação: materiais e quantidades consumidos, na sequência em que são usados no fabrico (define a BOM).</span></li>
+        <li class="step"><span class="step-n">6</span><span>Correr o utilitário <b>Current BOM Cost Roll Up</b> para recalcular os custos apresentados no form Item Costs.</span></li>
+      </ol>
+      <div class="note">💡 O <b>Scrap Factor</b> definido no Current Materials aumenta automaticamente a quantidade de material necessária para compensar perdas de processo — reflete-se no custo do item após o Cost Roll Up.</div>
+      <div class="sub">Engineering Request To Approve &amp; Approve To Release (ECN)</div>
+      <div class="item"><span class="item-dot">•</span><span>O processo de <b>ECN</b> (Engineering Change Notice) permite controlar e rastrear revisões à BOM/routing ao longo do ciclo de vida do produto — crucial para qualidade, segurança e consistência.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>O histórico BOM/routing é rastreado via <b>item revisions</b>. Só depois de o ECN ser aprovado e <b>posted</b> é que a alteração à BOM/routing entra em vigor.</span></div>
+      <div class="sub">Key capabilities</div>
+      <div class="item"><span class="item-dot">•</span><span>Copiar a BOM atual para jobs; medir variâncias entre custo de job planeado vs real; analisar capacidade de work centers; manter audit trail completo de alterações; impedir alterações à BOM fora do processo ECN; exigir aprovação antes de implementar mudanças.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr" onclick="toggle(this)">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Lição 5 — Procure To Pay</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="item"><span class="item-dot">•</span><span>4 componentes: <b>Requisition To PO</b>, <b>PO To Receipt</b>, <b>Receipt To Payment</b>, <b>Return To Debit</b>.</span></div>
+      <div class="sub">Requisition To PO</div>
+      <div class="item"><span class="item-dot">•</span><span>Fluxo: <b>Purchase Requisition</b> (form Purchase Order Requisitions) → linhas aprovadas por utilizador autorizado → opcionalmente gerar <b>RFQ</b> (Request For Quote) para itens novos → requisição convertida em <b>PO</b> (estado da requisição muda para Converted, referência ao nº de PO fica gravada).</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Itens de requisição podem ser <b>não-inventoriáveis</b> (non-inventory items), úteis para compras que não entram no processo de fabrico (ex.: material de escritório).</span></div>
+      <div class="warn">⚠️ Para aprovar uma linha de requisição, o utilizador aprovador precisa de ter, no form <b>Users</b>, um <b>PO Req Limit</b> e <b>PO Req Line Limit</b> suficientemente altos para cobrir o valor da linha.</div>
+      <div class="sub">PO To Receipt</div>
+      <div class="item"><span class="item-dot">•</span><span>Receção via form <b>Purchase Order Receiving</b>. Um <b>three-way match</b> (PO + receipt + invoice) garante que os itens corretos foram recebidos antes de autorizar o pagamento.</span></div>
+      <div class="warn">⚠️ Troubleshooting: se não conseguir receber uma PO, verificar o seu estado. Se estiver em <b>Planned</b>, corrigir via <b>Purchase Order Report</b> (marcar "Post Status Changes") ou alterar manualmente o estado nas <b>Purchase Order Lines</b> para <b>Ordered</b>.</div>
+      <div class="sub">System impacts — receção de PO (para verificar)</div>
+      <div class="item"><span class="item-dot">•</span><span><b>Purchase Order Lines - Costs</b>: campo Received = total recebido; Last Rcvd = data atual.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Items - Detail</b> / <b>Item Stockroom Locations</b>: Quantity On Hand e localização atualizadas.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Journal Entries - PO Dist</b>: referência <b>PRCV</b> (Inventory Purchase Receiving) — débito a Inventory Material, crédito a Vouchers Payable.</span></div>
+      <div class="sub">Receipt To Payment &amp; Return To Debit</div>
+      <div class="item"><span class="item-dot">•</span><span>Receipt To Payment: criar/postar vouchers, gerar/distribuir pagamentos, imprimir/postar cheques (detalhado na lição Financial Plan To Report).</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Return To Debit (não coberto em detalhe): usado para devolver um item a um fornecedor.</span></div>
+      <div class="sub">Key capabilities</div>
+      <div class="item"><span class="item-dot">•</span><span>Criar requisitions como passo de aprovação; gerar RFQ; entrar/gerar/monitorizar/receber POs; guardar preços por item no form <b>Vendor Contracts</b>; colocar fornecedores em <b>payment hold</b>; alterar e rastrear alterações a POs; receber ordem/linha total ou parcial.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr" onclick="toggle(this)">
+      <span class="section-icon">📊</span>
+      <span class="section-title">Lição 6 — Plan To Inventory (APS)</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="item"><span class="item-dot">•</span><span>2 componentes: <b>Plan To Replenish</b> e <b>Count To Correct</b>. Usa o módulo <b>APS</b> (Advanced Planning and Scheduling) para identificar materiais necessários, quando são precisos e quando libertar ordens.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Infinite APS</b>: modo de planeamento "backward" — planeia cada requisito a partir da data em que é necessário, usando o lead time do item, e agrupa (batching) requisitos da mesma janela temporal. Considera inventário on-hand e receitas esperadas.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>O output do APS inclui <b>Planned Orders (PLNs)</b> e <b>exception messages</b>. Um PLN é apenas uma sugestão do sistema — não está ligado a um requisito específico até ser "firmado".</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Material Planner Workbench</b>: consolida os planos por <b>Planner Code</b>; a partir daqui os planned orders podem ser firmados em <b>Job Orders</b> (produção) ou <b>POs</b> (compra).</span></div>
+      <div class="sub">Fluxo de execução (Exercise 6.1 / 6.2)</div>
+      <ol class="steps">
+        <li class="step"><span class="step-n">1</span><span>Correr <b>APS Planning</b> com a opção <b>Perform Single Site Plan</b>.</span></li>
+        <li class="step"><span class="step-n">2</span><span>Verificar em <b>Background Task History</b> se o estado é <b>Task Succeeded</b> (pode demorar alguns minutos — usar o Refresh).</span></li>
+        <li class="step"><span class="step-n">3</span><span>Gerar o <b>Material Planner Workbench</b> a partir do output do planeamento.</span></li>
+        <li class="step"><span class="step-n">4</span><span>A partir do workbench, gerar/firmar <b>Job Orders</b> ou <b>POs</b> (ex.: via "Generate Orders" com PO Prefix).</span></li>
+      </ol>
+      <div class="warn">⚠️ Troubleshooting: um erro comum em Background Task History é ter corrido <b>Global Site Planning</b> em vez de <b>Perform Single Site Plan</b>.</div>
+      <div class="sub">Count To Correct (não coberto em detalhe)</div>
+      <div class="item"><span class="item-dot">•</span><span><b>Cycle counting</b>: método de contagem periódica de inventário que permite contar um subconjunto de itens de cada vez, em vez de bloquear todo o armazém.</span></div>
+      <div class="sub">Key capabilities</div>
+      <div class="item"><span class="item-dot">•</span><span>Consolidar requisitos futuros em buckets de 30/90 dias; aplicar <b>shrink factor</b> para compensar perdas de inventário; criar job orders a partir do workbench; definir cycle count triggers por item/armazém; registar variâncias entre quantidade on-hand e contagem real.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr" onclick="toggle(this)">
+      <span class="section-icon">🏭</span>
+      <span class="section-title">Lição 7 — Demand To Build</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="item"><span class="item-dot">•</span><span>3 componentes: <b>Demand To Plan</b>, <b>Plan To Schedule</b> (dividido em Procurement e Production), <b>Schedule To Build</b>.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Demand To Plan: regista procura vinda de várias fontes. Planeamento <b>incremental</b> (acrescenta ao último plano APS gerado) vs <b>disruptivo</b> (regenera um plano novo de raiz).</span></div>
+      <div class="sub">Plan To Schedule — Procurement vs Production</div>
+      <div class="item"><span class="item-dot">•</span><span><b>Procurement</b>: gere planeamento de compras — materiais comprados ou transferidos; trata exceções como move-ins/move-outs e expedição de POs junto de fornecedores.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Production</b>: gere geração de ordens de produção para satisfazer a procura, incluindo paperwork associado. Tarefas do planeador: analisar procura, rever exception messages, identificar bottlenecks, resolver capacidade.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Em ambos os fluxos: APS corre à noite → planeador analisa causas de atrasos → se necessário, corre-se APS novamente → planeador gera Material Planner Workbench para libertar POs/jobs.</span></div>
+      <div class="sub">Schedule To Build</div>
+      <div class="item"><span class="item-dot">•</span><span>Fluxo: <b>Release jobs</b> ao chão de fábrica (gera/distribui job paperwork) → <b>issue materials</b> à operação correspondente → registar transações de operação (setup/move/run, peças completas ou scrap, materiais movidos, finished goods) → <b>post job transactions</b> (custos registados) → itens acabados entram em stock.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Um <b>Job</b> serve para rastrear o processo de fabrico: mão-de-obra, material, máquinas, custo, WIP (work in process) e inventário de produto acabado.</span></div>
+      <div class="warn">⚠️ Troubleshooting issue de material: se não conseguir emitir materiais para o job, verificar que o estado do job é <b>Released</b>.</div>
+      <div class="warn">⚠️ Troubleshooting envio de encomenda: não é possível fazer shipping de uma encomenda em estado <b>Planned</b> — alterar manualmente para <b>Ordered</b> nas Customer Order Lines.</div>
+      <div class="sub">System impacts — checklist rápida</div>
+      <div class="item"><span class="item-dot">•</span><span><b>Issue materials</b>: Job Orders-Cost Detail (WIP Matl Total); Job Materials-Accum Values (Qty Issued); Journal Entries-SF Dist referência <b>INV JOI</b> — débito WIP Material, crédito Inventory Material.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Job transactions (labor)</b>: Job Orders-Cost Detail (WIP Labor/Ovhd); Journal Entries-SF Dist referência <b>INV JOL</b> — débito WIP Labor &amp; Overhead, crédito Applied Labor &amp; Overhead.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Ship orders</b>: Customer Order Lines (Status = Filled, Qty Shipped); Items (Qty On Hand = 0); Journal Entries-CO Dist referência <b>INV CSH</b> — débito COGS, crédito Inventory.</span></div>
+      <div class="sub">Key capabilities</div>
+      <div class="item"><span class="item-dot">•</span><span>Analisar procura; gerar plano de materiais; escalonar chão de fábrica; fabricar itens para satisfazer a procura.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr" onclick="toggle(this)">
+      <span class="section-icon">💵</span>
+      <span class="section-title">Lição 8 — Financial Plan To Report</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="item"><span class="item-dot">•</span><span>8 componentes no total; a lição foca-se em <b>Invoice To Cash</b>, <b>Receipt To Payment</b> e <b>G/L Processing</b>.</span></div>
+      <div class="sub">Invoice To Cash</div>
+      <div class="item"><span class="item-dot">•</span><span>Fluxo: gerar facturas no form <b>Order Invoicing/Credit Memo</b> para encomendas expedidas mas ainda não faturadas → <b>Invoice Posting</b> → lançamento no <b>A/R Distribution Journal</b> → enviar factura ao cliente → receber pagamento (form <b>A/R Payments</b>) → aplicar pagamento a faturas abertas (<b>A/R Quick Payment Application</b>) → <b>A/R Payment Posting</b>.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Ao imprimir a fatura, o SyteLine calcula o valor, atualiza campos de vendas/faturação do cliente, calcula comissões, cria histórico de faturação e o registo de Accounts Receivable.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Journal Entries — AR Dist: referência <b>ARI</b> (Accounts Receivable Invoice) — débito Accounts Receivable, crédito Sales &amp; Freight Revenue. Referência <b>ARP</b> (Accounts Receivable Payment) — débito Cash, crédito Accounts Receivable.</span></div>
+      <div class="sub">Receipt To Payment (lado fornecedor)</div>
+      <div class="item"><span class="item-dot">•</span><span>Processo de gestão de pagamentos a fornecedores: criar/postar <b>vouchers</b>, gerar e distribuir pagamentos, imprimir e postar cheques.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>Journal Entries — AP Dist: referência <b>APV</b> (Accounts Payable Voucher) — débito Purchase, crédito Accounts Payable. Referência <b>APP</b> (Accounts Payable Payment) — débito Accounts Payable, crédito Cash - Universal (se houver desconto, crédito também a Purchase Discounts &amp; Allowances).</span></div>
+      <div class="sub">G/L Processing</div>
+      <div class="item"><span class="item-dot">•</span><span>O <b>general ledger</b> é o repositório central de dados transacionais, ligado ao resto do sistema via <b>distribution journals</b> e o <b>chart of accounts</b>. Journals de distribuição existentes: Accounts Receivable, Accounts Payable, Fixed Assets, Inventory, Multi-site, Payroll, Purchasing, Order Entry, Shop Floor Control, Currency Banking, Project Control.</span></div>
+      <div class="item"><span class="item-dot">•</span><span>A <b>General Journal</b> é usada para lançamentos manuais que não resultam de um fluxo transacional do sistema (accruals, adjusting entries, eliminações intercompany, etc.).</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Mass Journal Posting</b>: permite postar várias journals de distribuição (AP, AR, CO, General, PO, SF Dist) de uma só vez para o general ledger, definindo o "Post through" date.</span></div>
+      <div class="warn">⚠️ Troubleshooting Mass Journal Posting: erro "Multi-FSB" → desmarcar <b>Multiple Financial Sets of Books</b> em General Parameters. Erro de journal em uso por outro utilizador → usar o form <b>Unlock Locked Journals</b>.</div>
+      <div class="sub">Restantes componentes (não cobertos em detalhe no curso)</div>
+      <div class="item"><span class="item-dot">•</span><span><b>Cash To Reconciliation</b>: aplicar finance charges, recalcular saldos e reconciliar com o G/L a partir de extratos bancários.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Fixed Asset To Disposal</b>: registar, depreciar (por calendário), transferir e finalmente dispor de ativos fixos.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Financial Reporting and Closing</b>: fecho mensal e anual, geração de demonstrações financeiras.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr" onclick="toggle(this)">
+      <span class="section-icon">📖</span>
+      <span class="section-title">Glossário de termos-chave</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="item"><span class="item-dot">•</span><span><b>BOM (Bill of Materials)</b>: lista hierárquica de matérias-primas/componentes necessários para fabricar um produto.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Routing</b>: sequência de operações/passos necessários para montar um item, executadas em work centers.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Current Operations</b> vs <b>Current Materials</b>: o primeiro define o routing (work center + horas), o segundo define a BOM (materiais + quantidades) por operação.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>APS (Advanced Planning and Scheduling)</b>: motor de planeamento que gera Planned Orders (PLNs) e exception messages a partir da procura e do inventário disponível.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>PLN (Planned Order)</b>: sugestão do APS de como satisfazer um requisito — ainda não está "firmada"/atribuída a uma ordem concreta.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Material Planner Workbench</b>: ecrã que consolida os resultados do APS por Planner Code, a partir do qual se firmam Job Orders e POs.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Scrap Factor</b> vs <b>Shrink Factor</b>: Scrap Factor aumenta a quantidade de material necessária por operação (Current Materials); Shrink Factor aplica-se a nível de inventário para compensar perdas.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>RFQ (Request For Quote)</b>: pedido de cotação a fornecedores, gerado a partir de requisitions, customer orders ou inventário.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>ECN (Engineering Change Notice)</b>: processo formal de aprovação de alterações à BOM/routing, com rastreio via item revisions.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Job Order</b>: ordem de fabrico que rastreia mão-de-obra, material, máquinas, custo e WIP para produzir uma quantidade de um item.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Three-way match</b>: cruzamento entre PO, receipt e invoice para autorizar o pagamento a um fornecedor.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>Distribution Journal</b>: journal intermédio (AR, AP, PO, SF, CO Dist, etc.) onde as transações do dia-a-dia ficam registadas antes de serem postadas para o General Ledger.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>CRM</b>: função de gestão da relação com o cliente coberta pelo processo Lead To Order (campanhas, leads, prospects, oportunidades, sales contacts).</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr" onclick="toggle(this)">
+      <span class="section-icon">🧾</span>
+      <span class="section-title">Referência rápida — Journals / System impacts</span>
+      <span class="section-caret">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="note">💡 Útil para diagnosticar rapidamente onde procurar o rasto contabilístico de uma transação, via form <b>Journal Entries</b> (coluna Reference).</div>
+      <div class="item"><span class="item-dot">•</span><span><b>PRCV</b> — Inventory Purchase Receiving (receção de PO): débito Inventory Material / crédito Vouchers Payable.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>INV JOI</b> — Inventory Job Order Issue (emissão de material para job): débito WIP Material / crédito Inventory Material.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>INV JOL</b> — Inventory Job Order Labor (mão-de-obra do job): débito WIP Labor &amp; Overhead / crédito Applied Labor &amp; Overhead.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>INV CSH</b> — Inventory Customer Shipment (envio ao cliente): débito COGS / crédito Inventory.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>ARI</b> — Accounts Receivable Invoice (fatura ao cliente): débito Accounts Receivable / crédito Sales &amp; Freight Revenue.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>ARP</b> — Accounts Receivable Payment (pagamento recebido): débito Cash / crédito Accounts Receivable.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>APV</b> — Accounts Payable Voucher (voucher de fornecedor): débito Purchase / crédito Accounts Payable.</span></div>
+      <div class="item"><span class="item-dot">•</span><span><b>APP</b> — Accounts Payable Payment (pagamento a fornecedor): débito Accounts Payable / crédito Cash - Universal (+ crédito a Purchase Discounts &amp; Allowances se houver desconto).</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggle(hdr) {
+    hdr.classList.toggle('open');
+    hdr.nextElementSibling.classList.toggle('open');
+  }
+  document.querySelectorAll('.section-hdr.open').forEach(h => {
+    h.nextElementSibling.classList.add('open');
+  });
+</script>
+</body>
+</html>
